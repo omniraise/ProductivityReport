@@ -143,6 +143,27 @@
   .newiebtn{font:inherit;text-align:left;cursor:pointer;background:#F6D86B;border-color:#E2BF3E;border-left-color:#E2BF3E;color:var(--ink)}
   .newiebtn:hover{background:#F2CE4E} .newiebtn .cnt{color:var(--ink-soft)}
   .gap.direct{opacity:.8;border-style:solid;background:#FAFBFC} .gap.over{border-color:var(--ink);border-style:solid;background:#EDF1F7}
+  .org.locked .box,.org.locked .fr{cursor:default}
+  .org.locked .frcol,.org.locked .gap{background-image:repeating-linear-gradient(45deg,rgba(22,35,58,.04) 0 6px,transparent 6px 12px)}
+  .btn.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .btn[disabled]{opacity:.45;cursor:default}
+  .big{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:10px}
+  .bigcell{border-radius:8px;padding:8px 6px;text-align:center;line-height:1.2}
+  .bigcell b{display:block;font-size:22px;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+  .bigcell span{font-size:10px;font-weight:650;letter-spacing:.04em}
+  .bigcell i{display:block;font-style:normal;font-size:10px;opacity:.75;margin-top:1px}
+  .bigcell.stc{background:var(--stc-bg);color:var(--stc)} .bigcell.ykan{background:var(--ykan-bg);color:var(--ykan)}
+  .bigcell.all{background:var(--ink);color:#fff}
+  table.hc{width:100%;border-collapse:collapse;font-size:12px}
+  table.hc th{font-size:10px;color:var(--ink-soft);font-weight:650;text-align:right;padding:2px 4px}
+  table.hc th:first-child{text-align:left}
+  table.hc td{padding:3px 4px;text-align:right;font-variant-numeric:tabular-nums}
+  table.hc td:first-child{text-align:left;color:var(--ink-soft)}
+  table.hc tr.rule td{border-top:1px solid var(--line)}
+  table.hc tr.flagrow td{color:var(--warn)} table.hc tr.flagrow td:first-child{color:var(--warn)}
+  .byrole{margin-top:10px;padding-top:8px;border-top:1px solid var(--line);font-size:11.5px}
+  .byrole div{display:grid;grid-template-columns:1fr 34px 34px;gap:2px}
+  .byrole span{color:var(--ink-soft)} .byrole b{text-align:right;font-weight:400;font-variant-numeric:tabular-nums}
   .trainhead{font-size:10px;color:var(--ink-soft);border-top:1px dashed var(--line);margin-top:4px;padding:5px 4px 1px}
   .bin{border:2px dashed #E3BEBC;background:var(--flag-bg);border-radius:10px;padding:14px 12px;text-align:center;color:var(--flag);font-size:12.5px}
   .bin.over{background:#F5D6D4;border-style:solid} .bin b{display:block;font-size:13px;margin-bottom:2px}
@@ -198,6 +219,7 @@
     <div class="topbar">
       <input class="search" id="tq" placeholder="Search name or staff code" style="width:230px;margin:0">
       <button class="btn primary" id="addBtn">Add person</button>
+      <button class="btn" id="lockStruct">Lock structure</button>
       <span class="hint" style="margin:0 0 0 6px">Drag a name onto its new manager or team column. Click a name to edit role or campaign.</span>
     </div>
     <div class="org" id="org"></div>
@@ -214,32 +236,122 @@
 const LEVELS=["Head","Senior manager","Manager","Assistant manager","Senior team leader","Team leader","Fundraiser"];
 const CAMPS={stc:{n:"STC",id:1899},ykan:{n:"YKAN",id:1904}};
 let P=[
- {id:1, n:"Dave",           code:"HD-0001",lv:0,to:null,c:null,  eg:1},
- {id:2, n:"Hendra Wijaya",  code:"SM-0102",lv:1,to:1, c:"stc", eg:1},
- {id:3, n:"Lina Marlina",   code:"SM-0107",lv:1,to:1, c:"ykan",eg:1},
- {id:4, n:"Budi Santoso",   code:"MG-0210",lv:2,to:2, c:"stc", eg:1},
- {id:5, n:"Citra Dewi",     code:"MG-0214",lv:2,to:3, c:"ykan",eg:1},
- {id:6, n:"Arief Rahman",   code:"AM-0301",lv:3,to:4, c:"stc", eg:1,eid:102401,off:[]},
- {id:7, n:"Nadia Putri",    code:"AM-0305",lv:3,to:5, c:"ykan",eg:1,eid:102405,off:[]},
- {id:8, n:"Eko Prasetyo",   code:"SL-0410",lv:4,to:6, c:"stc", eg:1,eid:102410,off:[]},
- {id:9, n:"Wulan Sari",     code:"SL-0412",lv:4,to:7, c:"ykan",eg:1,eid:102412,off:[6]},
- {id:10,n:"Taufik Hidayat", code:"TL-0520",lv:5,to:8, c:"stc", eg:1,eid:102420,off:[]},
- {id:11,n:"Ratna Kumala",   code:"TL-0524",lv:5,to:8, c:"stc", eg:1,eid:102424,off:[2]},
- {id:12,n:"Galih Permana",  code:"TL-0531",lv:5,to:9, c:"ykan",eg:1,eid:102431,off:[]},
- {id:26,n:"Indah Permata",  code:"TL-0538",lv:5,to:7, c:"ykan",eg:1,eid:102438,off:[]},
- {id:13,n:"Rina Sulistyo",  code:"FR-2101",lv:6,to:10,c:"stc", eg:1,eid:102505,off:[]},
- {id:14,n:"Bayu Pratama",   code:"FR-2114",lv:6,to:10,c:"stc", eg:1,eid:102511,off:[2]},
- {id:15,n:"Sari Wulandari", code:"FR-2120",lv:6,to:10,c:"stc", eg:1,eid:102518,off:[]},
- {id:16,n:"Dimas Aditya",   code:"FR-2133",lv:6,to:11,c:"stc", eg:1,eid:102524,off:[0,1]},
- {id:17,n:"Putri Nabila",   code:"FR-2140",lv:6,to:11,c:"stc", eg:1,eid:102530,off:[6]},
- {id:18,n:"John Tanaka",    code:"FR-2147",lv:6,to:11,c:"stc", eg:1,eid:102533,off:[]},
- {id:19,n:"Fitri Lestari",  code:"FR-2202",lv:6,to:11,c:"stc", eg:0,eid:null,  off:[5],isNew:true},
- {id:20,n:"Agus Hermawan",  code:"FR-1988",lv:6,to:12,c:"ykan",eg:1,eid:102540,off:[]},
- {id:21,n:"Melati Kusuma",  code:"FR-1993",lv:6,to:12,c:"ykan",eg:1,eid:102547,off:[3,4]},
- {id:22,n:"Yoga Ramadhan",  code:"FR-2005",lv:6,to:12,c:"ykan",eg:1,eid:102558,off:[]},
- {id:23,n:"John Tanaka",    code:"FR-2011",lv:6,to:26,c:"ykan",eg:1,eid:102562,off:[1]},
- {id:24,n:"Rangga Taufik",  code:"FR-2210",lv:6,to:26,c:"ykan",eg:1,eid:102570,off:[],isNew:true},
- {id:25,n:"Dewi Anggraini", code:"FR-2019",lv:6,to:26,c:"ykan",eg:1,eid:102575,off:[6]},
+ {id:1,n:"Dave",code:"HD-0001",lv:0,to:null,c:null,eg:1,eid:1,off:[]},
+ {id:2,n:"Lina Iskandar",code:"SM-0100",lv:1,to:1,c:"stc",eg:1,eid:102100,off:[]},
+ {id:3,n:"Oka Cahyani",code:"MG-0200",lv:2,to:2,c:"stc",eg:1,eid:102200,off:[]},
+ {id:4,n:"Bayu Gunawan",code:"AM-0300",lv:3,to:3,c:"stc",eg:1,eid:102300,off:[]},
+ {id:5,n:"Nadia Cahyani",code:"SL-0401",lv:4,to:4,c:"stc",eg:1,eid:102401,off:[]},
+ {id:6,n:"Sari Lesmana",code:"TL-0501",lv:5,to:5,c:"stc",eg:1,eid:102501,off:[]},
+ {id:7,n:"Anggara Fitriani",code:"TL-0502",lv:5,to:5,c:"stc",eg:1,eid:102502,off:[]},
+ {id:8,n:"Rahmat Suryani",code:"TL-0503",lv:5,to:5,c:"stc",eg:1,eid:102503,off:[]},
+ {id:9,n:"Bambang Nugroho",code:"SL-0402",lv:4,to:4,c:"stc",eg:1,eid:102402,off:[]},
+ {id:10,n:"Budi Wibowo",code:"TL-0504",lv:5,to:9,c:"stc",eg:1,eid:102504,off:[]},
+ {id:11,n:"Bagus Halim",code:"TL-0505",lv:5,to:9,c:"stc",eg:1,eid:102505,off:[]},
+ {id:12,n:"Galih Cahyani",code:"TL-0506",lv:5,to:9,c:"stc",eg:1,eid:102506,off:[]},
+ {id:13,n:"Vina Siregar",code:"AM-0301",lv:3,to:3,c:"stc",eg:1,eid:102301,off:[]},
+ {id:14,n:"Arief Maulana",code:"SL-0403",lv:4,to:13,c:"stc",eg:1,eid:102403,off:[]},
+ {id:15,n:"Ari Hakim",code:"TL-0507",lv:5,to:14,c:"stc",eg:1,eid:102507,off:[]},
+ {id:16,n:"Iwan Suryani",code:"TL-0508",lv:5,to:14,c:"stc",eg:1,eid:102508,off:[]},
+ {id:17,n:"Dian Halim",code:"TL-0509",lv:5,to:13,c:"stc",eg:1,eid:102509,off:[]},
+ {id:18,n:"Vina Rahayu",code:"SM-0101",lv:1,to:1,c:"ykan",eg:1,eid:102101,off:[]},
+ {id:19,n:"Tono Kusuma",code:"MG-0201",lv:2,to:18,c:"ykan",eg:1,eid:102201,off:[]},
+ {id:20,n:"Candra Kurniawan",code:"AM-0302",lv:3,to:19,c:"ykan",eg:1,eid:102302,off:[]},
+ {id:21,n:"Nanda Gunawan",code:"SL-0404",lv:4,to:20,c:"ykan",eg:1,eid:102404,off:[]},
+ {id:22,n:"Tira Dewangga",code:"TL-0510",lv:5,to:21,c:"ykan",eg:1,eid:102510,off:[]},
+ {id:23,n:"Ulfa Cahyani",code:"TL-0511",lv:5,to:21,c:"ykan",eg:1,eid:102511,off:[]},
+ {id:24,n:"Zaki Lesmana",code:"TL-0512",lv:5,to:21,c:"ykan",eg:1,eid:102512,off:[]},
+ {id:25,n:"Rizky Wibowo",code:"SL-0405",lv:4,to:20,c:"ykan",eg:1,eid:102405,off:[]},
+ {id:26,n:"Kiki Wulandari",code:"TL-0513",lv:5,to:25,c:"ykan",eg:1,eid:102513,off:[]},
+ {id:27,n:"Wahyu Wulandari",code:"TL-0514",lv:5,to:25,c:"ykan",eg:1,eid:102514,off:[]},
+ {id:28,n:"Nadia Rahayu",code:"TL-0515",lv:5,to:25,c:"ykan",eg:1,eid:102515,off:[]},
+ {id:29,n:"Hendra Kusuma",code:"AM-0303",lv:3,to:19,c:"ykan",eg:1,eid:102303,off:[]},
+ {id:30,n:"Hendra Fitriani",code:"SL-0406",lv:4,to:29,c:"ykan",eg:1,eid:102406,off:[]},
+ {id:31,n:"Siti Zulkarnain",code:"TL-0516",lv:5,to:30,c:"ykan",eg:1,eid:102516,off:[]},
+ {id:32,n:"Maya Wijaya",code:"TL-0517",lv:5,to:30,c:"ykan",eg:1,eid:102517,off:[]},
+ {id:33,n:"Irfan Dewangga",code:"TL-0518",lv:5,to:29,c:"ykan",eg:1,eid:102518,off:[]},
+ {id:34,n:"Eka Santoso",code:"FR-2001",lv:6,to:6,c:"stc",eg:1,eid:103001,off:[]},
+ {id:35,n:"Bayu Ramadhan",code:"FR-2002",lv:6,to:6,c:"stc",eg:1,eid:103002,off:[5]},
+ {id:36,n:"Rendi Dewangga",code:"FR-2003",lv:6,to:6,c:"stc",eg:1,eid:103003,off:[]},
+ {id:37,n:"Bambang Cahyani",code:"FR-2004",lv:6,to:5,c:"stc",eg:1,eid:103004,off:[5]},
+ {id:38,n:"Nurul Saputra",code:"FR-2005",lv:6,to:5,c:"stc",eg:1,eid:103005,off:[]},
+ {id:39,n:"Zahra Halim",code:"FR-2006",lv:6,to:7,c:"stc",eg:1,eid:103006,off:[0]},
+ {id:40,n:"Hendra Siregar",code:"FR-2007",lv:6,to:7,c:"stc",eg:1,eid:103007,off:[6]},
+ {id:41,n:"Panca Pratama",code:"FR-2008",lv:6,to:7,c:"stc",eg:1,eid:103008,off:[]},
+ {id:42,n:"Intan Suryani",code:"FR-2009",lv:6,to:7,c:"stc",eg:1,eid:103009,off:[5]},
+ {id:43,n:"Eko Iskandar",code:"FR-2010",lv:6,to:8,c:"stc",eg:1,eid:103010,off:[]},
+ {id:44,n:"Wulan Kusuma",code:"FR-2011",lv:6,to:8,c:"stc",eg:0,eid:null,off:[2],isNew:true},
+ {id:45,n:"Nanda Ramadhan",code:"FR-2012",lv:6,to:8,c:"stc",eg:1,eid:103012,off:[]},
+ {id:46,n:"Zaki Cahyani",code:"FR-2013",lv:6,to:8,c:"stc",eg:1,eid:103013,off:[6]},
+ {id:47,n:"Panca Siregar",code:"FR-2014",lv:6,to:10,c:"stc",eg:1,eid:103014,off:[]},
+ {id:48,n:"Fajar Dewangga",code:"FR-2015",lv:6,to:10,c:"stc",eg:1,eid:103015,off:[]},
+ {id:49,n:"Yoga Cahyani",code:"FR-2016",lv:6,to:10,c:"stc",eg:1,eid:103016,off:[],isNew:true},
+ {id:50,n:"Cahya Setiawan",code:"FR-2017",lv:6,to:10,c:"stc",eg:1,eid:103017,off:[0, 6]},
+ {id:51,n:"Dimas Oktaviani",code:"FR-2018",lv:6,to:10,c:"stc",eg:1,eid:103018,off:[4]},
+ {id:52,n:"Rini Wulandari",code:"FR-2019",lv:6,to:10,c:"stc",eg:1,eid:103019,off:[3]},
+ {id:53,n:"Maya Oktaviani",code:"FR-2020",lv:6,to:11,c:"stc",eg:1,eid:103020,off:[6]},
+ {id:54,n:"Farhan Setiawan",code:"FR-2021",lv:6,to:11,c:"stc",eg:1,eid:103021,off:[]},
+ {id:55,n:"Siti Rahayu",code:"FR-2022",lv:6,to:11,c:"stc",eg:1,eid:103022,off:[]},
+ {id:56,n:"Nadia Jayadi",code:"FR-2023",lv:6,to:11,c:"stc",eg:1,eid:103023,off:[6]},
+ {id:57,n:"Lukman Maulana",code:"FR-2024",lv:6,to:12,c:"stc",eg:1,eid:103024,off:[1, 6]},
+ {id:58,n:"Gita Kurniawan",code:"FR-2025",lv:6,to:12,c:"stc",eg:1,eid:103025,off:[2, 3]},
+ {id:59,n:"Intan Yuliana",code:"FR-2026",lv:6,to:12,c:"stc",eg:1,eid:103026,off:[1]},
+ {id:60,n:"Ratna Saputra",code:"FR-2027",lv:6,to:12,c:"stc",eg:1,eid:103027,off:[0]},
+ {id:61,n:"Fani Santoso",code:"FR-2028",lv:6,to:12,c:"stc",eg:1,eid:103028,off:[]},
+ {id:62,n:"Zahra Adiputra",code:"FR-2029",lv:6,to:12,c:"stc",eg:1,eid:103029,off:[5]},
+ {id:63,n:"Citra Sihombing",code:"FR-2030",lv:6,to:15,c:"stc",eg:1,eid:103030,off:[]},
+ {id:64,n:"Lukman Fitriani",code:"FR-2031",lv:6,to:15,c:"stc",eg:1,eid:103031,off:[3]},
+ {id:65,n:"Dinda Jayadi",code:"FR-2032",lv:6,to:15,c:"stc",eg:1,eid:103032,off:[],isNew:true},
+ {id:66,n:"Reza Iskandar",code:"FR-2033",lv:6,to:15,c:"stc",eg:1,eid:103033,off:[4, 6]},
+ {id:67,n:"Tira Hakim",code:"FR-2034",lv:6,to:16,c:"stc",eg:1,eid:103034,off:[],isNew:true},
+ {id:68,n:"Candra Hakim",code:"FR-2035",lv:6,to:16,c:"stc",eg:1,eid:103035,off:[6]},
+ {id:69,n:"Andi Oktaviani",code:"FR-2036",lv:6,to:16,c:"stc",eg:1,eid:103036,off:[]},
+ {id:70,n:"Wulan Ramadhan",code:"FR-2037",lv:6,to:16,c:"stc",eg:1,eid:103037,off:[4]},
+ {id:71,n:"Naufal Wulandari",code:"FR-2038",lv:6,to:16,c:"stc",eg:1,eid:103038,off:[4, 6]},
+ {id:72,n:"Dimas Anggraini",code:"FR-2039",lv:6,to:17,c:"stc",eg:1,eid:103039,off:[6]},
+ {id:73,n:"Dimas Kusuma",code:"FR-2040",lv:6,to:17,c:"stc",eg:0,eid:null,off:[]},
+ {id:74,n:"Tono Cahyani",code:"FR-2041",lv:6,to:9,c:"stc",eg:1,eid:103041,off:[5]},
+ {id:75,n:"Candra Cahyani",code:"FR-2042",lv:6,to:9,c:"stc",eg:1,eid:103042,off:[]},
+ {id:76,n:"Cahya Wijaya",code:"FR-2043",lv:6,to:17,c:"stc",eg:0,eid:null,off:[0, 6]},
+ {id:77,n:"Sari Kurniawan",code:"FR-2044",lv:6,to:17,c:"stc",eg:1,eid:103044,off:[3]},
+ {id:78,n:"Hendra Oktaviani",code:"FR-2045",lv:6,to:22,c:"ykan",eg:1,eid:103045,off:[1, 3]},
+ {id:79,n:"Rangga Ramadhan",code:"FR-2046",lv:6,to:22,c:"ykan",eg:1,eid:103046,off:[]},
+ {id:80,n:"Fitri Rahayu",code:"FR-2047",lv:6,to:22,c:"ykan",eg:1,eid:103047,off:[]},
+ {id:81,n:"Nadia Iskandar",code:"FR-2048",lv:6,to:22,c:"ykan",eg:1,eid:103048,off:[1]},
+ {id:82,n:"Cahya Siregar",code:"FR-2049",lv:6,to:22,c:"ykan",eg:1,eid:103049,off:[1]},
+ {id:83,n:"Rahmat Siregar",code:"FR-2050",lv:6,to:23,c:"ykan",eg:1,eid:103050,off:[3]},
+ {id:84,n:"Nadia Anggraini",code:"FR-2051",lv:6,to:23,c:"ykan",eg:1,eid:103051,off:[4]},
+ {id:85,n:"Nurul Santoso",code:"FR-2052",lv:6,to:23,c:"ykan",eg:1,eid:103052,off:[2, 4]},
+ {id:86,n:"Gita Gunawan",code:"FR-2053",lv:6,to:23,c:"ykan",eg:1,eid:103053,off:[]},
+ {id:87,n:"Endah Pratama",code:"FR-2054",lv:6,to:24,c:"ykan",eg:1,eid:103054,off:[]},
+ {id:88,n:"Indah Siregar",code:"FR-2055",lv:6,to:24,c:"ykan",eg:1,eid:103055,off:[]},
+ {id:89,n:"Rizky Ramadhan",code:"FR-2056",lv:6,to:24,c:"ykan",eg:1,eid:103056,off:[]},
+ {id:90,n:"Endah Wibowo",code:"FR-2057",lv:6,to:24,c:"ykan",eg:1,eid:103057,off:[]},
+ {id:91,n:"Indah Fitriani",code:"FR-2058",lv:6,to:26,c:"ykan",eg:1,eid:103058,off:[1, 6],isNew:true},
+ {id:92,n:"Rendi Adiputra",code:"FR-2059",lv:6,to:26,c:"ykan",eg:1,eid:103059,off:[4]},
+ {id:93,n:"Zaki Hakim",code:"FR-2060",lv:6,to:26,c:"ykan",eg:1,eid:103060,off:[]},
+ {id:94,n:"Cinta Jayadi",code:"FR-2061",lv:6,to:26,c:"ykan",eg:1,eid:103061,off:[0]},
+ {id:95,n:"Siti Lesmana",code:"FR-2062",lv:6,to:27,c:"ykan",eg:1,eid:103062,off:[3]},
+ {id:96,n:"Melati Anggraini",code:"FR-2063",lv:6,to:27,c:"ykan",eg:1,eid:103063,off:[0],isNew:true},
+ {id:97,n:"Tira Kurniawan",code:"FR-2064",lv:6,to:27,c:"ykan",eg:1,eid:103064,off:[1, 3]},
+ {id:98,n:"Rahmat Zulkarnain",code:"FR-2065",lv:6,to:27,c:"ykan",eg:1,eid:103065,off:[3, 6]},
+ {id:99,n:"Fitri Maulana",code:"FR-2066",lv:6,to:27,c:"ykan",eg:1,eid:103066,off:[1]},
+ {id:100,n:"Melati Cahyani",code:"FR-2067",lv:6,to:28,c:"ykan",eg:1,eid:103067,off:[],isNew:true},
+ {id:101,n:"Ika Wibowo",code:"FR-2068",lv:6,to:28,c:"ykan",eg:1,eid:103068,off:[],isNew:true},
+ {id:102,n:"Novi Purnama",code:"FR-2069",lv:6,to:28,c:"ykan",eg:1,eid:103069,off:[1, 5]},
+ {id:103,n:"Dinda Pratama",code:"FR-2070",lv:6,to:28,c:"ykan",eg:1,eid:103070,off:[0]},
+ {id:104,n:"Tira Ramadhan",code:"FR-2071",lv:6,to:31,c:"ykan",eg:1,eid:103071,off:[],isNew:true},
+ {id:105,n:"Fitri Saputra",code:"FR-2072",lv:6,to:31,c:"ykan",eg:1,eid:103072,off:[],isNew:true},
+ {id:106,n:"Rifki Pratama",code:"FR-2073",lv:6,to:31,c:"ykan",eg:1,eid:103073,off:[1, 5]},
+ {id:107,n:"Budi Oktaviani",code:"FR-2074",lv:6,to:31,c:"ykan",eg:1,eid:103074,off:[]},
+ {id:108,n:"Oka Anggraini",code:"FR-2075",lv:6,to:31,c:"ykan",eg:1,eid:103075,off:[2]},
+ {id:109,n:"Siti Iskandar",code:"FR-2076",lv:6,to:32,c:"ykan",eg:1,eid:103076,off:[2, 3]},
+ {id:110,n:"Irfan Iskandar",code:"FR-2077",lv:6,to:32,c:"ykan",eg:1,eid:103077,off:[]},
+ {id:111,n:"Satria Wibowo",code:"FR-2078",lv:6,to:32,c:"ykan",eg:1,eid:103078,off:[1, 4]},
+ {id:112,n:"Ahmad Maulana",code:"FR-2079",lv:6,to:32,c:"ykan",eg:1,eid:103079,off:[],isNew:true},
+ {id:113,n:"Candra Sihombing",code:"FR-2080",lv:6,to:33,c:"ykan",eg:1,eid:103080,off:[4],isNew:true},
+ {id:114,n:"Surya Nugroho",code:"FR-2081",lv:6,to:33,c:"ykan",eg:0,eid:null,off:[2],isNew:true},
+ {id:115,n:"Sari Fitriani",code:"FR-2082",lv:6,to:33,c:"ykan",eg:1,eid:103082,off:[0, 5]},
+ {id:116,n:"Bayu Oktaviani",code:"FR-2083",lv:6,to:33,c:"ykan",eg:1,eid:103083,off:[]}
 ];
 let RESIGNED=[], nextId=100, newieN=0;
 const by=id=>P.find(p=>p.id===id);
@@ -443,7 +555,7 @@ for(let d=1;d<=30;d++){const b=document.createElement("button");b.className="day
 document.getElementById("send").onclick=e=>{e.target.textContent="Sent — "+chosen.size+" day"+(chosen.size===1?"":"s")+" you can't work. Tap a day to change it."};
 
 /* ======================= TEAM STRUCTURE (org grid) ======================= */
-let tq="";
+let tq="", slocked=false;
 const tmatch=p=>!tq||p.n.toLowerCase().includes(tq)||p.code.toLowerCase().includes(tq);
 // leaf columns = people at levels 1–5 with no non-fundraiser reports. A leader with sub-leaders AND direct fundraisers gets one extra "direct" column.
 const directFR=id=>kidsOf(id).filter(k=>k.lv===6);
@@ -461,8 +573,15 @@ function layout(){
   return {cells,cols:col};
 }
 const intake=()=>P.filter(p=>p.placeholder&&p.to===null);
+document.getElementById("lockStruct").onclick=()=>{slocked=!slocked;
+  document.getElementById("lockStruct").textContent=slocked?"Unlock structure":"Lock structure";
+  document.getElementById("lockStruct").classList.toggle("on",slocked);
+  document.getElementById("addBtn").disabled=slocked;
+  tlog(slocked?"warn":"ok",slocked?"Structure locked":"Structure unlocked",
+    slocked?"Nobody can be moved, added or resigned until it's unlocked.":"Open for changes again.");
+  renderOrg()};
 function renderOrg(){
-  const org=document.getElementById("org"); org.innerHTML="";
+  const org=document.getElementById("org"); org.innerHTML=""; org.classList.toggle("locked",slocked);
   const {cells,cols}=layout();
   org.style.gridTemplateColumns="auto repeat("+(cols+1)+", minmax(150px, 1fr))";
   LEVELS.forEach((l,i)=>{const lab=document.createElement("div");lab.className="rowlab";lab.textContent=l;lab.style.gridRow=i+1;lab.style.gridColumn=1;org.appendChild(lab)});
@@ -509,7 +628,7 @@ function renderOrg(){
   // intake column (unassigned newies) — header is the Create newie button
   const ih=document.createElement("button"); ih.className="box intake newiebtn"; ih.style.gridRow=6; ih.style.gridColumn=cols+2;
   ih.innerHTML='<span class="nm">＋ Create newie<span class="cnt">'+intake().length+' waiting</span></span><span class="code">then drag into a team</span>';
-  ih.onclick=()=>{newieN++;P.push({id:nextId++,n:"Newie "+newieN,code:"PLAN-"+String(newieN).padStart(2,"0"),lv:6,to:null,c:null,eg:0,eid:null,off:[],placeholder:true});renderOrg()};
+  ih.onclick=()=>{if(slocked)return;newieN++;P.push({id:nextId++,n:"Newie "+newieN,code:"PLAN-"+String(newieN).padStart(2,"0"),lv:6,to:null,c:null,eg:0,eid:null,off:[],placeholder:true});renderOrg()};
   org.appendChild(ih);
   const ic=document.createElement("div"); ic.className="frcol intake"; ic.style.gridRow=7; ic.style.gridColumn=cols+2;
   intake().forEach(p=>ic.appendChild(frCard(p)));
@@ -525,14 +644,26 @@ function renderOrg(){
     d.innerHTML='<span>'+r.p.n+'<small>'+LEVELS[r.p.lv]+' · '+r.why.toLowerCase()+' · last day '+r.last+'</small></span>';
     const u=document.createElement("button");u.className="undo";u.textContent="Undo";u.onclick=()=>{RESIGNED.splice(i,1);P.push(r.p);tlog("ok",r.p.n+" reinstated","Back under "+by(r.p.to).n+".");renderOrg()};d.appendChild(u);bl.appendChild(d)});
   const st=document.getElementById("stats");
-  const real=P.filter(p=>!p.placeholder), planned=P.filter(p=>p.placeholder);
-  const trees=P.filter(p=>p.lv===1).map(sm=>{const all=[];const walk=id=>kidsOf(id).forEach(k=>{all.push(k);walk(k.id)});walk(sm.id);
-    return {sm,total:all.filter(p=>!p.placeholder).length+1,fr:all.filter(p=>p.lv===6&&!p.placeholder).length,leads:all.filter(p=>p.lv<6).length+1,plan:all.filter(p=>p.placeholder).length}});
-  st.innerHTML='<span class="h">Tree</span><span class="h">Now</span><span class="h">+ planned</span>'+
-    trees.map(t=>'<span>'+t.sm.n.split(" ")[0]+' <i style="color:var(--ink-soft);font-style:normal;font-size:10.5px">'+t.leads+' leaders · '+t.fr+' FR</i></span><b>'+t.total+'</b><b>'+(t.plan?"+"+t.plan:"")+'</b>').join("")+
-    '<span style="border-top:1px solid var(--line);padding-top:3px">Indonesia</span><b style="border-top:1px solid var(--line);padding-top:3px">'+real.length+'</b><b style="border-top:1px solid var(--line);padding-top:3px">'+(planned.length?"+"+planned.length:"")+'</b>'+
-    '<span class="h" style="margin-top:8px">Role</span><span class="h" style="margin-top:8px">STC</span><span class="h" style="margin-top:8px">YKAN</span>'+
-    LEVELS.map((l,i)=>{const rows=real.filter(p=>p.lv===i);return '<span>'+l+'</span><b>'+rows.filter(p=>p.c==="stc").length+'</b><b>'+rows.filter(p=>p.c==="ykan").length+'</b>'}).join("");
+  const real=P.filter(p=>!p.placeholder), plan=P.filter(p=>p.placeholder);
+  const col=c=>{const r=real.filter(p=>p.c===c);return{
+    total:r.length, lead:r.filter(p=>isLeader(p)).length, fr:r.filter(p=>p.lv===6).length,
+    trainee:r.filter(p=>p.lv===6&&p.isNew).length, noeg:r.filter(p=>p.lv===6&&!p.eg).length,
+    plan:plan.filter(p=>p.c===c).length}};
+  const S=col("stc"), Y=col("ykan"), U=plan.filter(p=>!p.c).length;
+  const ratio=x=>x.lead?(x.fr/x.lead).toFixed(1):"–";
+  st.innerHTML=
+    '<div class="big"><div class="bigcell stc"><b>'+S.total+'</b><span>STC</span>'+(S.plan?'<i>+'+S.plan+' planned</i>':'')+'</div>'+
+    '<div class="bigcell ykan"><b>'+Y.total+'</b><span>YKAN</span>'+(Y.plan?'<i>+'+Y.plan+' planned</i>':'')+'</div>'+
+    '<div class="bigcell all"><b>'+real.length+'</b><span>Indonesia</span>'+(plan.length?'<i>+'+plan.length+' planned</i>':'')+'</div></div>'+
+    '<table class="hc"><tr><th></th><th>STC</th><th>YKAN</th><th>All</th></tr>'+
+    '<tr><td>Leaders</td><td>'+S.lead+'</td><td>'+Y.lead+'</td><td>'+(S.lead+Y.lead)+'</td></tr>'+
+    '<tr><td>Fundraisers</td><td>'+S.fr+'</td><td>'+Y.fr+'</td><td>'+(S.fr+Y.fr)+'</td></tr>'+
+    '<tr><td>of those, trainees</td><td>'+S.trainee+'</td><td>'+Y.trainee+'</td><td>'+(S.trainee+Y.trainee)+'</td></tr>'+
+    '<tr class="rule"><td>FR per leader</td><td>'+ratio(S)+'</td><td>'+ratio(Y)+'</td><td>'+ratio({lead:S.lead+Y.lead,fr:S.fr+Y.fr})+'</td></tr>'+
+    '<tr class="flagrow"><td>No Evergiving ID</td><td>'+S.noeg+'</td><td>'+Y.noeg+'</td><td>'+(S.noeg+Y.noeg)+'</td></tr>'+
+    (U?'<tr class="flagrow"><td>Newies not placed</td><td colspan="3">'+U+'</td></tr>':'')+'</table>'+
+    '<div class="byrole">'+LEVELS.map((l,i)=>{const r=real.filter(p=>p.lv===i);if(!r.length)return"";
+      return '<div><span>'+l+'</span><b>'+r.filter(p=>p.c==="stc").length+'</b><b>'+r.filter(p=>p.c==="ykan").length+'</b></div>'}).join("")+'</div>';
 }
 function wireOrgDrag(el,p,onDropHere){
   if(p.lv!==0){el.addEventListener("dragstart",e=>{e.dataTransfer.setData("text/plain",p.id);el.classList.add("dragging")});el.addEventListener("dragend",()=>el.classList.remove("dragging"))}
@@ -542,6 +673,7 @@ function wireOrgDrag(el,p,onDropHere){
 }
 function tbounce(el,m,sub){el.classList.add("reject");setTimeout(()=>el.classList.remove("reject"),320);tlog("warn",m,sub)}
 function reassign(movingId,targetId,el){
+  if(slocked) return tbounce(el,"Structure is locked","Unlock it to move people.");
   const m=by(movingId), t=by(targetId); if(!m||!t||m.id===t.id||m.lv===0)return;
   if(t.lv>=m.lv) return tbounce(el,LEVELS[t.lv]+" can't manage a "+LEVELS[m.lv].toLowerCase(),"Drop them on someone more senior, or change their role first.");
   if(isDesc(m.id,t.id)) return tbounce(el,"That's inside "+m.n+"'s own team","");
@@ -553,7 +685,7 @@ function reassign(movingId,targetId,el){
   renderOrg();
 }
 function editBox(p){
-  if(p.lv===0)return;
+  if(p.lv===0||slocked)return;
   const sc=document.createElement("div"); sc.className="scrim";
   sc.innerHTML='<div class="modal"><h3>'+p.n+' <span class="code" style="font-weight:400;color:var(--ink-soft);font-size:12px">'+p.code+'</span></h3>'+
     '<div class="two"><label>Role<select id="lv">'+LEVELS.map((l,i)=>i?'<option value="'+i+'"'+(i===p.lv?" selected":"")+'>'+l+'</option>':'').join("")+'</select></label>'+
@@ -578,7 +710,7 @@ bin.addEventListener("dragover",e=>{e.preventDefault();bin.classList.add("over")
 bin.addEventListener("dragleave",()=>bin.classList.remove("over"));
 bin.addEventListener("drop",e=>{
   e.preventDefault(); bin.classList.remove("over");
-  const p=by(+e.dataTransfer.getData("text/plain")); if(!p||p.lv===0)return;
+  const p=by(+e.dataTransfer.getData("text/plain")); if(!p||p.lv===0||slocked)return;
   const kids=kidsOf(p.id); const sc=document.createElement("div"); sc.className="scrim";
   sc.innerHTML='<div class="modal"><h3>'+p.n+' is leaving</h3><label>Last working day<input type="date" id="last" value="2026-09-30"></label>'+
     '<label>Reason<select id="why"><option>Resigned</option><option>Terminated</option><option>Contract ended</option><option>Did not pass probation</option></select></label>'+
@@ -594,6 +726,7 @@ bin.addEventListener("drop",e=>{
   document.body.appendChild(sc);
 });
 function personForm(existing){
+  if(slocked)return;
   const sc=document.createElement("div"); sc.className="scrim";
   const to0=existing&&existing.to?existing.to:10, c0=existing&&existing.c?existing.c:"stc";
   sc.innerHTML='<div class="modal"><h3>'+(existing?"Hire for "+existing.n:"Add a person")+'</h3><p class="hint">Filled in by HR or the manager on day one. The fundraiser fills in nothing here.</p>'+
