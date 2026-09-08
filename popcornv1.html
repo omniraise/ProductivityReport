@@ -1,0 +1,1198 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Popcorn</title>
+<style>
+  :root{
+    --ink:#16233A; --ink-soft:#5A6478; --page:#F2F4F7; --card:#FFF; --line:#D9DEE6;
+    --am:#166E78; --am-bg:#E8F2F3; --pm:#6B4E9B; --pm-bg:#EFEAF6;
+    --flag:#A8322F; --flag-bg:#FBEAE9; --ok:#2C6E49; --warn:#8A6410;
+    --stc:#B54A1E; --stc-bg:#FBEEE7; --ykan:#1F5FA8; --ykan-bg:#E7EEF9;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--page);color:var(--ink);font-family:"Inter","Segoe UI",system-ui,-apple-system,sans-serif;font-size:14px;line-height:1.45}
+  header{background:var(--card);border-bottom:1px solid var(--line);padding:12px 20px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+  header h1{font-size:17px;margin:0;font-weight:650;letter-spacing:-.01em}
+  header .wk{color:var(--ink-soft)}
+  .tabs{margin-left:auto;display:flex;gap:6px}
+  .tabs button{font:inherit;padding:6px 13px;border-radius:20px;cursor:pointer;border:1px solid var(--line);background:transparent;color:var(--ink-soft)}
+  .tabs button[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .hidden{display:none!important}
+  h2{font-size:12px;font-weight:650;margin:0 0 2px;letter-spacing:.01em}
+  .hint{color:var(--ink-soft);font-size:11.5px;margin:0 0 10px}
+  .empty{color:var(--ink-soft);font-size:12px}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px}
+  .camp{font-size:9px;font-weight:700;letter-spacing:.04em;padding:1px 5px;border-radius:3px}
+  .camp.stc{background:var(--stc-bg);color:var(--stc)} .camp.ykan{background:var(--ykan-bg);color:var(--ykan)}
+  .tag{font-size:9px;font-weight:700;letter-spacing:.03em;padding:1px 4px;border-radius:3px}
+  .tag.new{background:#FFF3D6;color:var(--warn)} .tag.noeg{background:#FFF3D6;color:var(--warn);font-weight:600;letter-spacing:0}
+  .feed{font-size:12px;display:flex;flex-direction:column;gap:7px;max-height:220px;overflow:auto}
+  .feed div{padding:7px 9px;border-radius:6px;background:#F4F6F9;border-left:3px solid var(--ink-soft)}
+  .feed .push,.feed .ok{border-left-color:var(--ok)} .feed .pull{border-left-color:var(--flag)} .feed .warn{border-left-color:var(--warn)}
+  .feed b{font-weight:600} .feed em{font-style:normal;color:var(--ink-soft);display:block;font-size:11px}
+  .undo{border:1px solid var(--line);background:#fff;color:var(--ink);font:inherit;font-size:11px;border-radius:5px;padding:3px 8px;cursor:pointer}
+  @keyframes shake{25%{transform:translateX(-3px)}75%{transform:translateX(3px)}}
+  .reject{animation:shake .3s}
+
+  /* ===== roster ===== */
+  .daybar{background:var(--card);border-bottom:1px solid var(--line);padding:9px 20px;display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+  .daybtn{font:inherit;font-size:12.5px;padding:6px 12px;border-radius:8px;cursor:pointer;border:1px solid var(--line);background:#fff;color:var(--ink);display:flex;gap:6px;align-items:center}
+  .daybtn b{font-weight:600} .daybtn .n{color:var(--ink-soft);font-size:11px}
+  .daybtn[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)} .daybtn[aria-pressed="true"] .n{color:#C6CEDC}
+  .daybtn.locked{background:#EDF0F5;color:var(--ink-soft)}
+  .lockbtn{margin-left:auto;font:inherit;font-size:12.5px;padding:6px 14px;border-radius:8px;cursor:pointer;border:1px solid var(--line);background:#fff;color:var(--ink)}
+  .lockbtn.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+  main{display:flex;gap:16px;padding:16px 20px 60px;align-items:flex-start}
+  .pool{width:240px;flex:none;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px;position:sticky;top:16px;max-height:calc(100vh - 32px);overflow:auto}
+  .search{width:100%;font:inherit;font-size:12.5px;padding:7px 9px;border:1px solid var(--line);border-radius:7px;margin-bottom:10px}
+  .group{margin-bottom:10px}
+  .grouphead{font-size:11px;font-weight:650;padding:4px 8px;border-radius:5px;margin-bottom:6px;display:flex;justify-content:space-between}
+  .grouphead.stc{background:var(--stc-bg);color:var(--stc)} .grouphead.ykan{background:var(--ykan-bg);color:var(--ykan)}
+  .grouphead span{font-weight:400}
+  .pool-list{display:flex;flex-direction:column;gap:5px}
+  .subhead{font-size:10.5px;color:var(--ink-soft);margin:12px 0 5px;padding-top:9px;border-top:1px solid var(--line)}
+  .chip{background:#EDF0F5;border:1px solid var(--line);border-radius:7px;padding:5px 8px;cursor:grab;user-select:none;font-size:12.5px;display:flex;align-items:center;gap:6px}
+  .chip:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+  .chip .nm{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .chip .nm small{display:block;font-size:10px;color:var(--ink-soft);font-variant-numeric:tabular-nums}
+  .chip .meta{font-size:10px;color:var(--ink-soft);white-space:nowrap}
+  .chip .wk{font-size:10.5px;color:var(--ink-soft);font-variant-numeric:tabular-nums;background:#fff;border:1px solid var(--line);border-radius:4px;padding:0 4px}
+  .chip.picked{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .chip.picked .meta,.chip.picked .wk,.chip.picked .nm small{color:#C6CEDC;background:transparent;border-color:#4A5670}
+  .chip.dragging{opacity:.35}
+  .chip.out{background:#F5F6F8;color:#A8B0BE;cursor:default;border-style:dashed} .chip.out .nm small{color:#B8BFCB}
+  .chip.live{border-color:#A9CBB6;background:#EAF3EE}
+  .chip .x,.chip .ab{border:0;background:transparent;color:inherit;font:inherit;cursor:pointer;opacity:.45;padding:0 1px;line-height:1}
+  .chip .x{font-size:14px} .chip .ab{font-size:9.5px;font-weight:700;letter-spacing:.03em}
+  .chip .x:hover,.chip .ab:hover{opacity:1} .chip .ab:hover{color:var(--flag)}
+  .board{flex:1;display:flex;flex-direction:column;gap:12px;min-width:0}
+  .site{background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+  .sitehead{padding:9px 12px;border-bottom:1px solid var(--line);font-size:13px;font-weight:600;display:flex;align-items:center;gap:10px}
+  .sitehead small{font-weight:400;color:var(--ink-soft);font-size:11px} .sitehead .cnt{margin-left:auto;font-weight:400;color:var(--ink-soft);font-size:11.5px}
+  .sitehead .camp{font-size:10px;padding:2px 7px}
+  table{border-collapse:collapse;width:100%;table-layout:fixed}
+  th,td{border:1px solid var(--line)}
+  thead th{background:#F7F8FA;padding:6px 8px;font-size:11.5px;font-weight:600;text-align:left}
+  thead th small{font-weight:400;color:var(--ink-soft)} thead th.dim,td.dim{opacity:.5} thead th.sel{background:#E6EAF1}
+  .slot{width:44px;font-size:10px;font-weight:700;letter-spacing:.04em;text-align:center;padding:4px}
+  .slot.am{color:var(--am);background:var(--am-bg)} .slot.pm{color:var(--pm);background:var(--pm-bg)}
+  .cell{padding:4px;height:44px;vertical-align:top} .cell.am{background:var(--am-bg)} .cell.pm{background:var(--pm-bg)}
+  .cell.sel{box-shadow:inset 0 0 0 1px #B4BECE} .cell.over{outline:2px dashed var(--ink);outline-offset:-3px}
+  .cell.lockedcell{background-image:repeating-linear-gradient(45deg,rgba(22,35,58,.04) 0 6px,transparent 6px 12px)}
+  .stack{display:flex;flex-direction:column;gap:3px}
+  .side{width:330px;flex:none;display:flex;flex-direction:column;gap:12px}
+  .cov{font-size:12px;display:flex;flex-direction:column;gap:8px} .cov .row{display:flex;gap:8px;align-items:baseline}
+  .cov .lab{width:82px;flex:none;color:var(--ink-soft);font-size:11px} .cov .names{flex:1} .cov .names i{font-style:normal;color:var(--ink-soft);font-size:11px}
+  .abslist{display:flex;flex-direction:column;gap:6px;font-size:12px}
+  .abslist div{display:flex;align-items:center;gap:8px;background:#F4F6F9;border-radius:6px;padding:6px 8px}
+  .abslist span{flex:1} .abslist small{display:block;color:var(--ink-soft);font-size:10.5px}
+  .publish{width:100%;padding:10px;border:0;border-radius:8px;background:var(--ink);color:#fff;font:inherit;font-size:13.5px;font-weight:600;cursor:pointer}
+  .publish[disabled]{background:#C8CFDA;cursor:default}
+  .pend{font-size:11.5px;color:var(--ink-soft);margin:8px 0 0;text-align:center}
+  .msg{background:#E9F5EC;border-radius:8px;padding:9px 11px;font-size:12px;white-space:pre-line;line-height:1.5;margin-top:6px}
+  .msg b{display:block;font-size:11px;color:var(--ok);margin-bottom:3px}
+
+  /* ===== modal ===== */
+  .scrim{position:fixed;inset:0;background:rgba(22,35,58,.4);display:flex;align-items:center;justify-content:center;padding:20px;z-index:10}
+  .modal{background:#fff;border-radius:12px;padding:20px;width:440px;max-height:88vh;overflow:auto}
+  .modal h3{margin:0 0 4px;font-size:15px}
+  .modal ul{margin:12px 0;padding-left:18px;font-size:12.5px;line-height:1.7}
+  .modal label{display:block;font-size:11.5px;color:var(--ink-soft);margin-top:10px}
+  .modal input,.modal select,.modal textarea{width:100%;font:inherit;font-size:13px;padding:7px 8px;border:1px solid var(--line);border-radius:7px;margin-top:3px;background:#fff}
+  .modal .two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .modal .row{display:flex;gap:8px;margin-top:16px} .modal .row button{flex:1;padding:9px;border-radius:8px;font:inherit;font-size:13px;cursor:pointer}
+  .modal .go{border:0;background:var(--ink);color:#fff;font-weight:600} .modal .no{border:1px solid var(--line);background:#fff;color:var(--ink)}
+  .modal .danger{border:1px solid #E3BEBC;background:#fff;color:var(--flag)}
+  .modal .note{font-size:11.5px;color:var(--ink-soft);background:#F4F6F9;border-radius:7px;padding:8px 10px;margin-top:12px}
+  .opt{display:flex;gap:10px;padding:9px 10px;border:1px solid var(--line);border-radius:8px;margin-bottom:6px;cursor:pointer;font-size:12.5px;align-items:flex-start}
+  .opt:has(input:checked){border-color:var(--ink);background:#F4F6F9} .opt input{width:auto;margin:3px 0 0} .opt small{display:block;color:var(--ink-soft);font-size:11px}
+
+  /* ===== phone ===== */
+
+  /* ===== team structure ===== */
+  .orgwrap{flex:1;min-width:0;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;overflow-x:auto}
+  .topbar{display:flex;gap:8px;align-items:center;margin-bottom:12px;flex-wrap:wrap}
+  .btn{font:inherit;font-size:12.5px;padding:7px 12px;border-radius:7px;cursor:pointer;border:1px solid var(--line);background:#fff;color:var(--ink)}
+  .btn.primary{background:var(--ink);color:#fff;border-color:var(--ink);font-weight:600}
+  .org{display:grid;gap:6px 8px;align-items:start;min-width:max-content}
+  .rowlab{font-size:10.5px;font-weight:650;color:var(--ink-soft);padding:8px 10px 0 0;white-space:nowrap;border-right:1px solid var(--line);margin-right:2px;letter-spacing:.02em}
+  .box{background:#F7F8FA;border:1px solid var(--line);border-left-width:4px;border-radius:8px;padding:7px 10px;cursor:grab;user-select:none;font-size:12.5px;min-height:38px}
+  .box.stc{border-left-color:var(--stc)} .box.ykan{border-left-color:var(--ykan)} .box.l0{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .box .nm{font-weight:600;display:block;white-space:nowrap} .box .code{font-size:10.5px;color:var(--ink-soft);font-variant-numeric:tabular-nums}
+  .box.l0 .code{color:#C6CEDC}
+  .box .cnt{float:right;font-size:10.5px;color:var(--ink-soft)} .box.l0 .cnt{color:#C6CEDC}
+  .box.over{outline:2px dashed var(--ink);outline-offset:-2px;background:#EDF1F7} .box.dragging{opacity:.35}
+  .box:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+  .frcol{display:flex;flex-direction:column;gap:4px;min-height:60px;padding:4px;border-radius:8px;background:#F2F4F7;border:1px dashed var(--line)}
+  .frcol.over{border-color:var(--ink);border-style:solid;background:#EDF1F7}
+  .fr{background:#fff;border:1px solid var(--line);border-radius:6px;padding:5px 8px;font-size:12px;cursor:grab;user-select:none;display:flex;gap:6px;align-items:center}
+  .fr .nm{flex:1;white-space:nowrap} .fr .code{font-size:10px;color:var(--ink-soft);font-variant-numeric:tabular-nums}
+  .fr.dragging{opacity:.35} .fr:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+  .gap{border:1px dashed var(--line);border-radius:8px;min-height:38px;opacity:.5}
+  .box.dim,.fr.dim{opacity:.25}
+  .chip.lead .nm{font-weight:700}
+  .nolead{font-size:9.5px;color:var(--warn);padding:0 4px}
+  .fr.ph{border-style:dashed;background:#FFFBF2;color:var(--ink-soft)}
+  .box.intake{background:#FFFBF2;border-color:#EAD9A6;border-left-color:#EAD9A6}
+  .frcol.intake{background:#FFFBF2;border-color:#EAD9A6}
+  .newiebtn{font:inherit;text-align:left;cursor:pointer;background:#F6D86B;border-color:#E2BF3E;border-left-color:#E2BF3E;color:var(--ink)}
+  .newiebtn:hover{background:#F2CE4E} .newiebtn .cnt{color:var(--ink-soft)}
+  .gap.direct{opacity:.8;border-style:solid;background:#FAFBFC} .gap.over{border-color:var(--ink);border-style:solid;background:#EDF1F7}
+  .org.locked .box,.org.locked .fr{cursor:default}
+  .org.locked .frcol,.org.locked .gap{background-image:repeating-linear-gradient(45deg,rgba(22,35,58,.04) 0 6px,transparent 6px 12px)}
+  .btn.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .btn[disabled]{opacity:.45;cursor:default}
+  .big{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:10px}
+  .bigcell{border-radius:8px;padding:8px 6px;text-align:center;line-height:1.2}
+  .bigcell b{display:block;font-size:22px;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+  .bigcell span{font-size:10px;font-weight:650;letter-spacing:.04em}
+  .bigcell i{display:block;font-style:normal;font-size:10px;opacity:.75;margin-top:1px}
+  .bigcell.stc{background:var(--stc-bg);color:var(--stc)} .bigcell.ykan{background:var(--ykan-bg);color:var(--ykan)}
+  .bigcell.all{background:var(--ink);color:#fff}
+  table.hc{width:100%;border-collapse:collapse;font-size:12px}
+  table.hc th{font-size:10px;color:var(--ink-soft);font-weight:650;text-align:right;padding:2px 4px}
+  table.hc th:first-child{text-align:left}
+  table.hc td{padding:3px 4px;text-align:right;font-variant-numeric:tabular-nums}
+  table.hc td:first-child{text-align:left;color:var(--ink-soft)}
+  table.hc tr.rule td{border-top:1px solid var(--line)}
+  table.hc tr.flagrow td{color:var(--warn)} table.hc tr.flagrow td:first-child{color:var(--warn)}
+  .byrole{margin-top:10px;padding-top:8px;border-top:1px solid var(--line);font-size:11.5px}
+  .byrole div{display:grid;grid-template-columns:1fr 34px 34px;gap:2px}
+  .byrole .rh span,.byrole .rh b{color:var(--ink-soft);font-size:10px;font-weight:650;letter-spacing:.03em}
+  .byrole span{color:var(--ink-soft)} .byrole b{text-align:right;font-weight:400;font-variant-numeric:tabular-nums}
+  .hronly{font-style:normal;color:var(--warn);font-size:10px;font-weight:600}
+  table.hc td i{font-style:normal;color:var(--ink-soft);font-size:10.5px}
+  .byrole .rt{border-top:1px solid var(--line);margin-top:3px;padding-top:3px;font-weight:650}
+  .byrole .rt span{color:var(--ink)}
+  .tabs select{font:inherit;font-size:12px;padding:6px 10px;border-radius:20px;border:1px solid var(--line);background:#fff;color:var(--ink-soft);cursor:pointer}
+  .chk{font-size:12px;color:var(--ink-soft);display:flex;gap:5px;align-items:center;cursor:pointer}
+  .chk input{margin:0}
+  table.mtab{border-collapse:collapse;font-size:11.5px;min-width:max-content}
+  table.mtab th,table.mtab td{border:1px solid var(--line)}
+  table.mtab thead th{background:#F7F8FA;padding:4px 3px;font-size:10px;font-weight:650;text-align:center;position:sticky;top:0;z-index:2}
+  table.mtab thead th small{display:block;font-weight:400;color:var(--ink-soft);font-size:9px}
+  table.mtab th.wknd,table.mtab td.wknd{background:#EEF0F4}
+  table.mtab th.who,table.mtab td.who{width:196px;min-width:196px;max-width:196px;
+    position:sticky;left:0;z-index:3;text-align:left;padding:4px 8px;overflow:hidden;
+    box-shadow:1px 0 0 var(--line)}
+  table.mtab th.role,table.mtab td.role{width:112px;min-width:112px;max-width:112px;
+    position:sticky;left:196px;z-index:3;text-align:left;padding:4px 8px;overflow:hidden;
+    white-space:nowrap;text-overflow:ellipsis;box-shadow:1px 0 0 var(--line)}
+  table.mtab thead th.who,table.mtab thead th.role{top:0;z-index:5;background:#F7F8FA}
+  table.mtab td.who{background:#fff} table.mtab td.role{background:#fff;color:var(--ink-soft);font-size:10.5px}
+  table.mtab tr.perm td.who,table.mtab tr.perm td.role{background:#FBFAF5}
+  table.mtab td.who .nmw{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  table.mtab td.c{width:22px;text-align:center;padding:3px 0;font-weight:600;font-size:10.5px;cursor:default}
+  table.mtab td.c.a{background:var(--am-bg);color:var(--am);cursor:pointer}
+  table.mtab td.c.p{background:var(--pm-bg);color:var(--pm);cursor:pointer}
+  table.mtab td.c.x{background:#F0F1F4;color:#AEB5C2}
+  table.mtab td.c.m{background:var(--flag-bg);color:var(--flag)}
+  table.mtab td.c.l{background:#FFF3D6;color:var(--warn)}
+  table.mtab td.c.late{box-shadow:inset 0 -3px 0 var(--flag)}
+  table.mtab td.tot{text-align:center;font-variant-numeric:tabular-nums;background:#F7F8FA;min-width:34px}
+  table.mtab td.tot.bad{background:var(--flag-bg);color:var(--flag);font-weight:700}
+  .mlegend{display:flex;flex-direction:column;gap:5px;font-size:11.5px;color:var(--ink-soft)}
+  .mlegend span{display:flex;gap:7px;align-items:center}
+  .mlegend i{font-style:normal;width:20px;text-align:center;border-radius:3px;font-size:10px;font-weight:700;padding:2px 0}
+  .mlegend i.a{background:var(--am-bg);color:var(--am)} .mlegend i.p{background:var(--pm-bg);color:var(--pm)}
+  .mlegend i.x{background:#F0F1F4;color:#AEB5C2} .mlegend i.m{background:var(--flag-bg);color:var(--flag)}
+  .mlegend i.l{background:#FFF3D6;color:var(--warn)} .mlegend i.late{box-shadow:inset 0 -3px 0 var(--flag)}
+  .flagblock{font-size:12px;margin-bottom:10px}
+  .flagblock b{display:block;font-size:11px;margin-bottom:4px}
+  .flagblock div{padding:3px 0;border-bottom:1px solid var(--line)}
+  .flagblock i{font-style:normal;color:var(--ink-soft);font-size:11px}
+  #mgrid{overflow:auto;max-height:calc(100vh - 190px)}
+  .modal.sheet textarea{resize:vertical}
+  .apr{border-bottom:1px solid var(--line);padding:8px 0;font-size:12px}
+  .apr:last-child{border-bottom:0}
+  .apr b{display:block} .apr span{color:var(--ink-soft);font-size:11px}
+  .apr i{display:block;font-style:italic;color:var(--ink-soft);font-size:11px;margin-top:2px}
+  .apr .hrflag{display:inline;font-style:normal;color:var(--warn);font-weight:600}
+  .aprrow{display:flex;gap:6px;margin-top:6px}
+  .aprrow button{flex:1} .apbtn{border:0;background:var(--ink);color:#fff;font:inherit;font-size:11px;border-radius:5px;padding:4px 8px;cursor:pointer}
+  .segs{display:flex;gap:4px;background:#EDF0F5;border-radius:8px;padding:3px;margin:10px 0 14px}
+  .segs .seg{flex:1;font:inherit;font-size:12px;padding:6px;border:0;border-radius:6px;background:transparent;color:var(--ink-soft);cursor:pointer}
+  .segs .seg.on{background:#fff;color:var(--ink);font-weight:600}
+  .pastwarn{background:#FFF3D6;color:var(--warn);border-radius:7px;padding:8px 10px;font-size:11.5px;margin-bottom:4px}
+  /* ---------- fundraiser phone ---------- */
+  .phonebar{display:flex;gap:12px;align-items:center;padding:12px 20px;background:var(--card);border-bottom:1px solid var(--line);flex-wrap:wrap}
+  .deviceframe{display:flex;justify-content:center;padding:22px 12px 60px}
+  .device{width:390px;max-width:100%;background:var(--card);border:1px solid var(--line);border-radius:28px;
+    padding:0 0 18px;overflow:hidden;box-shadow:0 2px 14px rgba(22,35,58,.10)}
+  .pbar{padding:16px 20px 12px;display:flex;align-items:baseline;gap:8px;border-bottom:1px solid var(--line)}
+  .pbar b{font-size:19px} .pbar span{font-size:11px;font-weight:700;color:var(--ink-soft);letter-spacing:.04em}
+  .nextshift{margin:16px 16px 0;border-radius:14px;padding:16px 18px;color:#fff;background:var(--am)}
+  .nextshift.pm{background:var(--pm)} .nextshift.none{background:#EDF0F5;color:var(--ink-soft)}
+  .nextshift .lbl{font-size:10.5px;font-weight:700;letter-spacing:.06em;opacity:.8}
+  .nextshift b{display:block;font-size:22px;letter-spacing:-.02em;margin:2px 0 6px}
+  .nextshift .place{font-size:15px} .nextshift .time{font-size:15px;opacity:.85}
+  .nextshift.none .place{font-size:13px;line-height:1.4;margin-top:4px}
+  .nextshift .notyet{margin-top:8px;font-size:11px;background:rgba(255,255,255,.22);border-radius:5px;padding:3px 7px;display:inline-block}
+  .linkbtn{display:block;margin:8px auto 0;background:none;border:0;font:inherit;font-size:13px;color:var(--ink-soft);text-decoration:underline;cursor:pointer;padding:4px}
+  .allshifts{margin:4px 16px 0}
+  .allshifts .li{border-left:3px solid var(--am);background:#F7F8FA;border-radius:8px;padding:8px 11px;margin-bottom:5px;font-size:13px}
+  .allshifts .li.pm{border-left-color:var(--pm)}
+  .allshifts .li b{margin-right:7px} .allshifts .li span{color:var(--ink-soft)} .allshifts .li i{float:right;font-style:normal;color:var(--ink-soft);font-size:12px}
+  .calhead{padding:22px 20px 10px} .calhead b{display:block;font-size:17px;letter-spacing:-.01em}
+  .calhead span{font-size:12.5px;color:var(--ink-soft)}
+  .bigcal{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;padding:0 14px}
+  .bigcal .dow{text-align:center;font-size:11px;color:var(--ink-soft);padding-bottom:2px}
+  .bday{aspect-ratio:1;border:1px solid var(--line);border-radius:12px;background:#fff;font:inherit;font-size:16px;
+    color:var(--ink);cursor:pointer;position:relative;display:flex;align-items:center;justify-content:center;padding:0;
+    -webkit-tap-highlight-color:transparent}
+  .bday:active{transform:scale(.94)}
+  .bday .dot{position:absolute;bottom:6px;width:5px;height:5px;border-radius:50%;font-style:normal}
+  .bday .dot.am{background:var(--am)} .bday .dot.pm{background:var(--pm)}
+  .bday .dot.clock{width:auto;height:auto;font-size:10px;bottom:3px}
+  .bday.off{background:var(--flag);border-color:var(--flag);color:#fff;font-weight:700}
+  .bday.pend{background:#FFF3D6;border-color:#E2BF3E;color:var(--warn);font-weight:700}
+  .bday.appr{background:var(--flag-bg);border-color:#E3BEBC;color:var(--flag);font-weight:700}
+  .bday.wk{background:#FAFBFC}
+  .say.stop{background:var(--flag);color:#fff;font-weight:600}
+  .say b{font-weight:700}
+  .sendwrap{padding:16px 18px 0}
+  .sendwrap .bigsend{margin-top:0}
+  .bigsend[disabled]{background:#C8CFDA;cursor:default}
+  .sentnote{text-align:center;font-size:12px;color:var(--ink-soft);padding-top:8px}
+  .says{padding:16px 18px 0;display:flex;flex-direction:column;gap:8px}
+  .say{border-radius:10px;padding:11px 13px;font-size:13.5px;line-height:1.4}
+  .say.ok{background:var(--flag-bg);color:var(--flag)}
+  .say.wait{background:#FFF9E8;color:var(--warn)}
+  .say.done{background:#EAF3EE;color:var(--ok)}
+  .say.plain{background:#F4F6F9;color:var(--ink-soft)}
+  .minifoot{text-align:center;font-size:12px;color:var(--ink-soft);padding:18px 20px 0}
+  /* bottom sheet */
+  .sheetwrap{align-items:flex-end;justify-content:center;padding:0}
+  .sheet2{background:#fff;width:390px;max-width:100%;border-radius:20px 20px 0 0;padding:10px 18px 22px;max-height:90vh;overflow:auto}
+  .sheet2 .grab{width:38px;height:4px;border-radius:2px;background:#D9DEE6;margin:0 auto 12px}
+  .sheet2 h3{margin:0;font-size:19px;letter-spacing:-.01em}
+  .sheet2 .sub{margin:3px 0 0;font-size:13px;color:var(--ink-soft)}
+  .sheet2 .q{margin:20px 0 8px;font-size:14px;font-weight:600}
+  .reasons{display:flex;flex-direction:column;gap:8px}
+  .reason{display:flex;align-items:center;gap:12px;width:100%;font:inherit;font-size:15px;text-align:left;
+    padding:15px 16px;border:1px solid var(--line);border-radius:13px;background:#fff;color:var(--ink);cursor:pointer}
+  .reason i{font-style:normal;font-size:19px;width:24px;text-align:center;flex:none}
+  .reason span{flex:1} .reason small{display:block;font-size:11.5px;color:var(--ink-soft);font-weight:400;margin-top:1px}
+  .reason.on{border-color:var(--ink);border-width:2px;background:#F4F6F9;font-weight:600;padding:14px 15px}
+  .reason:active{background:#EDF0F5}
+  .daysel{display:flex;gap:8px}
+  .nbtn{flex:1;font:inherit;font-size:17px;padding:14px 0;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--ink);cursor:pointer}
+  .nbtn.on{background:var(--ink);color:#fff;border-color:var(--ink);font-weight:700}
+  .photo{width:100%;font:inherit;font-size:14px;padding:14px;border:1px dashed var(--line);border-radius:12px;
+    background:#F7F8FA;color:var(--ink-soft);cursor:pointer;margin-bottom:10px}
+  .sheet2 textarea{width:100%;font:inherit;font-size:14px;padding:12px;border:1px solid var(--line);border-radius:12px;margin-top:14px;resize:none}
+  .bigsend{width:100%;font:inherit;font-size:16px;font-weight:600;padding:16px;border:0;border-radius:13px;
+    background:var(--ink);color:#fff;cursor:pointer;margin-top:12px}
+  .cancel2{width:100%;font:inherit;font-size:15px;padding:14px;border:0;border-radius:13px;background:transparent;color:var(--ink-soft);cursor:pointer;margin-top:4px}
+  @media (max-width:480px){.deviceframe{padding:0}.device{border:0;border-radius:0;width:100%;box-shadow:none}}
+  .trainhead{font-size:10px;color:var(--ink-soft);border-top:1px dashed var(--line);margin-top:4px;padding:5px 4px 1px}
+  .bin{border:2px dashed #E3BEBC;background:var(--flag-bg);border-radius:10px;padding:14px 12px;text-align:center;color:var(--flag);font-size:12.5px}
+  .bin.over{background:#F5D6D4;border-style:solid} .bin b{display:block;font-size:13px;margin-bottom:2px}
+  .binlist{display:flex;flex-direction:column;gap:6px;margin-top:10px;text-align:left}
+  .binlist div{display:flex;align-items:center;gap:8px;background:#fff;border-radius:6px;padding:6px 8px;font-size:12px;color:var(--ink)}
+  .binlist span{flex:1} .binlist small{display:block;color:var(--ink-soft);font-size:10.5px}
+  .stats{font-size:12px;display:block}
+  @media (max-width:1040px){main{flex-direction:column}.pool,.side{width:100%;position:static;max-height:none}}
+</style>
+
+<header>
+  <h1>Popcorn</h1>
+  <div class="wk" id="hdrsub">Week 2 — 14–20 Sep 2026 · Jakarta</div>
+  <div class="tabs">
+    <button data-tab="roster" aria-pressed="true">Weekly roster</button>
+    <button data-tab="phone" aria-pressed="false">Fundraiser phone</button>
+    <button data-tab="monthly" aria-pressed="false">Monthly roster</button>
+    <button data-tab="team" aria-pressed="false">Team structure</button>
+    <select id="asrole" title="Preview what each role sees"><option value="dir">Viewing as: Director</option><option value="hr">Viewing as: HR</option><option value="mgr">Viewing as: Manager</option><option value="tl">Viewing as: Team leader</option><option value="fr">Viewing as: Fundraiser</option></select>
+  </div>
+</header>
+
+<!-- ===================== ROSTER ===================== -->
+<div class="daybar" id="daybar"></div>
+<main id="roster">
+  <section class="pool">
+    <h2 id="poolHead">Available Monday</h2>
+    <p class="hint">Drag onto a site, or tap a name then tap a slot.</p>
+    <input class="search" id="q" placeholder="Search name or staff code">
+    <div id="groups"></div><div id="poolOut"></div>
+  </section>
+  <section class="board" id="board"></section>
+  <aside class="side">
+    <div class="panel"><h2>Publish locked days</h2><p class="hint">Lock a day when it's final. Publish sends only locked days to Evergiving.</p>
+      <button class="publish" id="pubBtn" disabled>Publish</button><p class="pend" id="pend"></p><div id="msgs"></div></div>
+    <div class="panel"><h2>Leave requests</h2><div id="appr"></div></div>
+    <div class="panel"><h2>Coverage this week</h2><p class="hint">Target is five shifts. Seven is blocked.</p><div class="cov" id="cov"></div></div>
+    <div class="panel"><h2>Absences</h2><div class="abslist" id="abslist"></div></div>
+    <div class="panel"><h2>Evergiving activity</h2><div class="feed" id="feed"><span class="empty">Nothing sent yet.</span></div></div>
+  </aside>
+</main>
+
+<!-- ===================== PHONE ===================== -->
+<div id="phone" class="hidden">
+  <div class="phonebar">
+    <select id="whoami" class="search" style="width:210px;margin:0"></select>
+    <label class="chk"><input type="checkbox" id="aftercut"> Roster closed (after 25 Aug)</label>
+    <span class="hint" style="margin:0">Preview — shown here in a phone frame. A fundraiser just sees this full screen.</span>
+  </div>
+  <div class="deviceframe"><div class="device" id="pApp"></div></div>
+</div>
+
+<!-- ===================== MONTHLY ===================== -->
+<main id="monthly" class="hidden">
+  <section class="orgwrap">
+    <div class="topbar">
+      <select id="mteam" class="search" style="width:250px;margin:0"></select>
+      <input class="search" id="mq" placeholder="Search name" style="width:170px;margin:0">
+      <label class="chk"><input type="checkbox" id="permonly"> Permanent staff only</label>
+      <span class="hint" style="margin:0 0 0 auto">September 2026 · click a worked day to record check-in</span>
+    </div>
+    <div id="mgrid"></div>
+  </section>
+  <aside class="side">
+    <div class="panel"><h2>Month at a glance</h2><div id="msum"></div></div>
+    <div class="panel"><h2>Needs attention</h2><p class="hint">Perms under 20 days are pro-rated unless covered by an MC.</p><div id="mflags"></div></div>
+    <div class="panel"><h2>Legend</h2><div class="mlegend">
+      <span><i class="c a">A</i>AM shift</span><span><i class="c p">P</i>PM shift</span>
+      <span><i class="c x">×</i>marked unavailable</span><span><i class="c m">M</i>medical certificate</span>
+      <span><i class="c l">L</i>leave</span><span><i class="c a late">A</i>late over 10 min</span></div></div>
+  </aside>
+</main>
+
+<!-- ===================== TEAM ===================== -->
+<main id="team" class="hidden">
+  <section class="orgwrap">
+    <div class="topbar">
+      <input class="search" id="tq" placeholder="Search name or staff code" style="width:230px;margin:0">
+      <button class="btn primary" id="addBtn">Add person</button>
+      <span class="hint" style="margin:0 0 0 6px">Drag a name onto its new manager or team column. Click a name to edit role or campaign.</span>
+    </div>
+    <div class="org" id="org"></div>
+  </section>
+  <aside class="side">
+    <div class="bin" id="bin"><b>Resigned</b>Drag a person here on their last day.<div class="binlist" id="binlist"></div></div>
+    <div class="panel"><h2>Headcount</h2><div class="stats" id="stats"></div></div>
+    <div class="panel"><h2>Changes</h2><div class="feed" id="tfeed"><span class="empty">Nothing changed yet.</span></div></div>
+  </aside>
+</main>
+
+<script>
+/* ======================= SHARED PEOPLE ======================= */
+const LEVELS=["Head","Senior manager","Manager","Assistant manager","Senior team leader","Team leader","Fundraiser"];
+const CAMPS={stc:{n:"STC",id:1899},ykan:{n:"YKAN",id:1904}};
+let P=[
+ {id:1,n:"Dave",code:"HD-0001",lv:0,to:null,c:null,eg:1,eid:1,off:[],start:"2023-08-14",perm:true,tg:"@dave"},
+ {id:2,n:"Lina Iskandar",code:"SM-0100",lv:1,to:1,c:"stc",eg:1,eid:102100,off:[],start:"2023-08-14",perm:true,tg:"@linai"},
+ {id:3,n:"Oka Cahyani",code:"MG-0200",lv:2,to:2,c:"stc",eg:1,eid:102200,off:[],start:"2025-01-20",perm:true,tg:""},
+ {id:4,n:"Bayu Gunawan",code:"AM-0300",lv:3,to:3,c:"stc",eg:1,eid:102300,off:[],start:"2022-06-05",perm:true,tg:"@bayug"},
+ {id:5,n:"Nadia Cahyani",code:"SL-0401",lv:4,to:4,c:"stc",eg:1,eid:102401,off:[],start:"2024-03-01",perm:true,tg:"@nadiac"},
+ {id:6,n:"Sari Lesmana",code:"TL-0501",lv:5,to:5,c:"stc",eg:1,eid:102501,off:[],start:"2024-03-01",perm:true,tg:"@saril"},
+ {id:7,n:"Anggara Fitriani",code:"TL-0502",lv:5,to:5,c:"stc",eg:1,eid:102502,off:[],start:"2022-06-05",perm:true,tg:"@anggaraf"},
+ {id:8,n:"Rahmat Suryani",code:"TL-0503",lv:5,to:5,c:"stc",eg:1,eid:102503,off:[],start:"2025-01-20",perm:true,tg:"@rahmats"},
+ {id:9,n:"Bambang Nugroho",code:"SL-0402",lv:4,to:4,c:"stc",eg:1,eid:102402,off:[],start:"2023-08-14",perm:true,tg:"@bambangn"},
+ {id:10,n:"Budi Wibowo",code:"TL-0504",lv:5,to:9,c:"stc",eg:1,eid:102504,off:[],start:"2023-08-14",perm:true,tg:"@budiw"},
+ {id:11,n:"Bagus Halim",code:"TL-0505",lv:5,to:9,c:"stc",eg:1,eid:102505,off:[],start:"2022-06-05",perm:true,tg:"@bagush"},
+ {id:12,n:"Galih Cahyani",code:"TL-0506",lv:5,to:9,c:"stc",eg:1,eid:102506,off:[],start:"2022-06-05",perm:true,tg:"@galihc"},
+ {id:13,n:"Vina Siregar",code:"AM-0301",lv:3,to:3,c:"stc",eg:1,eid:102301,off:[],start:"2022-06-05",perm:true,tg:"@vinas"},
+ {id:14,n:"Arief Maulana",code:"SL-0403",lv:4,to:13,c:"stc",eg:1,eid:102403,off:[],start:"2023-08-14",perm:true,tg:"@ariefm"},
+ {id:15,n:"Ari Hakim",code:"TL-0507",lv:5,to:14,c:"stc",eg:1,eid:102507,off:[],start:"2023-08-14",perm:true,tg:"@arih"},
+ {id:16,n:"Iwan Suryani",code:"TL-0508",lv:5,to:14,c:"stc",eg:1,eid:102508,off:[],start:"2023-08-14",perm:true,tg:"@iwans"},
+ {id:17,n:"Dian Halim",code:"TL-0509",lv:5,to:13,c:"stc",eg:1,eid:102509,off:[],start:"2022-06-05",perm:true,tg:""},
+ {id:18,n:"Vina Rahayu",code:"SM-0101",lv:1,to:1,c:"ykan",eg:1,eid:102101,off:[],start:"2024-03-01",perm:true,tg:""},
+ {id:19,n:"Tono Kusuma",code:"MG-0201",lv:2,to:18,c:"ykan",eg:1,eid:102201,off:[],start:"2024-03-01",perm:true,tg:"@tonok"},
+ {id:20,n:"Candra Kurniawan",code:"AM-0302",lv:3,to:19,c:"ykan",eg:1,eid:102302,off:[],start:"2023-08-14",perm:true,tg:"@candrak"},
+ {id:21,n:"Nanda Gunawan",code:"SL-0404",lv:4,to:20,c:"ykan",eg:1,eid:102404,off:[],start:"2024-03-01",perm:true,tg:"@nandag"},
+ {id:22,n:"Tira Dewangga",code:"TL-0510",lv:5,to:21,c:"ykan",eg:1,eid:102510,off:[],start:"2025-01-20",perm:true,tg:"@tirad"},
+ {id:23,n:"Ulfa Cahyani",code:"TL-0511",lv:5,to:21,c:"ykan",eg:1,eid:102511,off:[],start:"2024-03-01",perm:true,tg:"@ulfac"},
+ {id:24,n:"Zaki Lesmana",code:"TL-0512",lv:5,to:21,c:"ykan",eg:1,eid:102512,off:[],start:"2025-01-20",perm:true,tg:"@zakil"},
+ {id:25,n:"Rizky Wibowo",code:"SL-0405",lv:4,to:20,c:"ykan",eg:1,eid:102405,off:[],start:"2022-06-05",perm:true,tg:"@rizkyw"},
+ {id:26,n:"Kiki Wulandari",code:"TL-0513",lv:5,to:25,c:"ykan",eg:1,eid:102513,off:[],start:"2022-06-05",perm:true,tg:"@kikiw"},
+ {id:27,n:"Wahyu Wulandari",code:"TL-0514",lv:5,to:25,c:"ykan",eg:1,eid:102514,off:[],start:"2022-06-05",perm:true,tg:"@wahyuw"},
+ {id:28,n:"Nadia Rahayu",code:"TL-0515",lv:5,to:25,c:"ykan",eg:1,eid:102515,off:[],start:"2022-06-05",perm:true,tg:"@nadiar"},
+ {id:29,n:"Hendra Kusuma",code:"AM-0303",lv:3,to:19,c:"ykan",eg:1,eid:102303,off:[],start:"2022-06-05",perm:true,tg:"@hendrak"},
+ {id:30,n:"Hendra Fitriani",code:"SL-0406",lv:4,to:29,c:"ykan",eg:1,eid:102406,off:[],start:"2023-08-14",perm:true,tg:"@hendraf"},
+ {id:31,n:"Siti Zulkarnain",code:"TL-0516",lv:5,to:30,c:"ykan",eg:1,eid:102516,off:[],start:"2025-01-20",perm:true,tg:"@sitiz"},
+ {id:32,n:"Maya Wijaya",code:"TL-0517",lv:5,to:30,c:"ykan",eg:1,eid:102517,off:[],start:"2024-03-01",perm:true,tg:"@mayaw"},
+ {id:33,n:"Irfan Dewangga",code:"TL-0518",lv:5,to:29,c:"ykan",eg:1,eid:102518,off:[],start:"2024-03-01",perm:true,tg:"@irfand"},
+ {id:34,n:"Eka Santoso",code:"FR-2001",lv:6,to:6,c:"stc",eg:1,eid:103001,off:[],start:"2026-09-03",perm:false,tg:"@ekas"},
+ {id:35,n:"Bayu Ramadhan",code:"FR-2002",lv:6,to:6,c:"stc",eg:1,eid:103002,off:[5],start:"2025-11-03",perm:false,tg:""},
+ {id:36,n:"Rendi Dewangga",code:"FR-2003",lv:6,to:6,c:"stc",eg:1,eid:103003,off:[],start:"2026-08-12",perm:false,tg:"@rendid"},
+ {id:37,n:"Bambang Cahyani",code:"FR-2004",lv:6,to:5,c:"stc",eg:1,eid:103004,off:[5],start:"2026-07-04",perm:false,tg:"@bambangc"},
+ {id:38,n:"Nurul Saputra",code:"FR-2005",lv:6,to:5,c:"stc",eg:1,eid:103005,off:[],start:"2026-02-11",perm:false,tg:"@nuruls"},
+ {id:39,n:"Zahra Halim",code:"FR-2006",lv:6,to:7,c:"stc",eg:1,eid:103006,off:[0],start:"2026-07-04",perm:true,tg:"@zahrah"},
+ {id:40,n:"Hendra Siregar",code:"FR-2007",lv:6,to:7,c:"stc",eg:1,eid:103007,off:[6],start:"2026-02-11",perm:false,tg:"@hendras"},
+ {id:41,n:"Panca Pratama",code:"FR-2008",lv:6,to:7,c:"stc",eg:1,eid:103008,off:[],start:"2026-06-15",perm:false,tg:""},
+ {id:42,n:"Intan Suryani",code:"FR-2009",lv:6,to:7,c:"stc",eg:1,eid:103009,off:[5],start:"2026-02-11",perm:false,tg:"@intans"},
+ {id:43,n:"Eko Iskandar",code:"FR-2010",lv:6,to:8,c:"stc",eg:1,eid:103010,off:[],start:"2026-08-25",perm:false,tg:""},
+ {id:44,n:"Wulan Kusuma",code:"FR-2011",lv:6,to:8,c:"stc",eg:0,eid:null,off:[2],start:"2026-05-20",perm:false,tg:""},
+ {id:45,n:"Nanda Ramadhan",code:"FR-2012",lv:6,to:8,c:"stc",eg:1,eid:103012,off:[],start:"2026-06-15",perm:false,tg:"@nandar"},
+ {id:46,n:"Zaki Cahyani",code:"FR-2013",lv:6,to:8,c:"stc",eg:1,eid:103013,off:[6],start:"2026-08-25",perm:false,tg:"@zakic"},
+ {id:47,n:"Panca Siregar",code:"FR-2014",lv:6,to:10,c:"stc",eg:1,eid:103014,off:[],start:"2026-02-11",perm:false,tg:"@pancas"},
+ {id:48,n:"Fajar Dewangga",code:"FR-2015",lv:6,to:10,c:"stc",eg:1,eid:103015,off:[],start:"2026-08-25",perm:false,tg:""},
+ {id:49,n:"Yoga Cahyani",code:"FR-2016",lv:6,to:10,c:"stc",eg:1,eid:103016,off:[],start:"2026-08-12",perm:false,tg:"@yogac"},
+ {id:50,n:"Cahya Setiawan",code:"FR-2017",lv:6,to:10,c:"stc",eg:1,eid:103017,off:[0, 6],start:"2026-05-20",perm:false,tg:"@cahyas"},
+ {id:51,n:"Dimas Oktaviani",code:"FR-2018",lv:6,to:10,c:"stc",eg:1,eid:103018,off:[4],start:"2026-09-01",perm:true,tg:"@dimaso"},
+ {id:52,n:"Rini Wulandari",code:"FR-2019",lv:6,to:10,c:"stc",eg:1,eid:103019,off:[3],start:"2026-07-04",perm:false,tg:"@riniw"},
+ {id:53,n:"Maya Oktaviani",code:"FR-2020",lv:6,to:11,c:"stc",eg:1,eid:103020,off:[6],start:"2026-08-25",perm:false,tg:"@mayao"},
+ {id:54,n:"Farhan Setiawan",code:"FR-2021",lv:6,to:11,c:"stc",eg:1,eid:103021,off:[],start:"2026-09-03",perm:false,tg:"@farhans"},
+ {id:55,n:"Siti Rahayu",code:"FR-2022",lv:6,to:11,c:"stc",eg:1,eid:103022,off:[],start:"2026-05-20",perm:false,tg:"@sitir"},
+ {id:56,n:"Nadia Jayadi",code:"FR-2023",lv:6,to:11,c:"stc",eg:1,eid:103023,off:[6],start:"2026-06-15",perm:false,tg:"@nadiaj"},
+ {id:57,n:"Lukman Maulana",code:"FR-2024",lv:6,to:12,c:"stc",eg:1,eid:103024,off:[1, 6],start:"2026-08-25",perm:false,tg:""},
+ {id:58,n:"Gita Kurniawan",code:"FR-2025",lv:6,to:12,c:"stc",eg:1,eid:103025,off:[2, 3],start:"2026-08-25",perm:false,tg:"@gitak"},
+ {id:59,n:"Intan Yuliana",code:"FR-2026",lv:6,to:12,c:"stc",eg:1,eid:103026,off:[1],start:"2026-08-30",perm:false,tg:"@intany"},
+ {id:60,n:"Ratna Saputra",code:"FR-2027",lv:6,to:12,c:"stc",eg:1,eid:103027,off:[0],start:"2026-08-12",perm:false,tg:""},
+ {id:61,n:"Fani Santoso",code:"FR-2028",lv:6,to:12,c:"stc",eg:1,eid:103028,off:[],start:"2026-08-25",perm:false,tg:"@fanis"},
+ {id:62,n:"Zahra Adiputra",code:"FR-2029",lv:6,to:12,c:"stc",eg:1,eid:103029,off:[5],start:"2026-07-04",perm:false,tg:"@zahraa"},
+ {id:63,n:"Citra Sihombing",code:"FR-2030",lv:6,to:15,c:"stc",eg:1,eid:103030,off:[],start:"2026-07-04",perm:false,tg:"@citras"},
+ {id:64,n:"Lukman Fitriani",code:"FR-2031",lv:6,to:15,c:"stc",eg:1,eid:103031,off:[3],start:"2026-08-30",perm:false,tg:"@lukmanf"},
+ {id:65,n:"Dinda Jayadi",code:"FR-2032",lv:6,to:15,c:"stc",eg:1,eid:103032,off:[],start:"2026-08-30",perm:true,tg:"@dindaj"},
+ {id:66,n:"Reza Iskandar",code:"FR-2033",lv:6,to:15,c:"stc",eg:1,eid:103033,off:[4, 6],start:"2025-11-03",perm:false,tg:"@rezai"},
+ {id:67,n:"Tira Hakim",code:"FR-2034",lv:6,to:16,c:"stc",eg:1,eid:103034,off:[],start:"2025-11-03",perm:false,tg:"@tirah"},
+ {id:68,n:"Candra Hakim",code:"FR-2035",lv:6,to:16,c:"stc",eg:1,eid:103035,off:[6],start:"2026-08-30",perm:false,tg:""},
+ {id:69,n:"Andi Oktaviani",code:"FR-2036",lv:6,to:16,c:"stc",eg:1,eid:103036,off:[],start:"2026-05-20",perm:false,tg:"@andio"},
+ {id:70,n:"Wulan Ramadhan",code:"FR-2037",lv:6,to:16,c:"stc",eg:1,eid:103037,off:[4],start:"2026-08-30",perm:false,tg:"@wulanr"},
+ {id:71,n:"Naufal Wulandari",code:"FR-2038",lv:6,to:16,c:"stc",eg:1,eid:103038,off:[4, 6],start:"2026-02-11",perm:false,tg:""},
+ {id:72,n:"Dimas Anggraini",code:"FR-2039",lv:6,to:17,c:"stc",eg:1,eid:103039,off:[6],start:"2026-09-03",perm:false,tg:"@dimasa"},
+ {id:73,n:"Dimas Kusuma",code:"FR-2040",lv:6,to:17,c:"stc",eg:0,eid:null,off:[],start:"2026-09-01",perm:false,tg:"@dimask"},
+ {id:74,n:"Tono Cahyani",code:"FR-2041",lv:6,to:9,c:"stc",eg:1,eid:103041,off:[5],start:"2026-07-04",perm:false,tg:"@tonoc"},
+ {id:75,n:"Candra Cahyani",code:"FR-2042",lv:6,to:9,c:"stc",eg:1,eid:103042,off:[],start:"2026-02-11",perm:false,tg:""},
+ {id:76,n:"Cahya Wijaya",code:"FR-2043",lv:6,to:17,c:"stc",eg:0,eid:null,off:[0, 6],start:"2026-02-11",perm:false,tg:"@cahyaw"},
+ {id:77,n:"Sari Kurniawan",code:"FR-2044",lv:6,to:17,c:"stc",eg:1,eid:103044,off:[3],start:"2026-08-30",perm:true,tg:"@sarik"},
+ {id:78,n:"Hendra Oktaviani",code:"FR-2045",lv:6,to:22,c:"ykan",eg:1,eid:103045,off:[1, 3],start:"2026-09-01",perm:false,tg:"@hendrao"},
+ {id:79,n:"Rangga Ramadhan",code:"FR-2046",lv:6,to:22,c:"ykan",eg:1,eid:103046,off:[],start:"2026-08-25",perm:false,tg:"@ranggar"},
+ {id:80,n:"Fitri Rahayu",code:"FR-2047",lv:6,to:22,c:"ykan",eg:1,eid:103047,off:[],start:"2026-08-25",perm:false,tg:"@fitrir"},
+ {id:81,n:"Nadia Iskandar",code:"FR-2048",lv:6,to:22,c:"ykan",eg:1,eid:103048,off:[1],start:"2026-09-01",perm:false,tg:"@nadiai"},
+ {id:82,n:"Cahya Siregar",code:"FR-2049",lv:6,to:22,c:"ykan",eg:1,eid:103049,off:[1],start:"2026-02-11",perm:false,tg:"@cahyas"},
+ {id:83,n:"Rahmat Siregar",code:"FR-2050",lv:6,to:23,c:"ykan",eg:1,eid:103050,off:[3],start:"2026-08-25",perm:false,tg:"@rahmats"},
+ {id:84,n:"Nadia Anggraini",code:"FR-2051",lv:6,to:23,c:"ykan",eg:1,eid:103051,off:[4],start:"2026-05-20",perm:false,tg:"@nadiaa"},
+ {id:85,n:"Nurul Santoso",code:"FR-2052",lv:6,to:23,c:"ykan",eg:1,eid:103052,off:[2, 4],start:"2026-06-15",perm:false,tg:""},
+ {id:86,n:"Gita Gunawan",code:"FR-2053",lv:6,to:23,c:"ykan",eg:1,eid:103053,off:[],start:"2026-07-04",perm:false,tg:"@gitag"},
+ {id:87,n:"Endah Pratama",code:"FR-2054",lv:6,to:24,c:"ykan",eg:1,eid:103054,off:[],start:"2026-06-15",perm:false,tg:"@endahp"},
+ {id:88,n:"Indah Siregar",code:"FR-2055",lv:6,to:24,c:"ykan",eg:1,eid:103055,off:[],start:"2026-08-12",perm:true,tg:"@indahs"},
+ {id:89,n:"Rizky Ramadhan",code:"FR-2056",lv:6,to:24,c:"ykan",eg:1,eid:103056,off:[],start:"2026-09-01",perm:false,tg:"@rizkyr"},
+ {id:90,n:"Endah Wibowo",code:"FR-2057",lv:6,to:24,c:"ykan",eg:1,eid:103057,off:[],start:"2026-07-04",perm:true,tg:"@endahw"},
+ {id:91,n:"Indah Fitriani",code:"FR-2058",lv:6,to:26,c:"ykan",eg:1,eid:103058,off:[1, 6],start:"2026-09-01",perm:false,tg:""},
+ {id:92,n:"Rendi Adiputra",code:"FR-2059",lv:6,to:26,c:"ykan",eg:1,eid:103059,off:[4],start:"2026-08-30",perm:false,tg:"@rendia"},
+ {id:93,n:"Zaki Hakim",code:"FR-2060",lv:6,to:26,c:"ykan",eg:1,eid:103060,off:[],start:"2026-08-30",perm:false,tg:"@zakih"},
+ {id:94,n:"Cinta Jayadi",code:"FR-2061",lv:6,to:26,c:"ykan",eg:1,eid:103061,off:[0],start:"2026-08-25",perm:true,tg:"@cintaj"},
+ {id:95,n:"Siti Lesmana",code:"FR-2062",lv:6,to:27,c:"ykan",eg:1,eid:103062,off:[3],start:"2026-06-15",perm:false,tg:"@sitil"},
+ {id:96,n:"Melati Anggraini",code:"FR-2063",lv:6,to:27,c:"ykan",eg:1,eid:103063,off:[0],start:"2026-09-01",perm:false,tg:"@melatia"},
+ {id:97,n:"Tira Kurniawan",code:"FR-2064",lv:6,to:27,c:"ykan",eg:1,eid:103064,off:[1, 3],start:"2026-08-12",perm:false,tg:"@tirak"},
+ {id:98,n:"Rahmat Zulkarnain",code:"FR-2065",lv:6,to:27,c:"ykan",eg:1,eid:103065,off:[3, 6],start:"2026-02-11",perm:false,tg:"@rahmatz"},
+ {id:99,n:"Fitri Maulana",code:"FR-2066",lv:6,to:27,c:"ykan",eg:1,eid:103066,off:[1],start:"2026-07-04",perm:false,tg:"@fitrim"},
+ {id:100,n:"Melati Cahyani",code:"FR-2067",lv:6,to:28,c:"ykan",eg:1,eid:103067,off:[],start:"2026-08-25",perm:false,tg:"@melatic"},
+ {id:101,n:"Ika Wibowo",code:"FR-2068",lv:6,to:28,c:"ykan",eg:1,eid:103068,off:[],start:"2026-07-04",perm:false,tg:"@ikaw"},
+ {id:102,n:"Novi Purnama",code:"FR-2069",lv:6,to:28,c:"ykan",eg:1,eid:103069,off:[1, 5],start:"2026-09-03",perm:false,tg:"@novip"},
+ {id:103,n:"Dinda Pratama",code:"FR-2070",lv:6,to:28,c:"ykan",eg:1,eid:103070,off:[0],start:"2026-09-01",perm:false,tg:"@dindap"},
+ {id:104,n:"Tira Ramadhan",code:"FR-2071",lv:6,to:31,c:"ykan",eg:1,eid:103071,off:[],start:"2026-05-20",perm:false,tg:""},
+ {id:105,n:"Fitri Saputra",code:"FR-2072",lv:6,to:31,c:"ykan",eg:1,eid:103072,off:[],start:"2026-05-20",perm:false,tg:"@fitris"},
+ {id:106,n:"Rifki Pratama",code:"FR-2073",lv:6,to:31,c:"ykan",eg:1,eid:103073,off:[1, 5],start:"2026-05-20",perm:false,tg:""},
+ {id:107,n:"Budi Oktaviani",code:"FR-2074",lv:6,to:31,c:"ykan",eg:1,eid:103074,off:[],start:"2026-09-03",perm:false,tg:"@budio"},
+ {id:108,n:"Oka Anggraini",code:"FR-2075",lv:6,to:31,c:"ykan",eg:1,eid:103075,off:[2],start:"2026-02-11",perm:false,tg:"@okaa"},
+ {id:109,n:"Siti Iskandar",code:"FR-2076",lv:6,to:32,c:"ykan",eg:1,eid:103076,off:[2, 3],start:"2026-02-11",perm:false,tg:"@sitii"},
+ {id:110,n:"Irfan Iskandar",code:"FR-2077",lv:6,to:32,c:"ykan",eg:1,eid:103077,off:[],start:"2025-11-03",perm:false,tg:""},
+ {id:111,n:"Satria Wibowo",code:"FR-2078",lv:6,to:32,c:"ykan",eg:1,eid:103078,off:[1, 4],start:"2026-06-15",perm:false,tg:"@satriaw"},
+ {id:112,n:"Ahmad Maulana",code:"FR-2079",lv:6,to:32,c:"ykan",eg:1,eid:103079,off:[],start:"2026-02-11",perm:false,tg:"@ahmadm"},
+ {id:113,n:"Candra Sihombing",code:"FR-2080",lv:6,to:33,c:"ykan",eg:1,eid:103080,off:[4],start:"2026-08-25",perm:false,tg:"@candras"},
+ {id:114,n:"Surya Nugroho",code:"FR-2081",lv:6,to:33,c:"ykan",eg:0,eid:null,off:[2],start:"2026-06-15",perm:false,tg:"@suryan"},
+ {id:115,n:"Sari Fitriani",code:"FR-2082",lv:6,to:33,c:"ykan",eg:1,eid:103082,off:[0, 5],start:"2026-08-30",perm:false,tg:"@sarif"},
+ {id:116,n:"Bayu Oktaviani",code:"FR-2083",lv:6,to:33,c:"ykan",eg:1,eid:103083,off:[],start:"2026-08-25",perm:false,tg:"@bayuo"}
+];
+let RESIGNED=[], nextId=100, newieN=0;
+const by=id=>P.find(p=>p.id===id);
+const kidsOf=id=>P.filter(p=>p.to===id);
+const teamSize=id=>kidsOf(id).reduce((n,k)=>n+1+teamSize(k.id),0);
+const isDesc=(a,b)=>{let x=by(b);while(x&&x.to!==null){if(x.to===a)return true;x=by(x.to)}return false};
+const TODAY=new Date("2026-09-08");
+const daysHere=p=>p.start?Math.floor((TODAY-new Date(p.start))/864e5):999;
+const isTrainee=p=>p.lv===6&&!p.placeholder&&daysHere(p)<14;   // under two weeks = trainee
+const isLeader=p=>p.lv<=5;                                       // team leader and above
+const rosterable=()=>P.filter(p=>p.lv>=3&&!p.placeholder);       // assistant manager down to fundraiser, real people only
+const fundraisers=rosterable;
+
+/* ======================= TABS ======================= */
+document.querySelectorAll(".tabs button").forEach(b=>b.onclick=()=>{
+  document.querySelectorAll(".tabs button").forEach(x=>x.setAttribute("aria-pressed",x===b));
+  const t=b.dataset.tab;
+  document.getElementById("roster").classList.toggle("hidden",t!=="roster");
+  document.getElementById("daybar").classList.toggle("hidden",t!=="roster");
+  document.getElementById("phone").classList.toggle("hidden",t!=="phone");
+  document.getElementById("team").classList.toggle("hidden",t!=="team");
+  document.getElementById("monthly").classList.toggle("hidden",t!=="monthly");
+  document.getElementById("hdrsub").textContent=t==="team"?"Team structure · Indonesia":t==="monthly"?"September 2026 · Indonesia":"Week 2 — 14–20 Sep 2026 · Jakarta";
+  if(t==="roster")render(); if(t==="team")renderOrg(); if(t==="monthly")renderMonth(); if(t==="phone")renderPhone();
+});
+
+/* ======================= ROSTER ======================= */
+const SITES=[
+ {n:"Grand Indonesia",loc:4021,c:"stc",note:"LOA signed 22 Aug"},
+ {n:"Kota Kasablanka",loc:4033,c:"stc",note:"LOA signed 29 Aug"},
+ {n:"Senayan City",loc:4048,c:"ykan",note:"LOA pending"},
+ {n:"Pondok Indah",loc:4052,c:"ykan",note:"LOA signed 1 Sep"},
+];
+const ABS_TYPES=[
+ {k:"mc",l:"Medical certificate",s:"Certificate uploaded. Counts as MC."},
+ {k:"sick",l:"Sick, no certificate",s:"Unpaid unless a certificate arrives."},
+ {k:"emg",l:"Emergency leave",s:"Reason needed. Manager approves."},
+ {k:"plan",l:"Planned leave",s:"Requested in advance by the fundraiser."},
+ {k:"ns",l:"No-show",s:"Didn't turn up. Feeds performance, not leave."},
+];
+const DAYS=["Mon","Tue","Wed","Thu","Fri","Sat","Sun"], DATES=[14,15,16,17,18,19,20], TIMES={am:"10:00–17:00",pm:"12:00–19:00"};
+let A=[], published=new Set(), ABS=[], locked=new Set(), day=0, picked=null, q="";
+const k=a=>a.pid+"-"+a.s+"-"+a.d+"-"+a.slot;
+const absOn=(pid,d)=>ABS.find(x=>x.pid===pid&&x.d===d);
+const shifts=pid=>A.filter(a=>a.pid===pid).length;
+const offTxt=p=>p.off.length?"off "+p.off.map(d=>DAYS[d]).join(", "):"";
+
+function drawDaybar(){
+  const bar=document.getElementById("daybar"); bar.innerHTML="";
+  DAYS.forEach((d,i)=>{const b=document.createElement("button");
+    b.className="daybtn"+(locked.has(i)?" locked":""); b.setAttribute("aria-pressed",i===day);
+    b.innerHTML=(locked.has(i)?"&#128274; ":"")+"<b>"+d+" "+DATES[i]+"</b><span class='n'>"+A.filter(a=>a.d===i).length+"</span>";
+    b.onclick=()=>{day=i;picked=null;render()}; bar.appendChild(b)});
+  const lb=document.createElement("button"); lb.className="lockbtn"+(locked.has(day)?" on":"");
+  lb.textContent=(locked.has(day)?"Unlock ":"Lock ")+DAYS[day];
+  lb.onclick=()=>{locked.has(day)?locked.delete(day):locked.add(day);render()}; bar.appendChild(lb);
+}
+function drawBoard(){
+  const b=document.getElementById("board"); b.innerHTML="";
+  SITES.forEach((s,si)=>{const sec=document.createElement("section"); sec.className="site";
+    let h='<div class="sitehead">'+s.n+'<span class="camp '+s.c+'">'+CAMPS[s.c].n+'</span><small>'+s.note+' · location '+s.loc+'</small><span class="cnt">'+A.filter(a=>a.s===si).length+' shifts</span></div><table><thead><tr><th></th>';
+    DAYS.forEach((d,i)=>h+='<th class="'+(i===day?"sel":locked.has(i)?"dim":"")+'">'+d+' <small>'+DATES[i]+'</small></th>');
+    h+='</tr></thead><tbody>';
+    ["am","pm"].forEach(slot=>{h+='<tr><th class="slot '+slot+'">'+slot.toUpperCase()+'</th>';
+      DAYS.forEach((_,di)=>h+='<td class="cell '+slot+(di===day?" sel":"")+(locked.has(di)?" lockedcell dim":"")+'" data-s="'+si+'" data-d="'+di+'" data-slot="'+slot+'"><div class="stack"></div></td>');
+      h+='</tr>'});
+    sec.innerHTML=h+'</tbody></table>'; b.appendChild(sec)});
+}
+function poolChip(p,disabled,reason){
+  const el=document.createElement("div");
+  el.className="chip"+(disabled?" out":"")+(picked===p.id?" picked":"")+(isLeader(p)?" lead":""); el.draggable=!disabled; el.tabIndex=disabled?-1:0;
+  el.innerHTML='<span class="nm">'+p.n+'<small>'+p.code+(isLeader(p)?" · "+LEVELS[p.lv]:"")+'</small></span>'+(isTrainee(p)?'<span class="tag new">NEW</span>':'')+
+    (reason?'<span class="meta">'+reason+'</span>':(offTxt(p)?'<span class="meta">'+offTxt(p)+'</span>':''))+'<span class="wk" title="shifts this week">'+shifts(p.id)+'</span>';
+  if(!disabled){
+    el.addEventListener("dragstart",e=>{e.dataTransfer.setData("text/plain",p.id);el.classList.add("dragging")});
+    el.addEventListener("dragend",()=>el.classList.remove("dragging"));
+    el.addEventListener("click",()=>{picked=picked===p.id?null:p.id;render()});
+    el.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();el.click()}});
+  }
+  return el;
+}
+function cellChip(a){
+  const p=by(a.pid), lock=locked.has(a.d);
+  const el=document.createElement("div"); el.className="chip"+(published.has(k(a))?" live":"")+(picked===k(a)?" picked":"")+(isLeader(p)?" lead":""); el.draggable=!lock; el.tabIndex=lock?-1:0;
+  el.innerHTML='<span class="nm">'+p.n+'</span>';
+  if(!lock){
+    el.addEventListener("dragstart",e=>{e.dataTransfer.setData("text/plain",p.id+"|"+k(a));el.classList.add("dragging")});
+    el.addEventListener("dragend",()=>el.classList.remove("dragging"));
+    el.addEventListener("click",e=>{if(e.target.tagName==="BUTTON")return;picked=picked===k(a)?null:k(a);render()});
+    const ab=document.createElement("button"); ab.className="ab"; ab.textContent="ABSENT"; ab.title="Mark absent"; ab.onclick=()=>absenceBox(a);
+    const x=document.createElement("button"); x.className="x"; x.textContent="×"; x.title="Take off this shift"; x.onclick=()=>{A=A.filter(y=>k(y)!==k(a));render()};
+    el.append(ab,x);
+  }
+  return el;
+}
+function render(){
+  drawDaybar(); drawBoard();
+  document.getElementById("poolHead").textContent=(locked.has(day)?"Locked — ":"Available ")+DAYS[day]+" "+DATES[day];
+  const g=document.getElementById("groups"); g.innerHTML=""; const out=document.getElementById("poolOut"); out.innerHTML="";
+  const match=p=>!q||p.n.toLowerCase().includes(q)||p.code.toLowerCase().includes(q);
+  const unavailable=[];
+  ["stc","ykan"].forEach(c=>{
+    const free=fundraisers().filter(p=>p.c===c&&match(p)&&!A.some(a=>a.pid===p.id&&a.d===day)).filter(p=>{
+      if(!p.eg){unavailable.push([p,"no Evergiving ID"]);return false}
+      const ab=absOn(p.id,day); if(ab){unavailable.push([p,ABS_TYPES.find(t=>t.k===ab.t).l.toLowerCase()]);return false}
+      if(p.off.includes(day)){unavailable.push([p,"can't work"]);return false} return true});
+    const wrap=document.createElement("div"); wrap.className="group";
+    wrap.innerHTML='<div class="grouphead '+c+'">'+CAMPS[c].n+'<span>'+free.length+' free</span></div>';
+    const list=document.createElement("div"); list.className="pool-list";
+    free.forEach(p=>list.appendChild(poolChip(p,locked.has(day))));
+    if(!free.length) list.innerHTML='<span class="empty">All rostered for '+DAYS[day]+'.</span>';
+    wrap.appendChild(list); g.appendChild(wrap)});
+  if(unavailable.length){out.insertAdjacentHTML("beforeend",'<p class="subhead">Not available '+DAYS[day]+'</p>');
+    const w=document.createElement("div"); w.className="pool-list"; unavailable.forEach(([p,r])=>w.appendChild(poolChip(p,true,r))); out.appendChild(w)}
+  A.forEach(a=>document.querySelector('.cell[data-s="'+a.s+'"][data-d="'+a.d+'"][data-slot="'+a.slot+'"] .stack').appendChild(cellChip(a)));
+  let noLead=0;
+  document.querySelectorAll(".cell .stack").forEach(st=>{
+    if(st.children.length&&!st.querySelector(".chip.lead")){noLead++;st.insertAdjacentHTML("beforeend",'<span class="nolead">no leader</span>')}});
+  wireCells();
+  const cov=document.getElementById("cov");
+  const under=fundraisers().filter(p=>!isTrainee(p)&&p.eg&&shifts(p.id)<4), six=fundraisers().filter(p=>shifts(p.id)===6), newbies=fundraisers().filter(p=>isTrainee(p));
+  const fmt=list=>list.length?list.map(p=>{const w=p.n.split(" ");return w[0]+(w[1]?" "+w[1][0]+".":"")+" <i>("+shifts(p.id)+")</i>"}).join(", "):"<i>none</i>";
+  cov.innerHTML='<div class="row"><span class="lab">No leader</span><span class="names">'+(noLead?noLead+" shift"+(noLead>1?"s":"")+" have no team leader or above":"<i>every shift has a leader</i>")+'</span></div>'+
+    '<div class="row"><span class="lab">Under 4</span><span class="names">'+fmt(under)+'</span></div><div class="row"><span class="lab">Six shifts</span><span class="names">'+fmt(six)+'</span></div><div class="row"><span class="lab">New starters</span><span class="names">'+fmt(newbies)+'</span></div>';
+  const al=document.getElementById("abslist"); al.innerHTML=""; if(!ABS.length) al.innerHTML='<span class="empty">None this week.</span>';
+  ABS.forEach((x,i)=>{const t=ABS_TYPES.find(t=>t.k===x.t); const d=document.createElement("div");
+    d.innerHTML='<span>'+by(x.pid).n+' — '+DAYS[x.d]+' '+DATES[x.d]+'<small>'+t.l+(x.reason?' · '+x.reason:'')+'</small></span>';
+    const u=document.createElement("button"); u.className="undo"; u.textContent="Undo"; u.onclick=()=>{ABS.splice(i,1);render()}; d.appendChild(u); al.appendChild(d)});
+  const {adds,dels}=pendingLocked();
+  document.getElementById("pubBtn").disabled=!(adds.length||dels.length);
+  document.getElementById("pend").textContent=(adds.length||dels.length)?adds.length+" to add, "+dels.length+" to remove across "+[...locked].map(i=>DAYS[i]).join(", "):(locked.size?"Locked days are up to date.":"No locked days yet.");
+}
+function pendingLocked(){return {adds:A.filter(a=>locked.has(a.d)&&!published.has(k(a))),dels:[...published].filter(key=>locked.has(+key.split("-")[2])&&!A.some(a=>k(a)===key))}}
+function wireCells(){
+  document.querySelectorAll(".cell").forEach(td=>{
+    td.addEventListener("dragover",e=>{e.preventDefault();td.classList.add("over")});
+    td.addEventListener("dragleave",()=>td.classList.remove("over"));
+    td.addEventListener("drop",e=>{e.preventDefault();td.classList.remove("over");assign(e.dataTransfer.getData("text/plain"),td)});
+    td.addEventListener("click",e=>{if(!picked||!(e.target===td||e.target.classList.contains("stack")))return;
+      assign(String(picked).includes("-")?picked.split("-")[0]+"|"+picked:picked,td)});
+  });
+}
+const poolEl=document.querySelector("#roster .pool");
+poolEl.addEventListener("dragover",e=>{e.preventDefault();poolEl.style.outline="2px dashed #16233A"});
+poolEl.addEventListener("dragleave",()=>poolEl.style.outline="");
+poolEl.addEventListener("drop",e=>{e.preventDefault();poolEl.style.outline="";const [,fromKey]=e.dataTransfer.getData("text/plain").split("|");
+  if(!fromKey)return; const a=A.find(x=>k(x)===fromKey); if(!a||locked.has(a.d))return; A=A.filter(x=>x!==a); render()});
+function assign(payload,td){
+  const [pidStr,fromKey]=String(payload).split("|");
+  const pid=+pidStr, p=by(pid), d=+td.dataset.d, s=+td.dataset.s, slot=td.dataset.slot, site=SITES[s];
+  const bounce=(m,sub)=>{td.classList.add("reject");setTimeout(()=>td.classList.remove("reject"),320);log("warn",m,sub)};
+  if(!p||p.lv<3||p.placeholder) return;
+  if(locked.has(d)) return bounce(DAYS[d]+" is locked","Unlock it to make changes.");
+  let moved=null;
+  if(fromKey){moved=A.find(a=>k(a)===fromKey); if(!moved)return; if(moved.s===s&&moved.d===d&&moved.slot===slot)return;
+    if(locked.has(moved.d)) return bounce(DAYS[moved.d]+" is locked","Unlock it before moving people out."); A=A.filter(a=>a!==moved)}
+  const restore=()=>{if(moved)A.push(moved)};
+  if(!p.eg){restore();return bounce(p.n+" has no Evergiving ID yet","Add it in Team structure first.")}
+  if(p.c!==site.c){restore();return bounce(p.n+" isn't accredited for "+CAMPS[site.c].n,site.n+" is a "+CAMPS[site.c].n+" site this week.")}
+  if(absOn(pid,d)){restore();return bounce(p.n+" is absent "+DAYS[d],"Undo the absence first if this was a mistake.")}
+  if(p.off.includes(d)){restore();return bounce(p.n+" can't work "+DAYS[d],"They marked it unavailable for September.")}
+  const clash=A.find(a=>a.pid===pid&&a.d===d);
+  if(clash){restore();return bounce(p.n+" already works "+DAYS[d],SITES[clash.s].n+" "+clash.slot.toUpperCase()+". Drag that shift instead.")}
+  if(shifts(pid)>=6){restore();return bounce("That would be "+p.n+"'s 7th shift","Six is the maximum in a week. Take a day off them first.")}
+  A.push({pid,s,d,slot}); if(d!==day)day=d; picked=null; render();
+}
+function absenceBox(a){
+  const p=by(a.pid); const sc=document.createElement("div"); sc.className="scrim";
+  sc.innerHTML='<div class="modal"><h3>'+p.n+' — '+DAYS[a.d]+' '+DATES[a.d]+' Sep</h3><p class="hint">What kind of absence? This decides what finance sees at month end.</p>'+
+    ABS_TYPES.map((t,i)=>'<label class="opt"><input type="radio" name="t" value="'+t.k+'"'+(i===0?" checked":"")+'><span>'+t.l+'<small>'+t.s+'</small></span></label>').join("")+
+    '<input type="text" id="reason" placeholder="Reason (emergency leave)" class="hidden"><div class="row"><button class="no">Cancel</button><button class="go">Mark absent</button></div></div>';
+  const reason=sc.querySelector("#reason");
+  sc.querySelectorAll("input[name=t]").forEach(r=>r.onchange=()=>reason.classList.toggle("hidden",r.value!=="emg"));
+  sc.querySelector(".no").onclick=()=>sc.remove();
+  sc.querySelector(".go").onclick=()=>{const t=sc.querySelector("input[name=t]:checked").value, wasLive=published.has(k(a));
+    ABS.push({pid:a.pid,d:a.d,t,reason:t==="emg"?reason.value:""}); A=A.filter(x=>k(x)!==k(a)); const tl=ABS_TYPES.find(x=>x.k===t).l;
+    if(wasLive){published.delete(k(a));log("pull",p.n+" — "+tl+", "+DAYS[a.d],"Shift removed. Day logged as "+tl.toLowerCase()+".");log("warn","Evergiving still shows "+p.n+" at "+SITES[a.s].n,"Already published. Needs an update call or a manual removal.")}
+    else log("pull",p.n+" — "+tl+", "+DAYS[a.d],"Not published yet, so Evergiving never sees them.");
+    sc.remove(); render()};
+  document.body.appendChild(sc);
+}
+document.getElementById("pubBtn").onclick=()=>{
+  const {adds,dels}=pendingLocked();
+  const lines=[...adds.map(a=>"Add "+by(a.pid).n+" — "+DAYS[a.d]+" "+a.slot.toUpperCase()+", "+SITES[a.s].n),
+    ...dels.map(key=>{const[pid,s,d,slot]=key.split("-");return "Remove "+by(+pid).n+" — "+DAYS[d]+" "+slot.toUpperCase()+", "+SITES[s].n})];
+  const sc=document.createElement("div"); sc.className="scrim";
+  sc.innerHTML='<div class="modal"><h3>Publish '+lines.length+' change'+(lines.length>1?'s':'')+' for '+[...locked].map(i=>DAYS[i]).join(", ")+'?</h3><p class="hint">Builds one Evergiving team per site per day. Each fundraiser gets a WhatsApp with their own shifts.</p><ul>'+lines.map(l=>"<li>"+l+"</li>").join("")+'</ul><div class="row"><button class="no">Keep editing</button><button class="go">Publish</button></div></div>';
+  sc.querySelector(".no").onclick=()=>sc.remove();
+  sc.querySelector(".go").onclick=()=>{const touched=new Set();
+    adds.forEach(a=>{published.add(k(a));touched.add(a.pid);log("push",by(a.pid).n+" → "+SITES[a.s].n+", "+DAYS[a.d]+" "+a.slot.toUpperCase(),"POST /v1/teams · campaign "+CAMPS[SITES[a.s].c].id+" · location "+SITES[a.s].loc+" · user "+by(a.pid).eid)});
+    dels.forEach(key=>{published.delete(key);const[pid,s,d]=key.split("-");touched.add(+pid);log("pull","Removed "+by(+pid).n+" from "+SITES[s].n+", "+DAYS[d],"Team rebuilt without them.")});
+    const pid=[...touched][0], p=by(pid), mine=A.filter(a=>a.pid===pid&&published.has(k(a))).sort((x,y)=>x.d-y.d);
+    document.getElementById("msgs").innerHTML='<div class="msg"><b>WhatsApp → '+p.n.split(" ")[0]+'</b>Halo '+p.n.split(" ")[0]+' — your shifts are confirmed:\n'+(mine.length?mine.map(a=>DAYS[a.d]+" "+DATES[a.d]+" · "+SITES[a.s].n+" · "+a.slot.toUpperCase()+" "+TIMES[a.slot]).join("\n"):"No shifts this week.")+'\nTap to see details: popcorn.omniraise.com/me</div>';
+    sc.remove(); render()};
+  document.body.appendChild(sc);
+};
+function log(kind,title,sub){const f=document.getElementById("feed");if(f.querySelector(".empty"))f.innerHTML="";const d=document.createElement("div");d.className=kind;d.innerHTML="<b>"+title+"</b>"+(sub?"<em>"+sub+"</em>":"");f.prepend(d)}
+document.getElementById("q").oninput=e=>{q=e.target.value.trim().toLowerCase();render()};
+
+/* ======================= PHONE (fundraiser app) ======================= */
+let ME=null, showAll=false, SUBMITTED={};
+const NEXTMON="September", NM_DAYS=30, NM_START=2;    // 1 Sep 2026 is a Tuesday (0=Mon)
+const ndow=d=>(NM_START+d-1)%7;
+const OFFD={};                                        // pid -> [dates in October they cannot work]
+const offOf=p=>(OFFD[p.id]=OFFD[p.id]||[]);
+const DEADLINE="25 August";
+const REQ=[];
+const RTYPES=[
+ {k:"off", l:"Just an off day",             ic:"\u{1F6CB}\uFE0F", note:"No reason needed. Your manager decides."},
+ {k:"plan",l:"Planned leave",               ic:"\u{1F4C5}", note:"Wedding, family event, something booked."},
+ {k:"emg", l:"Emergency",                   ic:"\u26A0\uFE0F", note:"Something happened and you can't come."},
+ {k:"mc",  l:"Sick — I have a certificate", ic:"\u{1FA7A}", note:"You'll add a photo of the certificate."},
+ {k:"sick",l:"Sick — no certificate",       ic:"\u{1F912}", note:"May be unpaid."}];
+const MON="September";
+function phInit(){
+  const sel=document.getElementById("whoami");
+  sel.innerHTML=P.filter(p=>p.lv===6&&!p.placeholder).slice(0,40).map(p=>'<option value="'+p.id+'">'+p.n+'</option>').join("");
+  ME=by(+sel.value); sel.onchange=()=>{ME=by(+sel.value);showAll=false;renderPhone()};
+  document.getElementById("aftercut").onchange=renderPhone;
+}
+const closed=()=>document.getElementById("aftercut").checked;
+const myReq=d=>REQ.find(r=>r.pid===ME.id&&r.days.includes(d)&&r.status!=="declined");
+const dayName=["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
+function renderPhone(){
+  if(!ME)return;
+  const app=document.getElementById("pApp");
+  const mine=A.filter(a=>a.pid===ME.id).sort((x,y)=>x.d-y.d);
+  const next=mine[0];
+  let h='<div class="pbar"><b>'+ME.n.split(" ")[0]+'</b><span>'+CAMPS[ME.c].n+'</span></div>';
+
+  /* --- next shift --- */
+  if(next){
+    h+='<div class="nextshift '+next.slot+'"><span class="lbl">YOUR NEXT SHIFT · THIS WEEK</span>'+
+       '<b>'+dayName[next.d]+' '+DATES[next.d]+' '+MON.slice(0,3)+'</b>'+
+       '<div class="place">'+SITES[next.s].n+'</div>'+
+       '<div class="time">'+TIMES[next.slot]+'</div>'+
+       (published.has(k(next))?'':'<div class="notyet">Not confirmed yet</div>')+'</div>';
+    if(mine.length>1) h+='<button class="linkbtn" id="seeall">'+(showAll?"Hide":"See all "+mine.length+" shifts")+'</button>';
+    if(showAll) h+='<div class="allshifts">'+mine.map(a=>'<div class="li '+a.slot+'">'+
+      '<b>'+DAYS[a.d]+' '+DATES[a.d]+'</b><span>'+SITES[a.s].n+'</span><i>'+TIMES[a.slot]+'</i></div>').join("")+'</div>';
+  } else {
+    h+='<div class="nextshift none"><span class="lbl">YOUR NEXT SHIFT · THIS WEEK</span><b>Nothing yet</b>'+
+       '<div class="place">'+by(ME.to).n.split(" ")[0]+' will confirm your shifts and send you a WhatsApp.</div></div>';
+  }
+
+  /* --- one calendar: NEXT month availability --- */
+  const off=offOf(ME), sent=SUBMITTED[ME.id];
+  h+='<div class="calhead"><b>'+(closed()?"Need a day off in "+NEXTMON+"?":"Tap the days you can\'t work")+'</b>'+
+     '<span>'+NEXTMON+' 2026'+(closed()?' · roster is closed, so we\'ll ask '+by(ME.to).n.split(" ")[0]
+       :' · you can change this until '+DEADLINE)+'</span></div><div class="bigcal">';
+  ["M","T","W","T","F","S","S"].forEach(x=>h+='<div class="dow">'+x+'</div>');
+  for(let i=0;i<NM_START;i++)h+='<div></div>';
+  for(let d=1;d<=NM_DAYS;d++){
+    const r=myReq(d), isOff=off.includes(d), wknd=ndow(d)>4;
+    const cls=r?(r.status==="pending"?"pend":"appr"):isOff?"off":wknd?"wk":"";
+    h+='<button class="bday '+cls+'" data-d="'+d+'"><span>'+d+'</span>'+
+       (r&&r.status==="pending"?'<i class="dot clock">\u23F1</i>':'')+'</button>';
+  }
+  h+='</div>';
+
+  /* --- weekend rule + confirmation --- */
+  const wkDays=[];for(let d=1;d<=NM_DAYS;d++)if(ndow(d)>4)wkDays.push(d);
+  const wkFree=wkDays.filter(d=>!off.includes(d)).length;
+  const canWork=NM_DAYS-off.length;
+  const pend=REQ.filter(r=>r.pid===ME.id&&r.status==="pending"), appr=REQ.filter(r=>r.pid===ME.id&&r.status==="approved");
+  h+='<div class="says">';
+  if(!closed()){
+    h+='<div class="say plain">You can work <b>'+canWork+' of '+NM_DAYS+' days</b>. Every day you don\'t tap counts as available.</div>';
+    if(off.length) h+='<div class="say ok">You can\'t work '+listDays(off)+'.</div>';
+    if(wkFree===0) h+='<div class="say stop">You need to be free on at least one weekend day. Untap a Saturday or Sunday.</div>';
+    else if(wkFree<2) h+='<div class="say wait">Only '+wkFree+' weekend day free. Most weekends are our busiest sites.</div>';
+  }
+  h+=pend.map(r=>'<div class="say wait">Sent to '+r.to+(r.hr?' and HR':'')+' for '+listDays(r.days)+'. '+
+        (r.hr?'More than 2 days in a row needs HR.':'You\'ll get a WhatsApp when they reply.')+'</div>').join("")+
+     appr.map(r=>'<div class="say done">Leave approved for '+listDays(r.days)+'.</div>').join("")+'</div>';
+  if(!closed()) h+='<div class="sendwrap"><button class="bigsend" id="psend"'+(wkFree===0?" disabled":"")+'>'+
+     (sent?"Update my "+NEXTMON+" days":"Send my "+NEXTMON+" days")+'</button>'+
+     (sent?'<div class="sentnote">Sent '+sent+'. You can change it until '+DEADLINE+'.</div>':'')+'</div>';
+  const st=mstats(ME);
+  h+='<div class="minifoot">'+MON+' so far · '+st.worked+' days worked'+(st.mc?' · '+st.mc+' MC':'')+(st.leave?' · '+st.leave+' leave':'')+'</div>';
+  app.innerHTML=h;
+  const sa=document.getElementById("seeall"); if(sa)sa.onclick=()=>{showAll=!showAll;renderPhone()};
+  const ps=document.getElementById("psend"); if(ps)ps.onclick=()=>{SUBMITTED[ME.id]="20 Aug";renderPhone()};
+  app.querySelectorAll(".bday").forEach(b=>b.onclick=()=>dayTap(+b.dataset.d));
+}
+function listDays(a){const m=NEXTMON.slice(0,3);
+  return a.length===1?a[0]+" "+m:a.slice(0,-1).join(", ")+" and "+a[a.length-1]+" "+m}
+function dayTap(d){
+  if(!closed()){
+    const off=offOf(ME), i=off.indexOf(d);
+    i<0?off.push(d):off.splice(i,1); off.sort((a,b)=>a-b); renderPhone(); return;
+  }
+  const r=myReq(d);
+  if(r){ if(r.status==="pending"&&confirmish("Cancel this request for "+listDays(r.days)+"?")){
+      REQ.splice(REQ.indexOf(r),1); renderPhone(); renderApprovals()} return }
+  leaveSheet(d);
+}
+function confirmish(q){return window.confirm?window.confirm(q):true}
+function leaveSheet(d){
+  const rostered=null;
+  const sc=document.createElement("div"); sc.className="scrim sheetwrap";
+  sc.innerHTML='<div class="sheet2">'+
+    '<div class="grab"></div>'+
+    '<h3>'+dayName[ndow(d)]+' '+d+' '+NEXTMON.slice(0,3)+'</h3>'+
+    '<p class="sub">The '+NEXTMON+' roster is already closed.</p>'+
+    '<p class="q">Why can\'t you work?</p>'+
+    '<div class="reasons">'+RTYPES.map(t=>'<button class="reason" data-k="'+t.k+'"><i>'+t.ic+'</i><span>'+t.l+
+      (t.note?'<small>'+t.note+'</small>':'')+'</span></button>').join("")+'</div>'+
+    '<div id="step2" class="hidden">'+
+      '<p class="q">How many days?</p><div class="daysel">'+[1,2,3,4,5].map(n=>'<button class="nbtn'+(n===1?" on":"")+'" data-n="'+n+'">'+n+'</button>').join("")+'</div>'+
+      '<div id="certrow" class="hidden"><button class="photo">\u{1F4F7}  Take a photo of your certificate</button></div>'+
+      '<textarea id="why" rows="2" placeholder="Tell your manager why (optional)"></textarea>'+
+      '<button class="bigsend" id="sendreq"></button>'+
+      '<button class="cancel2">Cancel</button>'+
+    '</div>'+
+    '<button class="cancel2" id="c1">Cancel</button></div>';
+  let type=null, n=1;
+  const step2=sc.querySelector("#step2"), send=sc.querySelector("#sendreq");
+  const upd=()=>{const hr=n>2;
+    sc.querySelector("#certrow").classList.toggle("hidden",type!=="mc");
+    send.textContent=(hr?"Send to "+by(ME.to).n.split(" ")[0]+" and HR":"Send to "+by(ME.to).n.split(" ")[0])+
+      " · "+n+" day"+(n>1?"s":"")};
+  sc.querySelectorAll(".reason").forEach(b=>b.onclick=()=>{
+    type=b.dataset.k; sc.querySelectorAll(".reason").forEach(x=>x.classList.toggle("on",x===b));
+    step2.classList.remove("hidden"); sc.querySelector("#c1").classList.add("hidden"); upd()});
+  sc.querySelectorAll(".nbtn").forEach(b=>b.onclick=()=>{
+    n=+b.dataset.n; sc.querySelectorAll(".nbtn").forEach(x=>x.classList.toggle("on",x===b)); upd()});
+  sc.querySelectorAll(".cancel2, #c1").forEach(b=>b.onclick=()=>sc.remove());
+  send.onclick=()=>{
+    const ds=[]; for(let i=0;i<n&&d+i<=NM_DAYS;i++)ds.push(d+i);
+    REQ.push({id:Date.now(),pid:ME.id,days:ds,type,reason:sc.querySelector("#why").value.trim(),
+      status:"pending",to:by(ME.to).n.split(" ")[0],hr:n>2,sent:"20 Aug"});
+    sc.remove(); renderPhone(); renderApprovals()};
+  document.body.appendChild(sc);
+}
+/* ---- approvals list for the manager (roster side panel) ---- */
+function renderApprovals(){
+  const el=document.getElementById("appr"); if(!el)return;
+  const pend=REQ.filter(r=>r.status==="pending");
+  el.innerHTML=pend.length?pend.map(r=>{const p=by(r.pid);
+    return '<div class="apr"><b>'+p.n+'</b><span>'+r.days.join(", ")+' Sep · '+RTYPES.find(t=>t.k===r.type).l+
+      (r.hr?' · <i class="hrflag">HR too</i>':'')+'</span>'+(r.reason?'<i>"'+r.reason+'"</i>':'')+
+      '<div class="aprrow"><button class="undo" data-no="'+r.id+'">Decline</button><button class="apbtn" data-yes="'+r.id+'">Approve</button></div></div>'}).join("")
+    :'<span class="empty">No requests waiting.</span>';
+  el.querySelectorAll("[data-yes]").forEach(b=>b.onclick=()=>{
+    const r=REQ.find(x=>x.id==b.dataset.yes); r.status="approved"; const p=by(r.pid);
+    r.days.forEach(dd=>{const di=DATES.indexOf(dd); if(di<0)return;
+      const a=A.find(x=>x.pid===r.pid&&x.d===di);
+      if(a){const live=published.has(k(a)); A=A.filter(x=>x!==a); if(live){published.delete(k(a));
+        log("warn","Evergiving still shows "+p.n+" at "+SITES[a.s].n,"Leave approved after publishing. Needs removing there.")}}
+      ABS.push({pid:r.pid,d:di,t:r.type==="plan"?"plan":r.type,reason:r.reason})});
+    log("pull",p.n+" — leave approved, "+r.days.join(", ")+" Sep",RTYPES.find(t=>t.k===r.type).l+". Shifts released.");
+    renderApprovals(); render(); renderPhone();
+  });
+  el.querySelectorAll("[data-no]").forEach(b=>b.onclick=()=>{
+    const r=REQ.find(x=>x.id==b.dataset.no); r.status="declined";
+    log("warn",by(r.pid).n+" — leave declined","They keep their shifts. They get a WhatsApp.");
+    renderApprovals(); renderPhone();
+  });
+}
+/* ======================= TEAM STRUCTURE (org grid) ======================= */
+let tq="";
+const tmatch=p=>!tq||p.n.toLowerCase().includes(tq)||p.code.toLowerCase().includes(tq);
+// leaf columns = people at levels 1–5 with no non-fundraiser reports. A leader with sub-leaders AND direct fundraisers gets one extra "direct" column.
+const directFR=id=>kidsOf(id).filter(k=>k.lv===6);
+function width(p){const mgrs=kidsOf(p.id).filter(k=>k.lv<6); return mgrs.length?mgrs.reduce((n,k)=>n+width(k),0)+(directFR(p.id).length?1:0):1}
+function layout(){
+  const cells=[]; // {p, col, span} for boxes; {leaf, col} for fundraiser columns
+  let col=0;
+  function place(p){
+    const w=width(p); cells.push({p,col,span:w});
+    const mgrs=kidsOf(p.id).filter(k=>k.lv<6).sort((a,b)=>a.c===b.c?a.n.localeCompare(b.n):(a.c==="stc"?-1:1));
+    if(mgrs.length){mgrs.forEach(place); if(directFR(p.id).length){cells.push({leaf:p,col,direct:true});col++}}
+    else {cells.push({leaf:p,col});col++}
+  }
+  P.filter(p=>p.to===null&&p.lv===0).forEach(place);
+  return {cells,cols:col};
+}
+const intake=()=>P.filter(p=>p.placeholder&&p.to===null);
+function renderOrg(){
+  const org=document.getElementById("org"); org.innerHTML="";
+  const {cells,cols}=layout();
+  org.style.gridTemplateColumns="auto repeat("+(cols+1)+", minmax(150px, 1fr))";
+  LEVELS.forEach((l,i)=>{const lab=document.createElement("div");lab.className="rowlab";lab.textContent=l;lab.style.gridRow=i+1;lab.style.gridColumn=1;org.appendChild(lab)});
+  // boxes
+  cells.filter(c=>c.p).forEach(c=>{
+    const p=c.p, el=document.createElement("div");
+    el.className="box l"+p.lv+(p.c?" "+p.c:"")+(tmatch(p)?"":" dim"); el.draggable=p.lv!==0; el.tabIndex=0;
+    el.style.gridRow=p.lv+1; el.style.gridColumn=(c.col+2)+" / span "+c.span;
+    const size=teamSize(p.id);
+    el.innerHTML='<span class="nm">'+p.n+(size?'<span class="cnt">'+size+'</span>':'')+'</span><span class="code">'+p.code+'</span>';
+    el.onclick=()=>editBox(p);
+    wireOrgDrag(el,p,(movingId)=>reassign(movingId,p.id,el));
+    org.appendChild(el);
+  });
+  // gap fillers: for every fundraiser column, fill the rows between its leader and the fundraiser row
+  cells.filter(c=>c.leaf).forEach(c=>{
+    for(let r=c.leaf.lv+1;r<6;r++){const g=document.createElement("div");g.className="gap"+(c.direct?" direct":"");g.style.gridRow=r+1;g.style.gridColumn=c.col+2;
+      if(c.direct&&r===c.leaf.lv+1)g.innerHTML='<span class="code" style="padding:4px 8px;display:block">direct to '+c.leaf.n.split(" ")[0]+'</span>';
+      g.addEventListener("dragover",e=>{e.preventDefault();g.classList.add("over")});g.addEventListener("dragleave",()=>g.classList.remove("over"));
+      g.addEventListener("drop",e=>{e.preventDefault();g.classList.remove("over");reassign(+e.dataTransfer.getData("text/plain"),c.leaf.id,g)}); org.appendChild(g)}
+  });
+  // fundraiser columns
+  function frCard(p){
+    const f=document.createElement("div"); f.className="fr"+(tmatch(p)?"":" dim")+(p.placeholder?" ph":""); f.draggable=true; f.tabIndex=0;
+    f.innerHTML='<span class="nm">'+p.n+'</span>'+(p.placeholder?'<span class="tag new">PLANNED</span>':'')+(!p.eg&&!p.placeholder?'<span class="tag noeg">no EG ID</span>':'')+'<span class="code">'+p.code+'</span>';
+    f.onclick=()=>p.placeholder?personForm(p):editBox(p);
+    f.addEventListener("dragstart",e=>{e.dataTransfer.setData("text/plain",p.id);f.classList.add("dragging")});
+    f.addEventListener("dragend",()=>f.classList.remove("dragging"));
+    return f;
+  }
+  cells.filter(c=>c.leaf).forEach(c=>{
+    const col=document.createElement("div"); col.className="frcol"; col.style.gridRow=7; col.style.gridColumn=c.col+2;
+    const all=directFR(c.leaf.id).sort((a,b)=>a.n.localeCompare(b.n));
+    const regular=all.filter(p=>!isTrainee(p)&&!p.placeholder), trainees=all.filter(p=>isTrainee(p)||p.placeholder);
+    regular.forEach(p=>col.appendChild(frCard(p)));
+    if(!regular.length) col.insertAdjacentHTML("beforeend",'<span class="empty" style="padding:6px">No fundraisers yet</span>');
+    col.insertAdjacentHTML("beforeend",'<div class="trainhead">Trainees · '+trainees.length+'</div>');
+    trainees.forEach(p=>col.appendChild(frCard(p)));
+    col.addEventListener("dragover",e=>{e.preventDefault();col.classList.add("over")});
+    col.addEventListener("dragleave",()=>col.classList.remove("over"));
+    col.addEventListener("drop",e=>{e.preventDefault();col.classList.remove("over");reassign(+e.dataTransfer.getData("text/plain"),c.leaf.id,col)});
+    org.appendChild(col);
+  });
+  // intake column (unassigned newies) — header is the Create newie button
+  const ih=document.createElement("button"); ih.className="box intake newiebtn"; ih.style.gridRow=6; ih.style.gridColumn=cols+2;
+  ih.innerHTML='<span class="nm">＋ Create newie<span class="cnt">'+intake().length+' waiting</span></span><span class="code">then drag into a team</span>';
+  ih.onclick=()=>{newieN++;P.push({id:nextId++,n:"Newie "+newieN,code:"PLAN-"+String(newieN).padStart(2,"0"),lv:6,to:null,c:null,eg:0,eid:null,off:[],placeholder:true});renderOrg()};
+  org.appendChild(ih);
+  const ic=document.createElement("div"); ic.className="frcol intake"; ic.style.gridRow=7; ic.style.gridColumn=cols+2;
+  intake().forEach(p=>ic.appendChild(frCard(p)));
+  if(!ic.children.length) ic.innerHTML='<span class="empty" style="padding:6px">Newies appear here</span>';
+  ic.addEventListener("dragover",e=>{e.preventDefault();ic.classList.add("over")});
+  ic.addEventListener("dragleave",()=>ic.classList.remove("over"));
+  ic.addEventListener("drop",e=>{e.preventDefault();ic.classList.remove("over");const p=by(+e.dataTransfer.getData("text/plain"));
+    if(p&&p.placeholder){const from=by(p.to);p.to=null;p.c=null;tlog("ok",p.n+" back in intake",from?"Was under "+from.n+".":"");renderOrg()}});
+  org.appendChild(ic);
+  // bin + stats
+  const bl=document.getElementById("binlist"); bl.innerHTML="";
+  RESIGNED.forEach((r,i)=>{const d=document.createElement("div");
+    d.innerHTML='<span>'+r.p.n+'<small>'+LEVELS[r.p.lv]+' · '+r.why.toLowerCase()+' · last day '+r.last+'</small></span>';
+    const u=document.createElement("button");u.className="undo";u.textContent="Undo";u.onclick=()=>{RESIGNED.splice(i,1);P.push(r.p);tlog("ok",r.p.n+" reinstated","Back under "+by(r.p.to).n+".");renderOrg()};d.appendChild(u);bl.appendChild(d)});
+  const st=document.getElementById("stats");
+  const real=P.filter(p=>!p.placeholder), plan=P.filter(p=>p.placeholder);
+  const col=c=>{const r=real.filter(p=>p.c===c);return{
+    total:r.length, lead:r.filter(p=>isLeader(p)).length, fr:r.filter(p=>p.lv===6).length,
+    trainee:r.filter(p=>p.lv===6&&isTrainee(p)).length, noeg:r.filter(p=>p.lv===6&&!p.eg).length,
+    plan:plan.filter(p=>p.c===c).length}};
+  const S=col("stc"), Y=col("ykan"), U=plan.filter(p=>!p.c).length;
+  const ratio=x=>x.lead?(x.fr/x.lead).toFixed(1):"–";
+  st.innerHTML=
+    '<div class="big"><div class="bigcell stc"><b>'+S.total+'</b><span>STC</span>'+(S.plan?'<i>+'+S.plan+' planned</i>':'')+'</div>'+
+    '<div class="bigcell ykan"><b>'+Y.total+'</b><span>YKAN</span>'+(Y.plan?'<i>+'+Y.plan+' planned</i>':'')+'</div>'+
+    '<div class="bigcell all"><b>'+real.length+'</b><span>Indonesia</span>'+(plan.length?'<i>+'+plan.length+' planned</i>':'')+'</div></div>'+
+    '<table class="hc"><tr><th></th><th>STC</th><th>YKAN</th><th>All</th></tr>'+
+    '<tr><td>Leaders</td><td>'+S.lead+'</td><td>'+Y.lead+'</td><td>'+(S.lead+Y.lead)+'</td></tr>'+
+    '<tr><td>Fundraisers</td><td>'+S.fr+'</td><td>'+Y.fr+'</td><td>'+(S.fr+Y.fr)+'</td></tr>'+
+    '<tr><td>Trainees <i>(under 2 weeks)</i></td><td>'+S.trainee+'</td><td>'+Y.trainee+'</td><td>'+(S.trainee+Y.trainee)+'</td></tr>'+
+    '<tr><td>Newies planned</td><td>'+S.plan+'</td><td>'+Y.plan+'</td><td>'+plan.length+'</td></tr>'+
+    '<tr class="rule"><td>Fundraisers per leader</td><td>'+ratio(S)+'</td><td>'+ratio(Y)+'</td><td>'+ratio({lead:S.lead+Y.lead,fr:S.fr+Y.fr})+'</td></tr>'+
+    (U?'<tr class="flagrow"><td>Newies not placed</td><td colspan="3">'+U+'</td></tr>':'')+'</table>'+
+    '<div class="byrole"><div class="rh"><span>By role</span><b>STC</b><b>YKAN</b></div>'+LEVELS.map((l,i)=>{const r=real.filter(p=>p.lv===i);if(!r.length||i===0)return"";
+      return '<div><span>'+l+'</span><b>'+r.filter(p=>p.c==="stc").length+'</b><b>'+r.filter(p=>p.c==="ykan").length+'</b></div>'}).join("")+
+      '<div class="rt"><span>Total</span><b>'+S.total+'</b><b>'+Y.total+'</b></div></div>';
+}
+function wireOrgDrag(el,p,onDropHere){
+  if(p.lv!==0){el.addEventListener("dragstart",e=>{e.dataTransfer.setData("text/plain",p.id);el.classList.add("dragging")});el.addEventListener("dragend",()=>el.classList.remove("dragging"))}
+  el.addEventListener("dragover",e=>{e.preventDefault();el.classList.add("over")});
+  el.addEventListener("dragleave",()=>el.classList.remove("over"));
+  el.addEventListener("drop",e=>{e.preventDefault();e.stopPropagation();el.classList.remove("over");onDropHere(+e.dataTransfer.getData("text/plain"))});
+}
+function tbounce(el,m,sub){el.classList.add("reject");setTimeout(()=>el.classList.remove("reject"),320);tlog("warn",m,sub)}
+function reassign(movingId,targetId,el){
+  const m=by(movingId), t=by(targetId); if(!m||!t||m.id===t.id||m.lv===0)return;
+  if(t.lv>=m.lv) return tbounce(el,LEVELS[t.lv]+" can't manage a "+LEVELS[m.lv].toLowerCase(),"Drop them on someone more senior, or change their role first.");
+  if(isDesc(m.id,t.id)) return tbounce(el,"That's inside "+m.n+"'s own team","");
+  if(m.to===t.id) return;
+  const from=by(m.to); m.to=t.id;
+  if(m.placeholder){m.c=t.c;tlog("ok",m.n+" planned under "+t.n,"Counts as +1 "+(t.c?CAMPS[t.c].n:"")+" in the projection. Click the name when they're hired.");renderOrg();return}
+  if(t.c&&m.c!==t.c) tlog("warn",m.n+" moved into a "+CAMPS[t.c].n+" team","Their campaign is still "+(m.c?CAMPS[m.c].n:"unset")+". Retrain and update it, or they can't be rostered on "+CAMPS[t.c].n+" sites.");
+  tlog("ok",m.n+" now reports to "+t.n,(from?"Was under "+from.n+". ":"")+(teamSize(m.id)?teamSize(m.id)+" people moved with them.":""));
+  renderOrg();
+}
+function editBox(p){
+  if(p.lv===0)return;
+  const sc=document.createElement("div"); sc.className="scrim";
+  sc.innerHTML='<div class="modal"><h3>'+p.n+' <span class="code" style="font-weight:400;color:var(--ink-soft);font-size:12px">'+p.code+'</span></h3>'+
+    '<div class="two"><label>Role<select id="lv">'+LEVELS.map((l,i)=>i?'<option value="'+i+'"'+(i===p.lv?" selected":"")+'>'+l+'</option>':'').join("")+'</select></label>'+
+    '<label>Campaign<select id="c"><option value="stc"'+(p.c==="stc"?" selected":"")+'>STC</option><option value="ykan"'+(p.c==="ykan"?" selected":"")+'>YKAN</option></select></label></div>'+
+    '<label>Reports to<select id="to">'+P.filter(x=>x.lv<p.lv&&x.id!==p.id).sort((a,b)=>a.lv-b.lv).map(x=>'<option value="'+x.id+'"'+(x.id===p.to?" selected":"")+'>'+x.n+' — '+LEVELS[x.lv]+'</option>').join("")+'</select></label>'+
+    (p.lv>=3?'<label>Evergiving user ID<input id="eid" value="'+(p.eid||"")+'" placeholder="Blank = not yet created"></label>':'')+
+    '<div class="row"><button class="no">Cancel</button><button class="go">Save</button></div></div>';
+  sc.querySelector(".no").onclick=()=>sc.remove();
+  sc.querySelector(".go").onclick=()=>{
+    const lv=+sc.querySelector("#lv").value, c=sc.querySelector("#c").value, to=+sc.querySelector("#to").value;
+    const boss=by(to); if(boss.lv>=lv){tlog("warn",p.n+" can't be "+LEVELS[lv]+" under "+boss.n,"Pick a more senior manager.");return}
+    const tooJunior=kidsOf(p.id).filter(k=>k.lv<=lv&&k.lv<6);
+    if(tooJunior.length){tooJunior.forEach(k=>k.to=to);tlog("ok",tooJunior.map(k=>k.n.split(" ")[0]).join(", ")+" moved up to "+boss.n,"They can't report to a "+LEVELS[lv].toLowerCase()+". Drag them elsewhere if that's wrong.")}
+    const changes=[]; if(lv!==p.lv)changes.push(LEVELS[p.lv]+" → "+LEVELS[lv]); if(c!==p.c)changes.push("now on "+CAMPS[c].n); if(to!==p.to)changes.push("reports to "+boss.n);
+    p.lv=lv; p.c=c; p.to=to; if(lv>=3&&sc.querySelector("#eid")){const v=sc.querySelector("#eid").value.trim(); p.eid=v?+v:null; p.eg=v?1:0; p.off=p.off||[]; if(v&&!changes.includes("x"))changes.push("Evergiving ID set")}
+    if(changes.length)tlog("ok",p.n+": "+changes.join(", "),"Takes effect from the next roster week.");
+    sc.remove(); renderOrg()};
+  document.body.appendChild(sc);
+}
+const bin=document.getElementById("bin");
+bin.addEventListener("dragover",e=>{e.preventDefault();bin.classList.add("over")});
+bin.addEventListener("dragleave",()=>bin.classList.remove("over"));
+bin.addEventListener("drop",e=>{
+  e.preventDefault(); bin.classList.remove("over");
+  const p=by(+e.dataTransfer.getData("text/plain")); if(!p||p.lv===0)return;
+  const kids=kidsOf(p.id); const sc=document.createElement("div"); sc.className="scrim";
+  sc.innerHTML='<div class="modal"><h3>'+p.n+' is leaving</h3><label>Last working day<input type="date" id="last" value="2026-09-30"></label>'+
+    '<label>Reason<select id="why"><option>Resigned</option><option>Terminated</option><option>Contract ended</option><option>Did not pass probation</option></select></label>'+
+    (kids.length?'<label>'+kids.length+' people report to '+p.n.split(" ")[0]+' — who takes them?<select id="heir">'+P.filter(x=>x.lv<p.lv&&x.id!==p.id).map(x=>'<option value="'+x.id+'"'+(x.id===p.to?" selected":"")+'>'+x.n+' ('+LEVELS[x.lv]+')</option>').join("")+'</select></label>':'')+
+    '<div class="note">On the last day: Evergiving login retired, future shifts removed from the roster, WhatsApp login switched off. Name stays in the reports.</div>'+
+    '<div class="row"><button class="no">Cancel</button><button class="danger">Confirm</button></div></div>';
+  sc.querySelector(".no").onclick=()=>sc.remove();
+  sc.querySelector(".danger").onclick=()=>{const last=sc.querySelector("#last").value, why=sc.querySelector("#why").value, heir=kids.length?+sc.querySelector("#heir").value:null;
+    if(heir){kids.forEach(k=>k.to=heir);tlog("ok",kids.length+" people moved to "+by(heir).n,"From "+p.n+"'s team.")}
+    P=P.filter(x=>x.id!==p.id); A=A.filter(a=>a.pid!==p.id); RESIGNED.unshift({p,last,why});
+    tlog("pull",p.n+" — "+why.toLowerCase()+", last day "+last,p.eid?"DELETE /v1/users/"+p.eid+" queued for that date.":"No Evergiving user to retire.");
+    sc.remove(); renderOrg()};
+  document.body.appendChild(sc);
+});
+function personForm(existing){
+  const sc=document.createElement("div"); sc.className="scrim";
+  const to0=existing&&existing.to?existing.to:10, c0=existing&&existing.c?existing.c:"stc";
+  sc.innerHTML='<div class="modal"><h3>'+(existing?"Hire for "+existing.n:"Add a person")+'</h3><p class="hint">Filled in by HR or the manager on day one. The fundraiser fills in nothing here.</p>'+
+    '<label>Full name<input id="fn" placeholder="As on their KTP"></label><div class="two"><label>Staff code<input id="code" placeholder="FR-2231"></label><label>WhatsApp number<input id="ph" placeholder="0812 …"></label></div>'+
+    '<div class="two"><label>Role<select id="lv">'+LEVELS.map((l,i)=>i?'<option value="'+i+'"'+(i===6?" selected":"")+'>'+l+'</option>':'').join("")+'</select></label><label>Campaign trained on<select id="c"><option value="stc"'+(c0==="stc"?" selected":"")+'>STC</option><option value="ykan"'+(c0==="ykan"?" selected":"")+'>YKAN</option></select></label></div>'+
+    '<label>Reports to<select id="to">'+P.filter(x=>x.lv<6&&!x.placeholder).sort((a,b)=>a.lv-b.lv).map(x=>'<option value="'+x.id+'"'+(x.id===to0?" selected":"")+'>'+x.n+' — '+LEVELS[x.lv]+'</option>').join("")+'</select></label>'+
+    '<div class="two"><label>Contract<select><option>Independent contractor</option><option>PKWT</option><option>PKWTT</option></select></label><label>Start date<input type="date" value="2026-09-08"></label></div>'+
+    '<label>KTP number <i class="hronly">HR only · encrypted · masked for everyone else</i><input id="ktp" placeholder="Leave blank if HR Easily already holds it"></label>'+
+    '<label>Evergiving user ID<input id="eid" placeholder="Leave blank to create via API"></label>'+
+    '<div class="note">On save: WhatsApp with their login link goes out, and they appear in the roster panel once an Evergiving ID exists. KTP and bank details stay in HR\'s system — not here.</div>'+
+    '<div class="row"><button class="no">Cancel</button><button class="go">Save and send invite</button></div></div>';
+  sc.querySelector(".no").onclick=()=>sc.remove();
+  sc.querySelector(".go").onclick=()=>{const eid=sc.querySelector("#eid").value.trim(), ktp=sc.querySelector("#ktp").value.replace(/\s/g,"");
+    const p=existing||{id:nextId++}; P.includes(p)||P.push(p);
+    Object.assign(p,{n:sc.querySelector("#fn").value.trim()||"New Fundraiser",code:sc.querySelector("#code").value.trim()||"FR-"+(2230+p.id),lv:+sc.querySelector("#lv").value,to:+sc.querySelector("#to").value,c:sc.querySelector("#c").value,eg:eid?1:0,eid:eid?+eid:null,off:[],start:"2026-09-08",placeholder:false,ktp:ktp?"••••••••••••"+ktp.slice(-4):null});
+    tlog("ok",p.n+" added under "+by(p.to).n,eid?"WhatsApp invite sent.":"WhatsApp invite sent. Creating Evergiving user — POST /v1/users."); sc.remove(); renderOrg()};
+  document.body.appendChild(sc);
+}
+document.getElementById("addBtn").onclick=()=>personForm(null);
+document.getElementById("tq").oninput=e=>{tq=e.target.value.trim().toLowerCase();renderOrg()};
+function tlog(kind,title,sub){const f=document.getElementById("tfeed");if(f.querySelector(".empty"))f.innerHTML="";const d=document.createElement("div");d.className=kind;d.innerHTML="<b>"+title+"</b>"+(sub?"<em>"+sub+"</em>":"");f.prepend(d)}
+
+
+/* ======================= MONTHLY ROSTER ======================= */
+const MDAYS=30, MSTART=2;                 // 1 Sep 2026 is a Tuesday (0=Mon)
+const dow=d=>(MSTART+d-1)%7;
+const MONTH={};                            // pid -> {day: "am"|"pm"|"x"|"mc"|"leave"}
+const LATE={};                             // pid -> {day: "HH:MM"}
+const START={am:"10:00",pm:"12:00"};
+(function seedMonth(){
+  let r=7; const rnd=()=>((r=r*16807%2147483647)/2147483647);
+  P.filter(p=>p.lv>=3&&!p.placeholder).forEach(p=>{
+    MONTH[p.id]={}; LATE[p.id]={}; const target=p.perm?(rnd()<.18?Math.round(14+rnd()*5):22):Math.round(17+rnd()*7);
+    let worked=0;
+    for(let d=1;d<=MDAYS;d++){
+      if(p.off.includes(dow(d))){MONTH[p.id][d]="x";continue}
+      if(rnd()<.03){MONTH[p.id][d]=rnd()<.5?"mc":"leave";continue}
+      if(worked<target&&rnd()<.88){MONTH[p.id][d]=rnd()<.55?"am":"pm";worked++;
+        if(rnd()<.02){const late=Math.round(11+rnd()*35);const[h,m]=START[MONTH[p.id][d]].split(":").map(Number);
+          const t=h*60+m+late;LATE[p.id][d]=String(Math.floor(t/60)).padStart(2,"0")+":"+String(t%60).padStart(2,"0")}}
+    }
+  });
+})();
+function lateCount(pid){return Object.keys(LATE[pid]||{}).length}
+function mstats(p){const m=MONTH[p.id]||{};const v=Object.values(m);
+  return {worked:v.filter(x=>x==="am"||x==="pm").length,mc:v.filter(x=>x==="mc").length,
+          leave:v.filter(x=>x==="leave").length,off:v.filter(x=>x==="x").length,late:lateCount(p.id)}}
+// ordered rows: walk the tree so leaders sit above their own people
+function monthRows(){
+  const rows=[]; const walk=(id,depth)=>{
+    kidsOf(id).filter(x=>!x.placeholder).sort((a,b)=>a.lv-b.lv||a.n.localeCompare(b.n)).forEach(x=>{
+      if(x.lv>=3)rows.push({p:x,depth}); walk(x.id,x.lv>=3?depth+1:depth)})};
+  walk(P.find(p=>p.lv===0).id,0); return rows;
+}
+function renderMonth(){
+  const sel=document.getElementById("mteam");
+  if(!sel.options.length){
+    sel.innerHTML='<option value="all">Everyone ('+P.filter(p=>p.lv>=3&&!p.placeholder).length+')</option>'+
+      P.filter(p=>p.lv>0&&p.lv<=4).sort((a,b)=>a.lv-b.lv).map(x=>'<option value="'+x.id+'">'+LEVELS[x.lv]+" — "+x.n+' ('+teamSize(x.id)+')</option>').join("");
+  }
+  const scope=sel.value, mq=(document.getElementById("mq").value||"").toLowerCase(), permOnly=document.getElementById("permonly").checked;
+  let rows=monthRows();
+  if(scope!=="all")rows=rows.filter(r=>r.p.id===+scope||isDesc(+scope,r.p.id));
+  if(permOnly)rows=rows.filter(r=>r.p.perm);
+  if(mq)rows=rows.filter(r=>r.p.n.toLowerCase().includes(mq)||r.p.code.toLowerCase().includes(mq));
+
+  let h='<table class="mtab"><thead><tr><th class="who">Name</th><th class="role">Role</th>';
+  for(let d=1;d<=MDAYS;d++)h+='<th class="'+(dow(d)>4?"wknd":"")+'">'+d+'<small>'+"MTWTFSS"[dow(d)]+'</small></th>';
+  h+='<th class="tot">Days</th><th class="tot">MC</th><th class="tot">Leave</th><th class="tot">Late</th></tr></thead><tbody>';
+  rows.forEach(r=>{
+    const p=r.p, st=mstats(p), m=MONTH[p.id]||{};
+    const short=p.perm&&st.worked<20;
+    h+='<tr class="'+(p.perm?"perm":"")+'"><td class="who" style="padding-left:'+(8+r.depth*9)+'px">'+
+       '<span class="nmw">'+p.n+(p.perm?'<span class="pm">PERM</span>':'')+'</span>'+
+       '<small>'+p.code+(p.tg?' · '+p.tg:'')+'</small></td>'+
+       '<td class="role">'+LEVELS[p.lv]+'</td>';
+    for(let d=1;d<=MDAYS;d++){
+      const v=m[d], late=(LATE[p.id]||{})[d];
+      const cls=v==="am"?"a":v==="pm"?"p":v==="x"?"x":v==="mc"?"m":v==="leave"?"l":"";
+      const txt=v==="am"?"A":v==="pm"?"P":v==="x"?"\u00d7":v==="mc"?"M":v==="leave"?"L":"";
+      h+='<td class="c '+cls+(late?" late":"")+(dow(d)>4?" wknd":"")+'" data-p="'+p.id+'" data-d="'+d+'"'+
+         (late?' title="checked in '+late+'"':'')+'>'+txt+'</td>';
+    }
+    h+='<td class="tot'+(short?" bad":"")+'">'+st.worked+'</td><td class="tot">'+(st.mc||"")+'</td>'+
+       '<td class="tot">'+(st.leave||"")+'</td><td class="tot'+(st.late>=4?" bad":"")+'">'+(st.late||"")+'</td></tr>';
+  });
+  document.getElementById("mgrid").innerHTML=h+'</tbody></table>';
+  document.querySelectorAll(".mtab td.c").forEach(td=>{
+    const v=MONTH[+td.dataset.p][+td.dataset.d];
+    if(v==="am"||v==="pm")td.onclick=()=>checkinBox(+td.dataset.p,+td.dataset.d,v);
+  });
+  // summaries
+  const all=rows.map(r=>r.p);
+  const tot=all.reduce((a,p)=>{const s=mstats(p);a.w+=s.worked;a.mc+=s.mc;a.l+=s.leave;a.late+=s.late;return a},{w:0,mc:0,l:0,late:0});
+  const perms=all.filter(p=>p.perm);
+  document.getElementById("msum").innerHTML=
+    '<div class="big"><div class="bigcell all"><b>'+all.length+'</b><span>PEOPLE</span></div>'+
+    '<div class="bigcell stc"><b>'+(all.length?(tot.w/all.length).toFixed(1):0)+'</b><span>AVG DAYS</span></div>'+
+    '<div class="bigcell ykan"><b>'+tot.late+'</b><span>LATE</span></div></div>'+
+    '<table class="hc"><tr><td>Shifts worked</td><td>'+tot.w+'</td></tr>'+
+    '<tr><td>MC days</td><td>'+tot.mc+'</td></tr><tr><td>Leave days</td><td>'+tot.l+'</td></tr>'+
+    '<tr class="rule"><td>Permanent staff</td><td>'+perms.length+'</td></tr>'+
+    '<tr><td>Perms on full 20+</td><td>'+perms.filter(p=>mstats(p).worked>=20).length+'</td></tr></table>';
+  const short=all.filter(p=>p.perm&&mstats(p).worked<20), late4=all.filter(p=>mstats(p).late>=4);
+  document.getElementById("mflags").innerHTML=
+    '<div class="flagblock"><b>Pro-rate ('+short.length+')</b>'+(short.length?short.map(p=>{const s=mstats(p);
+      return '<div>'+p.n+' <i>'+s.worked+' days'+(s.mc?' · '+s.mc+' MC':'')+'</i></div>'}).join(""):'<div class="empty">None</div>')+'</div>'+
+    '<div class="flagblock"><b>Four or more late ('+late4.length+')</b>'+(late4.length?late4.map(p=>
+      '<div>'+p.n+' <i>'+mstats(p).late+' times</i></div>').join(""):'<div class="empty">None</div>')+'</div>';
+}
+const MTODAY=8;   // 8 September 2026
+function checkinBox(pid,d,slot){
+  const p=by(pid), planned=START[slot], past=d<MTODAY;
+  const sc=document.createElement("div"); sc.className="scrim";
+  sc.innerHTML='<div class="modal"><h3>'+p.n+' — '+d+' Sep, '+slot.toUpperCase()+' shift</h3>'+
+    '<div class="segs"><button class="seg on" data-s="in">Record check-in</button><button class="seg" data-s="ab">Mark absent</button></div>'+
+    '<div id="segIn">'+
+      '<p class="hint">Shift starts '+planned+'. More than 10 minutes late counts as a lateness.</p>'+
+      '<label>Check-in time<input type="time" id="ci" value="'+((LATE[pid]||{})[d]||planned)+'"></label>'+
+      '<div class="note">Typed in by an admin today. Once the Telegram check-in bot is connected it fills itself, matched on '+(p.tg||"their Telegram handle")+'.</div>'+
+    '</div>'+
+    '<div id="segAb" class="hidden">'+
+      (past?'<div class="pastwarn">This day has already passed. A reason is required and the entry is stamped with today\'s date.</div>':'')+
+      '<label>How many days?<select id="nd">'+[1,2,3,4,5,6,7].map(n=>'<option value="'+n+'">'+n+' day'+(n>1?"s":"")+' — '+d+(n>1?" to "+(d+n-1):"")+' Sep</option>').join("")+'</select></label>'+
+      '<label>Type</label>'+
+      ABS_TYPES.map((t,i)=>'<label class="opt"><input type="radio" name="at" value="'+t.k+'"'+(i===2?" checked":"")+'><span>'+t.l+'<small>'+t.s+'</small></span></label>').join("")+
+      '<label>What happened'+(past?' <i class="hronly">required</i>':'')+'<textarea id="ar" rows="2" placeholder="Short reason"></textarea></label>'+
+      '<div class="note" id="aroute"></div>'+
+    '</div>'+
+    '<div class="row"><button class="no">Cancel</button>'+((LATE[pid]||{})[d]?'<button class="danger" id="clr">Clear lateness</button>':'')+'<button class="go" id="save">Save</button></div></div>';
+  let mode="in";
+  const segIn=sc.querySelector("#segIn"), segAb=sc.querySelector("#segAb"), route=sc.querySelector("#aroute");
+  const upd=()=>{const n=+sc.querySelector("#nd").value;
+    route.textContent=(n>2?"More than 2 consecutive days — goes to HR for review. ":"")+
+      "Recorded by "+by(P.find(x=>x.lv===0).id).n+" on "+MTODAY+" September."};
+  sc.querySelector("#nd").onchange=upd; upd();
+  sc.querySelectorAll(".seg").forEach(b=>b.onclick=()=>{
+    mode=b.dataset.s; sc.querySelectorAll(".seg").forEach(x=>x.classList.toggle("on",x===b));
+    segIn.classList.toggle("hidden",mode!=="in"); segAb.classList.toggle("hidden",mode!=="ab");
+    sc.querySelector("#save").textContent=mode==="in"?"Save":"Mark absent"});
+  sc.querySelector(".no").onclick=()=>sc.remove();
+  const clr=sc.querySelector("#clr"); if(clr)clr.onclick=()=>{delete LATE[pid][d];sc.remove();renderMonth()};
+  sc.querySelector("#save").onclick=()=>{
+    if(mode==="in"){
+      const t=sc.querySelector("#ci").value, [h,m]=t.split(":").map(Number), [ph,pm]=planned.split(":").map(Number);
+      LATE[pid]=LATE[pid]||{};
+      if((h*60+m)-(ph*60+pm)>10){LATE[pid][d]=t; const n=lateCount(pid);
+        if(n>=4)tlog("warn",p.n+" now has "+n+" latenesses this month","Four or more is grounds for termination under policy. HR review.")}
+      else delete LATE[pid][d];
+    } else {
+      const n=+sc.querySelector("#nd").value, type=sc.querySelector("input[name=at]:checked").value, why=sc.querySelector("#ar").value.trim();
+      if(past&&!why){sc.querySelector("#ar").style.borderColor="var(--flag)";return}
+      const done=[];
+      for(let i=0;i<n;i++){const dd=d+i; if(dd>MDAYS)break;
+        MONTH[pid][dd]=type==="mc"?"mc":"leave"; if(LATE[pid])delete LATE[pid][dd]; done.push(dd)}
+      const tl=ABS_TYPES.find(t=>t.k===type).l;
+      tlog(n>2?"warn":"ok",p.n+" — "+tl+", "+done.join(", ")+" Sep",
+        (past?"Backdated, recorded "+MTODAY+" Sep. ":"")+(why?'"'+why+'" ':"")+(n>2?"Sent to HR.":""));
+    }
+    sc.remove(); renderMonth()};
+  document.body.appendChild(sc);
+}
+["mteam","mq","permonly"].forEach(id=>document.getElementById(id).addEventListener("input",renderMonth));
+
+/* ======================= ROLE PREVIEW ======================= */
+const ROLE_TABS={dir:["roster","phone","monthly","team"],hr:["monthly","team"],mgr:["roster","monthly"],tl:["roster","monthly"],fr:["phone"]};
+document.getElementById("asrole").onchange=e=>{
+  const allow=ROLE_TABS[e.target.value];
+  document.querySelectorAll(".tabs button").forEach(b=>b.classList.toggle("hidden",!allow.includes(b.dataset.tab)));
+  const cur=[...document.querySelectorAll(".tabs button")].find(b=>b.getAttribute("aria-pressed")==="true");
+  if(!cur||!allow.includes(cur.dataset.tab))
+    [...document.querySelectorAll(".tabs button")].find(b=>b.dataset.tab===allow[0]).click();
+};
+
+phInit(); render(); renderOrg(); renderMonth(); renderPhone(); renderApprovals();
+</script>
