@@ -182,20 +182,24 @@
   table.mtab tr.perm td.who,table.mtab tr.perm td.role{background:#FBFAF5}
   table.mtab td.who .nmw{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   table.mtab td.c{width:22px;text-align:center;padding:3px 0;font-weight:600;font-size:10.5px;cursor:default}
-  table.mtab td.c.a{background:var(--am-bg);color:var(--am);cursor:pointer}
-  table.mtab td.c.p{background:var(--pm-bg);color:var(--pm);cursor:pointer}
-  table.mtab td.c.x{background:#F0F1F4;color:#AEB5C2}
+  table.mtab td.c.w{background:var(--am);cursor:pointer}
+  table.mtab td.c.free{background:#fff}
+  table.mtab td.c.x{background:#E4E7ED;color:#9AA3B2}
   table.mtab td.c.m{background:var(--flag-bg);color:var(--flag)}
+  table.mtab td.c.s{background:var(--flag);color:#fff}
   table.mtab td.c.l{background:#FFF3D6;color:var(--warn)}
-  table.mtab td.c.late{box-shadow:inset 0 -3px 0 var(--flag)}
+  table.mtab td.c.w.wknd{background:var(--am)}
+  table.mtab td.c.late{box-shadow:inset 0 -4px 0 var(--flag)}
   table.mtab td.tot{text-align:center;font-variant-numeric:tabular-nums;background:#F7F8FA;min-width:34px}
   table.mtab td.tot.bad{background:var(--flag-bg);color:var(--flag);font-weight:700}
   .mlegend{display:flex;flex-direction:column;gap:5px;font-size:11.5px;color:var(--ink-soft)}
   .mlegend span{display:flex;gap:7px;align-items:center}
   .mlegend i{font-style:normal;width:20px;text-align:center;border-radius:3px;font-size:10px;font-weight:700;padding:2px 0}
-  .mlegend i.a{background:var(--am-bg);color:var(--am)} .mlegend i.p{background:var(--pm-bg);color:var(--pm)}
-  .mlegend i.x{background:#F0F1F4;color:#AEB5C2} .mlegend i.m{background:var(--flag-bg);color:var(--flag)}
-  .mlegend i.l{background:#FFF3D6;color:var(--warn)} .mlegend i.late{box-shadow:inset 0 -3px 0 var(--flag)}
+  .mlegend i{min-height:17px}
+  .mlegend i.w{background:var(--am)} .mlegend i.free{background:#fff;border:1px solid var(--line)}
+  .mlegend i.x{background:#E4E7ED;color:#9AA3B2} .mlegend i.m{background:var(--flag-bg);color:var(--flag)}
+  .mlegend i.s{background:var(--flag);color:#fff}
+  .mlegend i.l{background:#FFF3D6;color:var(--warn)} .mlegend i.late{box-shadow:inset 0 -4px 0 var(--flag)}
   .flagblock{font-size:12px;margin-bottom:10px}
   .flagblock b{display:block;font-size:11px;margin-bottom:4px}
   .flagblock div{padding:3px 0;border-bottom:1px solid var(--line)}
@@ -253,6 +257,43 @@
   .sendwrap .bigsend{margin-top:0}
   .bigsend[disabled]{background:#C8CFDA;cursor:default}
   .sentnote{text-align:center;font-size:12px;color:var(--ink-soft);padding-top:8px}
+  .certbanner{display:flex;align-items:center;gap:12px;width:100%;margin:14px 16px 0;width:calc(100% - 32px);
+    background:var(--flag-bg);border:1px solid #E3BEBC;border-radius:13px;padding:13px 15px;font:inherit;
+    text-align:left;color:var(--flag);cursor:pointer}
+  .certbanner i{font-style:normal;font-size:21px} .certbanner span{flex:1;font-size:12.5px;line-height:1.35}
+  .certbanner b{display:block;font-size:14px} .certbanner em{font-style:normal;font-size:22px;opacity:.5}
+  .monthsw{display:flex;gap:6px;padding:18px 16px 0}
+  .msw{flex:1;font:inherit;font-size:14px;font-weight:600;padding:11px 6px;border:1px solid var(--line);
+    border-radius:12px;background:#fff;color:var(--ink-soft);cursor:pointer;line-height:1.2}
+  .msw small{display:block;font-size:10.5px;font-weight:400;margin-top:2px}
+  .msw.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .rangebar{display:flex;gap:6px;padding:0 16px 8px}
+  .rbtn{flex:1;font:inherit;font-size:12.5px;padding:9px;border:1px solid var(--line);border-radius:10px;
+    background:#fff;color:var(--ink-soft);cursor:pointer}
+  .rbtn.on{background:#EDF0F5;color:var(--ink);font-weight:600;border-color:#C8CFDA}
+  .rhint{text-align:center;font-size:12px;color:var(--ink-soft);padding:0 20px 10px;line-height:1.35}
+  .rhint.live{color:var(--ink);font-weight:600}
+  .sentnote.rule{color:var(--ink);font-weight:600;padding-top:12px}
+  .toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);background:var(--flag);color:#fff;
+    padding:13px 18px;border-radius:12px;font-size:13.5px;max-width:340px;text-align:center;z-index:50;
+    box-shadow:0 3px 14px rgba(22,35,58,.25);line-height:1.35;transition:opacity .3s}
+  .toast.out{opacity:0}
+  .bday.na{background:#F7F8FA;color:#C8CFDA;border-color:#EDF0F5;cursor:default}
+  .bday.worked{background:#fff;color:var(--ink-soft)}
+  .bday.was-mc{background:var(--flag-bg);color:var(--flag);border-color:#E3BEBC}
+  .bday.was-leave{background:#FFF3D6;color:var(--warn);border-color:#E8D08A}
+  .bday.needcert{background:var(--flag);border-color:var(--flag);color:#fff;font-weight:700}
+  .bday.needcert .dot{background:none;color:#fff;font-size:11px;font-weight:700;width:auto;height:auto;bottom:3px}
+  .bday.anchor{outline:3px solid var(--ink);outline-offset:-1px;font-weight:700}
+  .daysel.wrap{flex-wrap:wrap}
+  .nbtn.wide{flex:0 0 auto;font-size:13px;padding:11px 14px}
+  .nbtn small{display:block;font-size:10px;font-weight:400;opacity:.7}
+  .coverbox{border:1px solid var(--line);border-radius:13px;padding:13px;margin-bottom:4px}
+  .coverdates{text-align:center;font-size:16px;font-weight:600;padding:4px 0 12px}
+  .photo.big{display:flex;flex-direction:column;align-items:center;gap:2px;font-size:22px;padding:18px;margin-bottom:9px;
+    border-style:solid;background:#fff;color:var(--ink)}
+  .photo.big b{font-size:15px} .photo.big small{font-size:12px;color:var(--ink-soft)}
+  .photo.big.attached{border-color:var(--ok);background:#EAF3EE}
   .says{padding:16px 18px 0;display:flex;flex-direction:column;gap:8px}
   .say{border-radius:10px;padding:11px 13px;font-size:13.5px;line-height:1.4}
   .say.ok{background:var(--flag-bg);color:var(--flag)}
@@ -330,7 +371,6 @@
 <div id="phone" class="hidden">
   <div class="phonebar">
     <select id="whoami" class="search" style="width:210px;margin:0"></select>
-    <label class="chk"><input type="checkbox" id="aftercut"> Roster closed (after 25 Aug)</label>
     <span class="hint" style="margin:0">Preview — shown here in a phone frame. A fundraiser just sees this full screen.</span>
   </div>
   <div class="deviceframe"><div class="device" id="pApp"></div></div>
@@ -351,9 +391,13 @@
     <div class="panel"><h2>Month at a glance</h2><div id="msum"></div></div>
     <div class="panel"><h2>Needs attention</h2><p class="hint">Perms under 20 days are pro-rated unless covered by an MC.</p><div id="mflags"></div></div>
     <div class="panel"><h2>Legend</h2><div class="mlegend">
-      <span><i class="c a">A</i>AM shift</span><span><i class="c p">P</i>PM shift</span>
-      <span><i class="c x">×</i>marked unavailable</span><span><i class="c m">M</i>medical certificate</span>
-      <span><i class="c l">L</i>leave</span><span><i class="c a late">A</i>late over 10 min</span></div></div>
+      <span><i class="c w"></i>worked</span>
+      <span><i class="c free"></i>available, not rostered</span>
+      <span><i class="c x">×</i>said they can't work</span>
+      <span><i class="c m">M</i>medical certificate</span>
+      <span><i class="c s">!</i>sick, certificate outstanding</span>
+      <span><i class="c l">L</i>leave</span>
+      <span><i class="c w late"></i>late over 10 min</span></div></div>
   </aside>
 </main>
 
@@ -523,11 +567,13 @@ document.querySelectorAll(".tabs button").forEach(b=>b.onclick=()=>{
 
 /* ======================= ROSTER ======================= */
 const SITES=[
- {n:"Grand Indonesia",loc:4021,c:"stc",note:"LOA signed 22 Aug"},
- {n:"Kota Kasablanka",loc:4033,c:"stc",note:"LOA signed 29 Aug"},
- {n:"Senayan City",loc:4048,c:"ykan",note:"LOA pending"},
- {n:"Pondok Indah",loc:4052,c:"ykan",note:"LOA signed 1 Sep"},
+ {n:"Grand Indonesia",loc:4021,c:"stc",note:"LOA signed 22 Aug",am:["10:00","17:00"],pm:["12:00","19:00"],hlock:true},
+ {n:"Kota Kasablanka",loc:4033,c:"stc",note:"LOA signed 29 Aug",am:["10:00","17:00"],pm:["12:00","19:00"],hlock:true},
+ {n:"Soekarno-Hatta T3",loc:4040,c:"stc",note:"LOA signed 30 Aug",am:["08:00","15:00"],pm:["13:00","20:00"],hlock:false},
+ {n:"Senayan City",loc:4048,c:"ykan",note:"LOA pending",am:["10:00","17:00"],pm:["12:00","19:00"],hlock:false},
+ {n:"Pondok Indah",loc:4052,c:"ykan",note:"LOA signed 1 Sep",am:["10:00","17:00"],pm:["12:00","19:00"],hlock:true},
 ];
+const hrs=(s,slot)=>s[slot][0]+"–"+s[slot][1];
 const ABS_TYPES=[
  {k:"mc",l:"Medical certificate",s:"Certificate uploaded. Counts as MC."},
  {k:"sick",l:"Sick, no certificate",s:"Unpaid unless a certificate arrives."},
@@ -535,7 +581,7 @@ const ABS_TYPES=[
  {k:"plan",l:"Planned leave",s:"Requested in advance by the fundraiser."},
  {k:"ns",l:"No-show",s:"Didn't turn up. Feeds performance, not leave."},
 ];
-const DAYS=["Mon","Tue","Wed","Thu","Fri","Sat","Sun"], DATES=[14,15,16,17,18,19,20], TIMES={am:"10:00–17:00",pm:"12:00–19:00"};
+const DAYS=["Mon","Tue","Wed","Thu","Fri","Sat","Sun"], DATES=[14,15,16,17,18,19,20];
 let A=[], published=new Set(), ABS=[], locked=new Set(), day=0, picked=null, q="";
 const k=a=>a.pid+"-"+a.s+"-"+a.d+"-"+a.slot;
 const absOn=(pid,d)=>ABS.find(x=>x.pid===pid&&x.d===d);
@@ -555,13 +601,40 @@ function drawDaybar(){
 function drawBoard(){
   const b=document.getElementById("board"); b.innerHTML="";
   SITES.forEach((s,si)=>{const sec=document.createElement("section"); sec.className="site";
-    let h='<div class="sitehead">'+s.n+'<span class="camp '+s.c+'">'+CAMPS[s.c].n+'</span><small>'+s.note+' · location '+s.loc+'</small><span class="cnt">'+A.filter(a=>a.s===si).length+' shifts</span></div><table><thead><tr><th></th>';
+    let h='<div class="sitehead">'+s.n+'<span class="camp '+s.c+'">'+CAMPS[s.c].n+'</span>'+
+      '<button class="hoursbtn'+(s.hlock?" locked":"")+'" data-site="'+si+'">'+
+      (s.hlock?'\u{1F512} ':'')+'AM '+hrs(s,"am")+' · PM '+hrs(s,"pm")+'</button>'+
+      '<small>'+s.note+'</small><span class="cnt">'+A.filter(a=>a.s===si).length+' shifts</span></div><table><thead><tr><th></th>';
     DAYS.forEach((d,i)=>h+='<th class="'+(i===day?"sel":locked.has(i)?"dim":"")+'">'+d+' <small>'+DATES[i]+'</small></th>');
     h+='</tr></thead><tbody>';
-    ["am","pm"].forEach(slot=>{h+='<tr><th class="slot '+slot+'">'+slot.toUpperCase()+'</th>';
+    ["am","pm"].forEach(slot=>{h+='<tr><th class="slot '+slot+'">'+slot.toUpperCase()+'<small>'+s[slot][0]+'</small></th>';
       DAYS.forEach((_,di)=>h+='<td class="cell '+slot+(di===day?" sel":"")+(locked.has(di)?" lockedcell dim":"")+'" data-s="'+si+'" data-d="'+di+'" data-slot="'+slot+'"><div class="stack"></div></td>');
       h+='</tr>'});
     sec.innerHTML=h+'</tbody></table>'; b.appendChild(sec)});
+  document.querySelectorAll(".hoursbtn").forEach(btn=>btn.onclick=()=>hoursBox(+btn.dataset.site));
+}
+function hoursBox(si){
+  const s=SITES[si];
+  const sc=document.createElement("div"); sc.className="scrim";
+  sc.innerHTML='<div class="modal"><h3>'+s.n+' — shift hours</h3>'+
+    '<p class="hint">Set by the Events team when the site is booked. Airports start earlier than malls.</p>'+
+    '<div class="two"><label>AM starts<input type="time" id="a1" value="'+s.am[0]+'"></label>'+
+    '<label>AM finishes<input type="time" id="a2" value="'+s.am[1]+'"></label></div>'+
+    '<div class="two"><label>PM starts<input type="time" id="p1" value="'+s.pm[0]+'"></label>'+
+    '<label>PM finishes<input type="time" id="p2" value="'+s.pm[1]+'"></label></div>'+
+    '<label class="chk" style="margin-top:14px"><input type="checkbox" id="hl"'+(s.hlock?" checked":"")+'> Lock these hours for the site</label>'+
+    '<div class="note">Lateness on the monthly roster is measured against the start time here, and these are the hours the fundraiser sees on their phone.</div>'+
+    '<div class="row"><button class="no">Cancel</button><button class="go">Save hours</button></div></div>';
+  sc.querySelector(".no").onclick=()=>sc.remove();
+  sc.querySelector(".go").onclick=()=>{
+    const old="AM "+hrs(s,"am")+" · PM "+hrs(s,"pm");
+    s.am=[sc.querySelector("#a1").value,sc.querySelector("#a2").value];
+    s.pm=[sc.querySelector("#p1").value,sc.querySelector("#p2").value];
+    s.hlock=sc.querySelector("#hl").checked;
+    log("push",s.n+" hours set","AM "+hrs(s,"am")+" · PM "+hrs(s,"pm")+(s.hlock?" · locked":"")+". Was "+old+".");
+    sc.remove(); render(); renderPhone();
+  };
+  document.body.appendChild(sc);
 }
 function poolChip(p,disabled,reason){
   const el=document.createElement("div");
@@ -687,7 +760,7 @@ document.getElementById("pubBtn").onclick=()=>{
     adds.forEach(a=>{published.add(k(a));touched.add(a.pid);log("push",by(a.pid).n+" → "+SITES[a.s].n+", "+DAYS[a.d]+" "+a.slot.toUpperCase(),"POST /v1/teams · campaign "+CAMPS[SITES[a.s].c].id+" · location "+SITES[a.s].loc+" · user "+by(a.pid).eid)});
     dels.forEach(key=>{published.delete(key);const[pid,s,d]=key.split("-");touched.add(+pid);log("pull","Removed "+by(+pid).n+" from "+SITES[s].n+", "+DAYS[d],"Team rebuilt without them.")});
     const pid=[...touched][0], p=by(pid), mine=A.filter(a=>a.pid===pid&&published.has(k(a))).sort((x,y)=>x.d-y.d);
-    document.getElementById("msgs").innerHTML='<div class="msg"><b>WhatsApp → '+p.n.split(" ")[0]+'</b>Halo '+p.n.split(" ")[0]+' — your shifts are confirmed:\n'+(mine.length?mine.map(a=>DAYS[a.d]+" "+DATES[a.d]+" · "+SITES[a.s].n+" · "+a.slot.toUpperCase()+" "+TIMES[a.slot]).join("\n"):"No shifts this week.")+'\nTap to see details: popcorn.omniraise.com/me</div>';
+    document.getElementById("msgs").innerHTML='<div class="msg"><b>WhatsApp → '+p.n.split(" ")[0]+'</b>Halo '+p.n.split(" ")[0]+' — your shifts are confirmed:\n'+(mine.length?mine.map(a=>DAYS[a.d]+" "+DATES[a.d]+" · "+SITES[a.s].n+" · "+a.slot.toUpperCase()+" "+hrs(SITES[a.s],a.slot)).join("\n"):"No shifts this week.")+'\nTap to see details: popcorn.omniraise.com/me</div>';
     sc.remove(); render()};
   document.body.appendChild(sc);
 };
@@ -695,12 +768,11 @@ function log(kind,title,sub){const f=document.getElementById("feed");if(f.queryS
 document.getElementById("q").oninput=e=>{q=e.target.value.trim().toLowerCase();render()};
 
 /* ======================= PHONE (fundraiser app) ======================= */
-let ME=null, showAll=false, SUBMITTED={};
-const NEXTMON="September", NM_DAYS=30, NM_START=2;    // 1 Sep 2026 is a Tuesday (0=Mon)
-const ndow=d=>(NM_START+d-1)%7;
-const OFFD={};                                        // pid -> [dates in October they cannot work]
-const offOf=p=>(OFFD[p.id]=OFFD[p.id]||[]);
-const DEADLINE="25 August";
+const TDAY=20, TMON=9;                       // today is 20 September 2026
+const MONTHS={9:{n:"September",days:30,start:2},10:{n:"October",days:31,start:3}};
+const OCT_DEADLINE=25;                       // October availability closes 25 Sep
+let ME=null, showAll=false, PM=10, rangeMode=false, rangeAnchor=null;
+const SUBMITTED={}, OFFD={}, CERT={}, NEEDCERT={};
 const REQ=[];
 const RTYPES=[
  {k:"off", l:"Just an off day",             ic:"\u{1F6CB}\uFE0F", note:"No reason needed. Your manager decides."},
@@ -708,125 +780,231 @@ const RTYPES=[
  {k:"emg", l:"Emergency",                   ic:"\u26A0\uFE0F", note:"Something happened and you can't come."},
  {k:"mc",  l:"Sick — I have a certificate", ic:"\u{1FA7A}", note:"You'll add a photo of the certificate."},
  {k:"sick",l:"Sick — no certificate",       ic:"\u{1F912}", note:"May be unpaid."}];
-const MON="September";
+const dayName=["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
+const mdow=(m,d)=>(MONTHS[m].start+d-1)%7;
+const offOf=(p,m)=>{OFFD[p.id]=OFFD[p.id]||{}; return OFFD[p.id][m]=OFFD[p.id][m]||[]};
+const joinedOn=p=>{const t=new Date(p.start); return (t.getFullYear()===2026&&t.getMonth()===8)?t.getDate():0};
+
+function seedCerts(){let r=99;const rnd=()=>((r=r*16807%2147483647)/2147483647);
+  P.filter(p=>p.lv===6).forEach(p=>{NEEDCERT[p.id]=[];CERT[p.id]=[];
+    if(rnd()<.35){const j=joinedOn(p)||1;const lo=Math.max(j+1,2);if(lo>=TDAY-1)return;const d=lo+Math.floor(rnd()*(TDAY-1-lo));NEEDCERT[p.id].push(d);if(MONTH[p.id])MONTH[p.id][d]="sick"}})}
+
 function phInit(){
+  seedCerts();
   const sel=document.getElementById("whoami");
   sel.innerHTML=P.filter(p=>p.lv===6&&!p.placeholder).slice(0,40).map(p=>'<option value="'+p.id+'">'+p.n+'</option>').join("");
-  ME=by(+sel.value); sel.onchange=()=>{ME=by(+sel.value);showAll=false;renderPhone()};
-  document.getElementById("aftercut").onchange=renderPhone;
+  ME=by(+sel.value); sel.onchange=()=>{ME=by(+sel.value);showAll=false;rangeAnchor=null;renderPhone()};
 }
-const closed=()=>document.getElementById("aftercut").checked;
-const myReq=d=>REQ.find(r=>r.pid===ME.id&&r.days.includes(d)&&r.status!=="declined");
-const dayName=["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
+const myReq=(m,d)=>REQ.find(r=>r.pid===ME.id&&r.mon===m&&r.days.includes(d)&&r.status!=="declined");
+const octOpen=()=>TMON===9&&TDAY<=OCT_DEADLINE;
+
 function renderPhone(){
   if(!ME)return;
   const app=document.getElementById("pApp");
-  const mine=A.filter(a=>a.pid===ME.id).sort((x,y)=>x.d-y.d);
-  const next=mine[0];
+  const mine=A.filter(a=>a.pid===ME.id).sort((x,y)=>x.d-y.d), next=mine[0];
   let h='<div class="pbar"><b>'+ME.n.split(" ")[0]+'</b><span>'+CAMPS[ME.c].n+'</span></div>';
 
-  /* --- next shift --- */
+  /* next shift */
   if(next){
     h+='<div class="nextshift '+next.slot+'"><span class="lbl">YOUR NEXT SHIFT · THIS WEEK</span>'+
-       '<b>'+dayName[next.d]+' '+DATES[next.d]+' '+MON.slice(0,3)+'</b>'+
-       '<div class="place">'+SITES[next.s].n+'</div>'+
-       '<div class="time">'+TIMES[next.slot]+'</div>'+
-       (published.has(k(next))?'':'<div class="notyet">Not confirmed yet</div>')+'</div>';
+       '<b>'+dayName[next.d]+' '+DATES[next.d]+' Sep</b><div class="place">'+SITES[next.s].n+'</div>'+
+       '<div class="time">'+hrs(SITES[next.s],next.slot)+'</div>'+(published.has(k(next))?'':'<div class="notyet">Not confirmed yet</div>')+'</div>';
     if(mine.length>1) h+='<button class="linkbtn" id="seeall">'+(showAll?"Hide":"See all "+mine.length+" shifts")+'</button>';
-    if(showAll) h+='<div class="allshifts">'+mine.map(a=>'<div class="li '+a.slot+'">'+
-      '<b>'+DAYS[a.d]+' '+DATES[a.d]+'</b><span>'+SITES[a.s].n+'</span><i>'+TIMES[a.slot]+'</i></div>').join("")+'</div>';
-  } else {
-    h+='<div class="nextshift none"><span class="lbl">YOUR NEXT SHIFT · THIS WEEK</span><b>Nothing yet</b>'+
+    if(showAll) h+='<div class="allshifts">'+mine.map(a=>'<div class="li '+a.slot+'"><b>'+DAYS[a.d]+' '+DATES[a.d]+
+      '</b><span>'+SITES[a.s].n+'</span><i>'+hrs(SITES[a.s],a.slot)+'</i></div>').join("")+'</div>';
+  } else h+='<div class="nextshift none"><span class="lbl">YOUR NEXT SHIFT · THIS WEEK</span><b>Nothing yet</b>'+
        '<div class="place">'+by(ME.to).n.split(" ")[0]+' will confirm your shifts and send you a WhatsApp.</div></div>';
-  }
 
-  /* --- one calendar: NEXT month availability --- */
-  const off=offOf(ME), sent=SUBMITTED[ME.id];
-  h+='<div class="calhead"><b>'+(closed()?"Need a day off in "+NEXTMON+"?":"Tap the days you can\'t work")+'</b>'+
-     '<span>'+NEXTMON+' 2026'+(closed()?' · roster is closed, so we\'ll ask '+by(ME.to).n.split(" ")[0]
-       :' · you can change this until '+DEADLINE)+'</span></div><div class="bigcal">';
+  /* certificate reminder */
+  const need=(NEEDCERT[ME.id]||[]).filter(d=>!(CERT[ME.id]||[]).includes(d));
+  if(need.length) h+='<button class="certbanner" id="certban"><i>\u{1FA7A}</i><span><b>'+
+    (need.length===1?"1 sick day needs a certificate":need.length+" sick days need a certificate")+'</b>'+
+    listDays(need,9)+' · tap to add a photo</span><em>\u203A</em></button>';
+
+  /* month switcher */
+  h+='<div class="monthsw">'+[9,10].map(m=>'<button class="msw'+(m===PM?" on":"")+'" data-m="'+m+'">'+
+     MONTHS[m].n+'<small>'+(m===9?"this month":octOpen()?"open until "+OCT_DEADLINE+" Sep":"closed")+'</small></button>').join("")+'</div>';
+
+  const open=PM===10&&octOpen(), M=MONTHS[PM], off=offOf(ME,PM), joined=PM===9?joinedOn(ME):0;
+
+  h+='<div class="calhead"><b>'+(open?"Tap the days you can\'t work":PM===9?"Your "+M.n:"Need a day off in "+M.n+"?")+'</b>'+
+     '<span>'+(open?M.n+" 2026 · change it any time until "+OCT_DEADLINE+" September"
+      :PM===9?"Already rostered. Tap a day to ask "+by(ME.to).n.split(" ")[0]+" for time off."
+      :M.n+" is closed. Tap a day to ask "+by(ME.to).n.split(" ")[0]+" for leave.")+'</span></div>';
+
+  if(open) h+='<div class="rhint'+(rangeAnchor?" live":"")+'">'+
+    (rangeAnchor?"Tap another day to take everything in between":"Tap a day. Tap a second day for everything in between.")+'</div>';
+
+  h+='<div class="bigcal">';
   ["M","T","W","T","F","S","S"].forEach(x=>h+='<div class="dow">'+x+'</div>');
-  for(let i=0;i<NM_START;i++)h+='<div></div>';
-  for(let d=1;d<=NM_DAYS;d++){
-    const r=myReq(d), isOff=off.includes(d), wknd=ndow(d)>4;
-    const cls=r?(r.status==="pending"?"pend":"appr"):isOff?"off":wknd?"wk":"";
-    h+='<button class="bday '+cls+'" data-d="'+d+'"><span>'+d+'</span>'+
-       (r&&r.status==="pending"?'<i class="dot clock">\u23F1</i>':'')+'</button>';
+  for(let i=0;i<M.start;i++)h+='<div></div>';
+  for(let d=1;d<=M.days;d++){
+    const r=myReq(PM,d), isOff=off.includes(d), wknd=mdow(PM,d)>4;
+    const past=PM===9&&d<TDAY, before=joined&&d<joined;
+    const rec=PM===9?(MONTH[ME.id]||{})[d]:null;
+    let cls=[], inner="";
+    if(before){cls.push("na")}
+    else if(r) cls.push(r.status==="pending"?"pend":"appr");
+    else if(isOff) cls.push("off");
+    else if(past){
+      if(rec==="sick"&&!(CERT[ME.id]||[]).includes(d)){cls.push("needcert");inner='<i class="dot">!</i>'}
+      else if(rec==="mc"){cls.push("was-mc")}
+      else if(rec==="leave"){cls.push("was-leave")}
+      else if(rec==="am"||rec==="pm"){cls.push("worked");inner='<i class="dot '+rec+'"></i>'}
+      else cls.push("na");
+    }
+    else if(wknd) cls.push("wk");
+    if(rangeMode&&rangeAnchor===d)cls.push("anchor");
+    if(r&&r.status==="pending")inner='<i class="dot clock">\u23F1</i>';
+    h+='<button class="bday '+cls.join(" ")+'" data-d="'+d+'"><span>'+d+'</span>'+inner+'</button>';
   }
   h+='</div>';
 
-  /* --- weekend rule + confirmation --- */
-  const wkDays=[];for(let d=1;d<=NM_DAYS;d++)if(ndow(d)>4)wkDays.push(d);
-  const wkFree=wkDays.filter(d=>!off.includes(d)).length;
-  const canWork=NM_DAYS-off.length;
-  const pend=REQ.filter(r=>r.pid===ME.id&&r.status==="pending"), appr=REQ.filter(r=>r.pid===ME.id&&r.status==="approved");
+  /* feedback */
   h+='<div class="says">';
-  if(!closed()){
-    h+='<div class="say plain">You can work <b>'+canWork+' of '+NM_DAYS+' days</b>. Every day you don\'t tap counts as available.</div>';
-    if(off.length) h+='<div class="say ok">You can\'t work '+listDays(off)+'.</div>';
-    if(wkFree===0) h+='<div class="say stop">You need to be free on at least one weekend day. Untap a Saturday or Sunday.</div>';
-    else if(wkFree<2) h+='<div class="say wait">Only '+wkFree+' weekend day free. Most weekends are our busiest sites.</div>';
+  if(open){
+    const can=M.days-off.length;
+    if(can<20) h+='<div class="say stop">You must work at least 20 days a month. You\'ve only left yourself '+can+'.</div>';
+  } else if(PM===9){
+    const st=mstats(ME);
+    h+='<div class="say plain">'+st.worked+' days worked so far'+(st.mc?', '+st.mc+' MC':'')+(st.leave?', '+st.leave+' leave':'')+'.</div>';
+    if(joined) h+='<div class="say plain">You joined on '+joined+' Sep, so days before that are greyed out.</div>';
   }
-  h+=pend.map(r=>'<div class="say wait">Sent to '+r.to+(r.hr?' and HR':'')+' for '+listDays(r.days)+'. '+
-        (r.hr?'More than 2 days in a row needs HR.':'You\'ll get a WhatsApp when they reply.')+'</div>').join("")+
-     appr.map(r=>'<div class="say done">Leave approved for '+listDays(r.days)+'.</div>').join("")+'</div>';
-  if(!closed()) h+='<div class="sendwrap"><button class="bigsend" id="psend"'+(wkFree===0?" disabled":"")+'>'+
-     (sent?"Update my "+NEXTMON+" days":"Send my "+NEXTMON+" days")+'</button>'+
-     (sent?'<div class="sentnote">Sent '+sent+'. You can change it until '+DEADLINE+'.</div>':'')+'</div>';
-  const st=mstats(ME);
-  h+='<div class="minifoot">'+MON+' so far · '+st.worked+' days worked'+(st.mc?' · '+st.mc+' MC':'')+(st.leave?' · '+st.leave+' leave':'')+'</div>';
+  const pend=REQ.filter(r=>r.pid===ME.id&&r.status==="pending"), appr=REQ.filter(r=>r.pid===ME.id&&r.status==="approved");
+  h+=pend.map(r=>'<div class="say wait">Sent to '+r.to+(r.hr?' and HR':'')+' for '+listDays(r.days,r.mon)+'. '+
+      (r.hr?'More than 2 days in a row needs HR.':'You\'ll get a WhatsApp when they reply.')+'</div>').join("")+
+     appr.map(r=>'<div class="say done">Approved for '+listDays(r.days,r.mon)+'.</div>').join("")+'</div>';
+
+  if(open){const can=M.days-off.length, blocked=can<20, sent=SUBMITTED[ME.id];
+    h+='<div class="sendwrap"><button class="bigsend" id="psend"'+(blocked?" disabled":"")+'>'+
+      (sent?"Update my "+M.n+" days":"Send my "+M.n+" days")+'</button>'+
+      '<div class="sentnote rule">You must be working a minimum of 20 days in a month.</div>'+
+      (sent?'<div class="sentnote">Sent '+sent+'. Change it any time until '+OCT_DEADLINE+' September.</div>':'')+'</div>';}
   app.innerHTML=h;
+
   const sa=document.getElementById("seeall"); if(sa)sa.onclick=()=>{showAll=!showAll;renderPhone()};
-  const ps=document.getElementById("psend"); if(ps)ps.onclick=()=>{SUBMITTED[ME.id]="20 Aug";renderPhone()};
+  const cb=document.getElementById("certban"); if(cb)cb.onclick=()=>certSheet(need);
+  app.querySelectorAll(".msw").forEach(b=>b.onclick=()=>{PM=+b.dataset.m;rangeAnchor=null;renderPhone()});
+  app.querySelectorAll(".rbtn").forEach(b=>b.onclick=()=>{rangeMode=b.dataset.r==="1";rangeAnchor=null;renderPhone()});
+  const ps=document.getElementById("psend"); if(ps)ps.onclick=()=>{SUBMITTED[ME.id]="20 Sep";renderPhone()};
   app.querySelectorAll(".bday").forEach(b=>b.onclick=()=>dayTap(+b.dataset.d));
 }
-function listDays(a){const m=NEXTMON.slice(0,3);
-  return a.length===1?a[0]+" "+m:a.slice(0,-1).join(", ")+" and "+a[a.length-1]+" "+m}
+function flash(msg){
+  document.querySelectorAll(".toast").forEach(t=>t.remove());
+  const t=document.createElement("div"); t.className="toast"; t.textContent=msg;
+  document.body.appendChild(t); setTimeout(()=>{t.classList.add("out");setTimeout(()=>t.remove(),300)},3600);
+}
+function listDays(a,m){const mm=MONTHS[m||PM].n.slice(0,3);
+  return a.length===1?a[0]+" "+mm:a.slice(0,-1).join(", ")+" and "+a[a.length-1]+" "+mm}
+
 function dayTap(d){
-  if(!closed()){
-    const off=offOf(ME), i=off.indexOf(d);
-    i<0?off.push(d):off.splice(i,1); off.sort((a,b)=>a-b); renderPhone(); return;
+  const M=MONTHS[PM], open=PM===10&&octOpen(), joined=PM===9?joinedOn(ME):0;
+  if(joined&&d<joined) return;
+  if(open){
+    const off=offOf(ME,PM), M2=MONTHS[PM];
+    const wouldBreak=list=>{ // both days of any one weekend off
+      const test=off.slice(); list.forEach(x=>{if(!test.includes(x))test.push(x)});
+      for(let x=1;x<=M2.days;x++){ if(mdow(PM,x)!==5) continue;      // Saturday
+        const sun=x+1<=M2.days?x+1:null;
+        if(sun&&test.includes(x)&&test.includes(sun)) return x; }
+      return 0; };
+    if(rangeAnchor===d){const i=off.indexOf(d); if(i>=0)off.splice(i,1); rangeAnchor=null; renderPhone(); return}
+    if(rangeAnchor!==null){
+      const a=Math.min(rangeAnchor,d), b=Math.max(rangeAnchor,d), all=[];
+      for(let x=a;x<=b;x++)all.push(x);
+      const bad=wouldBreak(all);
+      if(bad){rangeAnchor=null; flash("You must work one day of every weekend. "+bad+"–"+(bad+1)+" "+M2.n.slice(0,3)+" can't both be off."); renderPhone(); return}
+      all.forEach(x=>{if(!off.includes(x))off.push(x)});
+      off.sort((p,q)=>p-q); rangeAnchor=null; renderPhone(); return;
+    }
+    if(off.includes(d)){off.splice(off.indexOf(d),1); renderPhone(); return}
+    const bad=wouldBreak([d]);
+    if(bad){flash("You must work one day of every weekend. "+bad+"–"+(bad+1)+" "+M2.n.slice(0,3)+" can't both be off."); return}
+    off.push(d); off.sort((p,q)=>p-q); rangeAnchor=d; renderPhone(); return;
   }
-  const r=myReq(d);
-  if(r){ if(r.status==="pending"&&confirmish("Cancel this request for "+listDays(r.days)+"?")){
-      REQ.splice(REQ.indexOf(r),1); renderPhone(); renderApprovals()} return }
+  const past=PM===9&&d<TDAY;
+  if(past){
+    const rec=(MONTH[ME.id]||{})[d];
+    if(rec==="sick"&&!(CERT[ME.id]||[]).includes(d)) certSheet([d]);
+    return;
+  }
+  const r=myReq(PM,d);
+  if(r){ if(r.status==="pending"&&window.confirm("Cancel your request for "+listDays(r.days,r.mon)+"?")){
+    REQ.splice(REQ.indexOf(r),1);renderPhone();renderApprovals()} return }
   leaveSheet(d);
 }
-function confirmish(q){return window.confirm?window.confirm(q):true}
-function leaveSheet(d){
-  const rostered=null;
+
+function certSheet(days){
   const sc=document.createElement("div"); sc.className="scrim sheetwrap";
-  sc.innerHTML='<div class="sheet2">'+
-    '<div class="grab"></div>'+
-    '<h3>'+dayName[ndow(d)]+' '+d+' '+NEXTMON.slice(0,3)+'</h3>'+
-    '<p class="sub">The '+NEXTMON+' roster is already closed.</p>'+
+  let pickDay=days[0], cover=1, got=false;
+  const dstr=d=>dayName[mdow(9,d)].slice(0,3)+" "+d+" Sep";
+  sc.innerHTML='<div class="sheet2"><div class="grab"></div>'+
+    '<h3>Add your certificate</h3><p class="sub">You were marked sick with no certificate.</p>'+
+    (days.length>1?'<p class="q">Which sick day?</p><div class="daysel wrap">'+days.map((d,i)=>
+      '<button class="nbtn wide'+(i===0?" on":"")+'" data-d="'+d+'">'+dstr(d)+'</button>').join("")+'</div>':'')+
+    '<p class="q">What dates does the certificate cover?</p>'+
+    '<div class="coverbox"><div class="coverdates" id="cov">—</div>'+
+    '<div class="daysel" id="covsel">'+[1,2,3,4,5].map(n=>'<button class="nbtn'+(n===1?" on":"")+'" data-n="'+n+'">'+
+      n+'<small>day'+(n>1?"s":"")+'</small></button>').join("")+'</div></div>'+
+    '<p class="q">Photo of the certificate</p>'+
+    '<button class="photo big" id="take">\u{1F4F7}<b>Take a photo</b><small>Point at the certificate</small></button>'+
+    '<button class="photo big" id="pick">\u{1F5BC}\uFE0F<b>Choose from gallery</b><small>If you already took one</small></button>'+
+    '<div id="done" class="hidden"></div>'+
+    '<button class="bigsend hidden" id="csend">Send certificate</button>'+
+    '<button class="cancel2">Cancel</button></div>';
+  const cov=sc.querySelector("#cov"), done=sc.querySelector("#done"), send=sc.querySelector("#csend");
+  const covered=()=>{const a=[];for(let i=0;i<cover&&pickDay+i<=MONTHS[9].days;i++)a.push(pickDay+i);return a};
+  const upd=()=>{const a=covered();
+    cov.textContent=a.length===1?dstr(a[0]):dstr(a[0])+"  \u2192  "+dstr(a[a.length-1]);
+    if(got){done.className="";done.innerHTML='<div class="say done" style="margin-top:12px">Photo attached for '+
+      (a.length===1?dstr(a[0]):a.length+" days, "+dstr(a[0])+" to "+dstr(a[a.length-1]))+
+      '. It goes to '+by(ME.to).n.split(" ")[0]+' and HR.</div>'}
+    send.textContent="Send certificate · "+a.length+" day"+(a.length>1?"s":"")};
+  sc.querySelectorAll(".nbtn.wide").forEach(b=>b.onclick=()=>{pickDay=+b.dataset.d;
+    sc.querySelectorAll(".nbtn.wide").forEach(x=>x.classList.toggle("on",x===b)); upd()});
+  sc.querySelectorAll("#covsel .nbtn").forEach(b=>b.onclick=()=>{cover=+b.dataset.n;
+    sc.querySelectorAll("#covsel .nbtn").forEach(x=>x.classList.toggle("on",x===b)); upd()});
+  [sc.querySelector("#take"),sc.querySelector("#pick")].forEach(b=>b.onclick=()=>{
+    got=true; b.classList.add("attached"); send.classList.remove("hidden"); upd()});
+  send.onclick=()=>{
+    CERT[ME.id]=CERT[ME.id]||[];
+    covered().forEach(dd=>{CERT[ME.id].push(dd); if(MONTH[ME.id])MONTH[ME.id][dd]="mc";
+      const i=(NEEDCERT[ME.id]||[]).indexOf(dd); if(i>=0)NEEDCERT[ME.id].splice(i,1)});
+    log("push",ME.n+" sent a certificate covering "+covered().map(x=>x+" Sep").join(", "),
+      "Those days change from sick-no-certificate to MC.");
+    sc.remove(); renderPhone(); if(typeof renderMonth==="function")renderMonth()};
+  sc.querySelector(".cancel2").onclick=()=>sc.remove();
+  upd();
+  document.body.appendChild(sc);
+}
+function leaveSheet(d){
+  const sc=document.createElement("div"); sc.className="scrim sheetwrap";
+  const M=MONTHS[PM];
+  sc.innerHTML='<div class="sheet2"><div class="grab"></div>'+
+    '<h3>'+dayName[mdow(PM,d)]+' '+d+' '+M.n.slice(0,3)+'</h3>'+
+    '<p class="sub">The '+M.n+' roster is already set.</p>'+
     '<p class="q">Why can\'t you work?</p>'+
     '<div class="reasons">'+RTYPES.map(t=>'<button class="reason" data-k="'+t.k+'"><i>'+t.ic+'</i><span>'+t.l+
-      (t.note?'<small>'+t.note+'</small>':'')+'</span></button>').join("")+'</div>'+
-    '<div id="step2" class="hidden">'+
-      '<p class="q">How many days?</p><div class="daysel">'+[1,2,3,4,5].map(n=>'<button class="nbtn'+(n===1?" on":"")+'" data-n="'+n+'">'+n+'</button>').join("")+'</div>'+
+      '<small>'+t.note+'</small></span></button>').join("")+'</div>'+
+    '<div id="step2" class="hidden"><p class="q">How many days?</p><div class="daysel">'+
+      [1,2,3,4,5].map(n=>'<button class="nbtn'+(n===1?" on":"")+'" data-n="'+n+'">'+n+'</button>').join("")+'</div>'+
       '<div id="certrow" class="hidden"><button class="photo">\u{1F4F7}  Take a photo of your certificate</button></div>'+
       '<textarea id="why" rows="2" placeholder="Tell your manager why (optional)"></textarea>'+
-      '<button class="bigsend" id="sendreq"></button>'+
-      '<button class="cancel2">Cancel</button>'+
-    '</div>'+
+      '<button class="bigsend" id="sendreq"></button><button class="cancel2">Cancel</button></div>'+
     '<button class="cancel2" id="c1">Cancel</button></div>';
-  let type=null, n=1;
+  let type=null,n=1;
   const step2=sc.querySelector("#step2"), send=sc.querySelector("#sendreq");
-  const upd=()=>{const hr=n>2;
-    sc.querySelector("#certrow").classList.toggle("hidden",type!=="mc");
-    send.textContent=(hr?"Send to "+by(ME.to).n.split(" ")[0]+" and HR":"Send to "+by(ME.to).n.split(" ")[0])+
-      " · "+n+" day"+(n>1?"s":"")};
-  sc.querySelectorAll(".reason").forEach(b=>b.onclick=()=>{
-    type=b.dataset.k; sc.querySelectorAll(".reason").forEach(x=>x.classList.toggle("on",x===b));
+  const upd=()=>{sc.querySelector("#certrow").classList.toggle("hidden",type!=="mc");
+    send.textContent=(n>2?"Send to "+by(ME.to).n.split(" ")[0]+" and HR":"Send to "+by(ME.to).n.split(" ")[0])+" · "+n+" day"+(n>1?"s":"")};
+  sc.querySelectorAll(".reason").forEach(b=>b.onclick=()=>{type=b.dataset.k;
+    sc.querySelectorAll(".reason").forEach(x=>x.classList.toggle("on",x===b));
     step2.classList.remove("hidden"); sc.querySelector("#c1").classList.add("hidden"); upd()});
-  sc.querySelectorAll(".nbtn").forEach(b=>b.onclick=()=>{
-    n=+b.dataset.n; sc.querySelectorAll(".nbtn").forEach(x=>x.classList.toggle("on",x===b)); upd()});
+  sc.querySelectorAll("#step2 .nbtn").forEach(b=>b.onclick=()=>{n=+b.dataset.n;
+    sc.querySelectorAll("#step2 .nbtn").forEach(x=>x.classList.toggle("on",x===b));upd()});
   sc.querySelectorAll(".cancel2, #c1").forEach(b=>b.onclick=()=>sc.remove());
-  send.onclick=()=>{
-    const ds=[]; for(let i=0;i<n&&d+i<=NM_DAYS;i++)ds.push(d+i);
-    REQ.push({id:Date.now(),pid:ME.id,days:ds,type,reason:sc.querySelector("#why").value.trim(),
-      status:"pending",to:by(ME.to).n.split(" ")[0],hr:n>2,sent:"20 Aug"});
+  send.onclick=()=>{const ds=[];for(let i=0;i<n&&d+i<=M.days;i++)ds.push(d+i);
+    REQ.push({id:Date.now(),pid:ME.id,mon:PM,days:ds,type,reason:sc.querySelector("#why").value.trim(),
+      status:"pending",to:by(ME.to).n.split(" ")[0],hr:n>2,sent:"20 Sep"});
     sc.remove(); renderPhone(); renderApprovals()};
   document.body.appendChild(sc);
 }
@@ -835,18 +1013,18 @@ function renderApprovals(){
   const el=document.getElementById("appr"); if(!el)return;
   const pend=REQ.filter(r=>r.status==="pending");
   el.innerHTML=pend.length?pend.map(r=>{const p=by(r.pid);
-    return '<div class="apr"><b>'+p.n+'</b><span>'+r.days.join(", ")+' Sep · '+RTYPES.find(t=>t.k===r.type).l+
+    return '<div class="apr"><b>'+p.n+'</b><span>'+r.days.join(", ")+' '+MONTHS[r.mon].n.slice(0,3)+' · '+RTYPES.find(t=>t.k===r.type).l+
       (r.hr?' · <i class="hrflag">HR too</i>':'')+'</span>'+(r.reason?'<i>"'+r.reason+'"</i>':'')+
       '<div class="aprrow"><button class="undo" data-no="'+r.id+'">Decline</button><button class="apbtn" data-yes="'+r.id+'">Approve</button></div></div>'}).join("")
     :'<span class="empty">No requests waiting.</span>';
   el.querySelectorAll("[data-yes]").forEach(b=>b.onclick=()=>{
     const r=REQ.find(x=>x.id==b.dataset.yes); r.status="approved"; const p=by(r.pid);
-    r.days.forEach(dd=>{const di=DATES.indexOf(dd); if(di<0)return;
+    r.days.forEach(dd=>{const di=r.mon===9?DATES.indexOf(dd):-1; if(di<0)return;
       const a=A.find(x=>x.pid===r.pid&&x.d===di);
       if(a){const live=published.has(k(a)); A=A.filter(x=>x!==a); if(live){published.delete(k(a));
         log("warn","Evergiving still shows "+p.n+" at "+SITES[a.s].n,"Leave approved after publishing. Needs removing there.")}}
       ABS.push({pid:r.pid,d:di,t:r.type==="plan"?"plan":r.type,reason:r.reason})});
-    log("pull",p.n+" — leave approved, "+r.days.join(", ")+" Sep",RTYPES.find(t=>t.k===r.type).l+". Shifts released.");
+    log("pull",p.n+" — leave approved, "+r.days.join(", ")+" "+MONTHS[r.mon].n.slice(0,3),RTYPES.find(t=>t.k===r.type).l+". Shifts released.");
     renderApprovals(); render(); renderPhone();
   });
   el.querySelectorAll("[data-no]").forEach(b=>b.onclick=()=>{
@@ -1048,7 +1226,7 @@ const MDAYS=30, MSTART=2;                 // 1 Sep 2026 is a Tuesday (0=Mon)
 const dow=d=>(MSTART+d-1)%7;
 const MONTH={};                            // pid -> {day: "am"|"pm"|"x"|"mc"|"leave"}
 const LATE={};                             // pid -> {day: "HH:MM"}
-const START={am:"10:00",pm:"12:00"};
+const START={am:"10:00",pm:"12:00"};   // fallback; real start comes from the site
 (function seedMonth(){
   let r=7; const rnd=()=>((r=r*16807%2147483647)/2147483647);
   P.filter(p=>p.lv>=3&&!p.placeholder).forEach(p=>{
@@ -1098,8 +1276,9 @@ function renderMonth(){
        '<td class="role">'+LEVELS[p.lv]+'</td>';
     for(let d=1;d<=MDAYS;d++){
       const v=m[d], late=(LATE[p.id]||{})[d];
-      const cls=v==="am"?"a":v==="pm"?"p":v==="x"?"x":v==="mc"?"m":v==="leave"?"l":"";
-      const txt=v==="am"?"A":v==="pm"?"P":v==="x"?"\u00d7":v==="mc"?"M":v==="leave"?"L":"";
+      const sick=v==="sick";
+      const cls=(v==="am"||v==="pm")?"w":v==="x"?"x":v==="mc"?"m":sick?"s":v==="leave"?"l":"free";
+      const txt=(v==="am"||v==="pm")?"":v==="x"?"\u00d7":v==="mc"?"M":sick?"!":v==="leave"?"L":"";
       h+='<td class="c '+cls+(late?" late":"")+(dow(d)>4?" wknd":"")+'" data-p="'+p.id+'" data-d="'+d+'"'+
          (late?' title="checked in '+late+'"':'')+'>'+txt+'</td>';
     }
@@ -1132,12 +1311,12 @@ function renderMonth(){
 }
 const MTODAY=8;   // 8 September 2026
 function checkinBox(pid,d,slot){
-  const p=by(pid), planned=START[slot], past=d<MTODAY;
+  const p=by(pid), site=SITES.find(x=>x.c===p.c)||SITES[0], planned=site[slot][0], past=d<MTODAY;
   const sc=document.createElement("div"); sc.className="scrim";
   sc.innerHTML='<div class="modal"><h3>'+p.n+' — '+d+' Sep, '+slot.toUpperCase()+' shift</h3>'+
     '<div class="segs"><button class="seg on" data-s="in">Record check-in</button><button class="seg" data-s="ab">Mark absent</button></div>'+
     '<div id="segIn">'+
-      '<p class="hint">Shift starts '+planned+'. More than 10 minutes late counts as a lateness.</p>'+
+      '<p class="hint">Shift starts '+planned+' at '+site.n+'. More than 10 minutes late counts as a lateness.</p>'+
       '<label>Check-in time<input type="time" id="ci" value="'+((LATE[pid]||{})[d]||planned)+'"></label>'+
       '<div class="note">Typed in by an admin today. Once the Telegram check-in bot is connected it fills itself, matched on '+(p.tg||"their Telegram handle")+'.</div>'+
     '</div>'+
