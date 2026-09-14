@@ -56,7 +56,10 @@
   .chip .nm small{display:block;font-size:10px;color:var(--ink-soft);font-variant-numeric:tabular-nums}
   .chip .meta{font-size:10px;color:var(--ink-soft);white-space:nowrap}
   .chip .wk{font-size:10.5px;color:var(--ink-soft);font-variant-numeric:tabular-nums;background:#fff;border:1px solid var(--line);border-radius:4px;padding:0 4px}
-  .chip.picked{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .chip.picked,.chip.msel{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .chip.msel .meta,.chip.msel .wk,.chip.msel .nm small{color:#C6CEDC;background:transparent;border-color:#4A5670}
+  .selcount{display:block;font-size:11px;font-weight:400;color:var(--ok);margin-top:2px}
+  .selcount button{font:inherit;font-size:10.5px;border:1px solid var(--line);background:#fff;border-radius:4px;padding:0 6px;cursor:pointer;margin-left:4px}
   .chip.picked .meta,.chip.picked .wk,.chip.picked .nm small{color:#C6CEDC;background:transparent;border-color:#4A5670}
   .chip.dragging{opacity:.35}
   .chip.out{background:#F5F6F8;color:#A8B0BE;cursor:default;border-style:dashed} .chip.out .nm small{color:#B8BFCB}
@@ -159,6 +162,15 @@
   .byrole div{display:grid;grid-template-columns:1fr 34px 34px;gap:2px}
   .byrole .rh span,.byrole .rh b{color:var(--ink-soft);font-size:10px;font-weight:650;letter-spacing:.03em}
   .byrole span{color:var(--ink-soft)} .byrole b{text-align:right;font-weight:400;font-variant-numeric:tabular-nums}
+  .modal.wide{width:470px}
+  .fsec{font-size:10.5px;font-weight:700;letter-spacing:.06em;color:var(--ink-soft);
+    margin:20px 0 2px;padding-top:12px;border-top:1px solid var(--line)}
+  .fnote{font-size:11.5px;color:var(--ink-soft);margin:5px 0 0;line-height:1.4}
+  .req{font-style:normal;color:var(--flag);font-size:10px;font-weight:600}
+  .connectrow{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:9px;padding:10px 12px;margin-top:10px}
+  .connectrow span{flex:1} .connectrow b{display:block;font-size:13px} .connectrow small{color:var(--ink-soft);font-size:11.5px}
+  .minibtn{font:inherit;font-size:12px;padding:6px 12px;border-radius:7px;border:1px solid var(--line);background:#fff;color:var(--ink);cursor:pointer}
+  .minibtn.sent{background:#EAF3EE;border-color:#A9CBB6;color:var(--ok)}
   .hronly{font-style:normal;color:var(--warn);font-size:10px;font-weight:600}
   table.hc td i{font-style:normal;color:var(--ink-soft);font-size:10.5px}
   .byrole .rt{border-top:1px solid var(--line);margin-top:3px;padding-top:3px;font-weight:650}
@@ -178,9 +190,15 @@
     position:sticky;left:196px;z-index:3;text-align:left;padding:4px 8px;overflow:hidden;
     white-space:nowrap;text-overflow:ellipsis;box-shadow:1px 0 0 var(--line)}
   table.mtab thead th.who,table.mtab thead th.role{top:0;z-index:5;background:#F7F8FA}
+  table.mtab thead tr:nth-child(2) th{top:26px}
   table.mtab td.who{background:#fff} table.mtab td.role{background:#fff;color:var(--ink-soft);font-size:10.5px}
   table.mtab tr.perm td.who,table.mtab tr.perm td.role{background:#FBFAF5}
   table.mtab td.who .nmw{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  table.mtab tr.availrow th{background:#EEF1F6;color:var(--ink);font-size:10.5px;font-variant-numeric:tabular-nums;padding:5px 2px}
+  table.mtab tr.availrow th.who{font-size:10px;color:var(--ink-soft);font-weight:600}
+  table.mtab tr.band td{padding:4px 8px;font-size:10px;font-weight:700;letter-spacing:.05em}
+  table.mtab tr.band.stc td{background:var(--stc-bg);color:var(--stc)} table.mtab tr.band.ykan td{background:var(--ykan-bg);color:var(--ykan)}
+  table.mtab tr.band td.who{position:sticky;left:0;z-index:1}
   table.mtab td.c{width:22px;text-align:center;padding:3px 0;font-weight:600;font-size:10.5px;cursor:default}
   table.mtab td.c.w{background:var(--am);cursor:pointer}
   table.mtab td.c.free{background:#fff}
@@ -294,6 +312,17 @@
     border-style:solid;background:#fff;color:var(--ink)}
   .photo.big b{font-size:15px} .photo.big small{font-size:12px;color:var(--ink-soft)}
   .photo.big.attached{border-color:var(--ok);background:#EAF3EE}
+  .bysite{padding:0 16px;display:flex;flex-direction:column;gap:10px}
+  .sitecard{border:1px solid var(--line);border-radius:13px;overflow:hidden}
+  .sc-head{padding:10px 14px 8px;background:#F7F8FA;border-bottom:1px solid var(--line)}
+  .sc-head b{display:block;font-size:14px} .sc-head span{font-size:11.5px;color:var(--ink-soft)}
+  .sc-row{display:flex;align-items:center;gap:10px;padding:9px 14px;border-left:4px solid var(--am);border-bottom:1px solid var(--line);font-size:13px}
+  .sc-row:last-child{border-bottom:0} .sc-row.pm{border-left-color:var(--pm)}
+  .sc-row b{width:76px;flex:none} .sc-row span{flex:1;color:var(--ink-soft)}
+  .sc-row i{font-style:normal;font-size:10px;font-weight:700;letter-spacing:.03em;color:var(--ok)} .sc-row i.draft{color:var(--warn)}
+  .hoursro{font-size:10.5px;color:var(--ink-soft);font-variant-numeric:tabular-nums;background:#F4F6F9;padding:3px 9px;border-radius:6px}
+  .tlsub{font-size:10.5px;color:var(--ink-soft);padding:6px 4px 1px;border-top:1px dashed var(--line);margin-top:3px}
+  .tlsub i{font-style:normal;opacity:.7}
   .says{padding:16px 18px 0;display:flex;flex-direction:column;gap:8px}
   .say{border-radius:10px;padding:11px 13px;font-size:13.5px;line-height:1.4}
   .say.ok{background:var(--flag-bg);color:var(--flag)}
@@ -325,6 +354,132 @@
     background:var(--ink);color:#fff;cursor:pointer;margin-top:12px}
   .cancel2{width:100%;font:inherit;font-size:15px;padding:14px;border:0;border-radius:13px;background:transparent;color:var(--ink-soft);cursor:pointer;margin-top:4px}
   @media (max-width:480px){.deviceframe{padding:0}.device{border:0;border-radius:0;width:100%;box-shadow:none}}
+  /* ---------- weeks ---------- */
+  .weeksel{display:flex;gap:4px;margin-right:14px;padding-right:14px;border-right:1px solid var(--line)}
+  .wkbtn{font:inherit;font-size:11.5px;padding:4px 10px;border-radius:8px;cursor:pointer;border:1px solid var(--line);background:#fff;color:var(--ink);line-height:1.15;text-align:left}
+  .wkbtn small{display:block;font-size:9.5px;color:var(--ink-soft);font-weight:400}
+  .wkbtn.on{background:var(--ink);color:#fff;border-color:var(--ink)} .wkbtn.on small{color:#C6CEDC}
+  .wkbtn.past:not(.on){opacity:.55}
+  .cell.nobook{background:#F2F4F7;background-image:none}
+  .cell.nobook .nb{font-size:9px;color:#AEB5C2;padding:2px 4px}
+  /* ---------- events (gantt) ---------- */
+  table.gantt{border-collapse:collapse;font-size:11.5px;min-width:max-content}
+  table.gantt th,table.gantt td{border:1px solid var(--line)}
+  table.gantt thead th{background:#F7F8FA;text-align:center;font-weight:650;position:sticky;top:0;z-index:2}
+  table.gantt th.wkh{padding:6px 4px;font-size:12px;border-bottom:0} table.gantt th.wkh small{display:block;font-weight:400;color:var(--ink-soft);font-size:10px}
+  table.gantt th.dh{padding:3px 0;width:26px;font-size:10px;color:var(--ink-soft);top:38px} table.gantt th.dh small{display:block;font-size:9px}
+  table.gantt th.we,table.gantt td.we{background:#F2F4F7}
+  table.gantt th.cur{background:#EEF1F6} table.gantt td.cur{background:#FAFBFD} table.gantt td.we.cur{background:#EEF1F6}
+  table.gantt th.sname,table.gantt td.sname{width:200px;min-width:200px;max-width:200px;text-align:left;position:sticky;left:0;box-shadow:1px 0 0 var(--line);white-space:nowrap;overflow:hidden}
+  table.gantt th.sname{z-index:4} table.gantt td.sname{padding:7px 10px;background:#fff;z-index:1;cursor:pointer;vertical-align:middle}
+  table.gantt td.sname b{display:inline-block;max-width:120px;overflow:hidden;text-overflow:ellipsis;vertical-align:bottom}
+  table.gantt tr.droprow td.sname{cursor:default;background:#FFFBF0} table.gantt tr.droprow td.sname b{color:var(--ink-soft);max-width:none}
+  table.gantt td.dz{background:#FFFBF0;cursor:default} table.gantt td.dz.over{outline:2px dashed var(--warn)}
+  table.gantt td.sname[data-si]:hover{background:#F7F8FA}
+  table.gantt td.sname b{font-size:12.5px;margin-right:6px} table.gantt td.sname small{display:block;color:var(--ink-soft);font-size:10px;margin-top:1px}
+  table.gantt tr.nobk td.gcell{background:repeating-linear-gradient(45deg,#F2F4F7 0 4px,#fff 4px 8px);cursor:not-allowed}
+  table.gantt td.gcell{height:44px;cursor:crosshair;user-select:none}
+  table.gantt td.gcell.selg{background:#D5DBE8!important}
+  table.gantt td.gcell.over{outline:2px dashed var(--ink);outline-offset:-2px}
+  table.gantt td.bar{padding:3px;cursor:grab;vertical-align:middle}
+  table.gantt td.bar.dragging{opacity:.4}
+  .barin{position:relative;border-radius:7px;padding:5px 24px 5px 12px;color:#fff;line-height:1.25;white-space:nowrap;overflow:hidden;display:flex;align-items:center;min-height:36px}
+  .bartxt{overflow:hidden;text-overflow:ellipsis;flex:1;min-width:0}
+  .bartxt b{display:block;font-size:11.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .bartxt{position:relative;z-index:1} .bartxt span{font-size:10px;opacity:.85}
+  .bardel{position:absolute;right:16px;top:50%;transform:translateY(-50%);width:18px;height:18px;border-radius:50%;border:0;background:rgba(255,255,255,.28);color:#fff;font:inherit;font-size:14px;line-height:1;cursor:pointer;padding:0}
+  .bardel:hover{background:#fff;color:var(--flag)}
+  .hdl{position:absolute;top:0;bottom:0;width:10px;cursor:ew-resize;background:rgba(255,255,255,.18)}
+  .hdl.l{left:0;border-radius:7px 0 0 7px} .hdl.r{right:0;border-radius:0 7px 7px 0}
+  .hdl:hover{background:rgba(255,255,255,.5)}
+  .hdl::after{content:"";position:absolute;top:50%;left:50%;width:2px;height:12px;margin:-6px 0 0 -1px;background:rgba(255,255,255,.7);border-radius:1px}
+  body.resizing,body.resizing *{cursor:ew-resize!important;user-select:none}
+  .evlegend{display:flex;gap:12px;font-size:11.5px;color:var(--ink-soft);margin-left:6px}
+  .evlegend span{display:flex;align-items:center;gap:5px}
+  .sw{width:14px;height:10px;border-radius:3px;display:inline-block}
+  .sw.local{background:var(--am)} .sw.travel{background:var(--pm)} .sw.streets{background:#B54A1E}
+  .sw.pending{background:#F6D86B;border:1px solid #D9B93A}
+  td.bar.pending .barin{background:#F6D86B;color:var(--ink)}
+  tr.haspend td.sname{background:#FFF8DC}
+  .travelends{position:absolute;inset:0;background:repeating-linear-gradient(135deg,rgba(255,255,255,.45) 0 5px,transparent 5px 10px);pointer-events:none}
+  td.bar.pending .travelends{background:repeating-linear-gradient(135deg,rgba(22,35,58,.18) 0 5px,transparent 5px 10px)}
+  .bartxt em.paid{background:rgba(255,255,255,.25);color:#fff} td.bar.pending .bartxt em.paid{display:none}
+  .bartxt em.trv{background:rgba(22,35,58,.55);color:#fff} .bartxt em.trv.ok{background:#EAF3EE;color:var(--ok)} .bartxt em.trv.unpaid{background:#FFF3D6;color:var(--warn)}
+  .bkform label{margin-top:8px}
+  .costt{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:6px}
+  .costt th{text-align:left;font-size:10.5px;color:var(--ink-soft);font-weight:650;padding:4px 6px;border-bottom:1px solid var(--line)}
+  .costt td{padding:5px 6px;border-bottom:1px solid var(--line);vertical-align:middle}
+  .costt td:first-child{width:120px;color:var(--ink)} .costt td input[type=text],.costt td input:not([type]){margin:0}
+  .costt .pc{width:52px;text-align:center} .costt .pc input{width:18px;height:18px;margin:0}
+  .costt tr.hidden{display:none}
+  .cand .ldr{font-weight:700}
+  td.bar.pending .barin{background:#F6D86B!important;color:var(--ink)!important}
+  td.bar.pending{background:#FFF3C4}
+  tr.lane2 td.gcell{border-top:0} tr.spare td.gcell{height:22px;background:#FBFCFD} tr.spare td.gcell.labelcell::before{font-size:10px;color:#AEB5C2}
+  td.gcell.labelcell{position:relative} td.gcell.labelcell::before{content:attr(data-label);position:absolute;left:8px;top:50%;transform:translateY(-50%);font-size:11px;color:var(--ink-soft);white-space:nowrap;pointer-events:none}
+  td.dzwide{background:#FFFBF0;padding:10px 14px;cursor:pointer;text-align:left}
+  td.dzwide b{color:var(--ink-soft);margin-right:10px} td.dzwide small{color:var(--ink-soft);font-size:11px}
+  td.dzwide:hover{background:#FFF3C4} td.dzwide.over{outline:2px dashed var(--warn);outline-offset:-3px}
+  .partyhead{display:flex;justify-content:space-between;align-items:baseline;font-size:12.5px;margin-top:4px}
+  .okc{color:var(--ok);font-size:11px;font-weight:600} .wc{color:var(--warn);font-size:11px;font-weight:600}
+  .cands{display:flex;flex-direction:column;gap:4px;max-height:170px;overflow:auto}
+  .cand{display:flex;justify-content:space-between;align-items:baseline;width:100%;font:inherit;font-size:12.5px;text-align:left;padding:7px 10px;border:1px solid var(--line);border-radius:7px;background:#fff;cursor:pointer}
+  .cand:hover{background:#F4F6F9;border-color:var(--ink)} .cand small{color:var(--ink-soft);font-size:10.5px}
+  .tvt{width:100%;border-collapse:collapse;font-size:12px;margin-top:6px}
+  .tvt th{text-align:left;font-size:10px;color:var(--ink-soft);padding:3px 6px;border-bottom:1px solid var(--line)}
+  .tvt td{padding:5px 6px;border-bottom:1px solid var(--line)} .tvt td i{color:var(--warn);font-style:normal;font-size:11px}
+  .avgs{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px}
+  .avg{background:#F4F6F9;border-radius:8px;padding:9px 10px}
+  .avg span{display:block;font-size:10.5px;color:var(--ink-soft)} .avg b{display:block;font-size:16px;font-variant-numeric:tabular-nums;margin:1px 0}
+  .avg small{display:block;font-size:10.5px;color:var(--ink-soft)} .avg i{display:block;font-style:normal;font-size:10.5px;font-weight:600;margin-top:2px}
+  .avg i.good,.avg b.good{color:var(--ok)} .avg i.over,.avg b.over{color:var(--flag)}
+  .avg.tot{background:var(--ink);color:#fff} .avg.tot span,.avg.tot small{color:#C6CEDC}
+  .avg.mix .mixbar{height:8px;border-radius:4px;background:var(--am);overflow:hidden;margin:6px 0 4px}
+  .avg.mix .mixbar i{display:block;height:100%;background:var(--pm)}
+  .avg.mix small b{display:inline;font-size:10.5px}
+  td.bar.pending .bardel{background:rgba(22,35,58,.12);color:var(--ink)} td.bar.pending .bardel:hover{background:var(--flag);color:#fff}
+  td.bar.pending .hdl{background:rgba(22,35,58,.08)} td.bar.pending .hdl::after{background:rgba(22,35,58,.45)}
+  .bartxt em{font-style:normal;font-size:9px;font-weight:700;letter-spacing:.05em;padding:1px 5px;border-radius:3px;margin-left:5px;vertical-align:1px}
+  .bartxt em.pend{background:var(--ink);color:#F6D86B}
+  .pendrow span{color:var(--warn)!important} .pendrow b{color:var(--warn)}
+  td.bar.local .barin{background:var(--am)} td.bar.travel .barin{background:var(--pm)} td.bar.streets .barin{background:#B54A1E}
+  .calc{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:14px}
+  .calc div{background:#F4F6F9;border-radius:8px;padding:8px 10px}
+  .calc span{display:block;font-size:10.5px;color:var(--ink-soft)} .calc b{font-size:14px;font-variant-numeric:tabular-nums}
+  .calc b i{font-style:normal;font-weight:400;font-size:11px;color:var(--ink-soft)}
+  .calc .big2{grid-column:1/3;background:var(--ink);color:#fff} .calc .big2 span{color:#C6CEDC} .calc .big2 b{font-size:18px}
+  #evgrid{overflow:auto;max-height:calc(100vh - 170px)}
+  /* ---------- events ---------- */
+  .sitechip .nm small{display:block;font-size:10px;color:var(--ink-soft)}
+  .sitechip .loa{margin:0;font-size:9px}
+  .evcell{min-height:64px;height:auto;background:#fff} .evcell.we{background:#F7F8FA}
+  .site.curweek{border-color:#B4BECE;box-shadow:0 0 0 2px #E6EAF1}
+  .sitehead.wkdrop.over{background:#EDF1F7;outline:2px dashed var(--ink);outline-offset:-3px}
+  .evbooked{background:#EDF0F5;border-left-width:4px}
+  .evbooked.stc{border-left-color:var(--stc)} .evbooked.ykan{border-left-color:var(--ykan)}
+  .evbooked .nm{font-weight:600;font-size:12px}
+  table.evtab{border-collapse:collapse;width:100%;font-size:12px}
+  table.evtab th,table.evtab td{border:1px solid var(--line);vertical-align:top}
+  table.evtab thead th{background:#F7F8FA;padding:8px;font-size:11.5px;font-weight:650;text-align:left;position:sticky;top:0;z-index:2}
+  table.evtab thead th.wk{cursor:pointer;text-align:center} table.evtab thead th.wk:hover{background:#EDF0F5}
+  table.evtab thead th.wk small{display:block;font-weight:400;color:var(--ink-soft);font-size:10px}
+  table.evtab th.cur,table.evtab td.cur{background:#F4F7FB}
+  table.evtab td.sname{padding:8px 10px;min-width:210px;cursor:pointer} table.evtab td.sname:hover{background:#F7F8FA}
+  table.evtab td.sname b{font-size:13px;margin-right:6px} table.evtab td.sname small{display:block;color:var(--ink-soft);font-size:10.5px;margin-top:2px}
+  .loa{display:inline-block;font-size:9.5px;font-weight:700;letter-spacing:.03em;padding:1px 6px;border-radius:3px;margin-top:5px}
+  .loa.signed{background:#EAF3EE;color:var(--ok)} .loa.pending{background:#FFF3D6;color:var(--warn)}
+  .loa.expired,.loa.noloc{background:var(--flag-bg);color:var(--flag)}
+  td.wkcell{padding:7px 8px;text-align:center;min-width:132px}
+  td.wkcell small{display:block;font-size:10px;color:var(--ink-soft);margin-top:4px} td.wkcell small.dim{color:#C8CFDA}
+  .minidays{display:flex;gap:2px;justify-content:center}
+  .md{width:16px;height:22px;border:1px solid var(--line);border-radius:4px;background:#fff;font:inherit;font-size:9px;color:#B6BDCA;cursor:pointer;padding:0}
+  .md.we{background:#F7F8FA}
+  .md.on{background:var(--ink);border-color:var(--ink);color:#fff;font-weight:700}
+  .md.on.we{background:#3A4A6E;border-color:#3A4A6E}
+  .md:hover{border-color:var(--ink)}
+  table.evtab td.tot{text-align:right;padding:8px;font-variant-numeric:tabular-nums;background:#F7F8FA;white-space:nowrap}
+  table.hc td i{font-style:normal;color:var(--ink-soft);font-size:10.5px}
+  .panel.orphan{border-color:#E8D08A;background:#FFFBF0}
   .trainhead{font-size:10px;color:var(--ink-soft);border-top:1px dashed var(--line);margin-top:4px;padding:5px 4px 1px}
   .bin{border:2px dashed #E3BEBC;background:var(--flag-bg);border-radius:10px;padding:14px 12px;text-align:center;color:var(--flag);font-size:12.5px}
   .bin.over{background:#F5D6D4;border-style:solid} .bin b{display:block;font-size:13px;margin-bottom:2px}
@@ -337,13 +492,14 @@
 
 <header>
   <h1>Popcorn</h1>
-  <div class="wk" id="hdrsub">Week 2 — 14–20 Sep 2026 · Jakarta</div>
+  <div class="wk" id="hdrsub">Week 3 — 14 – 20 Sep 2026 · Jakarta</div>
   <div class="tabs">
     <button data-tab="roster" aria-pressed="true">Weekly roster</button>
     <button data-tab="phone" aria-pressed="false">Fundraiser phone</button>
     <button data-tab="monthly" aria-pressed="false">Monthly roster</button>
     <button data-tab="team" aria-pressed="false">Team structure</button>
-    <select id="asrole" title="Preview what each role sees"><option value="dir">Viewing as: Director</option><option value="hr">Viewing as: HR</option><option value="mgr">Viewing as: Manager</option><option value="tl">Viewing as: Team leader</option><option value="fr">Viewing as: Fundraiser</option></select>
+    <button data-tab="events" aria-pressed="false">Events</button>
+    <select id="asrole" title="Preview what each role sees"><option value="dir">Viewing as: Director</option><option value="hr">Viewing as: HR</option><option value="ev">Viewing as: Events</option><option value="mgr">Viewing as: Manager</option><option value="tl">Viewing as: Team leader</option><option value="fr">Viewing as: Fundraiser</option></select>
   </div>
 </header>
 
@@ -352,7 +508,7 @@
 <main id="roster">
   <section class="pool">
     <h2 id="poolHead">Available Monday</h2>
-    <p class="hint">Drag onto a site, or tap a name then tap a slot.</p>
+    <p class="hint">Drag onto a site, or tap a name then tap a slot. Ctrl/⌘-click or Shift-click to pick several at once.</p>
     <input class="search" id="q" placeholder="Search name or staff code">
     <div id="groups"></div><div id="poolOut"></div>
   </section>
@@ -398,6 +554,29 @@
       <span><i class="c s">!</i>sick, certificate outstanding</span>
       <span><i class="c l">L</i>leave</span>
       <span><i class="c w late"></i>late over 10 min</span></div></div>
+  </aside>
+</main>
+
+<!-- ===================== EVENTS ===================== -->
+<main id="events" class="hidden">
+  <section class="pool">
+    <h2>Sites</h2>
+    <p class="hint">Drag a site onto a day to book it. Then stretch or edit the booking on the grid.</p>
+    <input class="search" id="evq" placeholder="Search site">
+    <div id="evsites"></div>
+    <button class="btn primary" id="addSite" style="width:100%;margin-top:10px">Add site</button>
+  </section>
+  <section class="orgwrap" style="padding:14px;min-width:0">
+    <div class="topbar">
+      <select id="evcamp" class="search" style="width:150px;margin:0"><option value="all">Both campaigns</option><option value="stc">STC</option><option value="ykan">YKAN</option></select>
+      <div class="evlegend" id="evlegend"></div>
+      <span class="hint" style="margin:0 0 0 auto">Drag the right edge of a booking to stretch it · drag the middle to move it · × to delete · click to edit.</span>
+    </div>
+    <div id="evgrid"></div>
+  </section>
+  <aside class="side">
+    <div class="panel"><h2>September at a glance</h2><div id="evsum"></div></div>
+    <div class="panel"><h2>Needs attention</h2><div id="evflags"></div></div>
   </aside>
 </main>
 
@@ -561,8 +740,9 @@ document.querySelectorAll(".tabs button").forEach(b=>b.onclick=()=>{
   document.getElementById("phone").classList.toggle("hidden",t!=="phone");
   document.getElementById("team").classList.toggle("hidden",t!=="team");
   document.getElementById("monthly").classList.toggle("hidden",t!=="monthly");
-  document.getElementById("hdrsub").textContent=t==="team"?"Team structure · Indonesia":t==="monthly"?"September 2026 · Indonesia":"Week 2 — 14–20 Sep 2026 · Jakarta";
-  if(t==="roster")render(); if(t==="team")renderOrg(); if(t==="monthly")renderMonth(); if(t==="phone")renderPhone();
+  document.getElementById("events").classList.toggle("hidden",t!=="events");
+  document.getElementById("hdrsub").textContent=t==="team"?"Team structure · Indonesia":t==="monthly"?"September 2026 · Indonesia":t==="events"?"Site bookings · September 2026":"Week "+WEEKS[WK].n+" — "+WEEKS[WK].label+" 2026 · Jakarta";
+  if(t==="roster")render(); if(t==="team")renderOrg(); if(t==="monthly")renderMonth(); if(t==="phone")renderPhone(); if(t==="events")renderEvents();
 });
 
 /* ======================= ROSTER ======================= */
@@ -572,8 +752,56 @@ const SITES=[
  {n:"Soekarno-Hatta T3",loc:4040,c:"stc",note:"LOA signed 30 Aug",am:["08:00","15:00"],pm:["13:00","20:00"],hlock:false},
  {n:"Senayan City",loc:4048,c:"ykan",note:"LOA pending",am:["10:00","17:00"],pm:["12:00","19:00"],hlock:false},
  {n:"Pondok Indah",loc:4052,c:"ykan",note:"LOA signed 1 Sep",am:["10:00","17:00"],pm:["12:00","19:00"],hlock:true},
+ {n:"Central Park",loc:4061,c:"ykan",note:"LOA signed 5 Sep",am:["10:00","17:00"],pm:["12:00","19:00"],hlock:true},
+ {n:"Halim Perdanakusuma",loc:4066,c:"stc",note:"LOA pending",am:["07:00","14:00"],pm:["13:00","20:00"],hlock:false},
+ {n:"Lippo Mall Puri",loc:4070,c:"stc",note:"LOA expired 31 Aug",am:["10:00","17:00"],pm:["12:00","19:00"],hlock:true},
+ {n:"Gandaria City",loc:null,c:"ykan",note:"No Evergiving location yet",am:["10:00","17:00"],pm:["12:00","19:00"],hlock:false},
+ {n:"Kelapa Gading Mall 3",loc:4081,c:"stc",note:"LOA signed 10 Sep",am:["10:00","17:00"],pm:["12:00","19:00"],hlock:false},
+ {n:"Bandung — Paris Van Java",loc:4090,c:"ykan",note:"LOA signed 8 Sep",am:["10:00","17:00"],pm:["12:00","19:00"],hlock:false},
 ];
+SITES.forEach((x,i)=>{x.cost=x.n.includes("Hatta")||x.n.includes("Halim")?1850000:1200000;
+  x.loa=/signed/.test(x.note)?"signed":/expired/.test(x.note)?"expired":"pending"; x.addr=["Jakarta Pusat","Jakarta Selatan","Tangerang","Jakarta Selatan","Jakarta Selatan","Jakarta Barat","Jakarta Timur","Jakarta Barat","Jakarta Selatan","Jakarta Utara","Bandung"][i]||"Jakarta"});
 const hrs=(s,slot)=>s[slot][0]+"–"+s[slot][1];
+/* Events bookings: continuous date ranges over a 35-day span (0 = Mon 31 Aug … 34 = Sun 4 Oct) */
+const SPAN=35, TYPES={local:"Local",travel:"Travel trip",streets:"Streets"};
+let BOOKINGS=[];
+const gday=(w,d)=>w*7+d, gw=i=>Math.floor(i/7), gd=i=>i%7;
+const glabel=i=>DAYS[gd(i)]+" "+WEEKS[gw(i)].dates[gd(i)]+" "+(WEEKS[gw(i)].mon[gd(i)]===10?"Oct":WEEKS[gw(i)].mon[gd(i)]===8?"Aug":"Sep");
+const gdate=i=>{const m=WEEKS[gw(i)].mon[gd(i)], dd=WEEKS[gw(i)].dates[gd(i)]; return "2026-"+String(m).padStart(2,"0")+"-"+String(dd).padStart(2,"0")};
+const gfrom=iso=>{for(let i=0;i<SPAN;i++)if(gdate(i)===iso)return i; return null};
+const bkDays=b=>b.end-b.start+1;
+const isPending=b=>b.type!=="streets"&&!b.sitePaid;                 // yellow only when the site itself isn't paid
+const paidState=b=>isPending(b)?"pending":"paid";
+const bkTotal=b=>(b.site||0)+(b.type==="travel"||b.type==="streets"?0:0)+(b.type==="travel"?(b.transport||0)+(b.accom||0):0);
+const bkShifts=b=>b.hc*bkDays(b);
+const bkPerShift=b=>bkShifts(b)?Math.round(bkTotal(b)/bkShifts(b)):0;
+const bookingAt=(si,i)=>BOOKINGS.find(b=>b.si===si&&i>=b.start&&i<=b.end);            // first booking covering an event day
+const bookingsAt=(si,i)=>BOOKINGS.filter(b=>b.si===si&&i>=b.start&&i<=b.end);         // all of them (teams can overlap)
+function lanesFor(si){const lanes=[]; BOOKINGS.filter(b=>b.si===si).sort((a,b)=>spanStart(a)-spanStart(b)).forEach(b=>{
+    let L=lanes.find(l=>l.every(o=>spanEnd(o)<spanStart(b)||spanStart(o)>spanEnd(b))); if(!L){L=[];lanes.push(L)} L.push(b)}); return lanes}
+const spanStart=b=>b.type==="travel"&&b.tOut!=null?Math.min(b.tOut,b.start):b.start;
+const spanEnd=b=>b.type==="travel"&&b.tBack!=null?Math.max(b.tBack,b.end):b.end;
+const spanAt=(si,i)=>BOOKINGS.find(b=>b.si===si&&i>=spanStart(b)&&i<=spanEnd(b));      // including travel days
+const travelDayFor=(pid,i)=>BOOKINGS.find(b=>b.type==="travel"&&((b.tOut===i)||(b.tBack===i))&&travellers(b).some(p=>p.id===pid));
+const travellers=b=>(b.party||[]).map(by).filter(Boolean);                               // chosen by Events at booking time
+const rosteredOn=b=>{const ids=new Set(); A.forEach(a=>{const g=gday(a.w,a.d); if(a.s===b.si&&g>=b.start&&g<=b.end)ids.add(a.pid)}); return [...ids]};
+const bookedDays=(si,w)=>{const set=new Set(); for(let d=0;d<7;d++)if(bookingAt(si,gday(w,d)))set.add(d); return set};
+(function seedBook(){
+  const add=(si,start,end,type,site,transport,accom,hc)=>BOOKINGS.push({id:BOOKINGS.length+1,si,start,end,type,site,transport,accom,hc});
+  add(0,gday(1,0),gday(3,6),"local",  24000000,0,0,4);            // Grand Indonesia, weeks 2–4
+  BOOKINGS[0].paid="paid";
+  add(1,gday(1,1),gday(2,2),"local",  9000000,0,0,3);             // Kota Kasablanka: Tue wk2 → Wed wk3, one box
+  add(1,gday(3,0),gday(4,6),"local",  14000000,0,0,3);
+  add(2,gday(2,5),gday(2,6),"travel", 6000000,2500000,1800000,4); // airport weekend as a travel trip
+  add(2,gday(3,5),gday(3,6),"travel", 6000000,2500000,1800000,4);
+  add(3,gday(1,0),gday(3,6),"local",  18000000,0,0,3);
+  add(4,gday(2,0),gday(4,6),"local",  20000000,0,0,3);
+  add(5,gday(2,0),gday(3,4),"streets",0,0,0,5);
+  add(6,gday(3,5),gday(3,6),"travel", 5000000,3000000,2200000,4);
+  BOOKINGS.forEach((b,i)=>{b.sitePaid=[0,1,3,5].includes(i)||b.type==="streets"; b.transportPaid=[1,3].includes(i); b.accomPaid=[3].includes(i);
+    b.c=SITES[b.si].c; if(b.type==="travel"){b.tOut=b.start-1;b.tBack=b.end+1;b.transportMode="flight";b.travelOk=i===3;
+      b.party=P.filter(p=>p.lv>=5&&p.c===b.c&&p.eg).slice(i%2?0:4,(i%2?0:4)+b.hc).map(p=>p.id)}});
+})();
 const ABS_TYPES=[
  {k:"mc",l:"Medical certificate",s:"Certificate uploaded. Counts as MC."},
  {k:"sick",l:"Sick, no certificate",s:"Unpaid unless a certificate arrives."},
@@ -581,37 +809,60 @@ const ABS_TYPES=[
  {k:"plan",l:"Planned leave",s:"Requested in advance by the fundraiser."},
  {k:"ns",l:"No-show",s:"Didn't turn up. Feeds performance, not leave."},
 ];
-const DAYS=["Mon","Tue","Wed","Thu","Fri","Sat","Sun"], DATES=[14,15,16,17,18,19,20];
-let A=[], published=new Set(), ABS=[], locked=new Set(), day=0, picked=null, q="";
-const k=a=>a.pid+"-"+a.s+"-"+a.d+"-"+a.slot;
-const absOn=(pid,d)=>ABS.find(x=>x.pid===pid&&x.d===d);
-const shifts=pid=>A.filter(a=>a.pid===pid).length;
+const DAYS=["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
+const WEEKS=[
+ {n:1,label:"31 Aug – 6 Sep", dates:[31,1,2,3,4,5,6],  mon:[8,9,9,9,9,9,9]},
+ {n:2,label:"7 – 13 Sep",     dates:[7,8,9,10,11,12,13],mon:[9,9,9,9,9,9,9]},
+ {n:3,label:"14 – 20 Sep",    dates:[14,15,16,17,18,19,20],mon:[9,9,9,9,9,9,9]},
+ {n:4,label:"21 – 27 Sep",    dates:[21,22,23,24,25,26,27],mon:[9,9,9,9,9,9,9]},
+ {n:5,label:"28 Sep – 4 Oct", dates:[28,29,30,1,2,3,4], mon:[9,9,9,10,10,10,10]}];
+let WK=2;                                        // today 14 Sep = Week 3
+let DATES=WEEKS[WK].dates;
+const LOCKED={};
+const lockedW=()=>(LOCKED[WK]=LOCKED[WK]||new Set());
+const WA=()=>A.filter(a=>a.w===WK);
+const findWD=(dd,mon)=>{for(let w=0;w<WEEKS.length;w++){const i=WEEKS[w].dates.findIndex((x,j)=>x===dd&&WEEKS[w].mon[j]===(mon||9));if(i>=0)return [w,i]}return null};
+let A=[], published=new Set(), ABS=[], day=0, picked=null, q="";
+let MSEL=new Set(), lastPick=null;   // multi-select in the pool
+const k=a=>a.w+"-"+a.pid+"-"+a.s+"-"+a.d+"-"+a.slot;
+const absOn=(pid,d)=>ABS.find(x=>x.pid===pid&&x.w===WK&&x.d===d);
+const shifts=pid=>WA().filter(a=>a.pid===pid).length;
 const offTxt=p=>p.off.length?"off "+p.off.map(d=>DAYS[d]).join(", "):"";
 
 function drawDaybar(){
   const bar=document.getElementById("daybar"); bar.innerHTML="";
+  const ws=document.createElement("div"); ws.className="weeksel";
+  WEEKS.forEach((w,i)=>{const b=document.createElement("button"); b.className="wkbtn"+(i===WK?" on":"")+(i<2?" past":"");
+    b.innerHTML="<b>Week "+w.n+"</b><small>"+w.label+"</small>";
+    b.onclick=()=>{WK=i;DATES=WEEKS[WK].dates;day=0;picked=null;render();
+      document.getElementById("hdrsub").textContent="Week "+w.n+" — "+w.label+" 2026 · Jakarta"};
+    ws.appendChild(b)});
+  bar.appendChild(ws);
   DAYS.forEach((d,i)=>{const b=document.createElement("button");
-    b.className="daybtn"+(locked.has(i)?" locked":""); b.setAttribute("aria-pressed",i===day);
-    b.innerHTML=(locked.has(i)?"&#128274; ":"")+"<b>"+d+" "+DATES[i]+"</b><span class='n'>"+A.filter(a=>a.d===i).length+"</span>";
+    b.className="daybtn"+(lockedW().has(i)?" locked":""); b.setAttribute("aria-pressed",i===day);
+    b.innerHTML=(lockedW().has(i)?"&#128274; ":"")+"<b>"+d+" "+DATES[i]+"</b><span class='n'>"+WA().filter(a=>a.d===i).length+"</span>";
     b.onclick=()=>{day=i;picked=null;render()}; bar.appendChild(b)});
-  const lb=document.createElement("button"); lb.className="lockbtn"+(locked.has(day)?" on":"");
-  lb.textContent=(locked.has(day)?"Unlock ":"Lock ")+DAYS[day];
-  lb.onclick=()=>{locked.has(day)?locked.delete(day):locked.add(day);render()}; bar.appendChild(lb);
+  const lb=document.createElement("button"); lb.className="lockbtn"+(lockedW().has(day)?" on":"");
+  lb.textContent=(lockedW().has(day)?"Unlock ":"Lock ")+DAYS[day];
+  lb.onclick=()=>{lockedW().has(day)?lockedW().delete(day):lockedW().add(day);render()}; bar.appendChild(lb);
 }
 function drawBoard(){
   const b=document.getElementById("board"); b.innerHTML="";
-  SITES.forEach((s,si)=>{const sec=document.createElement("section"); sec.className="site";
+  const live=SITES.map((s,i)=>i).filter(si=>bookedDays(si,WK).size);
+  if(!live.length) b.innerHTML='<div class="panel"><span class="empty">Events hasn\'t booked any sites for Week '+WEEKS[WK].n+' yet. See the Events tab.</span></div>';
+  live.forEach(si=>{const s0=SITES[si]; const bd=bookedDays(si,WK);
+    const wkBk=BOOKINGS.find(b=>b.si===si&&[0,1,2,3,4,5,6].some(d=>gday(WK,d)>=b.start&&gday(WK,d)<=b.end));
+    const s=Object.assign({},s0,{c:wkBk?wkBk.c:s0.c}); SITES[si].cw=s.c;   // campaign this week
+    const sec=document.createElement("section"); sec.className="site";
     let h='<div class="sitehead">'+s.n+'<span class="camp '+s.c+'">'+CAMPS[s.c].n+'</span>'+
-      '<button class="hoursbtn'+(s.hlock?" locked":"")+'" data-site="'+si+'">'+
-      (s.hlock?'\u{1F512} ':'')+'AM '+hrs(s,"am")+' · PM '+hrs(s,"pm")+'</button>'+
-      '<small>'+s.note+'</small><span class="cnt">'+A.filter(a=>a.s===si).length+' shifts</span></div><table><thead><tr><th></th>';
-    DAYS.forEach((d,i)=>h+='<th class="'+(i===day?"sel":locked.has(i)?"dim":"")+'">'+d+' <small>'+DATES[i]+'</small></th>');
+      '<span class="hoursro" title="Set by Events">AM '+hrs(s,"am")+' · PM '+hrs(s,"pm")+'</span>'+
+      '<small>'+s.note+'</small><span class="cnt">'+WA().filter(a=>a.s===si).length+' shifts</span></div><table><thead><tr><th></th>';
+    DAYS.forEach((d,i)=>h+='<th class="'+(i===day?"sel":lockedW().has(i)?"dim":"")+'">'+d+' <small>'+DATES[i]+'</small></th>');
     h+='</tr></thead><tbody>';
     ["am","pm"].forEach(slot=>{h+='<tr><th class="slot '+slot+'">'+slot.toUpperCase()+'<small>'+s[slot][0]+'</small></th>';
-      DAYS.forEach((_,di)=>h+='<td class="cell '+slot+(di===day?" sel":"")+(locked.has(di)?" lockedcell dim":"")+'" data-s="'+si+'" data-d="'+di+'" data-slot="'+slot+'"><div class="stack"></div></td>');
+      DAYS.forEach((_,di)=>h+='<td class="cell '+slot+(di===day?" sel":"")+(lockedW().has(di)?" lockedcell dim":"")+(bd.has(di)?"":" nobook")+'" data-s="'+si+'" data-d="'+di+'" data-slot="'+slot+'"><div class="stack">'+(bd.has(di)?"":"<span class='nb'>not booked</span>")+'</div></td>');
       h+='</tr>'});
     sec.innerHTML=h+'</tbody></table>'; b.appendChild(sec)});
-  document.querySelectorAll(".hoursbtn").forEach(btn=>btn.onclick=()=>hoursBox(+btn.dataset.site));
 }
 function hoursBox(si){
   const s=SITES[si];
@@ -638,25 +889,34 @@ function hoursBox(si){
 }
 function poolChip(p,disabled,reason){
   const el=document.createElement("div");
-  el.className="chip"+(disabled?" out":"")+(picked===p.id?" picked":"")+(isLeader(p)?" lead":""); el.draggable=!disabled; el.tabIndex=disabled?-1:0;
+  el.className="chip"+(disabled?" out":"")+(isLeader(p)?" lead":""); el.draggable=!disabled; el.tabIndex=disabled?-1:0; el.dataset.id=p.id;
   el.innerHTML='<span class="nm">'+p.n+'<small>'+p.code+(isLeader(p)?" · "+LEVELS[p.lv]:"")+'</small></span>'+(isTrainee(p)?'<span class="tag new">NEW</span>':'')+
     (reason?'<span class="meta">'+reason+'</span>':(offTxt(p)?'<span class="meta">'+offTxt(p)+'</span>':''))+'<span class="wk" title="shifts this week">'+shifts(p.id)+'</span>';
+  if(MSEL.has(p.id))el.classList.add("msel");
   if(!disabled){
-    el.addEventListener("dragstart",e=>{e.dataTransfer.setData("text/plain",p.id);el.classList.add("dragging")});
+    el.addEventListener("dragstart",e=>{
+      const ids=MSEL.has(p.id)&&MSEL.size>1?[...MSEL]:[p.id];
+      e.dataTransfer.setData("text/plain",ids.length>1?"multi:"+ids.join(","):String(p.id)); el.classList.add("dragging")});
     el.addEventListener("dragend",()=>el.classList.remove("dragging"));
-    el.addEventListener("click",()=>{picked=picked===p.id?null:p.id;render()});
+    el.addEventListener("click",e=>{
+      const visible=[...document.querySelectorAll("#groups .chip:not(.out)")].map(c=>+c.dataset.id);
+      if(e.shiftKey&&lastPick!=null){const a=visible.indexOf(lastPick), b=visible.indexOf(p.id);
+        if(a>=0&&b>=0){visible.slice(Math.min(a,b),Math.max(a,b)+1).forEach(id=>MSEL.add(id))}}
+      else if(e.ctrlKey||e.metaKey){MSEL.has(p.id)?MSEL.delete(p.id):MSEL.add(p.id)}
+      else {const only=MSEL.size===1&&MSEL.has(p.id); MSEL.clear(); if(!only)MSEL.add(p.id)}
+      lastPick=p.id; picked=MSEL.size?[...MSEL]:null; render()});
     el.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();el.click()}});
   }
   return el;
 }
 function cellChip(a){
-  const p=by(a.pid), lock=locked.has(a.d);
+  const p=by(a.pid), lock=lockedW().has(a.d);
   const el=document.createElement("div"); el.className="chip"+(published.has(k(a))?" live":"")+(picked===k(a)?" picked":"")+(isLeader(p)?" lead":""); el.draggable=!lock; el.tabIndex=lock?-1:0;
   el.innerHTML='<span class="nm">'+p.n+'</span>';
   if(!lock){
     el.addEventListener("dragstart",e=>{e.dataTransfer.setData("text/plain",p.id+"|"+k(a));el.classList.add("dragging")});
     el.addEventListener("dragend",()=>el.classList.remove("dragging"));
-    el.addEventListener("click",e=>{if(e.target.tagName==="BUTTON")return;picked=picked===k(a)?null:k(a);render()});
+    el.addEventListener("click",e=>{if(e.target.tagName==="BUTTON")return;MSEL.clear();picked=picked===k(a)?null:k(a);render()});
     const ab=document.createElement("button"); ab.className="ab"; ab.textContent="ABSENT"; ab.title="Mark absent"; ab.onclick=()=>absenceBox(a);
     const x=document.createElement("button"); x.className="x"; x.textContent="×"; x.title="Take off this shift"; x.onclick=()=>{A=A.filter(y=>k(y)!==k(a));render()};
     el.append(ab,x);
@@ -665,24 +925,39 @@ function cellChip(a){
 }
 function render(){
   drawDaybar(); drawBoard();
-  document.getElementById("poolHead").textContent=(locked.has(day)?"Locked — ":"Available ")+DAYS[day]+" "+DATES[day];
+  document.getElementById("poolHead").innerHTML=(lockedW().has(day)?"Locked — ":"Available ")+DAYS[day]+" "+DATES[day]+
+    (MSEL.size>1?' <span class="selcount">'+MSEL.size+' selected · drag them together <button id="clearsel">clear</button></span>':'');
+  const cs=document.getElementById("clearsel"); if(cs)cs.onclick=()=>{MSEL.clear();picked=null;render()};
   const g=document.getElementById("groups"); g.innerHTML=""; const out=document.getElementById("poolOut"); out.innerHTML="";
   const match=p=>!q||p.n.toLowerCase().includes(q)||p.code.toLowerCase().includes(q);
   const unavailable=[];
+  const ordered=monthRows().map(r=>r.p).filter(p=>p.lv>=3&&!p.placeholder);   // tree order: leader, then their people
   ["stc","ykan"].forEach(c=>{
-    const free=fundraisers().filter(p=>p.c===c&&match(p)&&!A.some(a=>a.pid===p.id&&a.d===day)).filter(p=>{
+    const free=ordered.filter(p=>p.c===c&&match(p)&&!WA().some(a=>a.pid===p.id&&a.d===day)).filter(p=>{
       if(!p.eg){unavailable.push([p,"no Evergiving ID"]);return false}
       const ab=absOn(p.id,day); if(ab){unavailable.push([p,ABS_TYPES.find(t=>t.k===ab.t).l.toLowerCase()]);return false}
       if(p.off.includes(day)){unavailable.push([p,"can't work"]);return false} return true});
     const wrap=document.createElement("div"); wrap.className="group";
     wrap.innerHTML='<div class="grouphead '+c+'">'+CAMPS[c].n+'<span>'+free.length+' free</span></div>';
     const list=document.createElement("div"); list.className="pool-list";
-    free.forEach(p=>list.appendChild(poolChip(p,locked.has(day))));
+    let lastTL=null;
+    free.forEach(p=>{
+      if(p.lv===6){const tl=by(p.to);
+        if(tl&&tl.id!==lastTL){lastTL=tl.id;
+          if(!free.includes(tl))list.insertAdjacentHTML("beforeend",'<div class="tlsub">'+tl.n+' <i>'+LEVELS[tl.lv].toLowerCase()+' · '+(free.includes(tl)?"":"not free today")+'</i></div>')}}
+      else lastTL=p.id;
+      list.appendChild(poolChip(p,lockedW().has(day)))});
     if(!free.length) list.innerHTML='<span class="empty">All rostered for '+DAYS[day]+'.</span>';
     wrap.appendChild(list); g.appendChild(wrap)});
   if(unavailable.length){out.insertAdjacentHTML("beforeend",'<p class="subhead">Not available '+DAYS[day]+'</p>');
     const w=document.createElement("div"); w.className="pool-list"; unavailable.forEach(([p,r])=>w.appendChild(poolChip(p,true,r))); out.appendChild(w)}
-  A.forEach(a=>document.querySelector('.cell[data-s="'+a.s+'"][data-d="'+a.d+'"][data-slot="'+a.slot+'"] .stack').appendChild(cellChip(a)));
+  const orphans=[];
+  WA().forEach(a=>{const st=document.querySelector('.cell[data-s="'+a.s+'"][data-d="'+a.d+'"][data-slot="'+a.slot+'"] .stack');
+    if(st&&!st.querySelector(".nb"))st.appendChild(cellChip(a)); else orphans.push(a)});
+  if(orphans.length){const ob=document.createElement("div"); ob.className="panel orphan";
+    ob.innerHTML='<h2>Booking removed after rostering</h2><p class="hint">Events unbooked these days. Move these people or the shifts are lost.</p>'+
+      orphans.map(a=>'<div class="say wait" style="font-size:12px;margin-bottom:5px">'+by(a.pid).n+' — '+SITES[a.s].n+', '+DAYS[a.d]+' '+a.slot.toUpperCase()+'</div>').join("");
+    document.getElementById("board").prepend(ob)}
   let noLead=0;
   document.querySelectorAll(".cell .stack").forEach(st=>{
     if(st.children.length&&!st.querySelector(".chip.lead")){noLead++;st.insertAdjacentHTML("beforeend",'<span class="nolead">no leader</span>')}});
@@ -692,21 +967,22 @@ function render(){
   const fmt=list=>list.length?list.map(p=>{const w=p.n.split(" ");return w[0]+(w[1]?" "+w[1][0]+".":"")+" <i>("+shifts(p.id)+")</i>"}).join(", "):"<i>none</i>";
   cov.innerHTML='<div class="row"><span class="lab">No leader</span><span class="names">'+(noLead?noLead+" shift"+(noLead>1?"s":"")+" have no team leader or above":"<i>every shift has a leader</i>")+'</span></div>'+
     '<div class="row"><span class="lab">Under 4</span><span class="names">'+fmt(under)+'</span></div><div class="row"><span class="lab">Six shifts</span><span class="names">'+fmt(six)+'</span></div><div class="row"><span class="lab">New starters</span><span class="names">'+fmt(newbies)+'</span></div>';
-  const al=document.getElementById("abslist"); al.innerHTML=""; if(!ABS.length) al.innerHTML='<span class="empty">None this week.</span>';
-  ABS.forEach((x,i)=>{const t=ABS_TYPES.find(t=>t.k===x.t); const d=document.createElement("div");
+  const al=document.getElementById("abslist"); al.innerHTML=""; if(!ABS.some(x=>x.w===WK)) al.innerHTML='<span class="empty">None this week.</span>';
+  ABS.forEach((x,i)=>{if(x.w!==WK)return; const t=ABS_TYPES.find(t=>t.k===x.t); const d=document.createElement("div");
     d.innerHTML='<span>'+by(x.pid).n+' — '+DAYS[x.d]+' '+DATES[x.d]+'<small>'+t.l+(x.reason?' · '+x.reason:'')+'</small></span>';
     const u=document.createElement("button"); u.className="undo"; u.textContent="Undo"; u.onclick=()=>{ABS.splice(i,1);render()}; d.appendChild(u); al.appendChild(d)});
   const {adds,dels}=pendingLocked();
   document.getElementById("pubBtn").disabled=!(adds.length||dels.length);
-  document.getElementById("pend").textContent=(adds.length||dels.length)?adds.length+" to add, "+dels.length+" to remove across "+[...locked].map(i=>DAYS[i]).join(", "):(locked.size?"Locked days are up to date.":"No locked days yet.");
+  document.getElementById("pend").textContent=(adds.length||dels.length)?adds.length+" to add, "+dels.length+" to remove across "+[...lockedW()].map(i=>DAYS[i]).join(", "):(lockedW().size?"Locked days are up to date.":"No locked days yet.");
 }
-function pendingLocked(){return {adds:A.filter(a=>locked.has(a.d)&&!published.has(k(a))),dels:[...published].filter(key=>locked.has(+key.split("-")[2])&&!A.some(a=>k(a)===key))}}
+function pendingLocked(){return {adds:WA().filter(a=>lockedW().has(a.d)&&!published.has(k(a))),dels:[...published].filter(key=>(+key.split("-")[0]===WK&&lockedW().has(+key.split("-")[3]))&&!WA().some(a=>k(a)===key))}}
 function wireCells(){
   document.querySelectorAll(".cell").forEach(td=>{
     td.addEventListener("dragover",e=>{e.preventDefault();td.classList.add("over")});
     td.addEventListener("dragleave",()=>td.classList.remove("over"));
-    td.addEventListener("drop",e=>{e.preventDefault();td.classList.remove("over");assign(e.dataTransfer.getData("text/plain"),td)});
+    td.addEventListener("drop",e=>{e.preventDefault();td.classList.remove("over");assignMany(e.dataTransfer.getData("text/plain"),td)});
     td.addEventListener("click",e=>{if(!picked||!(e.target===td||e.target.classList.contains("stack")))return;
+      if(Array.isArray(picked)){assignMany("multi:"+picked.join(","),td);return}
       assign(String(picked).includes("-")?picked.split("-")[0]+"|"+picked:picked,td)});
   });
 }
@@ -714,25 +990,39 @@ const poolEl=document.querySelector("#roster .pool");
 poolEl.addEventListener("dragover",e=>{e.preventDefault();poolEl.style.outline="2px dashed #16233A"});
 poolEl.addEventListener("dragleave",()=>poolEl.style.outline="");
 poolEl.addEventListener("drop",e=>{e.preventDefault();poolEl.style.outline="";const [,fromKey]=e.dataTransfer.getData("text/plain").split("|");
-  if(!fromKey)return; const a=A.find(x=>k(x)===fromKey); if(!a||locked.has(a.d))return; A=A.filter(x=>x!==a); render()});
-function assign(payload,td){
+  if(!fromKey)return; const a=WA().find(x=>k(x)===fromKey); if(!a||lockedW().has(a.d))return; A=A.filter(x=>x!==a); render()});
+function assignMany(payload,td){
+  if(!String(payload).startsWith("multi:")){assign(payload,td);return}
+  const ids=payload.slice(6).split(",").map(Number); let placed=0;
+  ids.forEach(id=>{const before=WA().length; assign(id,td,true); if(WA().length>before)placed++});
+  MSEL.clear(); picked=null; render();
+  log(placed===ids.length?"push":"warn",placed+" of "+ids.length+" placed on "+SITES[+td.dataset.s].n+", "+DAYS[+td.dataset.d]+" "+td.dataset.slot.toUpperCase(),
+    placed===ids.length?"":"The rest were refused — see the warnings above.");
+}
+function assign(payload,td,quiet){
   const [pidStr,fromKey]=String(payload).split("|");
   const pid=+pidStr, p=by(pid), d=+td.dataset.d, s=+td.dataset.s, slot=td.dataset.slot, site=SITES[s];
   const bounce=(m,sub)=>{td.classList.add("reject");setTimeout(()=>td.classList.remove("reject"),320);log("warn",m,sub)};
   if(!p||p.lv<3||p.placeholder) return;
-  if(locked.has(d)) return bounce(DAYS[d]+" is locked","Unlock it to make changes.");
+  if(lockedW().has(d)) return bounce(DAYS[d]+" is locked","Unlock it to make changes.");
+  if(!bookedDays(s,WK).has(d)) return bounce(site.n+" isn't booked on "+DAYS[d],"Events hasn't booked it that day. Check the Events tab.");
   let moved=null;
-  if(fromKey){moved=A.find(a=>k(a)===fromKey); if(!moved)return; if(moved.s===s&&moved.d===d&&moved.slot===slot)return;
-    if(locked.has(moved.d)) return bounce(DAYS[moved.d]+" is locked","Unlock it before moving people out."); A=A.filter(a=>a!==moved)}
+  if(fromKey){moved=WA().find(a=>k(a)===fromKey); if(!moved)return; if(moved.s===s&&moved.d===d&&moved.slot===slot)return;
+    if(lockedW().has(moved.d)) return bounce(DAYS[moved.d]+" is locked","Unlock it before moving people out."); A=A.filter(a=>a!==moved)}
   const restore=()=>{if(moved)A.push(moved)};
+  const bks=bookingsAt(s,gday(WK,d)), bk=bks[0], capDay=bks.reduce((n,b)=>n+b.hc,0), onDay=WA().filter(a=>a.s===s&&a.d===d).length;
+  if(bk&&onDay>=capDay){restore();return bounce(site.n+" is full on "+DAYS[d],"Events set "+capDay+" per day"+(bks.length>1?" across "+bks.length+" teams":"")+".")}
   if(!p.eg){restore();return bounce(p.n+" has no Evergiving ID yet","Add it in Team structure first.")}
-  if(p.c!==site.c){restore();return bounce(p.n+" isn't accredited for "+CAMPS[site.c].n,site.n+" is a "+CAMPS[site.c].n+" site this week.")}
+  const sc=site.cw||site.c;
+  if(p.c!==sc){restore();return bounce(p.n+" isn't accredited for "+CAMPS[sc].n,site.n+" is a "+CAMPS[sc].n+" site this week.")}
+  const tv=travelDayFor(pid,gday(WK,d)); if(tv&&tv.si!==s){restore();return bounce(p.n+" is travelling that day","To or from "+SITES[tv.si].n+".")}
+  if(bks.length&&bks.every(b=>b.type==="travel")&&!bks.some(b=>(b.party||[]).includes(pid))){restore();return bounce(p.n+" isn't in the travel party for "+site.n,"Events books flights from that list. Add them on the booking first.")}
   if(absOn(pid,d)){restore();return bounce(p.n+" is absent "+DAYS[d],"Undo the absence first if this was a mistake.")}
   if(p.off.includes(d)){restore();return bounce(p.n+" can't work "+DAYS[d],"They marked it unavailable for September.")}
-  const clash=A.find(a=>a.pid===pid&&a.d===d);
+  const clash=WA().find(a=>a.pid===pid&&a.d===d);
   if(clash){restore();return bounce(p.n+" already works "+DAYS[d],SITES[clash.s].n+" "+clash.slot.toUpperCase()+". Drag that shift instead.")}
   if(shifts(pid)>=6){restore();return bounce("That would be "+p.n+"'s 7th shift","Six is the maximum in a week. Take a day off them first.")}
-  A.push({pid,s,d,slot}); if(d!==day)day=d; picked=null; render();
+  A.push({w:WK,pid,s,d,slot}); if(d!==day)day=d; if(!quiet){picked=null; MSEL.clear(); render()}
 }
 function absenceBox(a){
   const p=by(a.pid); const sc=document.createElement("div"); sc.className="scrim";
@@ -743,7 +1033,7 @@ function absenceBox(a){
   sc.querySelectorAll("input[name=t]").forEach(r=>r.onchange=()=>reason.classList.toggle("hidden",r.value!=="emg"));
   sc.querySelector(".no").onclick=()=>sc.remove();
   sc.querySelector(".go").onclick=()=>{const t=sc.querySelector("input[name=t]:checked").value, wasLive=published.has(k(a));
-    ABS.push({pid:a.pid,d:a.d,t,reason:t==="emg"?reason.value:""}); A=A.filter(x=>k(x)!==k(a)); const tl=ABS_TYPES.find(x=>x.k===t).l;
+    ABS.push({pid:a.pid,w:WK,d:a.d,t,reason:t==="emg"?reason.value:""}); A=A.filter(x=>k(x)!==k(a)); const tl=ABS_TYPES.find(x=>x.k===t).l;
     if(wasLive){published.delete(k(a));log("pull",p.n+" — "+tl+", "+DAYS[a.d],"Shift removed. Day logged as "+tl.toLowerCase()+".");log("warn","Evergiving still shows "+p.n+" at "+SITES[a.s].n,"Already published. Needs an update call or a manual removal.")}
     else log("pull",p.n+" — "+tl+", "+DAYS[a.d],"Not published yet, so Evergiving never sees them.");
     sc.remove(); render()};
@@ -752,14 +1042,14 @@ function absenceBox(a){
 document.getElementById("pubBtn").onclick=()=>{
   const {adds,dels}=pendingLocked();
   const lines=[...adds.map(a=>"Add "+by(a.pid).n+" — "+DAYS[a.d]+" "+a.slot.toUpperCase()+", "+SITES[a.s].n),
-    ...dels.map(key=>{const[pid,s,d,slot]=key.split("-");return "Remove "+by(+pid).n+" — "+DAYS[d]+" "+slot.toUpperCase()+", "+SITES[s].n})];
+    ...dels.map(key=>{const[w,pid,s,d,slot]=key.split("-");return "Remove "+by(+pid).n+" — "+DAYS[d]+" "+slot.toUpperCase()+", "+SITES[s].n})];
   const sc=document.createElement("div"); sc.className="scrim";
-  sc.innerHTML='<div class="modal"><h3>Publish '+lines.length+' change'+(lines.length>1?'s':'')+' for '+[...locked].map(i=>DAYS[i]).join(", ")+'?</h3><p class="hint">Builds one Evergiving team per site per day. Each fundraiser gets a WhatsApp with their own shifts.</p><ul>'+lines.map(l=>"<li>"+l+"</li>").join("")+'</ul><div class="row"><button class="no">Keep editing</button><button class="go">Publish</button></div></div>';
+  sc.innerHTML='<div class="modal"><h3>Publish '+lines.length+' change'+(lines.length>1?'s':'')+' for '+[...lockedW()].map(i=>DAYS[i]).join(", ")+'?</h3><p class="hint">Builds one Evergiving team per site per day. Each fundraiser gets a WhatsApp with their own shifts.</p><ul>'+lines.map(l=>"<li>"+l+"</li>").join("")+'</ul><div class="row"><button class="no">Keep editing</button><button class="go">Publish</button></div></div>';
   sc.querySelector(".no").onclick=()=>sc.remove();
   sc.querySelector(".go").onclick=()=>{const touched=new Set();
     adds.forEach(a=>{published.add(k(a));touched.add(a.pid);log("push",by(a.pid).n+" → "+SITES[a.s].n+", "+DAYS[a.d]+" "+a.slot.toUpperCase(),"POST /v1/teams · campaign "+CAMPS[SITES[a.s].c].id+" · location "+SITES[a.s].loc+" · user "+by(a.pid).eid)});
-    dels.forEach(key=>{published.delete(key);const[pid,s,d]=key.split("-");touched.add(+pid);log("pull","Removed "+by(+pid).n+" from "+SITES[s].n+", "+DAYS[d],"Team rebuilt without them.")});
-    const pid=[...touched][0], p=by(pid), mine=A.filter(a=>a.pid===pid&&published.has(k(a))).sort((x,y)=>x.d-y.d);
+    dels.forEach(key=>{published.delete(key);const[w,pid,s,d]=key.split("-");touched.add(+pid);log("pull","Removed "+by(+pid).n+" from "+SITES[s].n+", "+DAYS[d],"Team rebuilt without them.")});
+    const pid=[...touched][0], p=by(pid), mine=WA().filter(a=>a.pid===pid&&published.has(k(a))).sort((x,y)=>x.d-y.d);
     document.getElementById("msgs").innerHTML='<div class="msg"><b>WhatsApp → '+p.n.split(" ")[0]+'</b>Halo '+p.n.split(" ")[0]+' — your shifts are confirmed:\n'+(mine.length?mine.map(a=>DAYS[a.d]+" "+DATES[a.d]+" · "+SITES[a.s].n+" · "+a.slot.toUpperCase()+" "+hrs(SITES[a.s],a.slot)).join("\n"):"No shifts this week.")+'\nTap to see details: popcorn.omniraise.com/me</div>';
     sc.remove(); render()};
   document.body.appendChild(sc);
@@ -801,16 +1091,16 @@ const octOpen=()=>TMON===9&&TDAY<=OCT_DEADLINE;
 function renderPhone(){
   if(!ME)return;
   const app=document.getElementById("pApp");
-  const mine=A.filter(a=>a.pid===ME.id).sort((x,y)=>x.d-y.d), next=mine[0];
+  const mine=A.filter(a=>a.pid===ME.id&&a.w>=WK).sort((x,y)=>(x.w-y.w)||(x.d-y.d)), next=mine[0];
   let h='<div class="pbar"><b>'+ME.n.split(" ")[0]+'</b><span>'+CAMPS[ME.c].n+'</span></div>';
 
   /* next shift */
   if(next){
-    h+='<div class="nextshift '+next.slot+'"><span class="lbl">YOUR NEXT SHIFT · THIS WEEK</span>'+
-       '<b>'+dayName[next.d]+' '+DATES[next.d]+' Sep</b><div class="place">'+SITES[next.s].n+'</div>'+
+    h+='<div class="nextshift '+next.slot+'"><span class="lbl">YOUR NEXT SHIFT · WEEK '+WEEKS[next.w].n+'</span>'+
+       '<b>'+dayName[next.d]+' '+WEEKS[next.w].dates[next.d]+' '+(WEEKS[next.w].mon[next.d]===10?'Oct':'Sep')+'</b><div class="place">'+SITES[next.s].n+'</div>'+
        '<div class="time">'+hrs(SITES[next.s],next.slot)+'</div>'+(published.has(k(next))?'':'<div class="notyet">Not confirmed yet</div>')+'</div>';
     if(mine.length>1) h+='<button class="linkbtn" id="seeall">'+(showAll?"Hide":"See all "+mine.length+" shifts")+'</button>';
-    if(showAll) h+='<div class="allshifts">'+mine.map(a=>'<div class="li '+a.slot+'"><b>'+DAYS[a.d]+' '+DATES[a.d]+
+    if(showAll) h+='<div class="allshifts">'+mine.map(a=>'<div class="li '+a.slot+'"><b>'+DAYS[a.d]+' '+WEEKS[a.w].dates[a.d]+
       '</b><span>'+SITES[a.s].n+'</span><i>'+hrs(SITES[a.s],a.slot)+'</i></div>').join("")+'</div>';
   } else h+='<div class="nextshift none"><span class="lbl">YOUR NEXT SHIFT · THIS WEEK</span><b>Nothing yet</b>'+
        '<div class="place">'+by(ME.to).n.split(" ")[0]+' will confirm your shifts and send you a WhatsApp.</div></div>';
@@ -880,6 +1170,17 @@ function renderPhone(){
       (sent?"Update my "+M.n+" days":"Send my "+M.n+" days")+'</button>'+
       '<div class="sentnote rule">You must be working a minimum of 20 days in a month.</div>'+
       (sent?'<div class="sentnote">Sent '+sent+'. Change it any time until '+OCT_DEADLINE+' September.</div>':'')+'</div>';}
+
+  /* --- where you're working: shifts by site, below the calendar --- */
+  const allS=A.filter(a=>a.pid===ME.id).sort((x,y)=>(x.w-y.w)||(x.d-y.d));
+  const bySite={}; allS.forEach(a=>{(bySite[a.s]=bySite[a.s]||[]).push(a)});
+  h+='<div class="calhead" style="padding-top:26px"><b>Where you\'re working</b><span>'+
+     (allS.length?allS.length+' shift'+(allS.length>1?"s":"")+' this month':'Nothing rostered yet — your leader is still planning')+'</span></div>';
+  if(allS.length) h+='<div class="bysite">'+Object.keys(bySite).map(si=>{const x=SITES[si], list=bySite[si];
+    return '<div class="sitecard"><div class="sc-head"><b>'+x.n+'</b><span>'+x.addr+'</span></div>'+
+      list.map(a=>'<div class="sc-row '+a.slot+'"><b>'+DAYS[a.d]+' '+WEEKS[a.w].dates[a.d]+' '+(WEEKS[a.w].mon[a.d]===10?"Oct":"Sep")+'</b>'+
+        '<span>'+a.slot.toUpperCase()+' '+hrs(x,a.slot)+'</span>'+(published.has(k(a))?'<i>confirmed</i>':'<i class="draft">planned</i>')+'</div>').join("")+
+      '</div>'}).join("")+'</div>';
   app.innerHTML=h;
 
   const sa=document.getElementById("seeall"); if(sa)sa.onclick=()=>{showAll=!showAll;renderPhone()};
@@ -1019,11 +1320,11 @@ function renderApprovals(){
     :'<span class="empty">No requests waiting.</span>';
   el.querySelectorAll("[data-yes]").forEach(b=>b.onclick=()=>{
     const r=REQ.find(x=>x.id==b.dataset.yes); r.status="approved"; const p=by(r.pid);
-    r.days.forEach(dd=>{const di=r.mon===9?DATES.indexOf(dd):-1; if(di<0)return;
-      const a=A.find(x=>x.pid===r.pid&&x.d===di);
+    r.days.forEach(dd=>{const wd=findWD(dd,r.mon); if(!wd)return; const [w,di]=wd;
+      const a=A.find(x=>x.pid===r.pid&&x.w===w&&x.d===di);
       if(a){const live=published.has(k(a)); A=A.filter(x=>x!==a); if(live){published.delete(k(a));
         log("warn","Evergiving still shows "+p.n+" at "+SITES[a.s].n,"Leave approved after publishing. Needs removing there.")}}
-      ABS.push({pid:r.pid,d:di,t:r.type==="plan"?"plan":r.type,reason:r.reason})});
+      ABS.push({pid:r.pid,w:w,d:di,t:r.type==="plan"?"plan":r.type,reason:r.reason})});
     log("pull",p.n+" — leave approved, "+r.days.join(", ")+" "+MONTHS[r.mon].n.slice(0,3),RTYPES.find(t=>t.k===r.type).l+". Shifts released.");
     renderApprovals(); render(); renderPhone();
   });
@@ -1200,20 +1501,63 @@ bin.addEventListener("drop",e=>{
 function personForm(existing){
   const sc=document.createElement("div"); sc.className="scrim";
   const to0=existing&&existing.to?existing.to:10, c0=existing&&existing.c?existing.c:"stc";
-  sc.innerHTML='<div class="modal"><h3>'+(existing?"Hire for "+existing.n:"Add a person")+'</h3><p class="hint">Filled in by HR or the manager on day one. The fundraiser fills in nothing here.</p>'+
-    '<label>Full name<input id="fn" placeholder="As on their KTP"></label><div class="two"><label>Staff code<input id="code" placeholder="FR-2231"></label><label>WhatsApp number<input id="ph" placeholder="0812 …"></label></div>'+
-    '<div class="two"><label>Role<select id="lv">'+LEVELS.map((l,i)=>i?'<option value="'+i+'"'+(i===6?" selected":"")+'>'+l+'</option>':'').join("")+'</select></label><label>Campaign trained on<select id="c"><option value="stc"'+(c0==="stc"?" selected":"")+'>STC</option><option value="ykan"'+(c0==="ykan"?" selected":"")+'>YKAN</option></select></label></div>'+
+  sc.innerHTML='<div class="modal wide"><h3>'+(existing?"Hire for "+existing.n:"Add a person")+'</h3>'+
+    '<p class="hint">Filled in by HR or the manager on day one. The person fills in nothing here.</p>'+
+
+    '<div class="fsec">Who they are</div>'+
+    '<label>Full name <i class="req">required</i><input id="fn" placeholder="Exactly as on their KTP"></label>'+
+    '<div class="two"><label>Staff code <i class="req">required</i><input id="code" placeholder="FR-2231"></label>'+
+    '<label>Date of birth<input type="date"></label></div>'+
+
+    '<div class="fsec">How they log in</div>'+
+    '<label>WhatsApp number <i class="req">required</i><input id="ph" placeholder="+62 812 …"></label>'+
+    '<p class="fnote">This is their login. They get a code by WhatsApp — no email, no password.</p>'+
+    '<div class="connectrow"><span><b>Telegram check-in</b><small>Not connected</small></span>'+
+      '<button class="minibtn" id="tgconn">Send connect link</button></div>'+
+    '<p class="fnote">One tap from them and the bot captures their Telegram ID. Don\'t type the @handle — it changes.</p>'+
+    '<label>@handle (optional fallback)<input id="tg" placeholder="@name"></label>'+
+
+    '<div class="fsec">Where they sit</div>'+
+    '<div class="two"><label>Role<select id="lv">'+LEVELS.map((l,i)=>i?'<option value="'+i+'"'+(i===6?" selected":"")+'>'+l+'</option>':'').join("")+'</select></label>'+
+    '<label>Campaign trained on<select id="c"><option value="stc"'+(c0==="stc"?" selected":"")+'>STC</option><option value="ykan"'+(c0==="ykan"?" selected":"")+'>YKAN</option></select></label></div>'+
     '<label>Reports to<select id="to">'+P.filter(x=>x.lv<6&&!x.placeholder).sort((a,b)=>a.lv-b.lv).map(x=>'<option value="'+x.id+'"'+(x.id===to0?" selected":"")+'>'+x.n+' — '+LEVELS[x.lv]+'</option>').join("")+'</select></label>'+
-    '<div class="two"><label>Contract<select><option>Independent contractor</option><option>PKWT</option><option>PKWTT</option></select></label><label>Start date<input type="date" value="2026-09-08"></label></div>'+
-    '<label>KTP number <i class="hronly">HR only · encrypted · masked for everyone else</i><input id="ktp" placeholder="Leave blank if HR Easily already holds it"></label>'+
-    '<label>Evergiving user ID<input id="eid" placeholder="Leave blank to create via API"></label>'+
-    '<div class="note">On save: WhatsApp with their login link goes out, and they appear in the roster panel once an Evergiving ID exists. KTP and bank details stay in HR\'s system — not here.</div>'+
+
+    '<div class="fsec">Contract</div>'+
+    '<div class="two"><label>Type<select id="ct"><option value="ic">Independent contractor</option><option value="pkwt">PKWT</option><option value="pkwtt">PKWTT</option></select></label>'+
+    '<label>Start date<input type="date" id="sd" value="2026-09-20"></label></div>'+
+    '<p class="fnote">PKWT and PKWTT count as permanent — they show on the monthly roster with a 20-day minimum.</p>'+
+
+    '<div class="fsec">Emergency contact</div>'+
+    '<div class="two"><label>Name<input id="ecn" placeholder="Who to call"></label>'+
+    '<label>Number<input id="ecp" placeholder="+62 …"></label></div>'+
+    '<p class="fnote">They work in public all day. A manager on site needs this without ringing HR.</p>'+
+
+    '<div class="fsec">Systems</div>'+
+    '<label>Evergiving user ID<input id="eid" placeholder="Leave blank to create one via the API"></label>'+
+    '<p class="fnote">Without this they can\'t be dragged onto the weekly roster.</p>'+
+    '<label>KTP number <i class="hronly">HR only · encrypted · masked</i><input id="ktp" placeholder="Leave blank if HR Easily already holds it"></label>'+
+
+    '<div class="note">On save: a WhatsApp login link goes out and they appear in Team structure. Bank details, contracts and ID scans stay in HR Easily — not here.</div>'+
     '<div class="row"><button class="no">Cancel</button><button class="go">Save and send invite</button></div></div>';
+  const tgb=sc.querySelector("#tgconn");
+  tgb.onclick=()=>{tgb.textContent="Link sent";tgb.classList.add("sent");
+    tgb.previousElementSibling.querySelector("small").textContent="Waiting for them to tap it"};
   sc.querySelector(".no").onclick=()=>sc.remove();
-  sc.querySelector(".go").onclick=()=>{const eid=sc.querySelector("#eid").value.trim(), ktp=sc.querySelector("#ktp").value.replace(/\s/g,"");
-    const p=existing||{id:nextId++}; P.includes(p)||P.push(p);
-    Object.assign(p,{n:sc.querySelector("#fn").value.trim()||"New Fundraiser",code:sc.querySelector("#code").value.trim()||"FR-"+(2230+p.id),lv:+sc.querySelector("#lv").value,to:+sc.querySelector("#to").value,c:sc.querySelector("#c").value,eg:eid?1:0,eid:eid?+eid:null,off:[],start:"2026-09-08",placeholder:false,ktp:ktp?"••••••••••••"+ktp.slice(-4):null});
-    tlog("ok",p.n+" added under "+by(p.to).n,eid?"WhatsApp invite sent.":"WhatsApp invite sent. Creating Evergiving user — POST /v1/users."); sc.remove(); renderOrg()};
+  sc.querySelector(".go").onclick=()=>{
+    const eid=sc.querySelector("#eid").value.trim(), ktp=sc.querySelector("#ktp").value.replace(/\s/g,"");
+    const ct=sc.querySelector("#ct").value, nm=sc.querySelector("#fn").value.trim();
+    if(!nm){sc.querySelector("#fn").style.borderColor="var(--flag)";return}
+    const p=existing||{id:nextId++}; if(!P.includes(p))P.push(p);
+    Object.assign(p,{n:nm,code:sc.querySelector("#code").value.trim()||"FR-"+(2230+p.id),
+      lv:+sc.querySelector("#lv").value,to:+sc.querySelector("#to").value,c:sc.querySelector("#c").value,
+      eg:eid?1:0,eid:eid?+eid:null,off:[],start:sc.querySelector("#sd").value,perm:ct!=="ic",
+      tg:sc.querySelector("#tg").value.trim(),ec:sc.querySelector("#ecn").value.trim(),
+      ecp:sc.querySelector("#ecp").value.trim(),placeholder:false,
+      ktp:ktp?"\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022"+ktp.slice(-4):null});
+    tlog("ok",p.n+" added under "+by(p.to).n,
+      (eid?"WhatsApp invite sent.":"WhatsApp invite sent. Creating Evergiving user — POST /v1/users.")+
+      (p.ec?"":" No emergency contact yet."));
+    sc.remove(); renderOrg()};
   document.body.appendChild(sc);
 }
 document.getElementById("addBtn").onclick=()=>personForm(null);
@@ -1247,8 +1591,9 @@ function mstats(p){const m=MONTH[p.id]||{};const v=Object.values(m);
           leave:v.filter(x=>x==="leave").length,off:v.filter(x=>x==="x").length,late:lateCount(p.id)}}
 // ordered rows: walk the tree so leaders sit above their own people
 function monthRows(){
-  const rows=[]; const walk=(id,depth)=>{
-    kidsOf(id).filter(x=>!x.placeholder).sort((a,b)=>a.lv-b.lv||a.n.localeCompare(b.n)).forEach(x=>{
+  const rows=[]; const rank=c=>c==="stc"?0:c==="ykan"?1:2;
+  const walk=(id,depth)=>{
+    kidsOf(id).filter(x=>!x.placeholder).sort((a,b)=>rank(a.c)-rank(b.c)||a.lv-b.lv||a.n.localeCompare(b.n)).forEach(x=>{
       if(x.lv>=3)rows.push({p:x,depth}); walk(x.id,x.lv>=3?depth+1:depth)})};
   walk(P.find(p=>p.lv===0).id,0); return rows;
 }
@@ -1264,11 +1609,19 @@ function renderMonth(){
   if(permOnly)rows=rows.filter(r=>r.p.perm);
   if(mq)rows=rows.filter(r=>r.p.n.toLowerCase().includes(mq)||r.p.code.toLowerCase().includes(mq));
 
-  let h='<table class="mtab"><thead><tr><th class="who">Name</th><th class="role">Role</th>';
+  const availOn=d=>rows.filter(r=>{const v=(MONTH[r.p.id]||{})[d];return v!=="x"&&v!=="mc"&&v!=="leave"&&v!=="sick"}).length;
+  let h='<table class="mtab"><thead>'+
+    '<tr class="availrow"><th class="who">Available that day</th><th class="role"></th>';
+  for(let d=1;d<=MDAYS;d++)h+='<th class="'+(dow(d)>4?"wknd":"")+'">'+availOn(d)+'</th>';
+  h+='<th class="tot" colspan="4"></th></tr>';
+  h+='<tr><th class="who">Name</th><th class="role">Role</th>';
   for(let d=1;d<=MDAYS;d++)h+='<th class="'+(dow(d)>4?"wknd":"")+'">'+d+'<small>'+"MTWTFSS"[dow(d)]+'</small></th>';
   h+='<th class="tot">Days</th><th class="tot">MC</th><th class="tot">Leave</th><th class="tot">Late</th></tr></thead><tbody>';
+  let lastCamp=null;
   rows.forEach(r=>{
     const p=r.p, st=mstats(p), m=MONTH[p.id]||{};
+    if(p.c!==lastCamp){lastCamp=p.c;
+      h+='<tr class="band '+p.c+'"><td class="who" colspan="2">'+CAMPS[p.c].n+'</td><td colspan="'+(MDAYS+4)+'"></td></tr>'}
     const short=p.perm&&st.worked<20;
     h+='<tr class="'+(p.perm?"perm":"")+'"><td class="who" style="padding-left:'+(8+r.depth*9)+'px">'+
        '<span class="nmw">'+p.n+(p.perm?'<span class="pm">PERM</span>':'')+'</span>'+
@@ -1364,7 +1717,7 @@ function checkinBox(pid,d,slot){
 ["mteam","mq","permonly"].forEach(id=>document.getElementById(id).addEventListener("input",renderMonth));
 
 /* ======================= ROLE PREVIEW ======================= */
-const ROLE_TABS={dir:["roster","phone","monthly","team"],hr:["monthly","team"],mgr:["roster","monthly"],tl:["roster","monthly"],fr:["phone"]};
+const ROLE_TABS={dir:["roster","phone","monthly","team","events"],hr:["monthly","team"],ev:["events","roster"],mgr:["roster","monthly"],tl:["roster","monthly"],fr:["phone"]};
 document.getElementById("asrole").onchange=e=>{
   const allow=ROLE_TABS[e.target.value];
   document.querySelectorAll(".tabs button").forEach(b=>b.classList.toggle("hidden",!allow.includes(b.dataset.tab)));
@@ -1373,5 +1726,317 @@ document.getElementById("asrole").onchange=e=>{
     [...document.querySelectorAll(".tabs button")].find(b=>b.dataset.tab===allow[0]).click();
 };
 
-phInit(); render(); renderOrg(); renderMonth(); renderPhone(); renderApprovals();
+
+/* ======================= EVENTS (site bookings) ======================= */
+const IDR=n=>"Rp "+(n/1e6).toFixed(n%1e6?1:0)+"m";
+const IDRx=n=>"Rp "+Math.round(n).toLocaleString("en-US");   // exact, for per-shift figures
+function renderEvents(){
+  const camp=document.getElementById("evcamp").value, q=(document.getElementById("evq").value||"").toLowerCase();
+  const canBook=x=>x.loc&&x.loa!=="expired";
+  /* --- site library (left) --- */
+  const lib=document.getElementById("evsites"); lib.innerHTML="";
+  ["stc","ykan"].forEach(c=>{
+    const list=SITES.map((x,i)=>i).filter(si=>SITES[si].c===c&&(!q||SITES[si].n.toLowerCase().includes(q)));
+    const wrap=document.createElement("div"); wrap.className="group";
+    wrap.innerHTML='<div class="grouphead '+c+'">'+CAMPS[c].n+'<span>'+list.length+' sites</span></div>';
+    const ul=document.createElement("div"); ul.className="pool-list";
+    list.forEach(si=>{const x=SITES[si], ok=canBook(x), n=BOOKINGS.filter(b=>b.si===si).length;
+      const el=document.createElement("div"); el.className="chip sitechip"+(ok?"":" out"); el.draggable=ok;
+      el.innerHTML='<span class="nm">'+x.n+'<small>AM '+x.am[0]+' · PM '+x.pm[0]+(ok?"":" · "+(x.loc?"LOA expired":"no Evergiving location"))+'</small></span>'+
+        (n?'<span class="wk" title="bookings this month">'+n+'</span>':'')+'<span class="loa '+x.loa+(x.loc?"":" noloc")+'">'+(x.loc?x.loa:"no loc")+'</span>';
+      if(ok){el.addEventListener("dragstart",e=>{e.dataTransfer.setData("text/plain","site:"+si);el.classList.add("dragging")});
+             el.addEventListener("dragend",()=>el.classList.remove("dragging"))}
+      el.addEventListener("click",()=>siteForm(si));
+      ul.appendChild(el)});
+    wrap.appendChild(ul); lib.appendChild(wrap)});
+  /* --- grid rows: only sites with a booking, in campaign order --- */
+  const rows=SITES.map((x,i)=>i).filter(si=>(camp==="all"||SITES[si].c===camp)&&(BOOKINGS.some(b=>b.si===si)||NEWROWS.has(si)))
+    .sort((a,b)=>(SITES[a].c===SITES[b].c?0:SITES[a].c==="stc"?-1:1)||SITES[a].n.localeCompare(SITES[b].n));
+  let h='<table class="gantt"><thead><tr>';
+  WEEKS.forEach((w,wi)=>h+='<th class="wkh'+(wi===WK?" cur":"")+'" colspan="7">Week '+w.n+'<small>'+w.label+'</small></th>');
+  h+='</tr><tr>';
+  for(let i=0;i<SPAN;i++)h+='<th class="dh'+(gd(i)>4?" we":"")+(gw(i)===WK?" cur":"")+'">'+DAYS[gd(i)][0]+'<small>'+WEEKS[gw(i)].dates[gd(i)]+'</small></th>';
+  h+='</tr></thead><tbody>';
+  rows.forEach(si=>{const x=SITES[si], ok=canBook(x);
+    const lanes=lanesFor(si); if(!lanes.length)lanes.push([]);
+    const spare=lanes[0].length?[[]]:[];
+    [...lanes,...spare].forEach((lane,li)=>{
+      const isSpare=li===lanes.length&&spare.length, empty=!lane.length&&!isSpare;
+      h+='<tr class="'+(ok?"":"nobk")+(isSpare?" spare":"")+(li>0&&!isSpare?" lane2":"")+'" data-si="'+si+'">';
+      for(let i=0;i<SPAN;i++){
+        const bk=lane.find(b=>i>=spanStart(b)&&i<=spanEnd(b));
+        if(bk&&spanStart(bk)===i){const s0=spanStart(bk), s1=spanEnd(bk), len=s1-s0+1;
+          const lo=bk.start-s0, hi=s1-bk.end, pct=n=>(n/len*100).toFixed(2)+"%";
+          const mask=(lo||hi)?'-webkit-mask:linear-gradient(90deg,#000 0 '+pct(lo)+',transparent '+pct(lo)+' '+pct(len-hi)+',#000 '+pct(len-hi)+');mask:linear-gradient(90deg,#000 0 '+pct(lo)+',transparent '+pct(lo)+' '+pct(len-hi)+',#000 '+pct(len-hi)+');':'';
+          h+='<td class="bar '+bk.type+(isPending(bk)?" pending":"")+(gw(i)===WK?" cur":"")+'" colspan="'+len+'" data-id="'+bk.id+'" draggable="true" title="'+glabel(bk.start)+' → '+glabel(bk.end)+' · '+TYPES[bk.type]+(isPending(bk)?" · site fee unpaid":" · site fee paid")+(lo||hi?" · travel "+glabel(s0)+" / "+glabel(s1):"")+'">'+
+             '<div class="barin"><span class="hdl l" data-id="'+bk.id+'" data-edge="start" title="Drag to change start"></span>'+
+             ((lo||hi)?'<span class="travelends" style="'+mask+'"></span>':'')+
+             '<div class="bartxt" style="padding-left:'+(lo?pct(lo):0)+';padding-right:'+(hi?pct(hi):0)+'"><b>'+x.n+(isPending(bk)?' <em class="pend">pending</em>':' <em class="paid">paid</em>')+
+             (bk.type==="travel"?(!bk.travelOk?' <em class="trv">travel not booked</em>':(bk.transportPaid&&bk.accomPaid)?' <em class="trv ok">travel booked</em>':' <em class="trv unpaid">travel unpaid</em>'):'')+'</b>'+
+             '<span>'+bkDays(bk)+'d · '+bk.hc+'/day · '+CAMPS[bk.c||x.c].n+(bkPerShift(bk)?' · '+IDRx(bkPerShift(bk))+'/shift':'')+'</span></div>'+
+             '<button class="bardel" data-id="'+bk.id+'" title="Delete booking">×</button>'+
+             '<span class="hdl r" data-id="'+bk.id+'" data-edge="end" title="Drag to stretch"></span></div></td>'}
+        else if(!bk) h+='<td class="gcell'+(gd(i)>4?" we":"")+(gw(i)===WK?" cur":"")+((empty||isSpare)&&i===0?" labelcell":"")+'" data-si="'+si+'" data-i="'+i+'"'+
+          (empty&&i===0?' data-label="'+x.n+' — press and drag across the days"':isSpare&&i===0?' data-label="'+x.n+' — another team? press and drag here"':'')+'></td>';
+      }
+      h+='</tr>'});
+  });
+  h+='<tr class="droprow"><td class="dzwide" id="newrowbtn" colspan="'+SPAN+'"><b>＋ New booking</b><small>click to add a row · or drag a site from the left and drop it on the day it starts</small></td>';
+  h+='</tr></tbody></table>';
+  document.getElementById("evgrid").innerHTML=h;
+
+  /* --- press-and-drag on empty cells to create a range --- */
+  let sel=null;
+  const cells=[...document.querySelectorAll(".gantt .gcell")];
+  const paint=()=>{cells.forEach(c=>{const si=+c.dataset.si,i=+c.dataset.i;
+    c.classList.toggle("selg",!!sel&&si===sel.si&&i>=Math.min(sel.a,sel.b)&&i<=Math.max(sel.a,sel.b))})};
+  cells.forEach(c=>{
+    c.addEventListener("mousedown",e=>{if(e.button!==0)return; const si=+c.dataset.si; if(si<0)return; if(!canBook(SITES[si])){evflash(SITES[si].n+": "+(SITES[si].loc?"LOA expired.":"no Evergiving location yet."));return}
+      sel={si,a:+c.dataset.i,b:+c.dataset.i}; paint(); e.preventDefault()});
+    c.addEventListener("mouseenter",()=>{if(sel&&+c.dataset.si===sel.si){sel.b=+c.dataset.i;paint()}});
+    c.addEventListener("mouseup",()=>{if(!sel)return; const a=Math.min(sel.a,sel.b), b=Math.max(sel.a,sel.b), si=sel.si; sel=null; paint();
+      const bk={id:Date.now(),si,start:a,end:b,type:"local",c:SITES[si].c,paid:"pending",site:0,transport:0,accom:0,hc:3};
+      BOOKINGS.push(bk); NEWROWS.delete(si); renderEvents(); render(); bookingForm(bk)});
+  });
+  document.addEventListener("mouseup",()=>{if(sel){sel=null;paint()}},{once:true});
+
+  /* --- click a bar to edit, drag a bar to move --- */
+  document.querySelectorAll(".gantt .bar").forEach(td=>{
+    td.addEventListener("click",()=>bookingForm(BOOKINGS.find(b=>b.id==td.dataset.id)));
+    td.addEventListener("dragstart",e=>{e.dataTransfer.setData("text/plain","bk:"+td.dataset.id);td.classList.add("dragging")});
+    td.addEventListener("dragend",()=>td.classList.remove("dragging"))});
+  cells.forEach(c=>{
+    c.addEventListener("dragover",e=>{e.preventDefault();c.classList.add("over")});
+    c.addEventListener("dragleave",()=>c.classList.remove("over"));
+    c.addEventListener("drop",e=>{e.preventDefault();c.classList.remove("over");
+      const v=e.dataTransfer.getData("text/plain");
+      if(v.startsWith("site:")){                       // new booking from the library
+        const si=+v.slice(5), i=+c.dataset.i;
+        const bk={id:Date.now(),si,start:i,end:i,type:"local",c:SITES[si].c,paid:"pending",site:0,transport:0,accom:0,hc:3};
+        BOOKINGS.push(bk); NEWROWS.delete(si); renderEvents(); render(); bookingForm(bk); return}
+      if(!v.startsWith("bk:"))return;
+      const bk=BOOKINGS.find(b=>b.id==v.slice(3)), si=+c.dataset.si, len=bkDays(bk), a=+c.dataset.i, b=a+len-1;
+      if(si!==bk.si){evflash("Bookings move along their own site's row.");return}
+      if(b>=SPAN){evflash("That runs past the end of the month.");return}
+      const sh=a-bk.start; bk.start=a; bk.end=b; if(bk.tOut!=null)bk.tOut+=sh; if(bk.tBack!=null)bk.tBack+=sh; renderEvents(); render()})});
+  const dzw=document.getElementById("newrowbtn");
+  dzw.addEventListener("dragover",e=>{e.preventDefault();dzw.classList.add("over")});
+  dzw.addEventListener("dragleave",()=>dzw.classList.remove("over"));
+  dzw.addEventListener("drop",e=>{e.preventDefault();dzw.classList.remove("over");
+    const v=e.dataTransfer.getData("text/plain"); if(!v.startsWith("site:"))return;
+    const si=+v.slice(5), i=colAtX(e.clientX)??0;
+    const bk={id:Date.now(),si,start:i,end:i,type:"local",c:SITES[si].c,site:0,transport:0,accom:0,hc:3,sitePaid:false,transportPaid:false,accomPaid:false};
+    BOOKINGS.push(bk); NEWROWS.delete(si); renderEvents(); render(); bookingForm(bk)});
+  dzw.onclick=()=>{
+    const sc=document.createElement("div"); sc.className="scrim";
+    const opts=SITES.map((x,i)=>i).filter(si=>canBook(SITES[si])&&!rows.includes(si));
+    sc.innerHTML='<div class="modal"><h3>New booking row</h3><p class="hint">Pick the site. Then press and drag across the days on its row.</p>'+
+      '<label>Site<select id="nrs">'+opts.map(si=>'<option value="'+si+'">'+SITES[si].n+' — '+CAMPS[SITES[si].c].n+'</option>').join("")+'</select></label>'+
+      (opts.length?'':'<p class="fnote">Every bookable site already has a row.</p>')+
+      '<div class="row"><button class="no">Cancel</button><button class="go"'+(opts.length?'':' disabled')+'>Add row</button></div></div>';
+    sc.querySelector(".no").onclick=()=>sc.remove();
+    sc.querySelector(".go").onclick=()=>{NEWROWS.add(+sc.querySelector("#nrs").value);sc.remove();renderEvents()};
+    document.body.appendChild(sc)};
+  document.querySelectorAll(".gantt .bardel").forEach(b=>b.onclick=e=>{e.stopPropagation();
+    const bk=BOOKINGS.find(x=>x.id==b.dataset.id); if(!bk)return;
+    if(window.confirm("Delete "+SITES[bk.si].n+", "+glabel(bk.start)+" → "+glabel(bk.end)+"?")){BOOKINGS=BOOKINGS.filter(x=>x!==bk);renderEvents();render()}});
+  document.querySelectorAll(".gantt .hdl").forEach(hd=>{
+    hd.addEventListener("mousedown",e=>{e.preventDefault();e.stopPropagation();
+      RZ={id:+hd.dataset.id,edge:hd.dataset.edge,last:null}; document.body.classList.add("resizing")});
+    hd.addEventListener("click",e=>e.stopPropagation())});
+  document.getElementById("evlegend").innerHTML=Object.keys(TYPES).map(t=>'<span><i class="sw '+t+'"></i>'+TYPES[t]+'</span>').join("")+
+    '<span><i class="sw pending"></i>Payment pending</span>';
+
+  /* --- summary --- */
+  const perWeek=WEEKS.map((w,wi)=>{let sites=new Set(),shifts=0,cost=0;
+    BOOKINGS.forEach(b=>{let n=0;for(let d=0;d<7;d++)if(gday(wi,d)>=b.start&&gday(wi,d)<=b.end)n++;
+      if(n){sites.add(b.si);shifts+=n*b.hc;cost+=bkTotal(b)*n/bkDays(b)}});
+    return {sites:sites.size,shifts,cost}});
+  const tot=perWeek.reduce((a,b)=>({shifts:a.shifts+b.shifts,cost:a.cost+b.cost}),{shifts:0,cost:0});
+  const byType=Object.keys(TYPES).map(t=>[TYPES[t],BOOKINGS.filter(b=>b.type===t).length]);
+  const pendB=BOOKINGS.filter(b=>isPending(b)&&bkTotal(b)), pendVal=pendB.reduce((n,b)=>n+bkTotal(b),0);
+  const grp=f=>{const bs=BOOKINGS.filter(f); const sh=bs.reduce((n,b)=>n+bkShifts(b),0), c=bs.reduce((n,b)=>n+bkTotal(b),0); return {sh,c,avg:sh?c/sh:0}};
+  const L=grp(b=>b.type!=="travel"), T=grp(b=>b.type==="travel"), ALL={sh:L.sh+T.sh,c:L.c+T.c}; ALL.avg=ALL.sh?ALL.c/ALL.sh:0;
+  const mixT=ALL.sh?Math.round(T.sh/ALL.sh*100):0, mixL=ALL.sh?100-mixT:0;
+  const vs=(v,target)=>'<i class="'+(v<=target?"good":"over")+'">'+(v<=target?"on target":"over by "+IDRx(v-target))+'</i>';
+  const mixCls=Math.abs(mixT-60)<=10?"good":"over";
+  document.getElementById("evsum").innerHTML=
+    '<div class="big"><div class="bigcell all"><b>'+BOOKINGS.length+'</b><span>BOOKINGS</span></div>'+
+    '<div class="bigcell stc"><b>'+ALL.sh+'</b><span>SHIFTS</span></div>'+
+    '<div class="bigcell ykan"><b>'+IDR(ALL.c)+'</b><span>COST</span></div></div>'+
+    '<div class="avgs">'+
+      '<div class="avg"><span>Local + Streets · per shift</span><b>'+(L.sh?IDRx(L.avg):"–")+'</b><small>aim Rp 150,000 · '+L.sh+' shifts</small>'+(L.sh?vs(L.avg,150000):"")+'</div>'+
+      '<div class="avg"><span>Travel trip · per shift</span><b>'+(T.sh?IDRx(T.avg):"–")+'</b><small>aim Rp 450,000 · '+T.sh+' shifts</small>'+(T.sh?vs(T.avg,450000):"")+'</div>'+
+      '<div class="avg tot"><span>All bookings · per shift</span><b>'+(ALL.sh?IDRx(ALL.avg):"–")+'</b><small>blended</small></div>'+
+      '<div class="avg mix"><span>Mix of shifts</span><div class="mixbar"><i style="width:'+mixT+'%"></i></div>'+
+        '<small><b class="'+mixCls+'">'+mixT+'% travel</b> · '+mixL+'% local + streets · aim 60 / 40</small></div>'+
+    '</div>'+
+    '<table class="hc"><tr><th></th><th>Sites</th><th>Shifts</th><th>Cost</th></tr>'+
+    perWeek.map((p,wi)=>'<tr'+(wi===WK?' class="rule"':'')+'><td>Week '+WEEKS[wi].n+(wi===WK?' <i>(this week)</i>':'')+'</td><td>'+p.sites+'</td><td>'+p.shifts+'</td><td>'+(p.cost?IDR(p.cost):"–")+'</td></tr>').join("")+'</table>'+
+    '<div class="byrole" style="margin-top:8px">'+byType.map(([n,c])=>'<div><span>'+n+'</span><b>'+c+'</b><b></b></div>').join("")+
+    '<div class="rt pendrow"><span>Site fees unpaid</span><b>'+pendB.length+'</b><b>'+(pendVal?IDR(pendVal):"")+'</b></div></div>'+
+    '<p class="fnote">Shifts = headcount per day × event days (travel days excluded). Cost per shift = (site + transport + accommodation) ÷ shifts.</p>';
+  const pend=SITES.filter(x=>x.loa==="pending"), exp=SITES.filter(x=>x.loa==="expired"), noloc=SITES.filter(x=>!x.loc);
+  const thin=WEEKS.map((w,wi)=>[wi,perWeek[wi].sites]).filter(([wi,n])=>wi>=WK&&n<4);
+  const nocost=BOOKINGS.filter(b=>b.type!=="streets"&&!bkTotal(b));
+  const notrav=BOOKINGS.filter(b=>b.type==="travel"&&!b.travelOk&&b.start>=gday(WK,0));
+  const trUnpaid=BOOKINGS.filter(b=>b.type==="travel"&&b.travelOk&&!(b.transportPaid&&b.accomPaid));
+  const shortParty=BOOKINGS.filter(b=>b.type==="travel"&&b.start>=gday(WK,0)&&(b.party||[]).length<b.hc);
+  const notRost=BOOKINGS.filter(b=>b.type==="travel"&&b.travelOk).map(b=>[b,(b.party||[]).filter(id=>!rosteredOn(b).includes(id))]).filter(([b,m])=>m.length&&lockedW&&b.start<=gday(WK,6));
+  document.getElementById("evflags").innerHTML=
+    '<div class="flagblock"><b>Travel party incomplete ('+shortParty.length+')</b>'+(shortParty.map(b=>'<div>'+SITES[b.si].n+' <i>'+glabel(b.start)+' · '+(b.party||[]).length+' of '+b.hc+' named</i></div>').join("")||'<div class="empty">None</div>')+'</div>'+
+    '<div class="flagblock"><b>Flight booked, not rostered ('+notRost.length+')</b>'+(notRost.map(([b,m])=>'<div>'+SITES[b.si].n+' <i>'+m.map(id=>by(id).n.split(" ")[0]).join(", ")+'</i></div>').join("")||'<div class="empty">None</div>')+'</div>'+
+    '<div class="flagblock"><b>Travel booked but unpaid ('+trUnpaid.length+')</b>'+(trUnpaid.map(b=>'<div>'+SITES[b.si].n+' <i>'+glabel(b.start)+(b.transportPaid?"":" · transport")+(b.accomPaid?"":" · accommodation")+'</i></div>').join("")||'<div class="empty">None</div>')+'</div>'+
+    '<div class="flagblock"><b>Travel not yet booked ('+notrav.length+')</b>'+(notrav.map(b=>'<div>'+SITES[b.si].n+' <i>'+glabel(b.start)+' · '+(b.party||[]).length+' named</i></div>').join("")||'<div class="empty">None</div>')+'</div>'+
+    '<div class="flagblock"><b>Bookings with no cost entered ('+nocost.length+')</b>'+(nocost.map(b=>'<div>'+SITES[b.si].n+' <i>'+glabel(b.start)+'</i></div>').join("")||'<div class="empty">None</div>')+'</div>'+
+    '<div class="flagblock"><b>LOA not signed ('+pend.length+')</b>'+(pend.map(x=>'<div>'+x.n+' <i>sign 3–4 weeks before use</i></div>').join("")||'<div class="empty">None</div>')+'</div>'+
+    '<div class="flagblock"><b>LOA expired ('+exp.length+')</b>'+(exp.map(x=>'<div>'+x.n+'</div>').join("")||'<div class="empty">None</div>')+'</div>'+
+    '<div class="flagblock"><b>No Evergiving location ('+noloc.length+')</b>'+(noloc.map(x=>'<div>'+x.n+'</div>').join("")||'<div class="empty">None</div>')+'</div>'+
+    '<div class="flagblock"><b>Weeks under 4 sites ('+thin.length+')</b>'+(thin.map(([wi,n])=>'<div>Week '+WEEKS[wi].n+' <i>'+n+' booked</i></div>').join("")||'<div class="empty">None</div>')+'</div>';
+}
+let RZ=null; const NEWROWS=new Set();
+function colAtX(x){const ths=document.querySelectorAll(".gantt th.dh");
+  for(let i=0;i<ths.length;i++){const r=ths[i].getBoundingClientRect(); if(x>=r.left&&x<r.right)return i}
+  if(ths.length){const f=ths[0].getBoundingClientRect(), l=ths[ths.length-1].getBoundingClientRect(); if(x<f.left)return 0; if(x>=l.right)return ths.length-1}
+  return null}
+function resizeTo(bk,edge,col){
+  if(col==null)return false;
+  if(edge==="end"){bk.end=Math.max(bk.start,col); if(bk.tBack!=null&&bk.tBack<=bk.end)bk.tBack=Math.min(SPAN-1,bk.end+1); return true}
+  bk.start=Math.min(bk.end,col); if(bk.tOut!=null&&bk.tOut>=bk.start)bk.tOut=Math.max(0,bk.start-1); return true}
+document.addEventListener("mousemove",e=>{if(!RZ)return; const col=colAtX(e.clientX); if(col===RZ.last)return; RZ.last=col;
+  const bk=BOOKINGS.find(b=>b.id===RZ.id); if(bk&&resizeTo(bk,RZ.edge,col))renderEvents()});
+document.addEventListener("mouseup",()=>{if(!RZ)return; RZ=null; document.body.classList.remove("resizing"); renderEvents(); render()});
+function bookingForm(bk){
+  const x=SITES[bk.si];
+  const sc=document.createElement("div"); sc.className="scrim";
+  const g=id=>sc.querySelector("#"+id);
+  const dIn=(id,val)=>'<input type="date" id="'+id+'" value="'+val+'" min="'+gdate(0)+'" max="'+gdate(SPAN-1)+'">';
+  sc.innerHTML='<div class="modal wide bkform"><h3>'+x.n+'</h3><p class="hint">'+x.addr+' · AM '+x.am[0]+' · PM '+x.pm[0]+'</p>'+
+
+    '<div class="fsec">1 · When and what</div>'+
+    '<div class="two"><label>Event starts'+dIn("bs",gdate(bk.start))+'</label><label>Event finishes'+dIn("be",gdate(bk.end))+'</label></div>'+
+    '<div class="two"><label>Type of site<select id="bt">'+Object.keys(TYPES).map(t=>'<option value="'+t+'"'+(bk.type===t?" selected":"")+'>'+TYPES[t]+'</option>').join("")+'</select></label>'+
+    '<label>Campaign<select id="bcamp"><option value="stc"'+((bk.c||x.c)==="stc"?" selected":"")+'>STC</option><option value="ykan"'+((bk.c||x.c)==="ykan"?" selected":"")+'>YKAN</option></select></label></div>'+
+    '<p class="fnote" id="tnote"></p>'+
+
+    '<div class="fsec">2 · Staff per day</div>'+
+    '<label>How many can be rostered on this site each day<input id="bh" value="'+bk.hc+'"></label>'+
+    '<p class="fnote">The weekly roster won\'t let a manager place more than this on a day here.</p>'+
+
+    '<div class="fsec">3 · Cost and payment</div>'+
+    '<table class="costt"><tr><th>Item</th><th>Amount (Rp)</th><th class="pc">Paid</th></tr>'+
+    '<tr id="rSite"><td>Event site</td><td><input id="bc" value="'+(bk.site||"")+'" placeholder="Venue fee, whole booking"></td><td class="pc"><input type="checkbox" id="pS"'+(bk.sitePaid?" checked":"")+'></td></tr>'+
+    '<tr id="rTr" class="trav"><td>Transport</td><td><input id="btr" value="'+(bk.transport||"")+'" placeholder="Flights, train, van"></td><td class="pc"><input type="checkbox" id="pT"'+(bk.transportPaid?" checked":"")+'></td></tr>'+
+    '<tr id="rAc" class="trav"><td>Accommodation</td><td><input id="bac" value="'+(bk.accom||"")+'" placeholder="Hotel for the party"></td><td class="pc"><input type="checkbox" id="pA"'+(bk.accomPaid?" checked":"")+'></td></tr>'+
+    '</table>'+
+    '<p class="fnote">The booking shows yellow on the timeline until the event site is paid.</p>'+
+    '<div class="calc" id="calc"></div>'+
+
+    '<div id="travelsec" class="hidden">'+
+    '<div class="fsec">4 · Travel</div>'+
+    '<div class="two"><label>Travel out'+dIn("tout",bk.tOut!=null?gdate(bk.tOut):gdate(Math.max(0,bk.start-1)))+'</label>'+
+    '<label>Travel back'+dIn("tback",bk.tBack!=null?gdate(bk.tBack):gdate(Math.min(SPAN-1,bk.end+1)))+'</label></div>'+
+    '<div class="two"><label>How they travel<select id="ttr"><option value="flight"'+(bk.transportMode==="flight"?" selected":"")+'>Flight</option><option value="train"'+(bk.transportMode==="train"?" selected":"")+'>Train</option><option value="car"'+(bk.transportMode==="car"?" selected":"")+'>Car / van</option></select></label>'+
+    '<label class="chk" style="margin-top:24px"><input type="checkbox" id="tok"'+(bk.travelOk?" checked":"")+'> Tickets and hotel booked and confirmed</label></div>'+
+    '<p class="fnote">Travel days go on the timeline with stripes. They don\'t count as shifts, and these people can\'t be rostered elsewhere on those days.</p>'+
+
+    '<div class="fsec">5 · Who is travelling</div>'+
+    '<div id="tlist"></div>'+
+    '</div>'+
+
+    '<div class="row"><button class="no">Cancel</button><button class="danger" id="del">Remove booking</button><button class="go">Save</button></div></div>';
+
+  let party=(bk.party||[]).slice();
+  const num=id=>+String(g(id).value).replace(/\D/g,"")||0;
+  const upd=()=>{const t=g("bt").value, travel=t==="travel";
+    sc.querySelectorAll("tr.trav").forEach(r=>r.classList.toggle("hidden",!travel));
+    g("rSite").classList.toggle("hidden",t==="streets");
+    g("travelsec").classList.toggle("hidden",!travel);
+    g("tnote").textContent=t==="local"?"Local: venue fee only, staff travel themselves.":travel?"Travel trip: venue, transport and accommodation all count, and you name the travel party below.":"Streets: no venue, no cost. Only staff per day matters.";
+    if(travel)drawParty();
+    const a=gfrom(g("bs").value), b=gfrom(g("be").value);
+    const days=(a!=null&&b!=null&&b>=a)?b-a+1:0, hc=num("bh");
+    const tmp={type:t,site:num("bc"),transport:num("btr"),accom:num("bac"),hc,start:0,end:days-1};
+    const shifts=hc*days, total=bkTotal(tmp);
+    g("calc").innerHTML='<div><span>Event days</span><b>'+days+'</b></div><div><span>Total shifts</span><b>'+shifts+' <i>('+hc+' × '+days+')</i></b></div>'+
+      '<div><span>Total cost</span><b>'+(total?IDR(total):"—")+'</b></div><div class="big2"><span>Cost per shift</span><b>'+(shifts&&total?IDRx(total/shifts):"—")+'</b></div>'};
+  function drawParty(){
+    const camp=g("bcamp").value, ros=rosteredOn(bk);
+    if(!g("pq")){   // build the static shell once so the search box is never re-created
+      g("tlist").innerHTML='<div id="ptop"></div><input class="search" id="pq" placeholder="" style="margin:10px 0 6px"><div class="cands" id="pcands"></div>';
+      g("pq").addEventListener("input",()=>drawCands());
+    }
+    g("pq").placeholder="Add from the "+CAMPS[camp].n+" team — type a name or code";
+    const rows=party.map(by).filter(Boolean).map(p=>'<tr><td>'+p.n+'</td><td>'+p.code+'</td><td>'+(p.ktp||'<i>not on file</i>')+'</td>'+
+      '<td>'+(ros.includes(p.id)?'<span class="okc">rostered</span>':'<span class="wc">not yet</span>')+'</td><td><button class="undo" data-rm="'+p.id+'">remove</button></td></tr>').join("");
+    const extra=ros.filter(id=>!party.includes(id)).map(by).filter(Boolean);
+    g("ptop").innerHTML=
+      '<div class="partyhead"><b>'+party.length+' travelling</b><span class="okc" style="color:var(--ink-soft)">'+num("bh")+' work each day · the party can be bigger so people rotate</span></div>'+
+      (rows?'<table class="tvt"><tr><th>Name (as on KTP)</th><th>Code</th><th>KTP</th><th>Roster</th><th></th></tr>'+rows+'</table>':'<p class="fnote">Nobody picked yet. Search below.</p>')+
+      (extra.length?'<div class="say wait" style="font-size:11.5px;margin-top:6px">On the roster for this site but not in the party — no ticket booked: '+extra.map(p=>p.n).join(", ")+'</div>':'');
+    g("ptop").querySelectorAll("[data-rm]").forEach(b=>b.onclick=()=>{party=party.filter(id=>id!==+b.dataset.rm);drawParty()});
+    drawCands();
+  }
+  function drawCands(){
+    const camp=g("bcamp").value, pq=g("pq").value.toLowerCase();
+    const cands=monthRows().map(r=>r.p).filter(p=>!p.placeholder&&p.eg&&p.c===camp&&!party.includes(p.id)&&(!pq||p.n.toLowerCase().includes(pq)||p.code.toLowerCase().includes(pq)));
+    g("pcands").innerHTML=cands.map(p=>'<button class="cand" data-add="'+p.id+'"><b>'+(isLeader(p)?'<span class="ldr">'+p.n+'</span>':p.n)+'</b><small>'+LEVELS[p.lv]+' · '+p.code+(p.lv===6&&by(p.to)?' · under '+by(p.to).n.split(" ")[0]:'')+'</small></button>').join("")||'<span class="empty">No one else matches.</span>';
+    g("pcands").querySelectorAll("[data-add]").forEach(b=>b.onclick=()=>{party.push(+b.dataset.add);drawParty();g("pq").focus()});
+  }
+  ["bs","be","bt","bc","btr","bac","bh","bcamp"].forEach(id=>g(id).addEventListener("input",upd)); upd();
+  sc.querySelector(".no").onclick=()=>sc.remove();
+  g("del").onclick=()=>{BOOKINGS=BOOKINGS.filter(b=>b!==bk); sc.remove(); renderEvents(); render()};
+  sc.querySelector(".go").onclick=()=>{
+    const a=gfrom(g("bs").value), b=gfrom(g("be").value);
+    if(a==null||b==null||b<a){evflash("Finish date must be on or after the start date.");return}
+    const t=g("bt").value;
+    if(t==="travel"){const o=gfrom(g("tout").value), r=gfrom(g("tback").value);
+      if(o==null||r==null||o>a||r<b){evflash("Travel out must be on or before the start, travel back on or after the finish.");return}
+      bk.tOut=o; bk.tBack=r; bk.transportMode=g("ttr").value; bk.travelOk=g("tok").checked; bk.party=party.slice()}
+    else {delete bk.tOut; delete bk.tBack; bk.travelOk=false; bk.party=[]}
+    Object.assign(bk,{start:a,end:b,type:t,c:g("bcamp").value,site:num("bc"),transport:num("btr"),accom:num("bac"),hc:Math.max(1,num("bh")),
+      sitePaid:g("pS").checked,transportPaid:g("pT").checked,accomPaid:g("pA").checked});
+    sc.remove(); renderEvents(); render()};
+  document.body.appendChild(sc);
+}
+const EG_LOCATIONS=[[4021,"Grand Indonesia - Ground Floor"],[4033,"Kota Kasablanka - Atrium"],[4040,"Soekarno-Hatta T3 - Domestic"],[4048,"Senayan City - LG"],
+  [4052,"Pondok Indah Mall 2"],[4061,"Central Park - Tribeca"],[4066,"Halim Perdanakusuma - Arrivals"],[4070,"Lippo Mall Puri - Main Atrium"],[4075,"Gandaria City - Main Street"],
+  [4081,"Kelapa Gading Mall 3"],[4090,"Paris Van Java - Bandung"],[4095,"Summarecon Mall Serpong"],[4102,"Yogyakarta - Malioboro Mall"]];
+function siteForm(si){
+  const x=si==null?null:SITES[si];
+  const sc=document.createElement("div"); sc.className="scrim";
+  sc.innerHTML='<div class="modal wide"><h3>'+(x?x.n:"Add a site")+'</h3>'+
+    '<p class="hint">A site is a venue you can book. Costs, dates and staff are set per booking on the timeline.</p>'+
+    '<div class="fsec">Site</div>'+
+    '<label>Name <i class="req">required</i><input id="sn" value="'+(x?x.n:"")+'" placeholder="Mall, airport, venue"></label>'+
+    '<div class="two"><label>Area<input id="sa" value="'+(x?x.addr:"")+'" placeholder="Jakarta Selatan"></label>'+
+    '<label>Usual campaign<select id="sc"><option value="stc"'+(x&&x.c==="stc"?" selected":"")+'>STC</option><option value="ykan"'+(x&&x.c==="ykan"?" selected":"")+'>YKAN</option></select></label></div>'+
+    '<div class="fsec">Evergiving</div>'+
+    '<label>Evergiving location <i class="req">required to book</i><select id="sloc"><option value="">— pick from your Evergiving locations —</option>'+
+      EG_LOCATIONS.map(([id,n])=>'<option value="'+id+'"'+(x&&x.loc===id?" selected":"")+'>'+n+' · '+id+'</option>').join("")+'</select></label>'+
+    '<p class="fnote">This list comes from Evergiving. If the venue isn\'t here it must be created in Evergiving first — Popcorn sends the location ID, never the name.</p>'+
+    '<div class="fsec">Hours</div>'+
+    '<div class="two"><label>AM starts<input type="time" id="a1" value="'+(x?x.am[0]:"10:00")+'"></label><label>AM finishes<input type="time" id="a2" value="'+(x?x.am[1]:"17:00")+'"></label></div>'+
+    '<div class="two"><label>PM starts<input type="time" id="p1" value="'+(x?x.pm[0]:"12:00")+'"></label><label>PM finishes<input type="time" id="p2" value="'+(x?x.pm[1]:"19:00")+'"></label></div>'+
+    '<div class="fsec">Agreement</div>'+
+    '<div class="two"><label>LOA status<select id="sl"><option value="pending"'+(x&&x.loa==="pending"?" selected":"")+'>Not signed yet</option><option value="signed"'+(!x||x.loa==="signed"?" selected":"")+'>Signed</option><option value="expired"'+(x&&x.loa==="expired"?" selected":"")+'>Expired</option></select></label>'+
+    '<label>LOA valid until<input type="date" id="sd" value="'+(x&&x.loaUntil?x.loaUntil:"2026-12-31")+'"></label></div>'+
+    '<p class="fnote">Sign the LOA 3–4 weeks before the first shift. Expired sites can\'t be booked.</p>'+
+    '<div class="row"><button class="no">Cancel</button><button class="go">'+(x?"Save":"Add site")+'</button></div></div>';
+  sc.querySelector(".no").onclick=()=>sc.remove();
+  sc.querySelector(".go").onclick=()=>{
+    const nm=sc.querySelector("#sn").value.trim(); if(!nm){sc.querySelector("#sn").style.borderColor="var(--flag)";return}
+    const loc=+sc.querySelector("#sloc").value||null, loa=sc.querySelector("#sl").value;
+    const o=x||{}; Object.assign(o,{n:nm,addr:sc.querySelector("#sa").value.trim()||"Jakarta",c:sc.querySelector("#sc").value,loc,
+      am:[sc.querySelector("#a1").value,sc.querySelector("#a2").value],pm:[sc.querySelector("#p1").value,sc.querySelector("#p2").value],
+      loa,loaUntil:sc.querySelector("#sd").value,hlock:o.hlock||false,note:loa==="signed"?"LOA signed":loa==="expired"?"LOA expired":"LOA pending"});
+    if(!x){SITES.push(o); NEWROWS.add(SITES.length-1)}
+    sc.remove(); renderEvents(); render();
+  };
+  document.body.appendChild(sc);
+}
+document.getElementById("addSite").onclick=()=>siteForm(null);
+["evq","evcamp"].forEach(id=>document.getElementById(id).addEventListener("input",renderEvents));
+
+phInit(); render(); renderOrg(); renderMonth(); renderPhone(); renderApprovals(); renderEvents();
 </script>
