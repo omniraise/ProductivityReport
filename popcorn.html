@@ -12,6 +12,7 @@
   body{margin:0;background:var(--page);color:var(--ink);font-family:"Inter","Segoe UI",system-ui,-apple-system,sans-serif;font-size:14px;line-height:1.45}
   header{background:var(--card);border-bottom:1px solid var(--line);padding:12px 20px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
   header h1{font-size:17px;margin:0;font-weight:650;letter-spacing:-.01em}
+  header h1 .ver{font-size:10px;font-weight:500;color:var(--ink-soft);margin-left:6px;vertical-align:2px}
   header .wk{color:var(--ink-soft)}
   .tabs{margin-left:auto;display:flex;gap:6px}
   .tabs button{font:inherit;padding:6px 13px;border-radius:20px;cursor:pointer;border:1px solid var(--line);background:transparent;color:var(--ink-soft)}
@@ -491,7 +492,7 @@
 </style>
 
 <header>
-  <h1>Popcorn</h1>
+  <h1>Popcorn <small class="ver">build 17</small></h1>
   <div class="wk" id="hdrsub">Week 3 — 14 – 20 Sep 2026 · Jakarta</div>
   <div class="tabs">
     <button data-tab="roster" aria-pressed="true">Weekly roster</button>
@@ -1785,21 +1786,11 @@ function renderEvents(){
   h+='</tr></tbody></table>';
   document.getElementById("evgrid").innerHTML=h;
 
-  /* --- press-and-drag on empty cells to create a range --- */
-  let sel=null;
+  /* --- press on any empty day, drag anywhere along the row, release --- */
   const cells=[...document.querySelectorAll(".gantt .gcell")];
-  const paint=()=>{cells.forEach(c=>{const si=+c.dataset.si,i=+c.dataset.i;
-    c.classList.toggle("selg",!!sel&&si===sel.si&&i>=Math.min(sel.a,sel.b)&&i<=Math.max(sel.a,sel.b))})};
-  cells.forEach(c=>{
-    c.addEventListener("mousedown",e=>{if(e.button!==0)return; const si=+c.dataset.si; if(si<0)return; if(!canBook(SITES[si])){evflash(SITES[si].n+": "+(SITES[si].loc?"LOA expired.":"no Evergiving location yet."));return}
-      sel={si,a:+c.dataset.i,b:+c.dataset.i}; paint(); e.preventDefault()});
-    c.addEventListener("mouseenter",()=>{if(sel&&+c.dataset.si===sel.si){sel.b=+c.dataset.i;paint()}});
-    c.addEventListener("mouseup",()=>{if(!sel)return; const a=Math.min(sel.a,sel.b), b=Math.max(sel.a,sel.b), si=sel.si; sel=null; paint();
-      const bk={id:Date.now(),si,start:a,end:b,type:"local",c:SITES[si].c,paid:"pending",site:0,transport:0,accom:0,hc:3};
-      BOOKINGS.push(bk); NEWROWS.delete(si); renderEvents(); render(); bookingForm(bk)});
-  });
-  document.addEventListener("mouseup",()=>{if(sel){sel=null;paint()}},{once:true});
-
+  cells.forEach(c=>c.addEventListener("mousedown",e=>{if(e.button!==0)return; const si=+c.dataset.si; if(si<0)return;
+    if(!canBook(SITES[si])){evflash(SITES[si].n+": "+(SITES[si].loc?"LOA expired.":"no Evergiving location yet."));return}
+    SEL={si,a:+c.dataset.i,b:+c.dataset.i,row:c.parentElement}; paintSel(); e.preventDefault()}));
   /* --- click a bar to edit, drag a bar to move --- */
   document.querySelectorAll(".gantt .bar").forEach(td=>{
     td.addEventListener("click",()=>bookingForm(BOOKINGS.find(b=>b.id==td.dataset.id)));
@@ -1842,7 +1833,8 @@ function renderEvents(){
     if(window.confirm("Delete "+SITES[bk.si].n+", "+glabel(bk.start)+" → "+glabel(bk.end)+"?")){BOOKINGS=BOOKINGS.filter(x=>x!==bk);renderEvents();render()}});
   document.querySelectorAll(".gantt .hdl").forEach(hd=>{
     hd.addEventListener("mousedown",e=>{e.preventDefault();e.stopPropagation();
-      RZ={id:+hd.dataset.id,edge:hd.dataset.edge,last:null}; document.body.classList.add("resizing")});
+      const bk=BOOKINGS.find(b=>b.id==hd.dataset.id); const c0=colAtX(e.clientX);
+      RZ={id:bk.id,edge:hd.dataset.edge,grabCol:c0,base:hd.dataset.edge==="end"?bk.end:bk.start,last:c0}; document.body.classList.add("resizing")});
     hd.addEventListener("click",e=>e.stopPropagation())});
   document.getElementById("evlegend").innerHTML=Object.keys(TYPES).map(t=>'<span><i class="sw '+t+'"></i>'+TYPES[t]+'</span>').join("")+
     '<span><i class="sw pending"></i>Payment pending</span>';
@@ -1894,17 +1886,27 @@ function renderEvents(){
     '<div class="flagblock"><b>No Evergiving location ('+noloc.length+')</b>'+(noloc.map(x=>'<div>'+x.n+'</div>').join("")||'<div class="empty">None</div>')+'</div>'+
     '<div class="flagblock"><b>Weeks under 4 sites ('+thin.length+')</b>'+(thin.map(([wi,n])=>'<div>Week '+WEEKS[wi].n+' <i>'+n+' booked</i></div>').join("")||'<div class="empty">None</div>')+'</div>';
 }
-let RZ=null; const NEWROWS=new Set();
+let RZ=null, SEL=null; const NEWROWS=new Set();
+function paintSel(){document.querySelectorAll(".gantt .gcell.selg").forEach(c=>c.classList.remove("selg"));
+  if(!SEL)return; const a=Math.min(SEL.a,SEL.b), b=Math.max(SEL.a,SEL.b);
+  SEL.row.querySelectorAll(".gcell").forEach(c=>{const i=+c.dataset.i; if(i>=a&&i<=b)c.classList.add("selg")})}
+document.addEventListener("mousemove",e=>{if(!SEL)return; const col=colAtX(e.clientX); if(col==null||col===SEL.b)return; SEL.b=col; paintSel()});
+document.addEventListener("mouseup",()=>{if(!SEL)return; const a=Math.min(SEL.a,SEL.b), b=Math.max(SEL.a,SEL.b), si=SEL.si; SEL=null; paintSel();
+  const bk={id:Date.now(),si,start:a,end:b,type:"local",c:SITES[si].c,site:0,transport:0,accom:0,hc:3,sitePaid:false,transportPaid:false,accomPaid:false};
+  BOOKINGS.push(bk); NEWROWS.delete(si); renderEvents(); render(); bookingForm(bk)});
 function colAtX(x){const ths=document.querySelectorAll(".gantt th.dh");
   for(let i=0;i<ths.length;i++){const r=ths[i].getBoundingClientRect(); if(x>=r.left&&x<r.right)return i}
   if(ths.length){const f=ths[0].getBoundingClientRect(), l=ths[ths.length-1].getBoundingClientRect(); if(x<f.left)return 0; if(x>=l.right)return ths.length-1}
   return null}
 function resizeTo(bk,edge,col){
   if(col==null)return false;
-  if(edge==="end"){bk.end=Math.max(bk.start,col); if(bk.tBack!=null&&bk.tBack<=bk.end)bk.tBack=Math.min(SPAN-1,bk.end+1); return true}
-  bk.start=Math.min(bk.end,col); if(bk.tOut!=null&&bk.tOut>=bk.start)bk.tOut=Math.max(0,bk.start-1); return true}
-document.addEventListener("mousemove",e=>{if(!RZ)return; const col=colAtX(e.clientX); if(col===RZ.last)return; RZ.last=col;
-  const bk=BOOKINGS.find(b=>b.id===RZ.id); if(bk&&resizeTo(bk,RZ.edge,col))renderEvents()});
+  const gapOut=bk.tOut!=null?bk.start-bk.tOut:null, gapBack=bk.tBack!=null?bk.tBack-bk.end:null;   // keep travel days the same distance from the event
+  if(edge==="end"){bk.end=Math.max(bk.start,Math.min(col,SPAN-1-(gapBack||0))); if(gapBack!=null)bk.tBack=bk.end+gapBack; return true}
+  bk.start=Math.min(bk.end,Math.max(col,gapOut||0)); if(gapOut!=null)bk.tOut=bk.start-gapOut; return true}
+document.addEventListener("mousemove",e=>{if(!RZ)return; const col=colAtX(e.clientX); if(col==null||col===RZ.last)return; RZ.last=col;
+  const bk=BOOKINGS.find(b=>b.id===RZ.id); if(!bk)return;
+  const target=Math.max(0,Math.min(SPAN-1,RZ.base+(col-RZ.grabCol)));   // move by how far the mouse moved, not where it is
+  if(resizeTo(bk,RZ.edge,target))renderEvents()});
 document.addEventListener("mouseup",()=>{if(!RZ)return; RZ=null; document.body.classList.remove("resizing"); renderEvents(); render()});
 function bookingForm(bk){
   const x=SITES[bk.si];
@@ -2035,7 +2037,7 @@ function siteForm(si){
   };
   document.body.appendChild(sc);
 }
-document.getElementById("addSite").onclick=()=>siteForm(null);
+document.getElementById("addSite").onclick=()=>{try{siteForm(null)}catch(err){evflash("Add site failed: "+err.message);console.error(err)}};
 ["evq","evcamp"].forEach(id=>document.getElementById(id).addEventListener("input",renderEvents));
 
 phInit(); render(); renderOrg(); renderMonth(); renderPhone(); renderApprovals(); renderEvents();
