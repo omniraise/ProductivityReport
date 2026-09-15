@@ -672,7 +672,7 @@ function renderLeaderView(){
 
 // ---------------- Pulse (SalesPulse prototype) ----------------
 // PROPOSED starting weights — all of these are judgment calls for Dave to tune.
-const PULSE_W = { perf:0.5, ready:0.3, strain:0.2 };
+const PULSE_W = { perf:0.6, ready:0.15, strain:0.25 };
 const ZONES = { peak:75, active:50 };
 
 function clamp(v,lo,hi){ return Math.max(lo, Math.min(hi, v)); }
@@ -682,15 +682,24 @@ function pulseFor(p, maxWorkDays){
   const q = p.pulse || {};
   const hasPledges = m.gross > 0;
 
-  // Performance: donor-age quality 30% · pledge value vs 195k 25% · Net Speed vs 0.9 target 30% · retention 15%
-  const ageScore = q.ageScore == null ? 0 : q.ageScore;
-  // Value: 100 at >= 195,000 avg monthly (regular gifts only); falls linearly to 0 at 150,000
+  // Performance: Net Speed 65% · Under-30 share 25% · pledge value 10%
+  // Net Speed: 0.6 and below = PIP (caps at 50), 0.8 = good (80), 1.0 = amazing (100)
+  const ns = m.netSpeed;
+  const speedScore = !hasPledges ? 0
+                   : ns <= 0.6 ? ns / 0.6 * 50
+                   : ns <= 0.8 ? 50 + (ns - 0.6) / 0.2 * 30
+                   : clamp(80 + (ns - 0.8) / 0.2 * 20, 80, 100);
+  // Under-30 share: 30% target (100), 40% warning (60), 50% near termination (20), 60%+ = 0
+  const u30 = m.u30Pct * 100;
+  const u30Score = !hasPledges ? 0
+                 : u30 <= 30 ? 100
+                 : u30 <= 40 ? 100 - (u30 - 30) * 4
+                 : u30 <= 50 ? 60 - (u30 - 40) * 4
+                 : clamp(20 - (u30 - 50) * 2, 0, 20);
   const VALUE_FLOOR = 195000, VALUE_ZERO = 150000;
   const valueScore = q.avgValue == null ? 0 : clamp((q.avgValue - VALUE_ZERO) / (VALUE_FLOOR - VALUE_ZERO) * 100, 0, 100);
-  const speedScore = clamp(m.netSpeed / NET_SPEED_TARGET * 100, 0, 100);
-  const cancelRate = m.gross ? m.cancel / m.gross : 0;
-  const retention = hasPledges ? (1 - cancelRate) * 100 : 0;
-  const perf = 0.3*ageScore + 0.25*valueScore + 0.3*speedScore + 0.15*retention;
+  const perf = 0.65*speedScore + 0.25*u30Score + 0.10*valueScore;
+  const ageScore = u30Score, retention = 0;
 
   // Discipline: starts at 100, loses points for Mystery Shopping violations, Quality (QA) violations
   // and late check-ins this month. Higher violation points = lower Discipline.
@@ -711,27 +720,29 @@ function pulseFor(p, maxWorkDays){
   const ASPC_MIN = { A:160, S:30, P:20 };
   function kpiScore(actual, min){
     if(actual >= min) return clamp(75 + (actual-min)/min*100, 75, 100);
-    return clamp(actual/min*75, 0, 75);
+    return clamp(Math.pow(actual/min, 2)*75, 0, 75);
   }
   const a = q.aspc;
   const hasAspc = !!(a && a.days);
   const effortA = hasAspc ? kpiScore(a.perDayA, ASPC_MIN.A) : 0;
   const effortS = hasAspc ? kpiScore(a.perDayS, ASPC_MIN.S) : 0;
   const effortP = hasAspc ? kpiScore(a.perDayP, ASPC_MIN.P) : 0;
-  const effort = 0.4*effortA + 0.3*effortS + 0.3*effortP;
+  // Presentations are the key metric: 60% of effort. Approaches 25%, stopping 15%.
+  const effort = 0.25*effortA + 0.15*effortS + 0.60*effortP;
 
   const workload = maxWorkDays ? (q.workDays||0) / maxWorkDays * 100 : 0;
   const travelShare = q.workDays ? (q.travelDays||0) / q.workDays * 100 : 0;
   const variety = clamp((q.uniqueSites||0) / 4 * 100, 0, 100);
   const pattern = 0.4*workload + 0.3*travelShare + 0.3*variety;
 
-  // No KPI data → score on shift pattern alone rather than penalising them to near-zero.
-  const strain = hasAspc ? (0.8*effort + 0.2*pattern) : pattern;
+  // No KPI record = not updating ASPC daily. The 80% effort component scores zero,
+  // so Strain is capped at 20 no matter how many shifts were worked.
+  const strain = 0.8*effort + 0.2*pattern;
 
   const vitality = PULSE_W.perf*perf + PULSE_W.ready*ready + PULSE_W.strain*strain;
   const zone = vitality >= ZONES.peak ? 'Peak' : (vitality >= ZONES.active ? 'Active' : 'Low');
   return { vitality, zone, perf, ready, strain, m, q, hasAspc,
-           ageScore, valueScore, speedScore, retention, workload, travelShare, variety };
+           ageScore, valueScore, speedScore, u30Score, retention, workload, travelShare, variety };
 }
 
 // ---- Rank badges: Dave's own emblem artwork, embedded ----
@@ -785,7 +796,7 @@ function renderPulseView(){
   scored.forEach(({s}) => counts[s.zone]++);
 
   let html = `<div class="pulse-note">
-    <strong>Prototype.</strong> Vitality = 50% Performance + 30% Discipline + 20% Strain. Discipline starts at 100 and loses points for Mystery Shopping violations, QA violations and late check-ins. Strain is 80% daily KPI effort (approach / stopping / presentation) + 20% shift pattern.
+    <strong>Prototype.</strong> Vitality = 60% Performance + 25% Strain + 15% Discipline. Discipline starts at 100 and loses points for Mystery Shopping violations, QA violations and late check-ins. Strain is 80% daily KPI effort, weighted to presentations (min 20/day) + 20% shift pattern; no ASPC updates = effort scored 0.
   </div>
   <div class="rank-legend">${RANKS.slice().reverse().map(r=>`<div>${badgeIMG(r,16,0)}${r.name}</div>`).join('')}</div>
   <div class="team-summary">
@@ -800,15 +811,14 @@ function renderPulseView(){
     const rk = rankFor(s.vitality);
     const a = q.aspc;
     const perfBits = [
-      q.ageScore == null ? 'no aged pledges' : `age ${Math.round(s.ageScore)}`,
+      `under-30 ${Math.round((s.m.u30Pct||0)*100)}%`,
       q.avgValue == null ? 'no regular gifts' : `value ${Math.round(q.avgValue/1000)}k`,
       `speed ${s.m.netSpeed.toFixed(2)}`,
-      `cancel ${Math.round((s.m.gross? s.m.cancel/s.m.gross:0)*100)}%`,
     ];
     const readyBits = [`MS ${msPtsOf(q)} pts`, `QA ${qaPtsOf(q)} pts`, (q.discipline&&q.discipline.checkins) ? `late ${q.discipline.lateCount||0}\u00d7 (${Math.round(q.discipline.lateMins||0)}m)` : 'no check-in data'];
     const strainBits = a
       ? [`${a.perDayA}/day appr`, `${a.perDayS}/day stop`, `${a.perDayP}/day pres`, `${a.days} KPI days`]
-      : [`no KPI data`, `${q.workDays||0} shifts`, `${q.travelDays||0} travel`, `${q.uniqueSites||0} sites`];
+      : [`<b style="color:var(--red)">no ASPC updates \u2014 effort scored 0</b>`, `${q.workDays||0} shifts`, `${q.travelDays||0} travel`, `${q.uniqueSites||0} sites`];
     return `<div class="pulse-card">
       <div class="pulse-head">
         <div class="vit-ring" style="--zone:${zc}; --pct:${Math.round(s.vitality)};"><span>${Math.round(s.vitality)}</span></div>
@@ -837,7 +847,7 @@ function renderPulseView(){
   }).join('');
 
   content.innerHTML = html;
-  document.getElementById('footerNote').textContent = 'Performance = 30% donor-age tier + 25% pledge value (100 at avg \u2265 195k regular gifts, 0 at 150k) + 30% Net Speed vs 0.9 + 15% retention. Discipline = 100 minus 7 per Mystery Shopping violation point, 7 per QA violation point, 4 per late check-in plus 1 per 30 late minutes (capped) \u2014 so a single Major (3 pts) costs 21; staff without a matching check-in record are not penalised for lateness. Strain = 80% daily KPI (40% approaches min 160/day, 30% stopping min 30/day, 30% presentations min 20/day \u2014 hitting the minimum scores 75, not 100; falling short drops steeply) + 20% shift pattern; staff with no matching KPI record are scored on shift pattern alone. Badges follow Vitality here, and Net Speed on Month/P1/P2.';
+  document.getElementById('footerNote').textContent = 'Performance = 65% Net Speed (0.6 and below is PIP and caps at 50, 0.8 = 80, 1.0+ = 100) + 25% under-30 share (30% target = 100, 40% warning = 60, 50% near termination = 20) + 10% pledge value (100 at avg \u2265 195k regular gifts). Discipline = 100 minus 7 per Mystery Shopping violation point, 7 per QA violation point, 4 per late check-in plus 1 per 30 late minutes (capped) \u2014 so a single Major (3 pts) costs 21; staff without a matching check-in record are not penalised for lateness. Strain = 80% daily KPI (60% presentations min 20/day, 25% approaches min 160/day, 15% stopping min 30/day \u2014 hitting the minimum scores 75, not 100; below it the score falls with the square of the shortfall, so half the minimum scores 19) + 20% shift pattern. No ASPC record this month = effort scored 0, so Strain tops out at 20. Badges follow Vitality here, and Net Speed on Month/P1/P2.';
 }
 
 function render(){
