@@ -84,8 +84,11 @@
   .cell.lockedcell{background-image:repeating-linear-gradient(45deg,rgba(22,35,58,.04) 0 6px,transparent 6px 12px)}
   .stack{display:flex;flex-direction:column;gap:3px}
   .side{width:330px;flex:none;display:flex;flex-direction:column;gap:12px}
-  .cov{font-size:12px;display:flex;flex-direction:column;gap:8px} .cov .row{display:flex;gap:8px;align-items:baseline}
-  .cov .lab{width:82px;flex:none;color:var(--ink-soft);font-size:11px} .cov .names{flex:1} .cov .names i{font-style:normal;color:var(--ink-soft);font-size:11px}
+  .ctiles{display:flex;flex-direction:column;gap:6px}
+  .ctile{display:grid;grid-template-columns:34px 1fr;gap:2px 10px;align-items:center;background:#F4F6F9;border-radius:8px;padding:8px 10px}
+  .ctile b{font-size:18px;font-variant-numeric:tabular-nums;text-align:right;grid-row:1/3;color:var(--ink-soft)}
+  .ctile span{font-size:12px} .ctile i{font-style:normal;font-size:11px;color:var(--ink-soft);grid-column:2}
+  .ctile.bad b{color:var(--flag)} .ctile.warn b{color:var(--warn)}
   .abslist{display:flex;flex-direction:column;gap:6px;font-size:12px}
   .abslist div{display:flex;align-items:center;gap:8px;background:#F4F6F9;border-radius:6px;padding:6px 8px}
   .abslist span{flex:1} .abslist small{display:block;color:var(--ink-soft);font-size:10.5px}
@@ -201,7 +204,7 @@
   table.mtab tr.band.stc td{background:var(--stc-bg);color:var(--stc)} table.mtab tr.band.ykan td{background:var(--ykan-bg);color:var(--ykan)}
   table.mtab tr.band td.who{position:sticky;left:0;z-index:1}
   table.mtab td.c{width:22px;text-align:center;padding:3px 0;font-weight:600;font-size:10.5px;cursor:default}
-  table.mtab td.c.w{background:var(--am);cursor:pointer}
+  table.mtab td.c.w{background:var(--am)}
   table.mtab td.c.free{background:#fff}
   table.mtab td.c.x{background:#E4E7ED;color:#9AA3B2}
   table.mtab td.c.m{background:var(--flag-bg);color:var(--flag)}
@@ -395,6 +398,8 @@
   .hdl:hover{background:rgba(255,255,255,.5)}
   .hdl::after{content:"";position:absolute;top:50%;left:50%;width:2px;height:12px;margin:-6px 0 0 -1px;background:rgba(255,255,255,.7);border-radius:1px}
   body.resizing,body.resizing *{cursor:ew-resize!important;user-select:none}
+  body.moving,body.moving *{cursor:grabbing!important;user-select:none}
+  table.gantt td.bar .barin{cursor:grab}
   .evlegend{display:flex;gap:12px;font-size:11.5px;color:var(--ink-soft);margin-left:6px}
   .evlegend span{display:flex;align-items:center;gap:5px}
   .sw{width:14px;height:10px;border-radius:3px;display:inline-block}
@@ -481,6 +486,26 @@
   table.evtab td.tot{text-align:right;padding:8px;font-variant-numeric:tabular-nums;background:#F7F8FA;white-space:nowrap}
   table.hc td i{font-style:normal;color:var(--ink-soft);font-size:10.5px}
   .panel.orphan{border-color:#E8D08A;background:#FFFBF0}
+  .panel.unpaidnote{border-color:#E8D08A;background:#FFFBF0;font-size:12px;color:var(--ink-soft)} .panel.unpaidnote b{color:var(--ink)}
+  /* ---------- HR dashboard ---------- */
+  .exports{display:flex;gap:6px;align-items:center;margin:-4px 0 10px;font-size:11px;color:var(--ink-soft)}
+  .exports span{margin-right:4px;font-weight:650;letter-spacing:.04em}
+  table.htab td.c.half{background:linear-gradient(135deg,var(--am) 50%,#fff 50%)}
+  table.htab td.c.noshow{background:#fff;box-shadow:inset 0 0 0 1px #E3BEBC}
+  table.htab td.c.late.unval{box-shadow:inset 0 -4px 0 var(--flag)} table.htab td.c.late:not(.unval){box-shadow:inset 0 -4px 0 #8A6410}
+  table.htab td.c{cursor:pointer}
+  table.htab th.today,table.htab td.today{box-shadow:inset 2px 0 0 var(--ink),inset -2px 0 0 var(--ink)}
+  table.mtab tr.availrow th.hot{color:var(--flag);font-weight:700}
+  table.mtab td.who .pm.tr{background:#F6D86B;color:var(--ink)}
+  table.htab tr.probdue td.who{background:#FFF3D6}
+  .mlegend i.half{background:linear-gradient(135deg,var(--am) 50%,#fff 50%);border:1px solid var(--line)}
+  .prob{border:1px solid #E8D08A;background:#FFFBF0;border-radius:8px;padding:9px 10px;margin-bottom:8px;font-size:12px}
+  .prob>b{display:block;font-size:13px} .prob>span{color:var(--ink-soft);font-size:11.5px} .prob small{display:block;color:var(--ink-soft);font-size:10.5px;margin-top:5px}
+  .probrow{display:flex;gap:5px;margin-top:7px} .pb{flex:1;font:inherit;font-size:11.5px;padding:6px;border:1px solid var(--line);border-radius:6px;background:#fff;cursor:pointer}
+  .pb.sug{background:var(--ink);color:#fff;border-color:var(--ink);font-weight:600}
+  .hrtimes{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin:12px 0}
+  .hrtimes div{background:#F4F6F9;border-radius:8px;padding:8px 10px} .hrtimes span{display:block;font-size:10.5px;color:var(--ink-soft)}
+  .hrtimes b{display:block;font-size:15px} .hrtimes small{display:block;font-size:10.5px;color:var(--ink-soft);margin-top:2px} .hrtimes small i{font-style:normal}
   .trainhead{font-size:10px;color:var(--ink-soft);border-top:1px dashed var(--line);margin-top:4px;padding:5px 4px 1px}
   .bin{border:2px dashed #E3BEBC;background:var(--flag-bg);border-radius:10px;padding:14px 12px;text-align:center;color:var(--flag);font-size:12.5px}
   .bin.over{background:#F5D6D4;border-style:solid} .bin b{display:block;font-size:13px;margin-bottom:2px}
@@ -492,7 +517,7 @@
 </style>
 
 <header>
-  <h1>Popcorn <small class="ver">build 17</small></h1>
+  <h1>Popcorn <small class="ver">build 20</small></h1>
   <div class="wk" id="hdrsub">Week 3 — 14 – 20 Sep 2026 · Jakarta</div>
   <div class="tabs">
     <button data-tab="roster" aria-pressed="true">Weekly roster</button>
@@ -500,6 +525,7 @@
     <button data-tab="monthly" aria-pressed="false">Monthly roster</button>
     <button data-tab="team" aria-pressed="false">Team structure</button>
     <button data-tab="events" aria-pressed="false">Events</button>
+    <button data-tab="hr" aria-pressed="false">HR Dashboard</button>
     <select id="asrole" title="Preview what each role sees"><option value="dir">Viewing as: Director</option><option value="hr">Viewing as: HR</option><option value="ev">Viewing as: Events</option><option value="mgr">Viewing as: Manager</option><option value="tl">Viewing as: Team leader</option><option value="fr">Viewing as: Fundraiser</option></select>
   </div>
 </header>
@@ -518,7 +544,7 @@
     <div class="panel"><h2>Publish locked days</h2><p class="hint">Lock a day when it's final. Publish sends only locked days to Evergiving.</p>
       <button class="publish" id="pubBtn" disabled>Publish</button><p class="pend" id="pend"></p><div id="msgs"></div></div>
     <div class="panel"><h2>Leave requests</h2><div id="appr"></div></div>
-    <div class="panel"><h2>Coverage this week</h2><p class="hint">Target is five shifts. Seven is blocked.</p><div class="cov" id="cov"></div></div>
+    <div class="panel"><h2>Coverage this week</h2><div class="cov" id="cov"></div></div>
     <div class="panel"><h2>Absences</h2><div class="abslist" id="abslist"></div></div>
     <div class="panel"><h2>Evergiving activity</h2><div class="feed" id="feed"><span class="empty">Nothing sent yet.</span></div></div>
   </aside>
@@ -540,7 +566,7 @@
       <select id="mteam" class="search" style="width:250px;margin:0"></select>
       <input class="search" id="mq" placeholder="Search name" style="width:170px;margin:0">
       <label class="chk"><input type="checkbox" id="permonly"> Permanent staff only</label>
-      <span class="hint" style="margin:0 0 0 auto">September 2026 · click a worked day to record check-in</span>
+      <span class="hint" style="margin:0 0 0 auto">September 2026 · planned roster. Attendance and lateness live in HR Dashboard.</span>
     </div>
     <div id="mgrid"></div>
   </section>
@@ -571,13 +597,45 @@
     <div class="topbar">
       <select id="evcamp" class="search" style="width:150px;margin:0"><option value="all">Both campaigns</option><option value="stc">STC</option><option value="ykan">YKAN</option></select>
       <div class="evlegend" id="evlegend"></div>
-      <span class="hint" style="margin:0 0 0 auto">Drag the right edge of a booking to stretch it · drag the middle to move it · × to delete · click to edit.</span>
+      <span class="hint" style="margin:0 0 0 auto">Press and drag a booking to move it · drag its edge to stretch it · × to delete · click to edit.</span>
     </div>
     <div id="evgrid"></div>
   </section>
   <aside class="side">
     <div class="panel"><h2>September at a glance</h2><div id="evsum"></div></div>
     <div class="panel"><h2>Needs attention</h2><div id="evflags"></div></div>
+  </aside>
+</main>
+
+<!-- ===================== HR DASHBOARD ===================== -->
+<main id="hr" class="hidden">
+  <section class="orgwrap" style="padding:14px;min-width:0">
+    <div class="topbar">
+      <select id="hteam" class="search" style="width:230px;margin:0"></select>
+      <input class="search" id="hq" placeholder="Search name or code" style="width:160px;margin:0">
+      <label class="chk"><input type="checkbox" class="hfilt" value="perm" checked> Permanent staff</label>
+      <label class="chk"><input type="checkbox" class="hfilt" value="trainee" checked> Trainee</label>
+      <label class="chk"><input type="checkbox" class="hfilt" value="fr" checked> Fundraiser</label>
+      <label class="chk"><input type="checkbox" class="hfilt" value="lead" checked> Leaders</label>
+      <span class="hint" style="margin:0 0 0 auto">Actual attendance from the Telegram check-in group · click a day to validate</span>
+    </div>
+    <div class="exports">
+      <span>Export</span>
+      <button class="btn" data-x="payroll">Payroll CSV</button>
+      <button class="btn" data-x="contracts">Contract mail-merge CSV</button>
+      <button class="btn" data-x="attendance">Attendance CSV</button>
+    </div>
+    <div id="hgrid"></div>
+  </section>
+  <aside class="side">
+    <div class="panel"><h2>Probation decisions</h2><p class="hint">Trainees who have reached 10 actual working days.</p><div id="hprob"></div></div>
+    <div class="panel"><h2>This month</h2><div id="hmini"></div></div>
+    <div class="panel"><h2>Service milestones</h2><div id="hmile"></div></div>
+    <div class="panel"><h2>Legend</h2><div class="mlegend">
+      <span><i class="c half"></i>checked in, no check-out yet</span><span><i class="c w"></i>checked in and out</span>
+      <span><i class="c free"></i>rostered, no check-in</span><span><i class="c x">×</i>said they can't work</span>
+      <span><i class="c m">M</i>medical certificate</span><span><i class="c s">!</i>sick, certificate outstanding</span>
+      <span><i class="c l">L</i>leave</span><span><i class="c w late"></i>late over 10 min · red = unvalidated</span></div></div>
   </aside>
 </main>
 
@@ -600,7 +658,7 @@
 
 <script>
 /* ======================= SHARED PEOPLE ======================= */
-const LEVELS=["Head","Senior manager","Manager","Assistant manager","Senior team leader","Team leader","Fundraiser"];
+const LEVELS=["Head","Senior manager","Manager","Assistant manager","Senior team leader","Team leader","Fundraiser","Trainee"];
 const CAMPS={stc:{n:"STC",id:1899},ykan:{n:"YKAN",id:1904}};
 let P=[
  {id:1,n:"Dave",code:"HD-0001",lv:0,to:null,c:null,eg:1,eid:1,off:[],start:"2023-08-14",perm:true,tg:"@dave"},
@@ -725,10 +783,13 @@ const by=id=>P.find(p=>p.id===id);
 const kidsOf=id=>P.filter(p=>p.to===id);
 const teamSize=id=>kidsOf(id).reduce((n,k)=>n+1+teamSize(k.id),0);
 const isDesc=(a,b)=>{let x=by(b);while(x&&x.to!==null){if(x.to===a)return true;x=by(x.to)}return false};
-const TODAY=new Date("2026-09-08");
+const TODAY=new Date("2026-09-15");
 const daysHere=p=>p.start?Math.floor((TODAY-new Date(p.start))/864e5):999;
-const isTrainee=p=>p.lv===6&&!p.placeholder&&daysHere(p)<14;   // under two weeks = trainee
+const isTrainee=p=>p.lv===7&&!p.placeholder;                    // Trainee is a role; HR passes them to Fundraiser
+const isFR=p=>p.lv>=6;                                               // fundraiser or trainee
 const isLeader=p=>p.lv<=5;                                       // team leader and above
+P.forEach(p=>{if(p.lv===6&&p.start&&(new Date("2026-09-15")-new Date(p.start))/864e5<21){p.lv=7;p.signups=[0,1,2,4,5,7,8][p.id%7]}});
+P.forEach((p,i)=>{p.code="OMID"+String(300+i).padStart(4,"0"); p.region=i%9===0?"Surabaya":i%13===0?"Bandung":"Jakarta"; p.signups=p.signups||0});
 const rosterable=()=>P.filter(p=>p.lv>=3&&!p.placeholder);       // assistant manager down to fundraiser, real people only
 const fundraisers=rosterable;
 
@@ -742,8 +803,9 @@ document.querySelectorAll(".tabs button").forEach(b=>b.onclick=()=>{
   document.getElementById("team").classList.toggle("hidden",t!=="team");
   document.getElementById("monthly").classList.toggle("hidden",t!=="monthly");
   document.getElementById("events").classList.toggle("hidden",t!=="events");
-  document.getElementById("hdrsub").textContent=t==="team"?"Team structure · Indonesia":t==="monthly"?"September 2026 · Indonesia":t==="events"?"Site bookings · September 2026":"Week "+WEEKS[WK].n+" — "+WEEKS[WK].label+" 2026 · Jakarta";
-  if(t==="roster")render(); if(t==="team")renderOrg(); if(t==="monthly")renderMonth(); if(t==="phone")renderPhone(); if(t==="events")renderEvents();
+  document.getElementById("hr").classList.toggle("hidden",t!=="hr");
+  document.getElementById("hdrsub").textContent=t==="team"?"Team structure · Indonesia":t==="monthly"?"September 2026 · Indonesia":t==="events"?"Site bookings · September 2026":t==="hr"?"HR Dashboard · September 2026":"Week "+WEEKS[WK].n+" — "+WEEKS[WK].label+" 2026 · Jakarta";
+  if(t==="roster")render(); if(t==="team")renderOrg(); if(t==="monthly")renderMonth(); if(t==="phone")renderPhone(); if(t==="events")renderEvents(); if(t==="hr")renderHR();
 });
 
 /* ======================= ROSTER ======================= */
@@ -786,7 +848,8 @@ const spanAt=(si,i)=>BOOKINGS.find(b=>b.si===si&&i>=spanStart(b)&&i<=spanEnd(b))
 const travelDayFor=(pid,i)=>BOOKINGS.find(b=>b.type==="travel"&&((b.tOut===i)||(b.tBack===i))&&travellers(b).some(p=>p.id===pid));
 const travellers=b=>(b.party||[]).map(by).filter(Boolean);                               // chosen by Events at booking time
 const rosteredOn=b=>{const ids=new Set(); A.forEach(a=>{const g=gday(a.w,a.d); if(a.s===b.si&&g>=b.start&&g<=b.end)ids.add(a.pid)}); return [...ids]};
-const bookedDays=(si,w)=>{const set=new Set(); for(let d=0;d<7;d++)if(bookingAt(si,gday(w,d)))set.add(d); return set};
+const isLive=b=>b.type==="streets"||b.sitePaid;                                          // reaches the roster only once the site fee is paid
+const bookedDays=(si,w)=>{const set=new Set(); for(let d=0;d<7;d++)if(bookingsAt(si,gday(w,d)).some(isLive))set.add(d); return set};
 (function seedBook(){
   const add=(si,start,end,type,site,transport,accom,hc)=>BOOKINGS.push({id:BOOKINGS.length+1,si,start,end,type,site,transport,accom,hc});
   add(0,gday(1,0),gday(3,6),"local",  24000000,0,0,4);            // Grand Indonesia, weeks 2–4
@@ -799,7 +862,7 @@ const bookedDays=(si,w)=>{const set=new Set(); for(let d=0;d<7;d++)if(bookingAt(
   add(4,gday(2,0),gday(4,6),"local",  20000000,0,0,3);
   add(5,gday(2,0),gday(3,4),"streets",0,0,0,5);
   add(6,gday(3,5),gday(3,6),"travel", 5000000,3000000,2200000,4);
-  BOOKINGS.forEach((b,i)=>{b.sitePaid=[0,1,3,5].includes(i)||b.type==="streets"; b.transportPaid=[1,3].includes(i); b.accomPaid=[3].includes(i);
+  BOOKINGS.forEach((b,i)=>{b.sitePaid=[0,1,2,3,4,6].includes(i)||b.type==="streets"; b.transportPaid=[1,3].includes(i); b.accomPaid=[3].includes(i);
     b.c=SITES[b.si].c; if(b.type==="travel"){b.tOut=b.start-1;b.tBack=b.end+1;b.transportMode="flight";b.travelOk=i===3;
       b.party=P.filter(p=>p.lv>=5&&p.c===b.c&&p.eg).slice(i%2?0:4,(i%2?0:4)+b.hc).map(p=>p.id)}});
 })();
@@ -850,7 +913,10 @@ function drawDaybar(){
 function drawBoard(){
   const b=document.getElementById("board"); b.innerHTML="";
   const live=SITES.map((s,i)=>i).filter(si=>bookedDays(si,WK).size);
-  if(!live.length) b.innerHTML='<div class="panel"><span class="empty">Events hasn\'t booked any sites for Week '+WEEKS[WK].n+' yet. See the Events tab.</span></div>';
+  const unpaid=BOOKINGS.filter(b=>!isLive(b)&&[0,1,2,3,4,5,6].some(d=>gday(WK,d)>=b.start&&gday(WK,d)<=b.end));
+  if(unpaid.length) b.innerHTML='<div class="panel unpaidnote"><b>'+unpaid.length+' booking'+(unpaid.length>1?"s":"")+' this week not on the roster yet</b> — site fee unpaid: '+
+    unpaid.map(x=>SITES[x.si].n).join(", ")+'. Events marks the site paid and it appears here.</div>';
+  if(!live.length&&!unpaid.length) b.innerHTML='<div class="panel"><span class="empty">Events hasn\'t booked any sites for Week '+WEEKS[WK].n+' yet. See the Events tab.</span></div>';
   live.forEach(si=>{const s0=SITES[si]; const bd=bookedDays(si,WK);
     const wkBk=BOOKINGS.find(b=>b.si===si&&[0,1,2,3,4,5,6].some(d=>gday(WK,d)>=b.start&&gday(WK,d)<=b.end));
     const s=Object.assign({},s0,{c:wkBk?wkBk.c:s0.c}); SITES[si].cw=s.c;   // campaign this week
@@ -966,8 +1032,9 @@ function render(){
   const cov=document.getElementById("cov");
   const under=fundraisers().filter(p=>!isTrainee(p)&&p.eg&&shifts(p.id)<4), six=fundraisers().filter(p=>shifts(p.id)===6), newbies=fundraisers().filter(p=>isTrainee(p));
   const fmt=list=>list.length?list.map(p=>{const w=p.n.split(" ");return w[0]+(w[1]?" "+w[1][0]+".":"")+" <i>("+shifts(p.id)+")</i>"}).join(", "):"<i>none</i>";
-  cov.innerHTML='<div class="row"><span class="lab">No leader</span><span class="names">'+(noLead?noLead+" shift"+(noLead>1?"s":"")+" have no team leader or above":"<i>every shift has a leader</i>")+'</span></div>'+
-    '<div class="row"><span class="lab">Under 4</span><span class="names">'+fmt(under)+'</span></div><div class="row"><span class="lab">Six shifts</span><span class="names">'+fmt(six)+'</span></div><div class="row"><span class="lab">New starters</span><span class="names">'+fmt(newbies)+'</span></div>';
+  const tile=(n,label,names,cls)=>'<div class="ctile'+(n?" "+cls:"")+'"><b>'+n+'</b><span>'+label+'</span>'+(n&&names?'<i>'+names+'</i>':'')+'</div>';
+  const nm=list=>list.map(p=>p.n.split(" ")[0]).join(", ");
+  cov.innerHTML='<div class="ctiles">'+tile(noLead,"shifts with no leader","","bad")+tile(under.length,"people under 4 shifts",nm(under),"warn")+tile(six.length,"people on 6 shifts",nm(six),"")+'</div>';
   const al=document.getElementById("abslist"); al.innerHTML=""; if(!ABS.some(x=>x.w===WK)) al.innerHTML='<span class="empty">None this week.</span>';
   ABS.forEach((x,i)=>{if(x.w!==WK)return; const t=ABS_TYPES.find(t=>t.k===x.t); const d=document.createElement("div");
     d.innerHTML='<span>'+by(x.pid).n+' — '+DAYS[x.d]+' '+DATES[x.d]+'<small>'+t.l+(x.reason?' · '+x.reason:'')+'</small></span>';
@@ -1011,7 +1078,7 @@ function assign(payload,td,quiet){
   if(fromKey){moved=WA().find(a=>k(a)===fromKey); if(!moved)return; if(moved.s===s&&moved.d===d&&moved.slot===slot)return;
     if(lockedW().has(moved.d)) return bounce(DAYS[moved.d]+" is locked","Unlock it before moving people out."); A=A.filter(a=>a!==moved)}
   const restore=()=>{if(moved)A.push(moved)};
-  const bks=bookingsAt(s,gday(WK,d)), bk=bks[0], capDay=bks.reduce((n,b)=>n+b.hc,0), onDay=WA().filter(a=>a.s===s&&a.d===d).length;
+  const bks=bookingsAt(s,gday(WK,d)).filter(isLive), bk=bks[0], capDay=bks.reduce((n,b)=>n+b.hc,0), onDay=WA().filter(a=>a.s===s&&a.d===d).length;
   if(bk&&onDay>=capDay){restore();return bounce(site.n+" is full on "+DAYS[d],"Events set "+capDay+" per day"+(bks.length>1?" across "+bks.length+" teams":"")+".")}
   if(!p.eg){restore();return bounce(p.n+" has no Evergiving ID yet","Add it in Team structure first.")}
   const sc=site.cw||site.c;
@@ -1077,13 +1144,13 @@ const offOf=(p,m)=>{OFFD[p.id]=OFFD[p.id]||{}; return OFFD[p.id][m]=OFFD[p.id][m
 const joinedOn=p=>{const t=new Date(p.start); return (t.getFullYear()===2026&&t.getMonth()===8)?t.getDate():0};
 
 function seedCerts(){let r=99;const rnd=()=>((r=r*16807%2147483647)/2147483647);
-  P.filter(p=>p.lv===6).forEach(p=>{NEEDCERT[p.id]=[];CERT[p.id]=[];
+  P.filter(p=>p.lv>=6).forEach(p=>{NEEDCERT[p.id]=[];CERT[p.id]=[];
     if(rnd()<.35){const j=joinedOn(p)||1;const lo=Math.max(j+1,2);if(lo>=TDAY-1)return;const d=lo+Math.floor(rnd()*(TDAY-1-lo));NEEDCERT[p.id].push(d);if(MONTH[p.id])MONTH[p.id][d]="sick"}})}
 
 function phInit(){
   seedCerts();
   const sel=document.getElementById("whoami");
-  sel.innerHTML=P.filter(p=>p.lv===6&&!p.placeholder).slice(0,40).map(p=>'<option value="'+p.id+'">'+p.n+'</option>').join("");
+  sel.innerHTML=P.filter(p=>p.lv>=6&&!p.placeholder).slice(0,40).map(p=>'<option value="'+p.id+'">'+p.n+'</option>').join("");
   ME=by(+sel.value); sel.onchange=()=>{ME=by(+sel.value);showAll=false;rangeAnchor=null;renderPhone()};
 }
 const myReq=(m,d)=>REQ.find(r=>r.pid===ME.id&&r.mon===m&&r.days.includes(d)&&r.status!=="declined");
@@ -1339,7 +1406,7 @@ function renderApprovals(){
 let tq="";
 const tmatch=p=>!tq||p.n.toLowerCase().includes(tq)||p.code.toLowerCase().includes(tq);
 // leaf columns = people at levels 1–5 with no non-fundraiser reports. A leader with sub-leaders AND direct fundraisers gets one extra "direct" column.
-const directFR=id=>kidsOf(id).filter(k=>k.lv===6);
+const directFR=id=>kidsOf(id).filter(k=>k.lv>=6);
 function width(p){const mgrs=kidsOf(p.id).filter(k=>k.lv<6); return mgrs.length?mgrs.reduce((n,k)=>n+width(k),0)+(directFR(p.id).length?1:0):1}
 function layout(){
   const cells=[]; // {p, col, span} for boxes; {leaf, col} for fundraiser columns
@@ -1389,7 +1456,7 @@ function renderOrg(){
   cells.filter(c=>c.leaf).forEach(c=>{
     const col=document.createElement("div"); col.className="frcol"; col.style.gridRow=7; col.style.gridColumn=c.col+2;
     const all=directFR(c.leaf.id).sort((a,b)=>a.n.localeCompare(b.n));
-    const regular=all.filter(p=>!isTrainee(p)&&!p.placeholder), trainees=all.filter(p=>isTrainee(p)||p.placeholder);
+    const regular=all.filter(p=>p.lv===6&&!p.placeholder), trainees=all.filter(p=>isTrainee(p)||p.placeholder);
     regular.forEach(p=>col.appendChild(frCard(p)));
     if(!regular.length) col.insertAdjacentHTML("beforeend",'<span class="empty" style="padding:6px">No fundraisers yet</span>');
     col.insertAdjacentHTML("beforeend",'<div class="trainhead">Trainees · '+trainees.length+'</div>');
@@ -1421,7 +1488,7 @@ function renderOrg(){
   const real=P.filter(p=>!p.placeholder), plan=P.filter(p=>p.placeholder);
   const col=c=>{const r=real.filter(p=>p.c===c);return{
     total:r.length, lead:r.filter(p=>isLeader(p)).length, fr:r.filter(p=>p.lv===6).length,
-    trainee:r.filter(p=>p.lv===6&&isTrainee(p)).length, noeg:r.filter(p=>p.lv===6&&!p.eg).length,
+    trainee:r.filter(isTrainee).length, noeg:r.filter(p=>p.lv>=6&&!p.eg).length,
     plan:plan.filter(p=>p.c===c).length}};
   const S=col("stc"), Y=col("ykan"), U=plan.filter(p=>!p.c).length;
   const ratio=x=>x.lead?(x.fr/x.lead).toFixed(1):"–";
@@ -1487,7 +1554,7 @@ bin.addEventListener("drop",e=>{
   const p=by(+e.dataTransfer.getData("text/plain")); if(!p||p.lv===0)return;
   const kids=kidsOf(p.id); const sc=document.createElement("div"); sc.className="scrim";
   sc.innerHTML='<div class="modal"><h3>'+p.n+' is leaving</h3><label>Last working day<input type="date" id="last" value="2026-09-30"></label>'+
-    '<label>Reason<select id="why"><option>Resigned</option><option>Terminated</option><option>Contract ended</option><option>Did not pass probation</option></select></label>'+
+    '<label>Reason<select id="why"><option>Resigned</option><option>Withdraw</option><option>Terminated</option><option>Contract ended</option><option>Did not pass probation</option></select></label>'+
     (kids.length?'<label>'+kids.length+' people report to '+p.n.split(" ")[0]+' — who takes them?<select id="heir">'+P.filter(x=>x.lv<p.lv&&x.id!==p.id).map(x=>'<option value="'+x.id+'"'+(x.id===p.to?" selected":"")+'>'+x.n+' ('+LEVELS[x.lv]+')</option>').join("")+'</select></label>':'')+
     '<div class="note">On the last day: Evergiving login retired, future shifts removed from the roster, WhatsApp login switched off. Name stays in the reports.</div>'+
     '<div class="row"><button class="no">Cancel</button><button class="danger">Confirm</button></div></div>';
@@ -1499,6 +1566,7 @@ bin.addEventListener("drop",e=>{
     sc.remove(); renderOrg()};
   document.body.appendChild(sc);
 });
+function nextCode(){const n=Math.max(452,...P.map(p=>+(String(p.code).match(/^OMID(\d{4})$/)||[])[1]||0)); return "OMID"+String(n+1).padStart(4,"0")}
 function personForm(existing){
   const sc=document.createElement("div"); sc.className="scrim";
   const to0=existing&&existing.to?existing.to:10, c0=existing&&existing.c?existing.c:"stc";
@@ -1507,8 +1575,11 @@ function personForm(existing){
 
     '<div class="fsec">Who they are</div>'+
     '<label>Full name <i class="req">required</i><input id="fn" placeholder="Exactly as on their KTP"></label>'+
-    '<div class="two"><label>Staff code <i class="req">required</i><input id="code" placeholder="FR-2231"></label>'+
-    '<label>Date of birth<input type="date"></label></div>'+
+    '<div class="two"><label>Staff code <i class="req">required</i><input id="code" value="'+nextCode()+'" placeholder="OMID0453"></label>'+
+    '<label>Region<select id="region">'+["Jakarta","Surabaya","Bandung","Medan","Bali","Yogyakarta"].map(r=>'<option>'+r+'</option>').join("")+'</select></label></div>'+
+    '<div class="two"><label>Date of birth<input type="date" id="dob"></label><label>Place of birth<input id="pob" placeholder="City as on KTP"></label></div>'+
+    '<label>Residential address<textarea id="addr" rows="2" placeholder="Street, kelurahan, kota, postcode"></textarea></label>'+
+    '<label>Active email<input id="email" type="email" placeholder="name@example.com"></label>'+
 
     '<div class="fsec">How they log in</div>'+
     '<label>WhatsApp number <i class="req">required</i><input id="ph" placeholder="+62 812 …"></label>'+
@@ -1524,15 +1595,18 @@ function personForm(existing){
     '<label>Reports to<select id="to">'+P.filter(x=>x.lv<6&&!x.placeholder).sort((a,b)=>a.lv-b.lv).map(x=>'<option value="'+x.id+'"'+(x.id===to0?" selected":"")+'>'+x.n+' — '+LEVELS[x.lv]+'</option>').join("")+'</select></label>'+
 
     '<div class="fsec">Contract</div>'+
-    '<div class="two"><label>Type<select id="ct"><option value="ic">Independent contractor</option><option value="pkwt">PKWT</option><option value="pkwtt">PKWTT</option></select></label>'+
+    '<div class="two"><label>Type<select id="ct"><option value="ic">Independent contractor</option><option value="pkwtt">PKWTT</option></select></label>'+
     '<label>Start date<input type="date" id="sd" value="2026-09-20"></label></div>'+
-    '<p class="fnote">PKWT and PKWTT count as permanent — they show on the monthly roster with a 20-day minimum.</p>'+
+    '<p class="fnote">PKWTT counts as permanent — shows on the monthly roster with a 20-day minimum.</p>'+
 
     '<div class="fsec">Emergency contact</div>'+
     '<div class="two"><label>Name<input id="ecn" placeholder="Who to call"></label>'+
     '<label>Number<input id="ecp" placeholder="+62 …"></label></div>'+
     '<p class="fnote">They work in public all day. A manager on site needs this without ringing HR.</p>'+
 
+    '<div class="fsec">Bank <i class="hronly">HR only · used for the payroll export</i></div>'+
+    '<div class="two"><label>Bank name<input id="bank" placeholder="BCA, Mandiri, BNI…"></label><label>Account name<input id="bankn" placeholder="As on the account"></label></div>'+
+    '<label>Account number<input id="banka" placeholder="Digits only"></label>'+
     '<div class="fsec">Systems</div>'+
     '<label>Evergiving user ID<input id="eid" placeholder="Leave blank to create one via the API"></label>'+
     '<p class="fnote">Without this they can\'t be dragged onto the weekly roster.</p>'+
@@ -1552,7 +1626,9 @@ function personForm(existing){
     Object.assign(p,{n:nm,code:sc.querySelector("#code").value.trim()||"FR-"+(2230+p.id),
       lv:+sc.querySelector("#lv").value,to:+sc.querySelector("#to").value,c:sc.querySelector("#c").value,
       eg:eid?1:0,eid:eid?+eid:null,off:[],start:sc.querySelector("#sd").value,perm:ct!=="ic",
-      tg:sc.querySelector("#tg").value.trim(),ec:sc.querySelector("#ecn").value.trim(),
+      tg:sc.querySelector("#tg").value.trim(),ec:sc.querySelector("#ecn").value.trim(),region:sc.querySelector("#region").value,
+      dob:sc.querySelector("#dob").value,pob:sc.querySelector("#pob").value.trim(),addr:sc.querySelector("#addr").value.trim(),email:sc.querySelector("#email").value.trim(),
+      bank:sc.querySelector("#bank").value.trim(),bankn:sc.querySelector("#bankn").value.trim(),banka:sc.querySelector("#banka").value.replace(/\D/g,""),signups:0,
       ecp:sc.querySelector("#ecp").value.trim(),placeholder:false,
       ktp:ktp?"\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022"+ktp.slice(-4):null});
     tlog("ok",p.n+" added under "+by(p.to).n,
@@ -1642,7 +1718,7 @@ function renderMonth(){
   document.getElementById("mgrid").innerHTML=h+'</tbody></table>';
   document.querySelectorAll(".mtab td.c").forEach(td=>{
     const v=MONTH[+td.dataset.p][+td.dataset.d];
-    if(v==="am"||v==="pm")td.onclick=()=>checkinBox(+td.dataset.p,+td.dataset.d,v);
+
   });
   // summaries
   const all=rows.map(r=>r.p);
@@ -1718,7 +1794,7 @@ function checkinBox(pid,d,slot){
 ["mteam","mq","permonly"].forEach(id=>document.getElementById(id).addEventListener("input",renderMonth));
 
 /* ======================= ROLE PREVIEW ======================= */
-const ROLE_TABS={dir:["roster","phone","monthly","team","events"],hr:["monthly","team"],ev:["events","roster"],mgr:["roster","monthly"],tl:["roster","monthly"],fr:["phone"]};
+const ROLE_TABS={dir:["roster","phone","monthly","team","events","hr"],hr:["hr","monthly","team"],ev:["events","roster"],mgr:["roster","monthly"],tl:["roster","monthly"],fr:["phone"]};
 document.getElementById("asrole").onchange=e=>{
   const allow=ROLE_TABS[e.target.value];
   document.querySelectorAll(".tabs button").forEach(b=>b.classList.toggle("hidden",!allow.includes(b.dataset.tab)));
@@ -1744,7 +1820,7 @@ function renderEvents(){
     list.forEach(si=>{const x=SITES[si], ok=canBook(x), n=BOOKINGS.filter(b=>b.si===si).length;
       const el=document.createElement("div"); el.className="chip sitechip"+(ok?"":" out"); el.draggable=ok;
       el.innerHTML='<span class="nm">'+x.n+'<small>AM '+x.am[0]+' · PM '+x.pm[0]+(ok?"":" · "+(x.loc?"LOA expired":"no Evergiving location"))+'</small></span>'+
-        (n?'<span class="wk" title="bookings this month">'+n+'</span>':'')+'<span class="loa '+x.loa+(x.loc?"":" noloc")+'">'+(x.loc?x.loa:"no loc")+'</span>';
+        (n?'<span class="wk" title="bookings this month">'+n+'</span>':'');
       if(ok){el.addEventListener("dragstart",e=>{e.dataTransfer.setData("text/plain","site:"+si);el.classList.add("dragging")});
              el.addEventListener("dragend",()=>el.classList.remove("dragging"))}
       el.addEventListener("click",()=>siteForm(si));
@@ -1769,12 +1845,12 @@ function renderEvents(){
         if(bk&&spanStart(bk)===i){const s0=spanStart(bk), s1=spanEnd(bk), len=s1-s0+1;
           const lo=bk.start-s0, hi=s1-bk.end, pct=n=>(n/len*100).toFixed(2)+"%";
           const mask=(lo||hi)?'-webkit-mask:linear-gradient(90deg,#000 0 '+pct(lo)+',transparent '+pct(lo)+' '+pct(len-hi)+',#000 '+pct(len-hi)+');mask:linear-gradient(90deg,#000 0 '+pct(lo)+',transparent '+pct(lo)+' '+pct(len-hi)+',#000 '+pct(len-hi)+');':'';
-          h+='<td class="bar '+bk.type+(isPending(bk)?" pending":"")+(gw(i)===WK?" cur":"")+'" colspan="'+len+'" data-id="'+bk.id+'" draggable="true" title="'+glabel(bk.start)+' → '+glabel(bk.end)+' · '+TYPES[bk.type]+(isPending(bk)?" · site fee unpaid":" · site fee paid")+(lo||hi?" · travel "+glabel(s0)+" / "+glabel(s1):"")+'">'+
+          h+='<td class="bar '+bk.type+(isPending(bk)?" pending":"")+(gw(i)===WK?" cur":"")+'" colspan="'+len+'" data-id="'+bk.id+'" title="'+glabel(bk.start)+' → '+glabel(bk.end)+' · '+TYPES[bk.type]+(isPending(bk)?" · site fee unpaid":" · site fee paid")+(lo||hi?" · travel "+glabel(s0)+" / "+glabel(s1):"")+'">'+
              '<div class="barin"><span class="hdl l" data-id="'+bk.id+'" data-edge="start" title="Drag to change start"></span>'+
              ((lo||hi)?'<span class="travelends" style="'+mask+'"></span>':'')+
              '<div class="bartxt" style="padding-left:'+(lo?pct(lo):0)+';padding-right:'+(hi?pct(hi):0)+'"><b>'+x.n+(isPending(bk)?' <em class="pend">pending</em>':' <em class="paid">paid</em>')+
              (bk.type==="travel"?(!bk.travelOk?' <em class="trv">travel not booked</em>':(bk.transportPaid&&bk.accomPaid)?' <em class="trv ok">travel booked</em>':' <em class="trv unpaid">travel unpaid</em>'):'')+'</b>'+
-             '<span>'+bkDays(bk)+'d · '+bk.hc+'/day · '+CAMPS[bk.c||x.c].n+(bkPerShift(bk)?' · '+IDRx(bkPerShift(bk))+'/shift':'')+'</span></div>'+
+             '<span>'+bkDays(bk)+'d · '+bk.hc+'/day · AM '+x.am[0]+'–'+x.am[1]+' · PM '+x.pm[0]+'–'+x.pm[1]+' · '+CAMPS[bk.c||x.c].n+(bkPerShift(bk)?' · '+IDRx(bkPerShift(bk))+'/shift':'')+'</span></div>'+
              '<button class="bardel" data-id="'+bk.id+'" title="Delete booking">×</button>'+
              '<span class="hdl r" data-id="'+bk.id+'" data-edge="end" title="Drag to stretch"></span></div></td>'}
         else if(!bk) h+='<td class="gcell'+(gd(i)>4?" we":"")+(gw(i)===WK?" cur":"")+((empty||isSpare)&&i===0?" labelcell":"")+'" data-si="'+si+'" data-i="'+i+'"'+
@@ -1791,25 +1867,19 @@ function renderEvents(){
   cells.forEach(c=>c.addEventListener("mousedown",e=>{if(e.button!==0)return; const si=+c.dataset.si; if(si<0)return;
     if(!canBook(SITES[si])){evflash(SITES[si].n+": "+(SITES[si].loc?"LOA expired.":"no Evergiving location yet."));return}
     SEL={si,a:+c.dataset.i,b:+c.dataset.i,row:c.parentElement}; paintSel(); e.preventDefault()}));
-  /* --- click a bar to edit, drag a bar to move --- */
+  /* --- press a bar and drag to move it; click to edit --- */
   document.querySelectorAll(".gantt .bar").forEach(td=>{
-    td.addEventListener("click",()=>bookingForm(BOOKINGS.find(b=>b.id==td.dataset.id)));
-    td.addEventListener("dragstart",e=>{e.dataTransfer.setData("text/plain","bk:"+td.dataset.id);td.classList.add("dragging")});
-    td.addEventListener("dragend",()=>td.classList.remove("dragging"))});
+    td.addEventListener("mousedown",e=>{if(e.button!==0||e.target.closest(".hdl,.bardel"))return; e.preventDefault();
+      const bk=BOOKINGS.find(b=>b.id==td.dataset.id); MV={id:bk.id,grabCol:colAtX(e.clientX),base:bk.start,last:null,moved:false}; document.body.classList.add("moving")});
+    td.addEventListener("click",e=>{if(MVDONE){MVDONE=false;return} if(e.target.closest(".hdl,.bardel"))return; bookingForm(BOOKINGS.find(b=>b.id==td.dataset.id))})});
   cells.forEach(c=>{
     c.addEventListener("dragover",e=>{e.preventDefault();c.classList.add("over")});
     c.addEventListener("dragleave",()=>c.classList.remove("over"));
     c.addEventListener("drop",e=>{e.preventDefault();c.classList.remove("over");
-      const v=e.dataTransfer.getData("text/plain");
-      if(v.startsWith("site:")){                       // new booking from the library
-        const si=+v.slice(5), i=+c.dataset.i;
-        const bk={id:Date.now(),si,start:i,end:i,type:"local",c:SITES[si].c,paid:"pending",site:0,transport:0,accom:0,hc:3};
-        BOOKINGS.push(bk); NEWROWS.delete(si); renderEvents(); render(); bookingForm(bk); return}
-      if(!v.startsWith("bk:"))return;
-      const bk=BOOKINGS.find(b=>b.id==v.slice(3)), si=+c.dataset.si, len=bkDays(bk), a=+c.dataset.i, b=a+len-1;
-      if(si!==bk.si){evflash("Bookings move along their own site's row.");return}
-      if(b>=SPAN){evflash("That runs past the end of the month.");return}
-      const sh=a-bk.start; bk.start=a; bk.end=b; if(bk.tOut!=null)bk.tOut+=sh; if(bk.tBack!=null)bk.tBack+=sh; renderEvents(); render()})});
+      const v=e.dataTransfer.getData("text/plain"); if(!v.startsWith("site:"))return;   // a site from the library → new booking
+      const si=+v.slice(5), i=+c.dataset.i;
+      const bk={id:Date.now(),si,start:i,end:i,type:"local",c:SITES[si].c,site:0,transport:0,accom:0,hc:3,sitePaid:false,transportPaid:false,accomPaid:false};
+      BOOKINGS.push(bk); NEWROWS.delete(si); renderEvents(); render(); bookingForm(bk)})});
   const dzw=document.getElementById("newrowbtn");
   dzw.addEventListener("dragover",e=>{e.preventDefault();dzw.classList.add("over")});
   dzw.addEventListener("dragleave",()=>dzw.classList.remove("over"));
@@ -1886,7 +1956,7 @@ function renderEvents(){
     '<div class="flagblock"><b>No Evergiving location ('+noloc.length+')</b>'+(noloc.map(x=>'<div>'+x.n+'</div>').join("")||'<div class="empty">None</div>')+'</div>'+
     '<div class="flagblock"><b>Weeks under 4 sites ('+thin.length+')</b>'+(thin.map(([wi,n])=>'<div>Week '+WEEKS[wi].n+' <i>'+n+' booked</i></div>').join("")||'<div class="empty">None</div>')+'</div>';
 }
-let RZ=null, SEL=null; const NEWROWS=new Set();
+let RZ=null, SEL=null, MV=null, MVDONE=false; const NEWROWS=new Set();
 function paintSel(){document.querySelectorAll(".gantt .gcell.selg").forEach(c=>c.classList.remove("selg"));
   if(!SEL)return; const a=Math.min(SEL.a,SEL.b), b=Math.max(SEL.a,SEL.b);
   SEL.row.querySelectorAll(".gcell").forEach(c=>{const i=+c.dataset.i; if(i>=a&&i<=b)c.classList.add("selg")})}
@@ -1908,6 +1978,11 @@ document.addEventListener("mousemove",e=>{if(!RZ)return; const col=colAtX(e.clie
   const target=Math.max(0,Math.min(SPAN-1,RZ.base+(col-RZ.grabCol)));   // move by how far the mouse moved, not where it is
   if(resizeTo(bk,RZ.edge,target))renderEvents()});
 document.addEventListener("mouseup",()=>{if(!RZ)return; RZ=null; document.body.classList.remove("resizing"); renderEvents(); render()});
+document.addEventListener("mousemove",e=>{if(!MV)return; const col=colAtX(e.clientX); if(col==null||col===MV.last)return; MV.last=col;
+  const bk=BOOKINGS.find(b=>b.id===MV.id); if(!bk)return; const len=bk.end-bk.start, gapOut=bk.tOut!=null?bk.start-bk.tOut:0, gapBack=bk.tBack!=null?bk.tBack-bk.end:0;
+  let ns=MV.base+(col-MV.grabCol); ns=Math.max(gapOut,Math.min(SPAN-1-len-gapBack,ns));
+  if(ns!==bk.start){MV.moved=true; bk.start=ns; bk.end=ns+len; if(bk.tOut!=null)bk.tOut=ns-gapOut; if(bk.tBack!=null)bk.tBack=bk.end+gapBack; renderEvents()}});
+document.addEventListener("mouseup",()=>{if(!MV)return; MVDONE=MV.moved; MV=null; document.body.classList.remove("moving"); if(MVDONE){renderEvents(); render()}});
 function bookingForm(bk){
   const x=SITES[bk.si];
   const sc=document.createElement("div"); sc.className="scrim";
@@ -2040,5 +2115,134 @@ function siteForm(si){
 document.getElementById("addSite").onclick=()=>{try{siteForm(null)}catch(err){evflash("Add site failed: "+err.message);console.error(err)}};
 ["evq","evcamp"].forEach(id=>document.getElementById(id).addEventListener("input",renderEvents));
 
-phInit(); render(); renderOrg(); renderMonth(); renderPhone(); renderApprovals(); renderEvents();
+/* ======================= HR DASHBOARD (actual attendance) ======================= */
+const HTODAY=15;
+const CHECK={};                                   // pid -> {day:{in,out,site,slot,valid,cleared}}
+(function seedCheck(){let r=31;const rnd=()=>((r=r*16807%2147483647)/2147483647);
+  const mins=t=>{const[h,m]=t.split(":").map(Number);return h*60+m}, hhmm=n=>String(Math.floor(n/60)).padStart(2,"0")+":"+String(n%60).padStart(2,"0");
+  P.filter(p=>p.lv>=3&&!p.placeholder).forEach(p=>{CHECK[p.id]={}; const m=MONTH[p.id]||{};
+    for(let d=1;d<HTODAY;d++){const v=m[d]; if(v!=="am"&&v!=="pm")continue; if(rnd()<.04)continue;   // the odd no-show
+      const sites=SITES.map((x,i)=>i).filter(i=>SITES[i].c===p.c&&SITES[i].loc); const si=sites[Math.floor(rnd()*sites.length)];
+      const start=mins(SITES[si][v][0]); const late=rnd()<.08; const inT=start+(late?11+Math.floor(rnd()*40):Math.floor(rnd()*9)-4);
+      const outT=rnd()<.9?mins(SITES[si][v][1])+Math.floor(rnd()*20)-5:null;
+      CHECK[p.id][d]={in:hhmm(Math.max(0,inT)),out:outT?hhmm(outT):null,site:si,slot:v,valid:false,cleared:false}}
+  })})();
+const cmins=t=>{const[h,m]=t.split(":").map(Number);return h*60+m};
+const lateBy=(pid,d)=>{const c=(CHECK[pid]||{})[d]; if(!c||c.cleared)return 0; const diff=cmins(c.in)-cmins(SITES[c.site][c.slot][0]); return diff>10?diff:0};
+const hActual=pid=>Object.values(CHECK[pid]||{}).filter(c=>c.out).length;              // a day counts when they checked out
+const hIn=pid=>Object.values(CHECK[pid]||{}).filter(c=>!c.out).length;
+const hLate=pid=>Object.keys(CHECK[pid]||{}).filter(d=>lateBy(pid,+d)).length;
+const serviceDays=p=>p.start?Math.floor((new Date("2026-09-15")-new Date(p.start))/864e5):0;
+const probationDue=p=>isTrainee(p)&&!p.probation&&hActual(p.id)>=10;
+const probSuggest=p=>p.signups>6?"pass":p.signups>=3?"ext":"term";
+
+function renderHR(){
+  const sel=document.getElementById("hteam");
+  if(!sel.options.length) sel.innerHTML='<option value="all">Everyone</option>'+P.filter(p=>p.lv>0&&p.lv<=4).sort((a,b)=>a.lv-b.lv).map(x=>'<option value="'+x.id+'">'+LEVELS[x.lv]+" — "+x.n+'</option>').join("");
+  const scope=sel.value, hq=(document.getElementById("hq").value||"").toLowerCase();
+  const f=Object.fromEntries([...document.querySelectorAll(".hfilt")].map(c=>[c.value,c.checked]));
+  let rows=monthRows();
+  if(scope!=="all")rows=rows.filter(r=>r.p.id===+scope||isDesc(+scope,r.p.id));
+  rows=rows.filter(r=>{const p=r.p; return (p.perm&&f.perm)||(isTrainee(p)&&f.trainee)||(p.lv===6&&!p.perm&&f.fr)||(isLeader(p)&&!p.perm&&f.lead)});
+  if(hq)rows=rows.filter(r=>r.p.n.toLowerCase().includes(hq)||r.p.code.toLowerCase().includes(hq));
+
+  let h='<table class="mtab htab"><thead><tr class="availrow"><th class="who">Late that day</th><th class="role"></th>';
+  for(let d=1;d<=MDAYS;d++){const n=rows.filter(r=>lateBy(r.p.id,d)).length; h+='<th class="'+(dow(d)>4?"wknd":"")+(n?" hot":"")+'">'+(d<HTODAY?n:"")+'</th>'}
+  h+='<th class="tot" colspan="6"></th></tr><tr><th class="who">Name</th><th class="role">Role</th>';
+  for(let d=1;d<=MDAYS;d++)h+='<th class="'+(dow(d)>4?"wknd":"")+(d===HTODAY?" today":"")+'">'+d+'<small>'+"MTWTFSS"[dow(d)]+'</small></th>';
+  h+='<th class="tot">Worked</th><th class="tot">In only</th><th class="tot">MC</th><th class="tot">Leave</th><th class="tot">Late</th><th class="tot">Service</th></tr></thead><tbody>';
+  let lastCamp=null;
+  rows.forEach(r=>{const p=r.p, m=MONTH[p.id]||{}, st=mstats(p);
+    if(p.c!==lastCamp){lastCamp=p.c; h+='<tr class="band '+p.c+'"><td class="who" colspan="2">'+CAMPS[p.c].n+'</td><td colspan="'+(MDAYS+6)+'"></td></tr>'}
+    h+='<tr class="'+(p.perm?"perm":"")+(probationDue(p)?" probdue":"")+'"><td class="who" style="padding-left:'+(8+r.depth*9)+'px"><span class="nmw">'+p.n+(p.perm?'<span class="pm">PERM</span>':'')+(isTrainee(p)?'<span class="pm tr">TRAINEE</span>':'')+'</span><small>'+p.code+' · '+(p.region||"")+'</small></td>'+
+       '<td class="role">'+LEVELS[p.lv]+'</td>';
+    for(let d=1;d<=MDAYS;d++){const v=m[d], c=(CHECK[p.id]||{})[d], late=lateBy(p.id,d);
+      let cls="free", txt="";
+      if(v==="x"){cls="x";txt="\u00d7"} else if(v==="mc"){cls="m";txt="M"} else if(v==="sick"){cls="s";txt="!"} else if(v==="leave"){cls="l";txt="L"}
+      else if(c){cls=c.out?"w":"half"}
+      else if(v==="am"||v==="pm"){cls=d<HTODAY?"noshow":"free"}
+      if(late)cls+=(c.valid?" late":" late unval");
+      h+='<td class="c '+cls+(dow(d)>4?" wknd":"")+(d===HTODAY?" today":"")+'" data-p="'+p.id+'" data-d="'+d+'"'+(c?' title="in '+c.in+(c.out?' · out '+c.out:' · no check-out')+' · '+SITES[c.site].n+'"':'')+'>'+txt+'</td>'}
+    h+='<td class="tot">'+hActual(p.id)+'</td><td class="tot">'+(hIn(p.id)||"")+'</td><td class="tot">'+(st.mc||"")+'</td><td class="tot">'+(st.leave||"")+'</td>'+
+       '<td class="tot'+(hLate(p.id)>=4?" bad":"")+'">'+(hLate(p.id)||"")+'</td><td class="tot">'+serviceDays(p)+'d</td></tr>'});
+  document.getElementById("hgrid").innerHTML=h+'</tbody></table>';
+  document.querySelectorAll(".htab td.c").forEach(td=>td.onclick=()=>hrDay(+td.dataset.p,+td.dataset.d));
+
+  /* probation */
+  const due=P.filter(probationDue);
+  document.getElementById("hprob").innerHTML=due.length?due.map(p=>{const sug=probSuggest(p);
+    return '<div class="prob"><b>'+p.n+'</b><span>'+hActual(p.id)+' actual days · <b>'+p.signups+'</b> sign-ups · under '+by(p.to).n.split(" ")[0]+'</span>'+
+      '<div class="probrow"><button class="pb'+(sug==="pass"?" sug":"")+'" data-dec="pass" data-p="'+p.id+'">Pass</button><button class="pb'+(sug==="ext"?" sug":"")+'" data-dec="ext" data-p="'+p.id+'">Extension</button><button class="pb'+(sug==="term"?" sug":"")+'" data-dec="term" data-p="'+p.id+'">Terminate</button></div>'+
+      '<small>Suggested: '+({pass:"Pass — more than 6 sign-ups",ext:"Extension — 3 to 6 sign-ups",term:"Terminate — fewer than 3 sign-ups"})[sug]+'. HR confirms.</small></div>'}).join("")
+    :'<span class="empty">No trainee has reached 10 actual days yet.</span>';
+  document.querySelectorAll("#hprob [data-dec]").forEach(b=>b.onclick=()=>{const p=by(+b.dataset.p), dec=b.dataset.dec;
+    if(!window.confirm(({pass:"Pass "+p.n+" — becomes Fundraiser.",ext:"Extend "+p.n+"'s probation by 10 working days.",term:"Terminate "+p.n+" — moves to Resigned."})[dec]))return;
+    p.probation=dec; p.probationOn="15 Sep";
+    if(dec==="pass"){p.lv=6; tlog("ok",p.n+" passed probation","Now a Fundraiser. "+p.signups+" sign-ups in "+hActual(p.id)+" days.")}
+    else if(dec==="ext"){p.probExtended=true; delete p.probation; p.probFrom=hActual(p.id); tlog("warn",p.n+" probation extended","Reviewed again at "+(hActual(p.id)+10)+" actual days.")}
+    else {P=P.filter(x=>x!==p); RESIGNED.unshift({p,last:"2026-09-15",why:"Did not pass probation"}); tlog("pull",p.n+" terminated","Did not pass probation. "+p.signups+" sign-ups.")}
+    renderHR(); renderOrg()});
+
+  /* mini dashboards */
+  const lateToday=rows.filter(r=>lateBy(r.p.id,HTODAY-1)).length, lateMonth=rows.reduce((n,r)=>n+hLate(r.p.id),0);
+  const unval=rows.reduce((n,r)=>n+Object.keys(CHECK[r.p.id]||{}).filter(d=>lateBy(r.p.id,+d)&&!CHECK[r.p.id][d].valid).length,0);
+  const cnt=k=>rows.reduce((n,r)=>n+Object.values(MONTH[r.p.id]||{}).filter(v=>v===k).length,0);
+  const emg=ABS.filter(a=>a.t==="emg").length;
+  document.getElementById("hmini").innerHTML=
+    '<div class="big"><div class="bigcell all"><b>'+lateToday+'</b><span>LATE YESTERDAY</span></div><div class="bigcell stc"><b>'+lateMonth+'</b><span>LATE THIS MONTH</span></div><div class="bigcell ykan"><b>'+unval+'</b><span>TO VALIDATE</span></div></div>'+
+    '<table class="hc"><tr><td>Medical certificate days</td><td>'+cnt("mc")+'</td></tr><tr><td>Sick, no certificate</td><td>'+cnt("sick")+'</td></tr><tr><td>Leave days</td><td>'+cnt("leave")+'</td></tr><tr><td>Emergency leave</td><td>'+emg+'</td></tr>'+
+    '<tr class="rule"><td>Checked in, no check-out</td><td>'+rows.reduce((n,r)=>n+hIn(r.p.id),0)+'</td></tr></table>';
+  const marks=[30,90,180,365,730], ppl=P.filter(p=>p.lv>=3&&!p.placeholder);
+  const hit=marks.map(m=>[m,ppl.filter(p=>{const d=serviceDays(p);return d>=m&&d<m+31})]).filter(([m,l])=>l.length);
+  document.getElementById("hmile").innerHTML='<table class="hc"><tr><th></th><th>Now</th></tr>'+
+    marks.map(m=>'<tr><td>'+(m<365?m+" days":m/365+" year"+(m>365?"s":""))+'+</td><td>'+ppl.filter(p=>serviceDays(p)>=m).length+'</td></tr>').join("")+'</table>'+
+    (hit.length?'<div class="flagblock" style="margin-top:8px"><b>Reached this month</b>'+hit.map(([m,l])=>l.map(p=>'<div>'+p.n+' <i>'+(m<365?m+" days":m/365+" yr")+' · started '+p.start+'</i></div>').join("")).join("")+'</div>':'');
+}
+function hrDay(pid,d){
+  const p=by(pid), c=(CHECK[pid]||{})[d], v=(MONTH[pid]||{})[d];
+  const sc=document.createElement("div"); sc.className="scrim";
+  const late=lateBy(pid,d), site=c?SITES[c.site]:null, start=c?site[c.slot][0]:null;
+  sc.innerHTML='<div class="modal"><h3>'+p.n+' — '+d+' Sep</h3>'+
+    (c?'<div class="hrtimes"><div><span>Site</span><b>'+site.n+'</b><small>'+c.slot.toUpperCase()+' shift starts '+start+'</small></div>'+
+        '<div><span>Checked in</span><b>'+c.in+'</b><small>'+(late?'<i class="wc">'+late+' min late</i>':c.cleared?'<i class="okc">lateness cleared</i>':'<i class="okc">on time</i>')+'</small></div>'+
+        '<div><span>Checked out</span><b>'+(c.out||"—")+'</b><small>'+(c.out?"counts as a worked day":"not counted until check-out")+'</small></div></div>'+
+        (late?'<div class="note">Late against '+site.n+'\'s '+c.slot.toUpperCase()+' start of '+start+'. '+(c.valid?'Validated by HR.':'Not yet validated.')+'</div>':'')
+      :'<p class="hint">'+(v==="mc"?"Medical certificate.":v==="sick"?"Sick, no certificate.":v==="leave"?"Leave.":v==="x"?"They marked this day as unavailable.":v?"Rostered, but no Telegram check-in.":"Not rostered.")+'</p>')+
+    '<div class="row" style="flex-wrap:wrap">'+
+    (c&&late&&!c.valid?'<button class="go" id="val">Validate lateness</button>':'')+
+    (c&&late?'<button class="no" id="clr">Clear lateness, keep check-in</button>':'')+
+    (c&&c.cleared?'<button class="no" id="unclr">Restore lateness</button>':'')+
+    (c?'<button class="danger" id="abs">Mark absent</button>':'')+
+    (!c&&(v==="mc"||v==="sick"||v==="leave")&&(CHECK[pid]||{})["_undo"+d]?'<button class="go" id="undo">Undo — restore check-in</button>':'')+
+    '<button class="no" id="close">Close</button></div></div>';
+  const q=id=>sc.querySelector("#"+id);
+  q("close").onclick=()=>sc.remove();
+  if(q("val"))q("val").onclick=()=>{c.valid=true;sc.remove();renderHR()};
+  if(q("clr"))q("clr").onclick=()=>{c.cleared=true;c.valid=true;sc.remove();renderHR()};
+  if(q("unclr"))q("unclr").onclick=()=>{c.cleared=false;sc.remove();renderHR()};
+  if(q("abs"))q("abs").onclick=()=>{const t=window.prompt("Absence type: mc / sick / leave","sick"); if(!["mc","sick","leave"].includes(t))return;
+    CHECK[pid]["_undo"+d]={c,v}; delete CHECK[pid][d]; MONTH[pid][d]=t; sc.remove(); renderHR(); renderMonth()};
+  if(q("undo"))q("undo").onclick=()=>{const u=CHECK[pid]["_undo"+d]; CHECK[pid][d]=u.c; MONTH[pid][d]=u.v; delete CHECK[pid]["_undo"+d]; sc.remove(); renderHR(); renderMonth()};
+  document.body.appendChild(sc);
+}
+/* ---- exports ---- */
+function csv(rows){return rows.map(r=>r.map(v=>{v=v==null?"":String(v); return /[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v}).join(",")).join("\n")}
+function download(name,text){const a=document.createElement("a"); a.href="data:text/csv;charset=utf-8,\uFEFF"+encodeURIComponent(text); a.download=name; document.body.appendChild(a); a.click(); a.remove()}
+function exportCSV(kind){
+  const ppl=P.filter(p=>p.lv>=3&&!p.placeholder);
+  const K={
+    payroll:{name:"popcorn_payroll_sep2026.csv",head:["Staff code","Full name","KTP","Date of birth","Role","Contract","Region","Actual days worked","MC days","Leave days","Late count","Bank","Account name","Account number"],
+      row:p=>[p.code,p.n,p.ktpFull||p.ktp||"",p.dob||"",LEVELS[p.lv],p.perm?"PKWTT":"IC",p.region||"",hActual(p.id),mstats(p).mc,mstats(p).leave,hLate(p.id),p.bank||"",p.bankn||"",p.banka||""]},
+    contracts:{name:"popcorn_contract_mailmerge.csv",head:["Full name","Staff code","KTP","Place of birth","Date of birth","Residential address","Email","WhatsApp","Role","Contract type","Start date","Region","Campaign","Reports to"],
+      row:p=>[p.n,p.code,p.ktpFull||p.ktp||"",p.pob||"",p.dob||"",p.addr||"",p.email||"",p.ph||"",LEVELS[p.lv],p.perm?"PKWTT":"Independent contractor",p.start||"",p.region||"",p.c?CAMPS[p.c].n:"",by(p.to)?by(p.to).n:""]},
+    attendance:{name:"popcorn_attendance_sep2026.csv",head:["Staff code","Full name","Role",...Array.from({length:MDAYS},(_,i)=>"Sep "+(i+1)),"Worked","Late"],
+      row:p=>[p.code,p.n,LEVELS[p.lv],...Array.from({length:MDAYS},(_,i)=>{const d=i+1,c=(CHECK[p.id]||{})[d],v=(MONTH[p.id]||{})[d];
+        return c?(c.out?"W"+(lateBy(p.id,d)?"L":""):"IN"):v==="mc"?"MC":v==="sick"?"S":v==="leave"?"L":v==="x"?"X":""}),hActual(p.id),hLate(p.id)]}};
+  const k=K[kind]; const text=csv([k.head,...ppl.map(k.row)]); download(k.name,text); return text;
+}
+document.querySelectorAll(".exports [data-x]").forEach(b=>b.onclick=()=>exportCSV(b.dataset.x));
+["hteam","hq"].forEach(id=>document.getElementById(id).addEventListener("input",renderHR));
+document.querySelectorAll(".hfilt").forEach(c=>c.addEventListener("change",renderHR));
+
+phInit(); render(); renderOrg(); renderMonth(); renderPhone(); renderApprovals(); renderEvents(); renderHR();
 </script>
