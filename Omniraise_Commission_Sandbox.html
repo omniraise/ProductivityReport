@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Omniraise ID — Commission Sandbox</title>
+<style>
+  :root{
+    --paper:#FAFAF7; --ink:#1F2937; --muted:#6B7280; --line:#DDE1DC; --field:#F1F3F0;
+    --a:#0F6E63; --a-soft:#E3F1EE; --b:#3730A3; --b-soft:#E8E7F7;
+    --warn:#B42318; --warn-soft:#FBE9E7; --ok:#166534; --ok-soft:#E1F3E6; --amber:#92400E; --amber-soft:#FBF0DC;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.45 "Inter","Segoe UI",system-ui,-apple-system,sans-serif;font-variant-numeric:tabular-nums}
+  main{max-width:1180px;margin:0 auto;padding:36px 28px 80px}
+  h1{font-size:30px;font-weight:600;letter-spacing:-.01em;margin:0 0 6px}
+  .lede{color:var(--muted);max-width:70ch;margin:0 0 30px}
+  h2{font-size:18px;font-weight:600;margin:0 0 10px}
+  h3{font-size:14px;font-weight:600;margin:14px 0 6px;color:var(--muted)}
+  section{margin-top:34px}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  @media(max-width:860px){.two{grid-template-columns:1fr}}
+  .panel{border-top:4px solid var(--line);padding:16px 0 0}
+  .panel.a{border-top-color:var(--a)} .panel.b{border-top-color:var(--b)}
+  .panel.a h2{color:var(--a)} .panel.b h2{color:var(--b)}
+  .rows{display:grid;gap:6px}
+  .row{display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:center;font-size:14px}
+  .row.four{grid-template-columns:1fr auto auto auto}
+  .row span.k{color:var(--muted)}
+  input[type=number],input[type=text]{width:110px;padding:6px 8px;border:1px solid var(--line);border-radius:6px;background:var(--field);font:inherit;text-align:right}
+  input[type=number]:focus{outline:2px solid var(--b);outline-offset:1px}
+  .panel.a input:focus{outline-color:var(--a)}
+  input.small{width:72px}
+  .hint{font-size:12.5px;color:var(--muted);margin-top:8px;max-width:60ch}
+  .grid-inputs{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+  .grid-inputs label{display:block;font-size:13px;color:var(--muted)}
+  .grid-inputs input{width:100%;margin-top:4px;text-align:left}
+  .results{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:18px}
+  @media(max-width:860px){.results{grid-template-columns:1fr}}
+  .result{padding:18px 20px;border-radius:10px}
+  .result.a{background:var(--a-soft)} .result.b{background:var(--b-soft)}
+  .result .big{font-size:38px;font-weight:600;letter-spacing:-.02em;line-height:1.1}
+  .result.a .big{color:var(--a)} .result.b .big{color:var(--b)}
+  .result .lbl{font-size:13px;color:var(--muted);margin-bottom:6px}
+  .bd{margin-top:12px;font-size:13.5px;display:grid;gap:4px}
+  .bd div{display:flex;justify-content:space-between;gap:12px}
+  .bd .t{border-top:1px solid rgba(0,0,0,.12);padding-top:6px;margin-top:4px;font-weight:600}
+  .delta{margin-top:14px;font-size:14px}
+  .delta b{font-weight:600}
+  table{width:100%;border-collapse:collapse;font-size:13.5px;margin-top:10px}
+  th{font-weight:600;text-align:right;padding:8px 8px;border-bottom:2px solid var(--line);color:var(--muted);font-size:12.5px;white-space:nowrap}
+  th:first-child,td:first-child{text-align:left}
+  td{padding:6px 8px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+  th.ca,td.ca{color:var(--a)} th.cb,td.cb{color:var(--b)}
+  td.hi{background:var(--warn-soft);color:var(--warn);font-weight:600}
+  td.ok{color:var(--ok)} td.neg{color:var(--warn)}
+  tfoot td{font-weight:600;border-top:2px solid var(--ink);border-bottom:none;padding-top:10px}
+  textarea{width:100%;min-height:210px;padding:12px 14px;border:1px solid var(--line);border-radius:8px;background:#fff;font:inherit;line-height:1.55;resize:vertical}
+  .toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:8px}
+  button{font:inherit;padding:8px 14px;border-radius:6px;border:1px solid var(--line);background:#fff;cursor:pointer}
+  button:hover{border-color:var(--ink)}
+  button:focus-visible{outline:2px solid var(--b)}
+  .chk{font-size:13.5px;color:var(--muted);display:flex;align-items:center;gap:6px}
+  .note{background:var(--amber-soft);color:var(--amber);padding:10px 14px;border-radius:8px;font-size:13.5px;margin-top:14px;max-width:80ch}
+</style>
+</head>
+<body>
+<main>
+  <h1>Commission sandbox — Simple vs Current</h1>
+  <p class="lede">Change any number and everything below recalculates: one test fundraiser, the whole April 2026 team, and a summary paragraph you can paste into a slide. Nothing is saved — reload to reset.</p>
+
+  <!-- ─── MODEL INPUTS ─────────────────────────────────────────── -->
+  <section class="two">
+    <div class="panel a">
+      <h2>Model A — Simple flat bonus</h2>
+      <p class="hint">Flat bonus by FD Processable count (net submissions), then a discount if the under-30 share is too high. No CC/DD or age rates. This is the early-2026 rule with the under-30 fix added.</p>
+
+      <h3>Bonus by FD Processable</h3>
+      <div class="rows" id="aTiers">
+        <div class="row"><span class="k">At least</span><input type="number" class="small" data-a="t4fd" value="20"> <span>FDNP → IDR <input type="number" data-a="t4pay" value="200000"></span></div>
+        <div class="row"><span class="k">At least</span><input type="number" class="small" data-a="t0fd" value="25"> <span>FDNP → IDR <input type="number" data-a="t0pay" value="500000"></span></div>
+        <div class="row"><span class="k">At least</span><input type="number" class="small" data-a="t1fd" value="30"> <span>FDNP → IDR <input type="number" data-a="t1pay" value="1000000"></span></div>
+        <div class="row"><span class="k">At least</span><input type="number" class="small" data-a="t2fd" value="40"> <span>FDNP → IDR <input type="number" data-a="t2pay" value="2000000"></span></div>
+        <div class="row"><span class="k">At least</span><input type="number" class="small" data-a="t3fd" value="50"> <span>FDNP → IDR <input type="number" data-a="t3pay" value="3500000"></span></div>
+        <div class="row"><span class="k">At least</span><input type="number" class="small" data-a="t5fd" value="0"> <span>FDNP → IDR <input type="number" data-a="t5pay" value="0"></span></div>
+        <div class="row"><span class="k">At least</span><input type="number" class="small" data-a="t6fd" value="0"> <span>FDNP → IDR <input type="number" data-a="t6pay" value="0"></span></div>
+        <div class="row"><span class="k">At least</span><input type="number" class="small" data-a="t7fd" value="0"> <span>FDNP → IDR <input type="number" data-a="t7pay" value="0"></span></div>
+      </div>
+      <p class="hint">Spare rows are ignored while left at 0. Order doesn't matter — the highest threshold reached wins.</p>
+
+      <h3>Under-30 discount</h3>
+      <div class="rows">
+        <div class="row"><span class="k">Up to</span><input type="number" class="small" data-a="d0max" value="30"><span>% under-30 → pay <input type="number" class="small" data-a="d0pay" value="100">%</span></div>
+        <div class="row"><span class="k">Up to</span><input type="number" class="small" data-a="d1max" value="39"><span>% under-30 → pay <input type="number" class="small" data-a="d1pay" value="70">%</span></div>
+        <div class="row"><span class="k">Above that</span><span></span><span>→ pay <input type="number" class="small" data-a="d2pay" value="50">%</span></div>
+      </div>
+
+      <h3>Quality bonus (paid on top, if a bonus band is reached)</h3>
+      <div class="rows">
+        <div class="row"><span class="k">Up to</span><input type="number" class="small" data-a="q0max" value="20"><span>% under-30 → IDR <input type="number" data-a="q0pay" value="1000000"></span></div>
+        <div class="row"><span class="k">Up to</span><input type="number" class="small" data-a="q1max" value="30"><span>% under-30 → IDR <input type="number" data-a="q1pay" value="500000"></span></div>
+      </div>
+
+      <h3>Attendance allowance</h3>
+      <div class="rows">
+        <div class="row"><span class="k">IDR</span><input type="number" data-a="attPay" value="500000"><span>if days ≥ <input type="number" class="small" data-a="attDays" value="20"> and FDNP ≥ <input type="number" class="small" data-a="attFd" value="16"></span></div>
+      </div>
+
+      <h3>Conversion</h3>
+      <div class="rows">
+        <div class="row"><span class="k">FD Processable = gross FD ×</span><input type="number" class="small" data-a="fdnp" value="90"><span>%</span></div>
+      </div>
+      <p class="hint">Under-30 share is measured on gross FD. The team table only has gross FD, so FDNP is derived with this rate.</p>
+    </div>
+
+    <div class="panel b">
+      <h2>Model B — Current tiered model</h2>
+      <p class="hint">Age-segment CC/DD rates × tier multiplier, under-30 cap with FD stripping, quality bonus, attendance. Same rules as the May review spreadsheet and the IT brief.</p>
+
+      <h3>Tier multipliers (by qualifying FD)</h3>
+      <div class="rows">
+        <div class="row four"><span class="k">Tier 0.5</span><span>20–24 →</span><input type="number" class="small" step="0.1" data-b="m0" value="0.5"><span>×</span></div>
+        <div class="row four"><span class="k">Tier 1</span><span>25–29 →</span><input type="number" class="small" step="0.1" data-b="m1" value="1.0"><span>×</span></div>
+        <div class="row four"><span class="k">Tier 2</span><span>30–34 →</span><input type="number" class="small" step="0.1" data-b="m2" value="1.2"><span>×</span></div>
+        <div class="row four"><span class="k">Tier 3</span><span>35–39 →</span><input type="number" class="small" step="0.1" data-b="m3" value="1.6"><span>×</span></div>
+        <div class="row four"><span class="k">Tier 4</span><span>40+ →</span><input type="number" class="small" step="0.1" data-b="m4" value="2.2"><span>×</span></div>
+      </div>
+
+      <h3>Base rates at 1.0× (CC / DD)</h3>
+      <div class="rows">
+        <div class="row four"><span class="k">Under 30</span><input type="number" data-b="cc0" value="100000"><input type="number" data-b="dd0" value="50000"><span></span></div>
+        <div class="row four"><span class="k">30–34</span><input type="number" data-b="cc1" value="105000"><input type="number" data-b="dd1" value="55000"><span></span></div>
+        <div class="row four"><span class="k">35–39</span><input type="number" data-b="cc2" value="120000"><input type="number" data-b="dd2" value="60000"><span></span></div>
+        <div class="row four"><span class="k">40+</span><input type="number" data-b="cc3" value="130000"><input type="number" data-b="dd3" value="65000"><span></span></div>
+      </div>
+
+      <h3>Quality rules</h3>
+      <div class="rows">
+        <div class="row"><span class="k">Under-30 cap (paid, and stripped from tier count)</span><input type="number" class="small" data-b="cap" value="7"><span></span></div>
+        <div class="row"><span class="k">Quality bonus at ≤20% under-30</span><input type="number" data-b="qb1" value="1000000"><span></span></div>
+        <div class="row"><span class="k">Quality bonus at 21–29%</span><input type="number" data-b="qb2" value="500000"><span></span></div>
+        <div class="row"><span class="k">Attendance (≥20 days and ≥16 FD)</span><input type="number" data-b="att" value="500000"><span></span></div>
+      </div>
+      <label class="chk"><input type="checkbox" data-b="attGross" checked> Attendance test uses gross FD (per IT brief). Untick to use qualifying FD (as in the May spreadsheet).</label>
+    </div>
+  </section>
+
+  <!-- ─── ONE FUNDRAISER ────────────────────────────────────────── -->
+  <section>
+    <h2>Test one fundraiser</h2>
+    <div class="grid-inputs">
+      <label>Gross FD<input type="number" data-t="fd" value="40"></label>
+      <label>Under-30 sign-ups<input type="number" data-t="u30" value="10"></label>
+      <label>CC sign-ups (of gross)<input type="number" data-t="cc" value="5"></label>
+      <label>CC that are under-30<input type="number" data-t="ccu" value="1"></label>
+      <label>Working days<input type="number" data-t="days" value="22"></label>
+    </div>
+    <div class="results">
+      <div class="result a">
+        <div class="lbl">Model A — Simple</div>
+        <div class="big" id="aBig">—</div>
+        <div class="bd" id="aBd"></div>
+      </div>
+      <div class="result b">
+        <div class="lbl">Model B — Current</div>
+        <div class="big" id="bBig">—</div>
+        <div class="bd" id="bBd"></div>
+      </div>
+    </div>
+    <p class="delta" id="delta"></p>
+  </section>
+
+  <!-- ─── TEAM TABLE ───────────────────────────────────────────── -->
+  <section>
+    <h2>April 2026 — all 36 IC perm staff</h2>
+    <p class="hint">Actual paid is what went out under the old model. Model A and B recalculate from the inputs above. Red under-30% is above 30%.</p>
+    <table id="team">
+      <thead><tr>
+        <th>Name</th><th>FD</th><th>U30</th><th>U30 %</th><th>Actual paid</th>
+        <th class="ca">Model A</th><th class="cb">Model B</th><th>A − B</th>
+      </tr></thead>
+      <tbody></tbody>
+      <tfoot><tr><td>Total</td><td id="tFd"></td><td id="tU30"></td><td id="tPct"></td><td id="tAct"></td><td class="ca" id="tA"></td><td class="cb" id="tB"></td><td id="tD"></td></tr></tfoot>
+    </table>
+  </section>
+
+  <!-- ─── SUMMARY ───────────────────────────────────────────────── -->
+  <section>
+    <h2>Summary for the slide</h2>
+    <p class="hint">Regenerates from the numbers above. Edit freely, then copy.</p>
+    <textarea id="summary"></textarea>
+    <div class="toolbar">
+      <button id="regen">Regenerate text</button>
+      <button id="copy">Copy text</button>
+      <span class="hint" id="copied"></span>
+    </div>
+    <div class="note">Model A pays the same for a IDR 100k DD from a 22-year-old as for a IDR 300k CC from a 45-year-old — the only quality lever is the under-30 discount. Model B prices every sign-up by age and payment type. Use the team totals to see what that simplicity costs or saves at today's mix.</div>
+  </section>
+</main>
+
+<script>
+// ── April 2026 data: name, days, fd, cc_u30, cc_o30, dd_u30, dd_o30, u30, actual paid
+const APRIL=[
+ ['Ruddy Maulana',22,47,0,1,14,32,14,4360000],['Abigail A.J. Junginger',21,45,0,2,9,34,9,4290000],
+ ['Wafa Hanan Nabilah',24,36,1,3,4,28,5,3800000],['Astri Verina Cortunada',20,31,0,3,0,28,0,3404000],
+ ['Mira Ramadhina',23,27,1,3,7,16,8,2085000],['Ayu Rieta Emilia',23,30,1,1,15,13,16,1792000],
+ ['Muhamad Fikri Hardiyanto',23,29,1,2,11,15,12,1620000],['Nihal Jihan Khofifah',24,25,1,1,10,13,11,1445000],
+ ['Risma Laisya Khotifah',24,24,1,2,5,16,6,500000],['Jiven Pratama',20,16,0,0,10,6,10,500000],
+ ['Dinda Eka Putri',23,16,1,0,8,7,9,500000],['Fidella Atika',23,21,0,0,6,15,6,500000],
+ ['Rulti Adharina',23,19,1,1,7,11,7,500000],['Kiki Candra',21,22,1,0,11,10,12,500000],
+ ['Ikhsan Maulana',23,18,0,1,8,9,8,500000],['Uluwwi Abdullah',24,22,0,1,6,15,6,500000],
+ ['Rima Pangestu Putri',21,20,0,0,7,13,7,500000],['Andreas Dwi Putra',23,21,1,1,11,8,12,500000],
+ ['Octifani Dewinda',25,16,0,0,10,6,10,500000],['Antonio Fernando De La Runda',23,16,0,1,7,8,7,500000],
+ ['Khoirul Hidayat',20,11,0,0,5,6,5,0],['Nuzulul Fahmi Muzaki',22,8,0,0,5,3,5,0],
+ ['Andini Nur Oktaviani',22,8,1,0,4,3,5,0],['Hani Ramadhani',22,13,0,0,3,10,3,0],
+ ['Nofianus Pito',18,5,0,0,3,2,3,0],['Ansyar Maulana',24,14,1,0,9,4,10,0],
+ ['Imam Naufal Dzaki',21,14,0,1,5,8,5,0],['Nafal Yauma Salsabilla',23,10,0,0,4,6,4,0],
+ ['Briza Tris Mawarni',24,12,0,2,2,8,2,0],['Ali Akbar Ramadhan',24,9,0,0,3,6,3,0],
+ ['Rahmatuzzakia',25,13,0,1,5,7,5,0],['Ristia Mardianti',23,14,1,1,6,6,7,0],
+ ['Diva Nadila Putrinesia',23,11,0,0,7,4,7,0],['Michael Daniel Jeferson',22,10,0,0,5,5,5,0],
+ ['Ira Nur Widyanti',21,10,1,1,3,5,4,0],['Rama Putra Pratama',10,5,0,0,2,3,2,0],
+];
+const O30={low:0.252/0.674,mid:0.130/0.674,hi:0.302/0.674}; // over-30 split: 30-34 / 35-39 / 40+
+
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const num=el=>parseFloat(el.value)||0;
+const idr=n=>'IDR '+Math.round(n).toLocaleString('en');
+const sgn=n=>(n>0?'+':n<0?'−':'')+'IDR '+Math.abs(Math.round(n)).toLocaleString('en');
+
+function readA(){const o={};$$('[data-a]').forEach(e=>o[e.dataset.a]=num(e));return o;}
+function readB(){const o={};$$('[data-b]').forEach(e=>o[e.dataset.b]=e.type==='checkbox'?e.checked:num(e));return o;}
+
+// ── Model A
+function calcA(p,fd,u30,days){
+  const fdnp=Math.round(fd*p.fdnp/100);
+  const tiers=[[p.t4fd,p.t4pay],[p.t0fd,p.t0pay],[p.t1fd,p.t1pay],[p.t2fd,p.t2pay],[p.t3fd,p.t3pay],[p.t5fd,p.t5pay],[p.t6fd,p.t6pay],[p.t7fd,p.t7pay]].filter(t=>t[0]>0).sort((x,y)=>x[0]-y[0]);
+  let bonus=0,tierLbl=tiers.length?'below '+tiers[0][0]:'no bands';
+  for(const [t,pay] of tiers) if(fdnp>=t){bonus=pay;tierLbl=t+'+ FDNP';}
+  const pct=fd>0?u30/fd*100:0;
+  let payPct=p.d2pay,band='above '+p.d1max+'%';
+  if(pct<=p.d0max){payPct=p.d0pay;band='≤'+p.d0max+'%';}
+  else if(pct<=p.d1max){payPct=p.d1pay;band=p.d0max+'–'+p.d1max+'%';}
+  const qb=bonus>0?(pct<=p.q0max?p.q0pay:pct<=p.q1max?p.q1pay:0):0;
+  const att=(days>=p.attDays&&fdnp>=p.attFd)?p.attPay:0;
+  const total=bonus*payPct/100+qb+att;
+  return {fdnp,bonus,tierLbl,pct,payPct,band,qb,att,total};
+}
+
+// ── Model B
+function tierIdx(fd){return fd>=40?4:fd>=35?3:fd>=30?2:fd>=25?1:fd>=20?0:-1;}
+function calcB(p,days,fd,ccu,cco,ddu,ddo,u30){
+  const excess=Math.max(0,u30-p.cap), qfd=fd-excess;
+  const qpct=qfd>0?Math.min(u30,p.cap)/qfd:0;
+  const t=tierIdx(qfd), m=[p.m0,p.m1,p.m2,p.m3,p.m4][t]??0;
+  const attFd=p.attGross?fd:qfd;
+  const att=(days>=20&&attFd>=16)?p.att:0;
+  const qb=qfd<20?0:qpct<=0.20?p.qb1:qpct<0.30?p.qb2:0;
+  let comm=0;
+  if(m>0){
+    const r=u30>0?Math.min(u30,p.cap)/u30:1;
+    const cu=Math.round(ccu*r), du=Math.round(ddu*r);
+    comm = cu*p.cc0*m + du*p.dd0*m
+      + Math.round(cco*O30.low)*p.cc1*m + Math.round(cco*O30.mid)*p.cc2*m + Math.round(cco*O30.hi)*p.cc3*m
+      + Math.round(ddo*O30.low)*p.dd1*m + Math.round(ddo*O30.mid)*p.dd2*m + Math.round(ddo*O30.hi)*p.dd3*m;
+    comm=Math.round(comm);
+  }
+  const tierLbl=['Tier 0.5','Tier 1','Tier 2','Tier 3','Tier 4'][t]??'No tier';
+  return {excess,qfd,qpct,tierLbl,m,comm,qb,att,total:comm+qb+att};
+}
+
+function render(){
+  const pa=readA(), pb=readB();
+
+  // one fundraiser
+  const fd=num($('[data-t=fd]')), u30=num($('[data-t=u30]')), cc=num($('[data-t=cc]')), ccu=Math.min(num($('[data-t=ccu]')),cc,u30), days=num($('[data-t=days]'));
+  const cco=cc-ccu, ddu=u30-ccu, ddo=fd-cc-ddu;
+  const a=calcA(pa,fd,u30,days), b=calcB(pb,days,fd,ccu,cco,ddu,ddo,u30);
+  $('#aBig').textContent=idr(a.total);
+  $('#aBd').innerHTML=`<div><span>FD Processable</span><span>${a.fdnp}</span></div>
+    <div><span>Bonus band</span><span>${a.tierLbl} → ${idr(a.bonus)}</span></div>
+    <div><span>Under-30 share</span><span>${a.pct.toFixed(0)}% (${a.band}) → pay ${a.payPct}%</span></div>
+    <div><span>Quality bonus</span><span>${idr(a.qb)}</span></div>
+    <div><span>Attendance</span><span>${idr(a.att)}</span></div>
+    <div class="t"><span>Total</span><span>${idr(a.total)}</span></div>`;
+  $('#bBig').textContent=idr(b.total);
+  $('#bBd').innerHTML=`<div><span>Excess under-30 stripped</span><span>${b.excess}</span></div>
+    <div><span>Qualifying FD</span><span>${b.qfd} → ${b.tierLbl} (${b.m}×)</span></div>
+    <div><span>Tier commission</span><span>${idr(b.comm)}</span></div>
+    <div><span>Quality bonus (${(b.qpct*100).toFixed(0)}% u30)</span><span>${idr(b.qb)}</span></div>
+    <div><span>Attendance</span><span>${idr(b.att)}</span></div>
+    <div class="t"><span>Total</span><span>${idr(b.total)}</span></div>`;
+  const d=a.total-b.total;
+  $('#delta').innerHTML=d===0?`For this profile both models pay the same.`:`For this profile Model A pays <b>${idr(Math.abs(d))}</b> ${d>0?'more':'less'} than Model B.`;
+
+  // team
+  let tb='',tA=0,tB=0,tAct=0,tFd=0,tU=0;
+  for(const [nm,dy,gfd,c_u,c_o,d_u,d_o,u,act] of APRIL){
+    const ra=calcA(pa,gfd,u,dy), rb=calcB(pb,dy,gfd,c_u,c_o,d_u,d_o,u), dd=ra.total-rb.total, pct=u/gfd*100;
+    tA+=ra.total;tB+=rb.total;tAct+=act;tFd+=gfd;tU+=u;
+    tb+=`<tr><td>${nm}</td><td>${gfd}</td><td>${u}</td><td class="${pct>30?'hi':''}">${pct.toFixed(0)}%</td><td>${act?act.toLocaleString('en'):'—'}</td>
+      <td class="ca">${ra.total?ra.total.toLocaleString('en'):'—'}</td><td class="cb">${rb.total?rb.total.toLocaleString('en'):'—'}</td>
+      <td class="${dd>0?'ok':dd<0?'neg':''}">${dd?sgn(dd).replace('IDR ',''):'—'}</td></tr>`;
+  }
+  $('#team tbody').innerHTML=tb;
+  $('#tFd').textContent=tFd;$('#tU30').textContent=tU;$('#tPct').textContent=(tU/tFd*100).toFixed(0)+'%';
+  $('#tAct').textContent=tAct.toLocaleString('en');$('#tA').textContent=tA.toLocaleString('en');$('#tB').textContent=tB.toLocaleString('en');
+  const td=tA-tB;$('#tD').textContent=sgn(td).replace('IDR ','');$('#tD').className=td>0?'ok':td<0?'neg':'';
+  window._last={a,b,fd,u30,tA,tB,tAct,pa,pb};
+}
+
+function summary(){
+  const {a,b,fd,u30,tA,tB,tAct,pa,pb}=window._last;
+  const pct=(u30/fd*100).toFixed(0);
+  const lines=[
+`Model A (simple): a flat bonus by FD Processable — ${pa.t4fd}+ pays ${idr(pa.t4pay)}, ${pa.t0fd}+ pays ${idr(pa.t0pay)}, ${pa.t1fd}+ pays ${idr(pa.t1pay)}, ${pa.t2fd}+ pays ${idr(pa.t2pay)}, ${pa.t3fd}+ pays ${idr(pa.t3pay)}. If under-30 sign-ups are ${pa.d0max}% or less the full bonus is paid; between ${pa.d0max+1}–${pa.d1max}% it is cut to ${pa.d0pay===100?pa.d1pay:pa.d1pay}%; above ${pa.d1max}% it is cut to ${pa.d2pay}%. A quality bonus of ${idr(pa.q0pay)} is added at ≤${pa.q0max}% under-30, or ${idr(pa.q1pay)} at ${pa.q0max+1}–${pa.q1max}%, plus ${idr(pa.attPay)} attendance at ≥${pa.attDays} days and ≥${pa.attFd} FDNP. No CC/DD or age rates.`,
+``,
+`Model B (current): age-segment CC/DD rates × tier multiplier (${pb.m0}× / ${pb.m1}× / ${pb.m2}× / ${pb.m3}× / ${pb.m4}×), a cap of ${pb.cap} paid under-30s with the excess stripped from the tier count, a quality bonus of ${idr(pb.qb1)} at ≤20% under-30 or ${idr(pb.qb2)} at 21–29%, and ${idr(pb.att)} attendance.`,
+``,
+`Example — ${fd} gross FD with ${u30} under-30 (${pct}%): Model A pays ${idr(a.total)}; Model B pays ${idr(b.total)}. Difference ${sgn(a.total-b.total)}.`,
+``,
+`Applied to the April 2026 team (36 staff, actual paid ${idr(tAct)}): Model A would cost ${idr(tA)} and Model B ${idr(tB)} — Model A is ${sgn(tA-tB)} versus Model B, and ${sgn(tA-tAct)} versus what was actually paid.`,
+``,
+`The under-30 problem: clawback per sale has roughly doubled from IDR 400–450k to about IDR 800k as the under-30 share rose. Any model we choose must make a 40%+ under-30 month visibly cheaper for the fundraiser than a 25% month. Both models above do that — the question is whether the simplicity of Model A is worth losing the per-sign-up pricing of Model B.`
+  ];
+  $('#summary').value=lines.join('\n');
+}
+
+document.addEventListener('input',e=>{if(e.target.matches('input')){render();}});
+$('#regen').addEventListener('click',summary);
+$('#copy').addEventListener('click',async()=>{await navigator.clipboard.writeText($('#summary').value);$('#copied').textContent='Copied.';setTimeout(()=>$('#copied').textContent='',1500);});
+render();summary();
+</script>
+</body>
+</html>
