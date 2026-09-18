@@ -355,8 +355,8 @@
   .photo{width:100%;font:inherit;font-size:14px;padding:14px;border:1px dashed var(--line);border-radius:12px;
     background:#F7F8FA;color:var(--ink-soft);cursor:pointer;margin-bottom:10px}
   .sheet2 textarea{width:100%;font:inherit;font-size:14px;padding:12px;border:1px solid var(--line);border-radius:12px;margin-top:14px;resize:none}
-  .bigsend{width:100%;font:inherit;font-size:16px;font-weight:600;padding:16px;border:0;border-radius:13px;
-    background:var(--ink);color:#fff;cursor:pointer;margin-top:12px}
+  .bigsend{display:flex;align-items:center;justify-content:center;width:100%;min-height:54px;font:inherit;font-size:16px;font-weight:600;line-height:1.25;padding:15px;border:0;border-radius:13px;
+    background:var(--ink);color:#fff;cursor:pointer;margin-top:12px;-webkit-appearance:none;appearance:none}
   .cancel2{width:100%;font:inherit;font-size:15px;padding:14px;border:0;border-radius:13px;background:transparent;color:var(--ink-soft);cursor:pointer;margin-top:4px}
   @media (max-width:480px){.deviceframe{padding:0}.device{border:0;border-radius:0;width:100%;box-shadow:none}}
   /* ---------- weeks ---------- */
@@ -488,6 +488,7 @@
   table.evtab td.tot{text-align:right;padding:8px;font-variant-numeric:tabular-nums;background:#F7F8FA;white-space:nowrap}
   table.hc td i{font-style:normal;color:var(--ink-soft);font-size:10.5px}
   .panel.orphan{border-color:#E8D08A;background:#FFFBF0}
+  .say.orph{display:flex;align-items:center;gap:8px} .say.orph span{flex:1} .say.orph i{font-style:normal;opacity:.8}
   .panel.unpaidnote{border-color:#E8D08A;background:#FFFBF0;font-size:12px;color:var(--ink-soft)} .panel.unpaidnote b{color:var(--ink)}
   /* ---------- HR dashboard ---------- */
   #hr>.orgwrap{overflow:visible}
@@ -500,13 +501,15 @@
   .cards2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
   .ch{display:flex;align-items:baseline;gap:10px;margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid var(--line)}
   .ch h2{margin:0;font-size:12.5px} .ch span{font-size:11px;color:var(--ink-soft);margin-left:auto;text-align:right}
-  .card.queue .qbody{max-height:230px;overflow:auto}
-  .qt{width:100%;border-collapse:collapse;font-size:12px}
+  .card.queue .qbody{max-height:230px;overflow-y:auto;overflow-x:hidden}
+  .qt{width:100%;border-collapse:collapse;font-size:12px;table-layout:fixed}
+  .qt col.cn{width:31%} .qt col.ct{width:12%} .qt col.cd{width:8%} .qt col.cs{width:9%} .qt col.cg{width:14%} .qt col.ca{width:26%}
+  .qt td:first-child b,.qt td:first-child small,.qt td:nth-child(2),.qt td:nth-child(3) small{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:block}
   .qt th{text-align:left;font-size:10px;font-weight:650;color:var(--ink-soft);letter-spacing:.03em;padding:4px 6px;border-bottom:1px solid var(--line);position:sticky;top:0;background:#fff}
   .qt td{padding:7px 6px;border-bottom:1px solid #EEF0F4;vertical-align:middle}
   .qt td small{display:block;font-size:10.5px;color:var(--ink-soft);font-weight:400}
-  .qt .r{text-align:right;font-variant-numeric:tabular-nums} .qt .acts{text-align:right;white-space:nowrap}
-  .qb{font:inherit;font-size:11px;padding:4px 9px;border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--ink);cursor:pointer;margin-left:4px}
+  .qt .r{text-align:right;font-variant-numeric:tabular-nums} .qt .acts{text-align:right;white-space:normal;line-height:1.9}
+  .qb{font:inherit;font-size:10.5px;padding:3px 8px;border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--ink);cursor:pointer;margin-left:3px;white-space:nowrap}
   .qb.pass{border-color:#A9CBB6;color:var(--ok)} .qb.term{border-color:#E3BEBC;color:var(--flag)}
   .qb.sug{background:var(--ink);color:#fff;border-color:var(--ink);font-weight:600}
   .sugtag{font-size:10px;font-weight:700;letter-spacing:.03em;padding:2px 7px;border-radius:4px}
@@ -535,6 +538,11 @@
   table.mtab tr.availrow th.hot{color:var(--flag);font-weight:700}
   table.mtab td.who .pm.tr{background:#F6D86B;color:var(--ink)}
   table.htab tr.probdue td.who{background:#FFF3D6}
+  table.mtab tr.band.leftband td{background:#EDF0F5;color:var(--ink-soft)}
+  table.htab tr.leftrow td.who,table.htab tr.leftrow td.role{background:#F7F8FA;color:var(--ink-soft)}
+  table.mtab td.who .pm.lf{background:#5A6478;color:#fff} table.mtab td.who .pm.tw{background:var(--ok);color:#fff}
+  table.htab tr.twenty td.who{box-shadow:inset 3px 0 0 var(--ok)}
+  table.htab td.tot.hit20{background:#EAF3EE;color:var(--ok);font-weight:700}
   .mlegend i.half{background:linear-gradient(135deg,var(--am) 50%,#fff 50%);border:1px solid var(--line)}
   .prob{border:1px solid #E8D08A;background:#FFFBF0;border-radius:8px;padding:9px 10px;margin-bottom:8px;font-size:12px}
   .prob>b{display:block;font-size:13px} .prob>span{color:var(--ink-soft);font-size:11.5px} .prob small{display:block;color:var(--ink-soft);font-size:10.5px;margin-top:5px}
@@ -543,6 +551,189 @@
   .hrtimes{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin:12px 0}
   .hrtimes div{background:#F4F6F9;border-radius:8px;padding:8px 10px} .hrtimes span{display:block;font-size:10.5px;color:var(--ink-soft)}
   .hrtimes b{display:block;font-size:15px} .hrtimes small{display:block;font-size:10.5px;color:var(--ink-soft);margin-top:2px} .hrtimes small i{font-style:normal}
+  /* ---------- Check I/O ---------- */
+  .phonebar.preview{background:#EEF1F6;border-bottom:1px solid var(--line)}
+  .pvtag{font-size:9.5px;font-weight:800;letter-spacing:.08em;background:var(--ink);color:#fff;padding:3px 8px;border-radius:4px}
+  .pvl{font-size:11.5px;color:var(--ink-soft);display:flex;align-items:center;gap:6px}
+  .hero{margin:16px 16px 0;border-radius:16px;padding:18px;color:#fff;background:var(--ink);position:relative}
+  .hero.am{background:var(--am)} .hero.pm{background:var(--pm)} .hero.done{background:#1B7F4B} .hero.ok{background:#1B7F4B} .hero.in{background:var(--ink)}
+  .okbanner{display:flex;align-items:center;gap:14px;margin:16px 16px 0;background:#E3F3E9;border:1px solid #9CCBAF;border-radius:14px;padding:14px 16px;animation:pop .25s}
+  .okbanner i{font-style:normal;width:36px;height:36px;border-radius:50%;background:#1B7F4B;color:#fff;font-size:20px;display:flex;align-items:center;justify-content:center;flex:none}
+  .okbanner b{display:block;font-size:16px;color:#125733} .okbanner span{font-size:12.5px;color:#2C6E49}
+  @keyframes pop{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+  .hero .lbl{font-size:10.5px;font-weight:800;letter-spacing:.07em;opacity:.85}
+  .hero b{display:block;font-size:24px;letter-spacing:-.02em;margin:3px 0 4px;line-height:1.1}
+  .hero .place{font-size:14px;opacity:.9}
+  .heroedit{margin-top:10px;font:inherit;font-size:12px;background:rgba(255,255,255,.2);border:0;color:#fff;border-radius:8px;padding:6px 12px;cursor:pointer}
+  .bigact{padding:16px 16px 0}
+  .hugebtn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
+    width:100%;min-height:78px;border:0;border-radius:16px;padding:18px 20px;margin:0;font:inherit;line-height:1.25;
+    cursor:pointer;background:var(--ink);color:#fff;text-align:center;-webkit-appearance:none;appearance:none;overflow:visible;
+    -webkit-tap-highlight-color:transparent;transition:background .12s,transform .08s;box-shadow:0 2px 0 rgba(22,35,58,.18)}
+  .hugebtn.in{background:#1B7F4B} .hugebtn.in:hover{background:#16693E} .hugebtn.in:active{background:#125733}
+  .hugebtn.out{background:#16233A} .hugebtn.out:hover{background:#0E1728} .hugebtn.out:active{background:#0A1120}
+  .hugebtn:hover{background:#0E1728} .hugebtn *{background:none!important}
+  .hugebtn .hbt{display:block;font-size:20px;font-weight:700;line-height:1.2;background:none;border-radius:0;padding:0;margin:0}
+  .hugebtn small{display:block;font-size:12px;line-height:1.25;opacity:.8;margin:0}
+  .hugebtn:disabled,.hugebtn.in:disabled,.hugebtn.out:disabled{background:#C8CFDA;color:#F2F4F7;box-shadow:none;cursor:default}
+  .hugebtn:active{transform:translateY(1px);box-shadow:none}
+  .steplist{text-align:center;font-size:11.5px;color:var(--ink-soft);margin:10px 16px 0}
+  .stepsbar{display:flex;gap:6px;padding:16px 16px 10px}
+  .sp{flex:1;display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--ink-soft)}
+  .sp i{width:20px;height:20px;border-radius:50%;background:#EDF0F5;display:inline-flex;align-items:center;justify-content:center;font-style:normal;font-size:10.5px;font-weight:700}
+  .sp.now{color:var(--ink);font-weight:700} .sp.now i{background:var(--ink);color:#fff}
+  .sp.done i{background:var(--ok);color:#fff}
+  .ciorow.busy{border-color:#C8CFDA;background:#F7F8FA}
+  .photobtn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;width:100%;min-height:118px;border:2px dashed var(--ink);border-radius:14px;background:#fff;padding:20px;font:inherit;line-height:1.3;cursor:pointer;color:var(--ink);text-align:center;-webkit-appearance:none;appearance:none}
+  .photobtn i{font-style:normal;font-size:30px;line-height:1} .photobtn b{font-size:16px} .photobtn small{font-size:12px;color:var(--ink-soft)}
+  .ciosteps{margin:0 16px;display:flex;flex-direction:column;gap:8px}
+  .ciorow{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:#fff}
+  .ciorow i{font-style:normal;font-size:20px;width:26px;text-align:center;flex:none} .ciorow>span{flex:1;min-width:0}
+  .ciorow b{display:block;font-size:13.5px} .ciorow small{display:block;font-size:11px;color:var(--ink-soft)}
+  .ciorow.ok{border-color:#A9CBB6;background:#EAF3EE} .ciorow.warn{border-color:#E8D08A;background:#FFF9E8} .ciorow.bad{border-color:#E3BEBC;background:var(--flag-bg)}
+  .ciorow .minibtn{flex:none;padding:8px 12px;border-radius:9px}
+  .cioselect{width:100%;font:inherit;font-size:13px;border:0;background:transparent;padding:2px 0;color:var(--ink);font-weight:600}
+  .slotpick{display:flex;gap:4px;flex:none} .slotpick .tog{padding:7px 10px;font-size:12px;border-radius:8px}
+  .gtag{font-size:10.5px;margin-left:4px} .gtag.bad{color:var(--flag);font-weight:700}
+  .nextshift .place u{text-decoration:none;background:rgba(255,255,255,.3);padding:1px 6px;border-radius:4px}
+  /* ---------- ASPC ---------- */
+  .trainrow{margin:0 18px 10px;font-size:13px;color:var(--ink)}
+  .aspcform{padding:0 16px} .aspcform.off{opacity:.35;pointer-events:none}
+  .arow{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--line)}
+  .arow i{font-style:normal;font-weight:800;font-size:15px;width:34px;text-align:center;background:var(--ink);color:#fff;border-radius:8px;padding:6px 0}
+  .arow span{flex:1;font-size:13.5px}
+  .stepper{display:flex;align-items:center;gap:4px}
+  .stepper button{width:38px;height:38px;border-radius:10px;border:1px solid var(--line);background:#fff;font:inherit;font-size:20px;cursor:pointer;color:var(--ink)}
+  .stepper button:active{background:#EDF0F5}
+  .stepper input{width:52px;height:38px;text-align:center;font:inherit;font-size:17px;font-weight:700;border:1px solid var(--line);border-radius:10px}
+  .asub{padding:12px 0 2px;font-size:12px;color:var(--ink-soft)} .asub b{color:var(--ink)}
+  .aspcsum{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:0 16px}
+  .aspcsum div{background:#F4F6F9;border-radius:9px;padding:10px 12px} .aspcsum span{display:block;font-size:11px;color:var(--ink-soft)} .aspcsum b{font-size:18px}
+  table.atab{width:100%;border-collapse:collapse;font-size:12px}
+  table.atab th{text-align:left;font-size:10px;color:var(--ink-soft);font-weight:650;padding:5px 6px;border-bottom:1px solid var(--line);position:sticky;top:0;background:#fff}
+  table.atab td{padding:6px;border-bottom:1px solid #EEF0F4;vertical-align:middle} table.atab td small{display:block;font-size:10.5px;color:var(--ink-soft)}
+  table.atab .r{text-align:right;font-variant-numeric:tabular-nums} table.atab td.dim{color:#B6BDCA;text-align:center}
+  table.atab tr.totrow td{background:#F7F8FA;font-weight:600;border-top:2px solid var(--line)}
+  .st{font-size:10.5px;font-weight:600;padding:2px 7px;border-radius:4px;white-space:nowrap}
+  .st.ok{background:#EAF3EE;color:var(--ok)} .st.wait{background:#FFF3D6;color:var(--warn)} .st.tr{background:#EDF0F5;color:var(--ink-soft)}
+  /* ---------- F2F dashboard (compact) ---------- */
+  .f2fwrap .card.tight{padding:10px 12px;margin-bottom:10px} .f2fwrap .ch{margin-bottom:6px;padding-bottom:6px}
+  .cards3.tight{gap:10px;margin-bottom:10px;grid-template-columns:5fr 6fr 5fr;align-items:stretch}
+  .cards3.tight .card{display:flex;flex-direction:column} .cards3.tight .card>div:last-child{flex:1}
+  .kpis.compact{gap:8px;margin-bottom:10px;grid-template-columns:repeat(7,1fr)} .kpis.compact .kpi{padding:8px 10px} .kpis.compact .kpi b{font-size:19px} .kpis.compact .kpi span{font-size:11px;margin-top:1px} .kpis.compact .kpi small{font-size:10px}
+  .btn.sm{font-size:11px;padding:4px 9px}
+  #ftree{max-height:340px;overflow:auto}
+  table.ftree tr.total td{background:var(--ink);color:#fff;font-weight:600} table.ftree tr.total td.nm b{color:#fff} table.ftree tr.total td.nm small{color:#C6CEDC}
+  table.ftree tr.total .mini{background:rgba(255,255,255,.25)} table.ftree tr.total td.rate b{color:#fff}
+  .mini i.mid{background:var(--warn)}
+  td.pp .mini{width:calc(100% - 40px)} td.pp b{font-size:12px}
+  table.ftree th small{font-weight:400;color:var(--ink-soft);font-size:9px;margin-left:3px}
+  .atblk{border-top:1px solid #EEF0F4;padding:7px 0} .atblk:first-child{border-top:0}
+  .ath{display:flex;align-items:baseline;gap:8px} .ath b{font-size:17px;font-variant-numeric:tabular-nums;min-width:22px}
+  .ath span{font-size:12.5px;font-weight:600} .ath small{font-size:10.5px;color:var(--ink-soft);flex:1;text-align:right}
+  .atblk.red .ath b{color:var(--flag)} .atblk.amber .ath b{color:var(--warn)}
+  .atlist{margin-top:4px} .atrow{display:flex;gap:8px;font-size:12px;padding:2px 4px;border-radius:5px;cursor:pointer}
+  .atrow:hover{background:#F4F6F9} .atrow span{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .atrow i{font-style:normal;color:var(--ink-soft);font-variant-numeric:tabular-nums}
+  .atmore{font-size:11px;color:var(--ink-soft);padding:2px 4px} .atnone{font-size:11.5px;color:var(--ok);padding:2px 4px}
+  .bkline{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:8px;font-size:11.5px}
+  .bkc{border-radius:14px;padding:3px 10px 3px 6px;display:inline-flex;align-items:center;gap:6px;color:var(--ink-soft)} .bkc b{width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:11px}
+  .bkc.b1{background:#FBEAE9} .bkc.b1 b{background:var(--flag)} .bkc.b2{background:#FFF3D6} .bkc.b2 b{background:var(--warn)} .bkc.b3{background:#EAF3EE} .bkc.b3 b{background:var(--ok)}
+  .bkhead{margin-left:auto;color:var(--ink-soft);font-size:11px}
+  .tlgrp{border-top:1px solid #EEF0F4}
+  .tlhead{display:flex;align-items:center;gap:8px;width:100%;font:inherit;text-align:left;background:transparent;border:0;padding:7px 4px;cursor:pointer;color:var(--ink)}
+  .tlhead .car{width:12px;color:var(--ink-soft);font-size:11px} .tlhead b{font-size:12.5px;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .tlhead small{font-size:10.5px;color:var(--ink-soft);white-space:nowrap} .tlhead em{font-style:normal;font-weight:700} .rc{color:var(--flag)}
+  .tlmix.small{width:60px;margin:0;flex:none}
+  .frlist{padding:0 0 6px 24px}
+  .frl{display:flex;align-items:center;gap:8px;padding:3px 4px;font-size:12px;border-radius:6px;cursor:pointer} .frl:hover{background:#F4F6F9}
+  .frl .nm{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis} .frl .nm i.tr{font-style:normal;font-size:9px;font-weight:700;background:#F6D86B;border-radius:3px;padding:0 4px}
+  .dots{display:flex;gap:4px} .bd{width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-style:normal;font-size:10.5px;font-weight:700;color:#fff}
+  .bd.none{font-size:8px;letter-spacing:-.3px}
+  .bd.b1{background:var(--flag)} .bd.b2{background:var(--warn)} .bd.b3{background:var(--ok)} .bd.none{background:#EDF0F5;color:#B6BDCA}
+  .frl .tr{width:16px;text-align:center;font-size:12px}
+  @media (max-width:640px){.kpis.compact{grid-template-columns:repeat(2,1fr)}.f2fwrap .topbar .tgt,.f2fwrap #fnote{display:none}.frlist{padding-left:8px}}
+  .bkrow{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  .bk{border:1px solid var(--line);border-radius:10px;padding:12px 14px;border-left-width:4px}
+  .bk.b1{border-left-color:var(--flag)} .bk.b2{border-left-color:var(--warn)} .bk.b3{border-left-color:var(--ok)}
+  .bk b{display:block;font-size:26px;letter-spacing:-.02em;font-variant-numeric:tabular-nums;line-height:1}
+  .bk span{display:block;font-size:12.5px;font-weight:600;margin-top:2px} .bk small{display:block;font-size:11px;color:var(--ink-soft)}
+  .bkbar{height:6px;background:#EDF0F5;border-radius:3px;margin-top:8px;overflow:hidden} .bkbar i{display:block;height:100%;border-radius:3px;background:currentColor;opacity:.75}
+  .bk.b1 .bkbar i{background:var(--flag)} .bk.b2 .bkbar i{background:var(--warn)} .bk.b3 .bkbar i{background:var(--ok)}
+  table.btab{width:100%;border-collapse:collapse;font-size:12px;margin-top:12px}
+  table.btab th{text-align:left;font-size:10px;color:var(--ink-soft);font-weight:650;padding:5px 8px;border-bottom:1px solid var(--line);position:sticky;top:0;background:#fff}
+  table.btab th small{display:block;font-weight:400;font-size:9.5px} table.btab th:not(:first-child){text-align:center;width:120px}
+  table.btab td{padding:5px 8px;border-bottom:1px solid #EEF0F4;vertical-align:middle} table.btab td:not(:first-child){text-align:center}
+  table.btab tr.tlrow td{background:#F4F6F9;padding-top:9px;padding-bottom:7px} table.btab tr.tlrow small{display:block;font-size:10.5px;color:var(--ink-soft)}
+  table.btab tr.frrow{cursor:pointer} table.btab tr.frrow:hover td{background:#FAFBFD}
+  .bpill{display:inline-flex;align-items:center;gap:6px;padding:3px 9px 3px 4px;border-radius:14px;font-size:11.5px;font-variant-numeric:tabular-nums;min-width:66px;justify-content:flex-start}
+  .bpill b{width:18px;height:18px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:10.5px;color:#fff}
+  .bpill.b1{background:#FBEAE9;color:var(--flag)} .bpill.b1 b{background:var(--flag)}
+  .bpill.b2{background:#FFF3D6;color:var(--warn)} .bpill.b2 b{background:var(--warn)}
+  .bpill.b3{background:#EAF3EE;color:var(--ok)} .bpill.b3 b{background:var(--ok)}
+  .bpill.none{background:#F4F6F9;color:#B6BDCA;justify-content:center}
+  .tlmix{display:flex;height:8px;border-radius:4px;overflow:hidden;background:#EDF0F5;width:100px;margin:0 auto}
+  .tlmix i{display:block;height:100%} .tlmix i.b3{background:var(--ok)} .tlmix i.b2{background:var(--warn)} .tlmix i.b1{background:var(--flag)}
+  td.trend{font-size:11.5px;font-weight:600;white-space:nowrap} .flatc{color:#B6BDCA}
+  .bkfoot{display:flex;gap:18px;flex-wrap:wrap;font-size:11.5px;color:var(--ink-soft);margin-top:10px} .bkfoot b{font-size:13px}
+  .wkstack{display:flex;gap:14px;align-items:flex-end}
+  .ws{flex:1;text-align:center} .wsbar{height:110px;display:flex;flex-direction:column;border-radius:6px;overflow:hidden;background:#EDF0F5}
+  .wsbar i{display:block;width:100%} .wsbar i.b3{background:var(--ok)} .wsbar i.b2{background:var(--warn)} .wsbar i.b1{background:var(--flag)}
+  .ws span{display:block;font-size:11.5px;margin-top:5px;font-weight:600} .ws small{font-size:10.5px;color:var(--ink-soft)}
+  .mvwrap{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
+  .mvcol{border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+  .mvh{font-size:12px;color:var(--ink-soft);margin-bottom:6px} .mvh b{display:block;font-size:20px;font-variant-numeric:tabular-nums}
+  .mvh.up b{color:var(--ok)} .mvh.down b{color:var(--flag)} .mvh.flat b{color:var(--ink-soft)}
+  .mvrow{font-size:12px;padding:3px 0;border-bottom:1px solid #EEF0F4} .mvrow i{font-style:normal;color:var(--ink-soft);font-size:11px}
+  .fun2{margin-bottom:9px} .fun2 .funtop{display:flex;align-items:baseline;gap:8px}
+  .fun2 b{font-size:17px;font-variant-numeric:tabular-nums} .fun2 span{font-size:12.5px;font-weight:600}
+  .fun2 i{margin-left:auto;font-style:normal;font-size:13px;font-weight:700}
+  .fun2 .funbar{height:10px;margin:4px 0 3px} .fun2 small{font-size:11px;color:var(--ink-soft)}
+  .fun2.bad .funbar div{background:var(--flag)}
+  .kpi.good b{color:var(--ok)}
+  table.ftree{width:100%;border-collapse:collapse;font-size:12px;table-layout:fixed}
+  table.ftree th{text-align:left;font-size:10px;color:var(--ink-soft);font-weight:650;letter-spacing:.03em;padding:5px 6px;border-bottom:1px solid var(--line);position:sticky;top:0;background:#fff}
+  table.ftree td{padding:5px 6px;border-bottom:1px solid #EEF0F4;vertical-align:middle;white-space:nowrap}
+  table.ftree td.nm{padding-left:calc(6px + var(--d,0)*18px);overflow:hidden;text-overflow:ellipsis}
+  table.ftree td.nm b{font-size:12.5px;cursor:pointer} table.ftree td.nm small{display:block;font-size:10.5px;color:var(--ink-soft);padding-left:22px}
+  table.ftree tr.lv1 td{background:#F4F6F9} table.ftree tr.lv1 td.nm b{font-size:13px}
+  table.ftree tr.lv2 td{background:#F9FAFC}
+  table.ftree tr.person{cursor:pointer} table.ftree tr.person:hover td{background:#F4F6F9}
+  table.ftree tr.quiet td{color:#AEB5C2} table.ftree tr.quiet td b{color:#AEB5C2}
+  table.ftree .r{text-align:right;font-variant-numeric:tabular-nums}
+  .caret{font:inherit;font-size:11px;width:18px;border:0;background:transparent;cursor:pointer;color:var(--ink-soft);padding:0;margin-right:4px;vertical-align:middle}
+  .caret.sp{display:inline-block}
+  td.rate{padding-right:8px} .mini{display:inline-block;width:calc(100% - 44px);height:8px;background:#EDF0F5;border-radius:4px;vertical-align:middle;overflow:hidden;margin-right:6px}
+  .mini i{display:block;height:100%;background:var(--ok);border-radius:4px} .mini i.bad{background:var(--flag)}
+  td.rate b{font-size:11.5px;font-variant-numeric:tabular-nums}
+  #ftree{max-height:520px;overflow:auto}
+  /* sign-up rows on the ASPC phone */
+  .arow.crow b{font-size:18px;font-variant-numeric:tabular-nums} .arow span small{display:block;font-size:10.5px;color:var(--ink-soft)}
+  .sale{border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin:8px 0}
+  .salehead{display:flex;justify-content:space-between;align-items:center;font-size:12.5px;margin-bottom:8px}
+  .salehead .rm{border:0;background:transparent;font-size:18px;color:var(--ink-soft);cursor:pointer;padding:0 4px}
+  .saleamt{display:flex;align-items:center;gap:8px;margin-bottom:8px} .saleamt span{font-size:13px;color:var(--ink-soft);font-weight:600}
+  .saleamt input{flex:1;font:inherit;font-size:18px;font-weight:700;padding:10px 12px;border:1px solid var(--line);border-radius:10px;text-align:right}
+  .saletogs{display:flex;flex-direction:column;gap:6px} .tg{display:flex;gap:6px}
+  .tog{flex:1;font:inherit;font-size:13px;padding:10px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink-soft);cursor:pointer}
+  .tog.on{background:var(--ink);color:#fff;border-color:var(--ink);font-weight:600}
+  .addsale{width:100%;font:inherit;font-size:14px;font-weight:600;padding:13px;border:1px dashed var(--ink);border-radius:12px;background:#fff;color:var(--ink);cursor:pointer;margin:6px 0 4px}
+  #f2f>.orgwrap{overflow:visible}
+  .tgt{font-size:11.5px;color:var(--ink-soft);display:flex;align-items:center;gap:3px} .tgt input{width:38px;font:inherit;font-size:12px;padding:4px;border:1px solid var(--line);border-radius:6px;text-align:right}
+  .crumbs{display:flex;align-items:center;gap:2px;margin-left:10px} .crumbs i{color:var(--ink-soft);font-style:normal;font-size:12px;padding:0 3px}
+  .crumb{font:inherit;font-size:11.5px;padding:2px 8px;border-radius:12px;border:1px solid var(--line);background:#fff;cursor:pointer;color:var(--ink-soft)} .crumb.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .hbars{display:flex;flex-direction:column;gap:6px;max-height:380px;overflow:auto}
+  .hb{display:grid;grid-template-columns:200px 1fr 54px;gap:10px;align-items:center;cursor:pointer;padding:4px 6px;border-radius:8px}
+  .hb:hover{background:#F4F6F9} .hb.person{cursor:pointer}
+  .hbl b{display:block;font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis} .hbl small{display:block;font-size:10.5px;color:var(--ink-soft);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .hbt{position:relative;height:16px;background:#EDF0F5;border-radius:4px;overflow:hidden}
+  .hbf{height:100%;background:var(--am);border-radius:4px} .hbf.bad{background:var(--flag)}
+  .tgline{position:absolute;top:0;bottom:0;width:2px;background:var(--ink);opacity:.5}
+  .hbv{text-align:right;font-variant-numeric:tabular-nums;font-size:13px}
+  .fun{display:grid;grid-template-columns:96px 1fr 44px 80px;gap:8px;align-items:center;font-size:12px;margin-bottom:6px}
+  .fun span{color:var(--ink-soft)} .funbar{height:14px;background:#EDF0F5;border-radius:4px;overflow:hidden} .funbar div{height:100%;background:var(--pm);border-radius:4px}
+  .fun b{text-align:right;font-variant-numeric:tabular-nums} .fun small{font-size:10.5px}
+  .pclick{cursor:pointer} .flagblock .pclick:hover{background:#F4F6F9}
   .trainhead{font-size:10px;color:var(--ink-soft);border-top:1px dashed var(--line);margin-top:4px;padding:5px 4px 1px}
   .bin{border:2px dashed #E3BEBC;background:var(--flag-bg);border-radius:10px;padding:14px 12px;text-align:center;color:var(--flag);font-size:12.5px}
   .bin.over{background:#F5D6D4;border-style:solid} .bin b{display:block;font-size:13px;margin-bottom:2px}
@@ -554,15 +745,17 @@
 </style>
 
 <header>
-  <h1>Popcorn <small class="ver">build 23</small></h1>
+  <h1>Popcorn <small class="ver">build 47</small></h1>
   <div class="wk" id="hdrsub">Week 3 — 14 – 20 Sep 2026 · Jakarta</div>
   <div class="tabs">
     <button data-tab="roster" aria-pressed="true">Weekly roster</button>
-    <button data-tab="phone" aria-pressed="false">Fundraiser phone</button>
+    <button data-tab="phone" aria-pressed="false">F2F working days</button>
     <button data-tab="monthly" aria-pressed="false">Monthly roster</button>
     <button data-tab="team" aria-pressed="false">Team structure</button>
     <button data-tab="events" aria-pressed="false">Events</button>
     <button data-tab="hr" aria-pressed="false">HR Dashboard</button>
+    <button data-tab="aspc" aria-pressed="false">Check I/O</button>
+    <button data-tab="f2f" aria-pressed="false">F2F Dashboard</button>
     <select id="asrole" title="Preview what each role sees"><option value="dir">Viewing as: Director</option><option value="hr">Viewing as: HR</option><option value="ev">Viewing as: Events</option><option value="mgr">Viewing as: Manager</option><option value="tl">Viewing as: Team leader</option><option value="fr">Viewing as: Fundraiser</option></select>
   </div>
 </header>
@@ -655,6 +848,7 @@
       <label class="chk"><input type="checkbox" class="hfilt" value="trainee" checked> Trainee</label>
       <label class="chk"><input type="checkbox" class="hfilt" value="fr" checked> Fundraiser</label>
       <label class="chk"><input type="checkbox" class="hfilt" value="lead" checked> Leaders</label>
+      <label class="chk"><input type="checkbox" class="hfilt" value="left" checked> Left this month</label>
       <div class="exports" style="margin:0 0 0 auto"><span>Export</span>
         <button class="btn" data-x="payroll">Payroll CSV</button><button class="btn" data-x="contracts">Contract mail-merge CSV</button><button class="btn" data-x="attendance">Attendance CSV</button></div>
     </div>
@@ -663,6 +857,49 @@
       <span><i class="c x">×</i>can't work</span><span><i class="c m">M</i>MC</span><span><i class="c s">!</i>sick, no certificate</span><span><i class="c l">L</i>leave</span>
       <span><i class="c w late unval"></i>late, unvalidated</span><span><i class="c w late"></i>late, validated</span></div>
     <div id="hgrid"></div>
+  </section>
+</main>
+
+<!-- ===================== CHECK I/O ===================== -->
+<div id="aspc" class="hidden">
+  <div class="phonebar preview">
+    <span class="pvtag">PREVIEW ONLY</span>
+    <label class="pvl">Viewing as <select id="whoami2" class="search" style="width:200px;margin:0"></select></label>
+    <label class="pvl">Show me</label>
+    <div class="segs" style="margin:0;width:auto"><button class="seg cstate on" data-k="before">Before check-in</button><button class="seg cstate" data-k="during">Mid-shift</button><button class="seg cstate" data-k="done">Finished</button></div>
+    <label class="pvl">GPS says</label>
+    <div class="segs" style="margin:0;width:auto"><button class="seg gsim on" data-g="site">At the site</button><button class="seg gsim" data-g="near">Next door · 350m</button><button class="seg gsim" data-g="away">At home · 6 km</button><button class="seg gsim" data-g="none">No signal</button></div>
+    <span class="hint" style="margin:0 0 0 auto">A real fundraiser sees only the phone screen below — no dropdowns.</span>
+  </div>
+  <div class="deviceframe"><div class="device" id="aspcApp"></div></div>
+</div>
+
+<!-- ===================== F2F DASHBOARD ===================== -->
+<main id="f2f" class="hidden" style="display:block">
+  <section class="orgwrap f2fwrap" style="padding:12px;min-width:0">
+    <div class="topbar" style="margin-bottom:10px">
+      <div class="segs" style="margin:0;width:auto"><button class="seg fper on" data-per="yday">Yesterday</button><button class="seg fper" data-per="today">Today so far</button><button class="seg fper" data-per="week">This week</button><button class="seg fper" data-per="month">September</button></div>
+      <select id="fcamp" class="search" style="width:130px;margin:0"><option value="all">Both</option><option value="stc">STC</option><option value="ykan">YKAN</option></select>
+      <label class="tgt">Stop <input id="tS" value="45">%</label><label class="tgt">Present <input id="tP" value="50">%</label><label class="tgt">Close <input id="tC" value="20">%</label>
+      <span class="hint" style="margin:0 0 0 auto" id="fnote"></span>
+    </div>
+    <div id="fkpis" class="kpis compact"></div>
+    <div class="cards2 tight" style="grid-template-columns:1fr 1fr">
+      <div class="card"><div class="ch"><h2>Where people drop off</h2><span id="ffunnelSub"></span></div><div id="ffunnel"></div></div>
+      <div class="card"><div class="ch"><h2>By location</h2><span>HC · target = HC × 2 a day</span></div><div id="fsites"></div></div>
+    </div>
+    <div class="card tight"><div class="ch"><h2>Team performance</h2><span id="fteamSub"></span>
+      <div style="margin-left:auto;display:flex;gap:4px"><button class="btn sm" id="fxAll">Open all</button><button class="btn sm" id="fxTL">Teams</button><button class="btn sm" id="fxNone">Close</button></div></div>
+      <div id="ftree"></div></div>
+    <div class="cards2 tight" style="grid-template-columns:5fr 4fr">
+      <div class="card"><div class="ch"><h2>Presentation buckets</h2><span>① under 10 · ② 10–19 · ③ 20+</span>
+        <select id="fbteam" class="search" style="width:170px;margin:0 0 0 auto"></select></div>
+        <div id="fbuckets"></div></div>
+      <div class="card"><div class="ch"><h2>Needs attention</h2><span id="fflagSub"></span></div><div id="fflags"></div></div>
+    </div>
+    <div class="card tight"><div class="ch"><h2 id="ftodayH">Today's check-ins</h2><span>who is in and who has submitted</span>
+      <select id="ateam" class="search" style="width:200px;margin:0 0 0 auto"></select><button class="btn sm" id="ftodayTog">Show</button></div><div id="ftoday" class="hidden"></div></div>
+
   </section>
 </main>
 
@@ -685,6 +922,8 @@
 
 <script>
 /* ======================= SHARED PEOPLE ======================= */
+const TODAY_D=18;                         // 18 September 2026 — the one "today" every tab uses
+const TODAY_LABEL=["Mon","Tue","Wed","Thu","Fri","Sat","Sun"][(1+TODAY_D-1)%7]+" "+TODAY_D+" Sep";
 const LEVELS=["Head","Senior manager","Manager","Assistant manager","Senior team leader","Team leader","Fundraiser","Trainee"];
 const CAMPS={stc:{n:"STC",id:1899},ykan:{n:"YKAN",id:1904}};
 let P=[
@@ -815,12 +1054,12 @@ const by=id=>P.find(p=>p.id===id);
 const kidsOf=id=>P.filter(p=>p.to===id);
 const teamSize=id=>kidsOf(id).reduce((n,k)=>n+1+teamSize(k.id),0);
 const isDesc=(a,b)=>{let x=by(b);while(x&&x.to!==null){if(x.to===a)return true;x=by(x.to)}return false};
-const TODAY=new Date("2026-09-15");
+const TODAY=new Date("2026-09-"+TODAY_D);
 const daysHere=p=>p.start?Math.floor((TODAY-new Date(p.start))/864e5):999;
 const isTrainee=p=>p.lv===7&&!p.placeholder;                    // Trainee is a role; HR passes them to Fundraiser
 const isFR=p=>p.lv>=6;                                               // fundraiser or trainee
 const isLeader=p=>p.lv<=5;                                       // team leader and above
-P.forEach(p=>{if(p.lv===6&&p.start&&(new Date("2026-09-15")-new Date(p.start))/864e5<21){p.lv=7;p.signups=[0,1,2,4,5,7,8][p.id%7]}});
+P.forEach(p=>{if(p.lv===6&&p.start&&(new Date("2026-09-"+TODAY_D)-new Date(p.start))/864e5<21){p.lv=7;p.signups=[0,1,2,4,5,7,8][p.id%7]}});
 P.forEach((p,i)=>{p.code="OMID"+String(300+i).padStart(4,"0"); p.region=i%9===0?"Surabaya":i%13===0?"Bandung":"Jakarta"; p.signups=p.signups||0});
 const rosterable=()=>P.filter(p=>p.lv>=3&&!p.placeholder);       // assistant manager down to fundraiser, real people only
 const fundraisers=rosterable;
@@ -836,8 +1075,10 @@ document.querySelectorAll(".tabs button").forEach(b=>b.onclick=()=>{
   document.getElementById("monthly").classList.toggle("hidden",t!=="monthly");
   document.getElementById("events").classList.toggle("hidden",t!=="events");
   document.getElementById("hr").classList.toggle("hidden",t!=="hr");
-  document.getElementById("hdrsub").textContent=t==="team"?"Team structure · Indonesia":t==="monthly"?"September 2026 · Indonesia":t==="events"?"Site bookings · September 2026":t==="hr"?"HR Dashboard · September 2026":"Week "+WEEKS[WK].n+" — "+WEEKS[WK].label+" 2026 · Jakarta";
-  if(t==="roster")render(); if(t==="team")renderOrg(); if(t==="monthly")renderMonth(); if(t==="phone")renderPhone(); if(t==="events")renderEvents(); if(t==="hr")renderHR();
+  document.getElementById("aspc").classList.toggle("hidden",t!=="aspc");
+  document.getElementById("f2f").classList.toggle("hidden",t!=="f2f");
+  document.getElementById("hdrsub").textContent=t==="team"?"Team structure · Indonesia":t==="monthly"?"September 2026 · Indonesia":t==="events"?"Site bookings · September 2026":t==="hr"?"HR Dashboard · September 2026":t==="aspc"?"Check in / out · "+TODAY_LABEL+" 2026":t==="f2f"?"F2F Dashboard · September 2026":"Week "+WEEKS[WK].n+" — "+WEEKS[WK].label+" 2026 · Jakarta";
+  if(t==="roster")render(); if(t==="team")renderOrg(); if(t==="monthly")renderMonth(); if(t==="phone")renderPhone(); if(t==="events")renderEvents(); if(t==="hr")renderHR(); if(t==="aspc")renderASPC(); if(t==="f2f")renderF2F();
 });
 
 /* ======================= ROSTER ======================= */
@@ -853,9 +1094,19 @@ const SITES=[
  {n:"Gandaria City",loc:null,c:"ykan",note:"No Evergiving location yet",am:["10:00","17:00"],pm:["12:00","19:00"],hlock:false},
  {n:"Kelapa Gading Mall 3",loc:4081,c:"stc",note:"LOA signed 10 Sep",am:["10:00","17:00"],pm:["12:00","19:00"],hlock:false},
  {n:"Bandung — Paris Van Java",loc:4090,c:"ykan",note:"LOA signed 8 Sep",am:["10:00","17:00"],pm:["12:00","19:00"],hlock:false},
+ {n:"Mall Taman Anggrek",loc:4101,c:"stc",note:"",am:["10:00","17:00"],pm:["12:00","19:00"],hlock:false},
+ {n:"Plaza Senayan",loc:4104,c:"stc",note:"",am:["10:00","17:00"],pm:["12:00","19:00"],hlock:false},
+ {n:"Summarecon Mall Serpong",loc:4095,c:"stc",note:"",am:["10:00","17:00"],pm:["12:00","19:00"],hlock:false},
+ {n:"Pacific Place",loc:4108,c:"ykan",note:"",am:["10:00","17:00"],pm:["12:00","19:00"],hlock:false},
+ {n:"Lotte Shopping Avenue",loc:4112,c:"ykan",note:"",am:["10:00","17:00"],pm:["12:00","19:00"],hlock:false},
+ {n:"AEON Mall BSD",loc:4116,c:"ykan",note:"",am:["10:00","17:00"],pm:["12:00","19:00"],hlock:false},
 ];
-SITES.forEach((x,i)=>{x.cost=x.n.includes("Hatta")||x.n.includes("Halim")?1850000:1200000;
-  x.loa="signed"; x.addr=["Jakarta Pusat","Jakarta Selatan","Tangerang","Jakarta Selatan","Jakarta Selatan","Jakarta Barat","Jakarta Timur","Jakarta Barat","Jakarta Selatan","Jakarta Utara","Bandung"][i]||"Jakarta"});
+const GEO={ "Grand Indonesia":[-6.1952,106.8210,200],"Kota Kasablanka":[-6.2237,106.8425,200],"Soekarno-Hatta T3":[-6.1275,106.6537,600],"Senayan City":[-6.2270,106.7975,200],
+  "Pondok Indah":[-6.2653,106.7833,220],"Central Park":[-6.1775,106.7908,220],"Halim Perdanakusuma":[-6.2666,106.8910,500],"Lippo Mall Puri":[-6.1882,106.7376,200],"Gandaria City":[-6.2441,106.7833,200],
+  "Kelapa Gading Mall 3":[-6.1580,106.9070,220],"Bandung — Paris Van Java":[-6.8886,107.5960,200],"Mall Taman Anggrek":[-6.1786,106.7920,200],"Plaza Senayan":[-6.2255,106.7995,200],"Summarecon Mall Serpong":[-6.2426,106.6284,220],
+  "Pacific Place":[-6.2246,106.8100,200],"Lotte Shopping Avenue":[-6.2244,106.8210,200],"AEON Mall BSD":[-6.3050,106.6440,250]};
+SITES.forEach((x,i)=>{const g=GEO[x.n]||[-6.2+i*0.01,106.8+i*0.01,200]; x.lat=g[0]; x.lng=g[1]; x.radius=g[2]; x.cost=x.n.includes("Hatta")||x.n.includes("Halim")?1850000:1200000;
+  x.loa="signed"; x.addr=["Jakarta Pusat","Jakarta Selatan","Tangerang","Jakarta Selatan","Jakarta Selatan","Jakarta Barat","Jakarta Timur","Jakarta Barat","Jakarta Selatan","Jakarta Utara","Bandung","Jakarta Barat","Jakarta Selatan","Tangerang","Jakarta Selatan","Jakarta Selatan","Tangerang"][i]||"Jakarta"});
 const hrs=(s,slot)=>s[slot][0]+"–"+s[slot][1];
 /* Events bookings: continuous date ranges over a 35-day span (0 = Mon 31 Aug … 34 = Sun 4 Oct) */
 const SPAN=35, TYPES={local:"Local",travel:"Travel trip",streets:"Streets"};
@@ -917,13 +1168,16 @@ let DATES=WEEKS[WK].dates;
 const LOCKED={};
 const lockedW=()=>(LOCKED[WK]=LOCKED[WK]||new Set());
 const WA=()=>A.filter(a=>a.w===WK);
+const dateOf=(w,d)=>[WEEKS[w].mon[d],WEEKS[w].dates[d]];
+const offOn=(p,w,d)=>{const [mon,dd]=dateOf(w,d); const sub=(OFFD[p.id]||{})[mon]; return sub?sub.includes(dd):p.off.includes(d)};   // phone submission wins; weekday pattern is the sample fallback
 const findWD=(dd,mon)=>{for(let w=0;w<WEEKS.length;w++){const i=WEEKS[w].dates.findIndex((x,j)=>x===dd&&WEEKS[w].mon[j]===(mon||9));if(i>=0)return [w,i]}return null};
 let A=[], published=new Set(), ABS=[], day=0, picked=null, q="";
+const OFFD={};                      // pid -> {month:[dates they can't work]} — written by the phone, read by the roster
 let MSEL=new Set(), lastPick=null;   // multi-select in the pool
 const k=a=>a.w+"-"+a.pid+"-"+a.s+"-"+a.d+"-"+a.slot;
 const absOn=(pid,d)=>ABS.find(x=>x.pid===pid&&x.w===WK&&x.d===d);
 const shifts=pid=>WA().filter(a=>a.pid===pid).length;
-const offTxt=p=>p.off.length?"off "+p.off.map(d=>DAYS[d]).join(", "):"";
+const offTxt=p=>{const o=[0,1,2,3,4,5,6].filter(d=>offOn(p,WK,d)); return o.length?"off "+o.map(d=>DAYS[d]).join(", "):""};
 
 function drawDaybar(){
   const bar=document.getElementById("daybar"); bar.innerHTML="";
@@ -1035,7 +1289,7 @@ function render(){
     const free=ordered.filter(p=>p.c===c&&match(p)&&!WA().some(a=>a.pid===p.id&&a.d===day)).filter(p=>{
       if(!p.eg){unavailable.push([p,"no Evergiving ID"]);return false}
       const ab=absOn(p.id,day); if(ab){unavailable.push([p,ABS_TYPES.find(t=>t.k===ab.t).l.toLowerCase()]);return false}
-      if(p.off.includes(day)){unavailable.push([p,"can't work"]);return false} return true});
+      if(offOn(p,WK,day)){unavailable.push([p,"can't work"]);return false} return true});
     const wrap=document.createElement("div"); wrap.className="group";
     wrap.innerHTML='<div class="grouphead '+c+'">'+CAMPS[c].n+'<span>'+free.length+' free</span></div>';
     const list=document.createElement("div"); list.className="pool-list";
@@ -1052,11 +1306,13 @@ function render(){
     const w=document.createElement("div"); w.className="pool-list"; unavailable.forEach(([p,r])=>w.appendChild(poolChip(p,true,r))); out.appendChild(w)}
   const orphans=[];
   WA().forEach(a=>{const st=document.querySelector('.cell[data-s="'+a.s+'"][data-d="'+a.d+'"][data-slot="'+a.slot+'"] .stack');
-    if(st&&!st.querySelector(".nb"))st.appendChild(cellChip(a)); else orphans.push(a)});
+    const why=orphanWhy(a);
+    if(st&&!st.querySelector(".nb")&&!why)st.appendChild(cellChip(a)); else orphans.push([a,why||"day no longer booked"])});
   if(orphans.length){const ob=document.createElement("div"); ob.className="panel orphan";
-    ob.innerHTML='<h2>Booking removed after rostering</h2><p class="hint">Events unbooked these days. Move these people or the shifts are lost.</p>'+
-      orphans.map(a=>'<div class="say wait" style="font-size:12px;margin-bottom:5px">'+by(a.pid).n+' — '+SITES[a.s].n+', '+DAYS[a.d]+' '+a.slot.toUpperCase()+'</div>').join("");
-    document.getElementById("board").prepend(ob)}
+    ob.innerHTML='<h2>'+orphans.length+' shift'+(orphans.length>1?"s":"")+' no longer valid — not sent to Evergiving</h2><p class="hint">Events changed the booking after these were rostered. Move or remove them.</p>'+
+      orphans.map(([a,why])=>'<div class="say wait orph" style="font-size:12px;margin-bottom:5px"><span>'+by(a.pid).n+' — '+SITES[a.s].n+', '+DAYS[a.d]+' '+a.slot.toUpperCase()+' · <i>'+why+'</i></span><button class="undo" data-orph="'+k(a)+'">Remove</button></div>').join("");
+    document.getElementById("board").prepend(ob);
+    ob.querySelectorAll("[data-orph]").forEach(b=>b.onclick=()=>{A=A.filter(x=>k(x)!==b.dataset.orph);render()})}
   let noLead=0;
   document.querySelectorAll(".cell .stack").forEach(st=>{
     if(st.children.length&&!st.querySelector(".chip.lead")){noLead++;st.insertAdjacentHTML("beforeend",'<span class="nolead">no leader</span>')}});
@@ -1075,7 +1331,10 @@ function render(){
   document.getElementById("pubBtn").disabled=!(adds.length||dels.length);
   document.getElementById("pend").textContent=(adds.length||dels.length)?adds.length+" to add, "+dels.length+" to remove across "+[...lockedW()].map(i=>DAYS[i]).join(", "):(lockedW().size?"Locked days are up to date.":"No locked days yet.");
 }
-function pendingLocked(){return {adds:WA().filter(a=>lockedW().has(a.d)&&!published.has(k(a))),dels:[...published].filter(key=>(+key.split("-")[0]===WK&&lockedW().has(+key.split("-")[3]))&&!WA().some(a=>k(a)===key))}}
+function orphanWhy(a){const bks=bookingsAt(a.s,gday(a.w,a.d)).filter(isLive); if(!bks.length)return "day no longer booked";
+  const p=by(a.pid); if(!p)return "person no longer exists"; if(!bks.some(b=>(b.c||SITES[a.s].c)===p.c))return "site is now "+CAMPS[bks[0].c||SITES[a.s].c].n+", "+p.n.split(" ")[0]+" is "+CAMPS[p.c].n;
+  return ""}
+function pendingLocked(){return {adds:WA().filter(a=>lockedW().has(a.d)&&!published.has(k(a))&&!orphanWhy(a)),dels:[...published].filter(key=>(+key.split("-")[0]===WK&&lockedW().has(+key.split("-")[3]))&&!WA().some(a=>k(a)===key))}}
 function wireCells(){
   document.querySelectorAll(".cell").forEach(td=>{
     td.addEventListener("dragover",e=>{e.preventDefault();td.classList.add("over")});
@@ -1118,7 +1377,7 @@ function assign(payload,td,quiet){
   const tv=travelDayFor(pid,gday(WK,d)); if(tv&&tv.si!==s){restore();return bounce(p.n+" is travelling that day","To or from "+SITES[tv.si].n+".")}
   if(bks.length&&bks.every(b=>b.type==="travel")&&!bks.some(b=>(b.party||[]).includes(pid))){restore();return bounce(p.n+" isn't in the travel party for "+site.n,"Events books flights from that list. Add them on the booking first.")}
   if(absOn(pid,d)){restore();return bounce(p.n+" is absent "+DAYS[d],"Undo the absence first if this was a mistake.")}
-  if(p.off.includes(d)){restore();return bounce(p.n+" can't work "+DAYS[d],"They marked it unavailable for September.")}
+  if(offOn(p,WK,d)){restore();return bounce(p.n+" can't work "+DAYS[d],"They marked it unavailable on their phone.")}
   const clash=WA().find(a=>a.pid===pid&&a.d===d);
   if(clash){restore();return bounce(p.n+" already works "+DAYS[d],SITES[clash.s].n+" "+clash.slot.toUpperCase()+". Drag that shift instead.")}
   if(shifts(pid)>=6){restore();return bounce("That would be "+p.n+"'s 7th shift","Six is the maximum in a week. Take a day off them first.")}
@@ -1158,11 +1417,11 @@ function log(kind,title,sub){const f=document.getElementById("feed");if(f.queryS
 document.getElementById("q").oninput=e=>{q=e.target.value.trim().toLowerCase();render()};
 
 /* ======================= PHONE (fundraiser app) ======================= */
-const TDAY=20, TMON=9;                       // today is 20 September 2026
-const MONTHS={9:{n:"September",days:30,start:2},10:{n:"October",days:31,start:3}};
+const TDAY=TODAY_D, TMON=9;                  // same today as every other tab
+const MONTHS={9:{n:"September",days:30,start:1},10:{n:"October",days:31,start:3}};
 const OCT_DEADLINE=25;                       // October availability closes 25 Sep
 let ME=null, showAll=false, PM=10, rangeMode=false, rangeAnchor=null;
-const SUBMITTED={}, OFFD={}, CERT={}, NEEDCERT={};
+const SUBMITTED={}, CERT={}, NEEDCERT={};
 const REQ=[];
 const RTYPES=[
  {k:"off", l:"Just an off day",             ic:"\u{1F6CB}\uFE0F", note:"No reason needed. Your manager decides."},
@@ -1179,17 +1438,18 @@ function seedCerts(){let r=99;const rnd=()=>((r=r*16807%2147483647)/2147483647);
   P.filter(p=>p.lv>=6).forEach(p=>{NEEDCERT[p.id]=[];CERT[p.id]=[];
     if(rnd()<.35){const j=joinedOn(p)||1;const lo=Math.max(j+1,2);if(lo>=TDAY-1)return;const d=lo+Math.floor(rnd()*(TDAY-1-lo));NEEDCERT[p.id].push(d);if(MONTH[p.id])MONTH[p.id][d]="sick"}})}
 
+function phList(){const sel=document.getElementById("whoami"), cur=sel.value;
+  sel.innerHTML=P.filter(p=>p.lv>=6&&!p.placeholder).map(p=>'<option value="'+p.id+'">'+p.n+'</option>').join("");
+  if([...sel.options].some(o=>o.value===cur))sel.value=cur; ME=by(+sel.value)}
 function phInit(){
-  seedCerts();
-  const sel=document.getElementById("whoami");
-  sel.innerHTML=P.filter(p=>p.lv>=6&&!p.placeholder).slice(0,40).map(p=>'<option value="'+p.id+'">'+p.n+'</option>').join("");
-  ME=by(+sel.value); sel.onchange=()=>{ME=by(+sel.value);showAll=false;rangeAnchor=null;renderPhone()};
+  seedCerts(); phList();
+  document.getElementById("whoami").onchange=e=>{ME=by(+e.target.value);showAll=false;rangeAnchor=null;renderPhone()};
 }
 const myReq=(m,d)=>REQ.find(r=>r.pid===ME.id&&r.mon===m&&r.days.includes(d)&&r.status!=="declined");
 const octOpen=()=>TMON===9&&TDAY<=OCT_DEADLINE;
 
 function renderPhone(){
-  if(!ME)return;
+  phList(); if(!ME)return;
   const app=document.getElementById("pApp");
   const mine=A.filter(a=>a.pid===ME.id&&a.w>=WK).sort((x,y)=>(x.w-y.w)||(x.d-y.d)), next=mine[0];
   let h='<div class="pbar"><b>'+ME.n.split(" ")[0]+'</b><span>'+CAMPS[ME.c].n+'</span></div>';
@@ -1681,7 +1941,7 @@ function tlog(kind,title,sub){const f=document.getElementById("tfeed");if(f.quer
 
 
 /* ======================= MONTHLY ROSTER ======================= */
-const MDAYS=30, MSTART=2;                 // 1 Sep 2026 is a Tuesday (0=Mon)
+const MDAYS=30, MSTART=1;                 // 1 Sep 2026 is a Tuesday → index 1 (0=Mon)
 const dow=d=>(MSTART+d-1)%7;
 const MONTH={};                            // pid -> {day: "am"|"pm"|"x"|"mc"|"leave"}
 const LATE={};                             // pid -> {day: "HH:MM"}
@@ -1700,6 +1960,10 @@ const START={am:"10:00",pm:"12:00"};   // fallback; real start comes from the si
     }
   });
 })();
+(function seedLeaverMonth(){let r=17;const rnd=()=>((r=r*16807%2147483647)/2147483647);
+  RESIGNED.forEach(x=>{const p=x.p; if(MONTH[p.id])return; MONTH[p.id]={}; LATE[p.id]={}; p.c=p.c||"stc"; p.off=p.off||[]; p.eg=1; p.perm=p.lv<=5;
+    const last=+x.last.slice(8), first=x.p.start>="2026-09-01"?+x.p.start.slice(8):1;
+    for(let d=first;d<=last;d++){if(dow(d)===6&&rnd()<.6){MONTH[p.id][d]="x";continue} if(rnd()<.85)MONTH[p.id][d]=rnd()<.55?"am":"pm"}})})();
 function lateCount(pid){return Object.keys(LATE[pid]||{}).length}
 function mstats(p){const m=MONTH[p.id]||{};const v=Object.values(m);
   return {worked:v.filter(x=>x==="am"||x==="pm").length,mc:v.filter(x=>x==="mc").length,
@@ -1712,7 +1976,18 @@ function monthRows(){
       if(x.lv>=3)rows.push({p:x,depth}); walk(x.id,x.lv>=3?depth+1:depth)})};
   walk(P.find(p=>p.lv===0).id,0); return rows;
 }
+/* roster → monthly/HR bridge: published shifts and absences are written into the month record */
+function bridgeMonth(){
+  const map={mc:"mc",sick:"sick",emg:"leave",plan:"leave",off:"leave",ns:"sick"};
+  A.forEach(a=>{const [mon,dd]=dateOf(a.w,a.d); if(mon!==9)return; MONTH[a.pid]=MONTH[a.pid]||{}; const v=MONTH[a.pid][dd];
+    if(published.has(k(a))&&(!v||v==="am"||v==="pm"))MONTH[a.pid][dd]=a.slot});
+  ABS.forEach(x=>{const [mon,dd]=dateOf(x.w,x.d); if(mon!==9)return; MONTH[x.pid]=MONTH[x.pid]||{}; MONTH[x.pid][dd]=map[x.t]||"leave";
+    if(typeof CHECK!=='undefined'&&CHECK[x.pid]&&CHECK[x.pid][dd]&&x.t!=="ns"){CHECK[x.pid]["_undo"+dd]={c:CHECK[x.pid][dd],v:x.t}; delete CHECK[x.pid][dd]}});
+  // phone submissions: days they can't work show as × in the month
+  Object.keys(OFFD).forEach(pid=>{const sub=OFFD[pid][9]||[]; MONTH[pid]=MONTH[pid]||{}; sub.forEach(dd=>{if(!MONTH[pid][dd]||MONTH[pid][dd]==="x")MONTH[pid][dd]="x"})});
+}
 function renderMonth(){
+  bridgeMonth();
   const sel=document.getElementById("mteam");
   if(!sel.options.length){
     sel.innerHTML='<option value="all">Everyone ('+P.filter(p=>p.lv>=3&&!p.placeholder).length+')</option>'+
@@ -1777,7 +2052,7 @@ function renderMonth(){
     '<div class="flagblock"><b>Four or more late ('+late4.length+')</b>'+(late4.length?late4.map(p=>
       '<div>'+p.n+' <i>'+mstats(p).late+' times</i></div>').join(""):'<div class="empty">None</div>')+'</div>';
 }
-const MTODAY=8;   // 8 September 2026
+const MTODAY=TODAY_D;
 function checkinBox(pid,d,slot){
   const p=by(pid), site=SITES.find(x=>x.c===p.c)||SITES[0], planned=site[slot][0], past=d<MTODAY;
   const sc=document.createElement("div"); sc.className="scrim";
@@ -1832,7 +2107,7 @@ function checkinBox(pid,d,slot){
 ["mteam","mq","permonly"].forEach(id=>document.getElementById(id).addEventListener("input",renderMonth));
 
 /* ======================= ROLE PREVIEW ======================= */
-const ROLE_TABS={dir:["roster","phone","monthly","team","events","hr"],hr:["hr","monthly","team"],ev:["events","roster"],mgr:["roster","monthly"],tl:["roster","monthly"],fr:["phone"]};
+const ROLE_TABS={dir:["roster","phone","monthly","team","events","hr","aspc","f2f"],hr:["hr","monthly","team"],ev:["events","roster"],mgr:["roster","monthly","aspc","f2f"],tl:["roster","monthly","aspc","f2f"],fr:["phone","aspc"]};
 document.getElementById("asrole").onchange=e=>{
   const allow=ROLE_TABS[e.target.value];
   document.querySelectorAll(".tabs button").forEach(b=>b.classList.toggle("hidden",!allow.includes(b.dataset.tab)));
@@ -2150,34 +2425,42 @@ document.getElementById("addSite").onclick=()=>{try{siteForm(null)}catch(err){ev
 ["evq","evcamp"].forEach(id=>document.getElementById(id).addEventListener("input",renderEvents));
 
 /* ======================= HR DASHBOARD (actual attendance) ======================= */
-const HTODAY=15;
+const HTODAY=TODAY_D;
 const CHECK={};                                   // pid -> {day:{in,out,site,slot,valid,cleared}}
 (function seedCheck(){let r=31;const rnd=()=>((r=r*16807%2147483647)/2147483647);
   const mins=t=>{const[h,m]=t.split(":").map(Number);return h*60+m}, hhmm=n=>String(Math.floor(n/60)).padStart(2,"0")+":"+String(n%60).padStart(2,"0");
-  P.filter(p=>p.lv>=3&&!p.placeholder).forEach(p=>{CHECK[p.id]={}; const m=MONTH[p.id]||{};
-    for(let d=1;d<HTODAY;d++){const v=m[d]; if(v!=="am"&&v!=="pm")continue; if(rnd()<.04)continue;   // the odd no-show
-      const sites=SITES.map((x,i)=>i).filter(i=>SITES[i].c===p.c&&SITES[i].loc); const si=sites[Math.floor(rnd()*sites.length)];
-      const start=mins(SITES[si][v][0]); const late=rnd()<.08; const inT=start+(late?11+Math.floor(rnd()*40):Math.floor(rnd()*9)-4);
-      const outT=rnd()<.9?mins(SITES[si][v][1])+Math.floor(rnd()*20)-5:null;
-      CHECK[p.id][d]={in:hhmm(Math.max(0,inT)),out:outT?hhmm(outT):null,site:si,slot:v,valid:false,cleared:false}}
-  })})();
+  const everyone=[...P.filter(p=>p.lv>=3&&!p.placeholder),...RESIGNED.map(x=>x.p)];
+  everyone.forEach(p=>{CHECK[p.id]=CHECK[p.id]||{}});
+  // per day: gather who works, split by campaign, shuffle, deal out in groups of 5–6 to that campaign's sites
+  for(let d=1;d<HTODAY;d++){
+    ["stc","ykan"].forEach(c=>{
+      const w=everyone.filter(p=>p.c===c&&["am","pm"].includes((MONTH[p.id]||{})[d])).sort(()=>rnd()-.5);
+      const sites=SITES.map((x,i)=>i).filter(i=>SITES[i].c===c&&SITES[i].loc); let si=0, k=0;
+      while(k<w.length){const size=5+Math.round(rnd()); const grp=w.slice(k,k+size); k+=size; const site=sites[si++%sites.length];
+        grp.forEach(p=>{if(rnd()<.04)return;                                   // the odd no-show
+          const v=MONTH[p.id][d], start=mins(SITES[site][v][0]), late=rnd()<.08, inT=start+(late?11+Math.floor(rnd()*40):Math.floor(rnd()*9)-4);
+          const outT=rnd()<.9?mins(SITES[site][v][1])+Math.floor(rnd()*20)-5:null;
+          CHECK[p.id][d]={in:hhmm(Math.max(0,inT)),out:outT?hhmm(outT):null,site,slot:v,valid:false,cleared:false}})}})}
+})();
 const cmins=t=>{const[h,m]=t.split(":").map(Number);return h*60+m};
 const lateBy=(pid,d)=>{const c=(CHECK[pid]||{})[d]; if(!c||c.cleared)return 0; const diff=cmins(c.in)-cmins(SITES[c.site][c.slot][0]); return diff>10?diff:0};
 const hActual=pid=>Object.values(CHECK[pid]||{}).filter(c=>c.out).length;              // a day counts when they checked out
 const hIn=pid=>Object.values(CHECK[pid]||{}).filter(c=>!c.out).length;
 const hLate=pid=>Object.keys(CHECK[pid]||{}).filter(d=>lateBy(pid,+d)).length;
-const serviceDays=p=>p.start?Math.floor((new Date("2026-09-15")-new Date(p.start))/864e5):0;
+const serviceDays=p=>p.start?Math.floor((new Date("2026-09-"+TODAY_D)-new Date(p.start))/864e5):0;
 const probationDue=p=>isTrainee(p)&&!p.probation&&hActual(p.id)>=10;
 const probSuggest=p=>p.signups>6?"pass":p.signups>=3?"ext":"term";
 
 function renderHR(){
+  if(typeof bridgeMonth==='function')bridgeMonth();
   const sel=document.getElementById("hteam");
   if(!sel.options.length) sel.innerHTML='<option value="all">Everyone</option>'+P.filter(p=>p.lv>0&&p.lv<=4).sort((a,b)=>a.lv-b.lv).map(x=>'<option value="'+x.id+'">'+LEVELS[x.lv]+" — "+x.n+'</option>').join("");
   const scope=sel.value, hq=(document.getElementById("hq").value||"").toLowerCase();
   const f=Object.fromEntries([...document.querySelectorAll(".hfilt")].map(c=>[c.value,c.checked]));
   let rows=monthRows();
   if(scope!=="all")rows=rows.filter(r=>r.p.id===+scope||isDesc(+scope,r.p.id));
-  rows=rows.filter(r=>{const p=r.p; return (p.perm&&f.perm)||(isTrainee(p)&&f.trainee)||(p.lv===6&&!p.perm&&f.fr)||(isLeader(p)&&!p.perm&&f.lead)});
+  const leavers=f.left?RESIGNED.filter(x=>x.last>="2026-09-01").map(x=>({p:x.p,depth:0,left:x})):[];
+  rows=rows.filter(r=>{const p=r.p; return (p.perm&&f.perm)||(isTrainee(p)&&f.trainee)||(p.lv===6&&!p.perm&&f.fr)||(isLeader(p)&&!p.perm&&f.lead)}).concat(leavers);
   if(hq)rows=rows.filter(r=>r.p.n.toLowerCase().includes(hq)||r.p.code.toLowerCase().includes(hq));
 
   let h='<table class="mtab htab"><thead><tr class="availrow"><th class="who">Late that day</th><th class="role"></th>';
@@ -2187,8 +2470,10 @@ function renderHR(){
   h+='<th class="tot">Worked</th><th class="tot">In only</th><th class="tot">MC</th><th class="tot">Leave</th><th class="tot">Late</th><th class="tot">Service</th></tr></thead><tbody>';
   let lastCamp=null;
   rows.forEach(r=>{const p=r.p, m=MONTH[p.id]||{}, st=mstats(p);
-    if(p.c!==lastCamp){lastCamp=p.c; h+='<tr class="band '+p.c+'"><td class="who" colspan="2">'+CAMPS[p.c].n+'</td><td colspan="'+(MDAYS+6)+'"></td></tr>'}
-    h+='<tr class="'+(p.perm?"perm":"")+(probationDue(p)?" probdue":"")+'"><td class="who" style="padding-left:'+(8+r.depth*9)+'px"><span class="nmw">'+p.n+(p.perm?'<span class="pm">PERM</span>':'')+(isTrainee(p)?'<span class="pm tr">TRAINEE</span>':'')+'</span><small>'+p.code+' · '+(p.region||"")+'</small></td>'+
+    const band=r.left?"left":p.c;
+    if(band!==lastCamp){lastCamp=band; h+='<tr class="band '+(r.left?"leftband":p.c)+'"><td class="who" colspan="2">'+(r.left?"LEFT THIS MONTH · still paid for days worked":CAMPS[p.c].n)+'</td><td colspan="'+(MDAYS+6)+'"></td></tr>'}
+    const twenty=hActual(p.id)>=20;
+    h+='<tr class="'+(p.perm?"perm":"")+(probationDue(p)?" probdue":"")+(r.left?" leftrow":"")+(twenty?" twenty":"")+'"><td class="who" style="padding-left:'+(8+r.depth*9)+'px"><span class="nmw">'+p.n+(p.perm?'<span class="pm">PERM</span>':'')+(isTrainee(p)?'<span class="pm tr">TRAINEE</span>':'')+(r.left?'<span class="pm lf">LEFT '+r.left.last.slice(8)+' SEP</span>':'')+(twenty?'<span class="pm tw">20 DAYS</span>':'')+'</span><small>'+p.code+' · '+(p.region||"")+(r.left?' · '+r.left.why:'')+'</small></td>'+
        '<td class="role">'+LEVELS[p.lv]+'</td>';
     for(let d=1;d<=MDAYS;d++){const v=m[d], c=(CHECK[p.id]||{})[d], late=lateBy(p.id,d);
       let cls="free", txt="";
@@ -2197,7 +2482,7 @@ function renderHR(){
       else if(v==="am"||v==="pm"){cls=d<HTODAY?"noshow":"free"}
       if(late)cls+=(c.valid?" late":" late unval");
       h+='<td class="c '+cls+(dow(d)>4?" wknd":"")+(d===HTODAY?" today":"")+'" data-p="'+p.id+'" data-d="'+d+'"'+(c?' title="in '+c.in+(c.out?' · out '+c.out:' · no check-out')+' · '+SITES[c.site].n+'"':'')+'>'+txt+'</td>'}
-    h+='<td class="tot">'+hActual(p.id)+'</td><td class="tot">'+(hIn(p.id)||"")+'</td><td class="tot">'+(st.mc||"")+'</td><td class="tot">'+(st.leave||"")+'</td>'+
+    h+='<td class="tot'+(twenty?" hit20":"")+'">'+hActual(p.id)+'</td><td class="tot">'+(hIn(p.id)||"")+'</td><td class="tot">'+(st.mc||"")+'</td><td class="tot">'+(st.leave||"")+'</td>'+
        '<td class="tot'+(hLate(p.id)>=4?" bad":"")+'">'+(hLate(p.id)||"")+'</td><td class="tot">'+serviceDays(p)+'d</td></tr>'});
   document.getElementById("hgrid").innerHTML=h+'</tbody></table>';
   document.querySelectorAll(".htab td.c").forEach(td=>td.onclick=()=>hrDay(+td.dataset.p,+td.dataset.d));
@@ -2232,6 +2517,8 @@ function renderHR(){
     '<div class="cards3">'+
       '<div class="card"><div class="ch"><h2>Attendance · September</h2></div>'+
         '<table class="hc"><tr><td>Medical certificate days</td><td>'+cnt("mc")+'</td></tr><tr><td>Sick, no certificate</td><td>'+cnt("sick")+'</td></tr><tr><td>Leave days</td><td>'+cnt("leave")+'</td></tr><tr><td>Emergency leave</td><td>'+emg+'</td></tr>'+
+        '<tr class="rule"><td><b>Reached 20 actual days</b></td><td><b class="okc" style="font-size:12px">'+rows.filter(r=>hActual(r.p.id)>=20).length+'</b></td></tr>'+
+        '<tr><td>On 15–19 days · close to 20</td><td>'+rows.filter(r=>{const n=hActual(r.p.id);return n>=15&&n<20}).length+'</td></tr>'+
         '<tr class="rule"><td>Checked in, no check-out</td><td>'+rows.reduce((n,r)=>n+hIn(r.p.id),0)+'</td></tr><tr><td>Rostered, no check-in</td><td>'+rows.reduce((n,r)=>{const m=MONTH[r.p.id]||{};for(let d=1;d<HTODAY;d++)if((m[d]==="am"||m[d]==="pm")&&!(CHECK[r.p.id]||{})[d])n++;return n},0)+'</td></tr></table></div>'+
       '<div class="card"><div class="ch"><h2>Resignations · by length of service</h2><span>'+thisMonth.length+' this month</span></div>'+
         '<div class="bars">'+bk.map(([l,n])=>'<div class="brow"><span>'+l+'</span><div class="btrack"><i style="width:'+(n/mx*100)+'%"></i></div><b>'+n+'</b></div>').join("")+'</div>'+
@@ -2250,7 +2537,7 @@ function renderHR(){
 
   /* probation */
   const due=P.filter(probationDue);
-  document.getElementById("hprob").innerHTML=due.length?'<table class="qt"><tr><th>Name</th><th>Team</th><th class="r">Days</th><th class="r">Sign-ups</th><th>Suggested</th><th></th></tr>'+
+  document.getElementById("hprob").innerHTML=due.length?'<table class="qt"><colgroup><col class="cn"><col class="ct"><col class="cd"><col class="cs"><col class="cg"><col class="ca"></colgroup><tr><th>Name</th><th>Team</th><th class="r">Days</th><th class="r">Sign-ups</th><th>Suggested</th><th></th></tr>'+
     due.map(p=>{const sug=probSuggest(p);
       return '<tr><td><b>'+p.n+'</b><small>'+p.code+'</small></td><td>'+by(p.to).n.split(" ")[0]+'</td><td class="r">'+hActual(p.id)+'</td><td class="r"><b>'+p.signups+'</b></td>'+
         '<td><span class="sugtag '+sug+'">'+({pass:"Pass",ext:"Extend",term:"Terminate"})[sug]+'</span></td>'+
@@ -2258,10 +2545,10 @@ function renderHR(){
     :'<div class="qempty">No trainee has reached 10 actual days.</div>';
   document.querySelectorAll("#hprob [data-dec]").forEach(b=>b.onclick=()=>{const p=by(+b.dataset.p), dec=b.dataset.dec;
     if(!window.confirm(({pass:"Pass "+p.n+" — becomes Fundraiser.",ext:"Extend "+p.n+"'s probation by 10 working days.",term:"Terminate "+p.n+" — moves to Resigned."})[dec]))return;
-    p.probation=dec; p.probationOn="15 Sep";
+    p.probation=dec; p.probationOn=TODAY_D+" Sep";
     if(dec==="pass"){p.lv=6; tlog("ok",p.n+" passed probation","Now a Fundraiser. "+p.signups+" sign-ups in "+hActual(p.id)+" days.")}
     else if(dec==="ext"){delete p.probation; p.probFrom=hActual(p.id); tlog("warn",p.n+" probation extended","Reviewed again at "+(hActual(p.id)+10)+" actual days.")}
-    else {P=P.filter(x=>x!==p); RESIGNED.unshift({p,last:"2026-09-15",why:"Did not pass probation"}); tlog("pull",p.n+" terminated","Did not pass probation. "+p.signups+" sign-ups.")}
+    else {P=P.filter(x=>x!==p); RESIGNED.unshift({p,last:"2026-09-"+TODAY_D,why:"Did not pass probation"}); tlog("pull",p.n+" terminated","Did not pass probation. "+p.signups+" sign-ups.")}
     renderHR(); renderOrg()});
 }
 /* accrued leave: one day per full month worked this calendar year, minus leave taken this year */
@@ -2271,7 +2558,7 @@ function leaveUsed(p){return Object.values(MONTH[p.id]||{}).filter(v=>v==="leave
 function renderHRLeave(){
   const el=document.getElementById("hreq"); if(!el)return;
   const pend=REQ.filter(r=>r.status==="pending");
-  el.innerHTML=pend.length?'<table class="qt"><tr><th>Name</th><th>Dates</th><th>Type</th><th>Balance</th><th></th></tr>'+
+  el.innerHTML=pend.length?'<table class="qt"><colgroup><col style="width:28%"><col style="width:20%"><col style="width:20%"><col style="width:14%"><col style="width:18%"></colgroup><tr><th>Name</th><th>Dates</th><th>Type</th><th>Balance</th><th></th></tr>'+
     pend.map(r=>{const p=by(r.pid), acc=accrued(p), used=leaveUsed(p), bal=acc-used, over=p.perm&&r.days.length>bal;
       return '<tr><td><b>'+p.n+'</b><small>'+(p.perm?"PKWTT":"Contractor")+' · '+p.code+'</small></td>'+
         '<td>'+r.days.join(", ")+' '+MONTHS[r.mon].n.slice(0,3)+'<small>'+r.days.length+' day'+(r.days.length>1?"s":"")+(r.hr?' · over 2 days':'')+'</small></td>'+
@@ -2290,6 +2577,7 @@ function hrDay(pid,d){
     (c?'<div class="hrtimes"><div><span>Site</span><b>'+site.n+'</b><small>'+c.slot.toUpperCase()+' shift starts '+start+'</small></div>'+
         '<div><span>Checked in</span><b>'+c.in+'</b><small>'+(late?'<i class="wc">'+late+' min late</i>':c.cleared?'<i class="okc">lateness cleared</i>':'<i class="okc">on time</i>')+'</small></div>'+
         '<div><span>Checked out</span><b>'+(c.out||"—")+'</b><small>'+(c.out?"counts as a worked day":"not counted until check-out")+'</small></div></div>'+
+        (c.gps?'<div class="note">Check-in location: '+(c.gps.inside?'<b class="okc">inside the geofence</b>':'<b class="wc">'+(c.gps.dist>=1000?(c.gps.dist/1000).toFixed(1)+' km':c.gps.dist+' m')+' from '+site.n+'</b>')+' · GPS ±'+c.gps.acc+' m · photo '+(c.photoIn||"—")+(c.gpsOut?' · check-out '+(c.gpsOut.inside?'inside':(c.gpsOut.dist>=1000?(c.gpsOut.dist/1000).toFixed(1)+' km away':c.gpsOut.dist+' m away')):'')+'</div>':'')+
         (late?'<div class="note">Late against '+site.n+'\'s '+c.slot.toUpperCase()+' start of '+start+'. '+(c.valid?'Validated by HR.':'Not yet validated.')+'</div>':'')
       :'<p class="hint">'+(v==="mc"?"Medical certificate.":v==="sick"?"Sick, no certificate.":v==="leave"?"Leave.":v==="x"?"They marked this day as unavailable.":v?"Rostered, but no Telegram check-in.":"Not rostered.")+'</p>')+
     '<div class="row" style="flex-wrap:wrap">'+
@@ -2319,16 +2607,18 @@ function exportCSV(kind,from,to){
   const cnt=(p,k)=>days.filter(d=>(MONTH[p.id]||{})[d]===k).length;
   const worked=p=>days.filter(d=>{const c=(CHECK[p.id]||{})[d];return c&&c.out}).length;
   const late=p=>days.filter(d=>lateBy(p.id,d)).length;
-  let ppl=P.filter(p=>p.lv>=3&&!p.placeholder);
+  let ppl=P.filter(p=>p.lv>=3&&!p.placeholder).map(p=>({p,last:""}));
+  if(kind!=="contracts")ppl=ppl.concat(RESIGNED.filter(x=>x.last>=from&&x.last<=to).map(x=>({p:x.p,last:x.last})));   // leavers inside the range are still paid
+  ppl=ppl.map(o=>Object.assign(Object.create(o.p),{_last:o.last}));
   if(kind==="contracts")ppl=ppl.filter(p=>p.start>=from&&p.start<=to);
   const tag=from.replace(/-/g,"")+"-"+to.replace(/-/g,"");
   const K={
-    payroll:{name:"popcorn_payroll_"+tag+".csv",head:["Staff code","Full name","KTP","Date of birth","Role","Contract","Region","Period from","Period to","Actual days worked","MC days","Leave days","Late count","Bank","Account name","Account number"],
-      row:p=>[p.code,p.n,p.ktpFull||p.ktp||"",p.dob||"",LEVELS[p.lv],p.perm?"PKWTT":"IC",p.region||"",from,to,worked(p),cnt(p,"mc"),cnt(p,"leave"),late(p),p.bank||"",p.bankn||"",p.banka||""]},
+    payroll:{name:"popcorn_payroll_"+tag+".csv",head:["Staff code","Full name","KTP","Date of birth","Role","Contract","Region","Status","Last day","Period from","Period to","Actual days worked","MC days","Leave days","Late count","Bank","Account name","Account number"],
+      row:p=>[p.code,p.n,p.ktpFull||p.ktp||"",p.dob||"",LEVELS[p.lv],p.perm?"PKWTT":"IC",p.region||"",p._last?"Left":"Active",p._last||"",from,to,worked(p),cnt(p,"mc"),cnt(p,"leave"),late(p),p.bank||"",p.bankn||"",p.banka||""]},
     contracts:{name:"popcorn_contracts_"+tag+".csv",head:["Full name","Staff code","KTP","Place of birth","Date of birth","Residential address","Email","WhatsApp","Role","Contract type","Start date","Region","Campaign","Reports to"],
       row:p=>[p.n,p.code,p.ktpFull||p.ktp||"",p.pob||"",p.dob||"",p.addr||"",p.email||"",p.ph||"",LEVELS[p.lv],p.perm?"PKWTT":"Independent contractor",p.start||"",p.region||"",p.c?CAMPS[p.c].n:"",by(p.to)?by(p.to).n:""]},
-    attendance:{name:"popcorn_attendance_"+tag+".csv",head:["Staff code","Full name","Role",...days.map(d=>"Sep "+d),"Worked","Late"],
-      row:p=>[p.code,p.n,LEVELS[p.lv],...days.map(d=>{const c=(CHECK[p.id]||{})[d],v=(MONTH[p.id]||{})[d];
+    attendance:{name:"popcorn_attendance_"+tag+".csv",head:["Staff code","Full name","Role","Status","Last day",...days.map(d=>"Sep "+d),"Worked","Late"],
+      row:p=>[p.code,p.n,LEVELS[p.lv],p._last?"Left":"Active",p._last||"",...days.map(d=>{const c=(CHECK[p.id]||{})[d],v=(MONTH[p.id]||{})[d];
         return c?(c.out?"W"+(lateBy(p.id,d)?"L":""):"IN"):v==="mc"?"MC":v==="sick"?"S":v==="leave"?"L":v==="x"?"X":""}),worked(p),late(p)]}};
   const k=K[kind]; const text=csv([k.head,...ppl.map(k.row)]); download(k.name,text); return text;
 }
@@ -2355,5 +2645,403 @@ document.querySelectorAll(".hfilt").forEach(c=>c.addEventListener("change",rende
   if(perm[0])REQ.push({id:7001,pid:perm[0].id,mon:9,days:[24,25],type:"plan",reason:"Family wedding in Solo",status:"pending",to:by(perm[0].to).n.split(" ")[0],hr:false,sent:"14 Sep"});
   if(perm[1])REQ.push({id:7002,pid:perm[1].id,mon:9,days:[21,22,23],type:"plan",reason:"",status:"pending",to:by(perm[1].to).n.split(" ")[0],hr:true,sent:"13 Sep"});
   if(ic[3])REQ.push({id:7003,pid:ic[3].id,mon:9,days:[28],type:"off",reason:"",status:"pending",to:by(ic[3].to).n.split(" ")[0],hr:false,sent:"15 Sep"})})();
-phInit(); render(); renderOrg(); renderMonth(); renderPhone(); renderApprovals(); renderEvents(); renderHR();
+/* ======================= ASPC (Approach · Stop · Presentation · Close) ======================= */
+const ASPC=[];                                 // {pid,d,site,a,s,p,c,cc,dd,u30y,u30n,training}
+(function seedASPC(){let r=53;const rnd=()=>((r=r*16807%2147483647)/2147483647);
+  const skill={}, siteBoost={};
+  SITES.forEach((x,i)=>siteBoost[i]=0.85+rnd()*0.35);
+  const mk=(p,d,si,k)=>{
+    const a=Math.round(22+rnd()*34);                                  // 22–56 approaches
+    const st=Math.max(0,Math.round(a*(0.30+rnd()*0.30)*Math.min(1.35,k)));
+    const pr=Math.max(0,Math.min(st,Math.round(st*(0.32+rnd()*0.32)*Math.pow(k,1.55))));  // ends up ~3–26
+    const close=0.04+rnd()*0.10;                                      // 4–14% of presentations
+    let cl=Math.floor(pr*close*k+(rnd()<.35?1:0));
+    if(pr>=20&&cl===0)cl=rnd()<0.92?1:0;                               // 20+ presentations ⇒ almost always ≥1
+    cl=Math.max(0,Math.min(5,cl));                                    // 5 is a huge day
+    const cc=Math.round(cl*(0.4+rnd()*0.4)), u30=Math.round(cl*(0.2+rnd()*0.5));
+    const sales=[]; for(let i=0;i<cl;i++)sales.push({amount:rnd()<.85?195000:rnd()<.5?100000:250000,cc:i<cc,u30:i<u30});
+    return {pid:p.id,d,site:si,a,s:st,p:pr,c:cl,cc,dd:cl-cc,u30y:u30,u30n:cl-u30,sales,training:false}};
+  [...P.filter(p=>p.lv>=3&&!p.placeholder),...RESIGNED.map(x=>x.p)].forEach(p=>{
+    skill[p.id]=(isTrainee(p)?0.45:isLeader(p)?0.75:0.65)+rnd()*0.75;
+    Object.keys(CHECK[p.id]||{}).forEach(dk=>{const d=+dk; if(!/^\d+$/.test(dk))return; const c=CHECK[p.id][d]; if(!c.out)return;
+      const growth=1+(d/60);                                           // people improve through the month
+      ASPC.push(mk(p,d,c.site,skill[p.id]*siteBoost[c.site]*growth))})});
+  ["stc","ykan"].forEach(c=>{
+    const w=P.filter(p=>p.lv>=3&&!p.placeholder&&p.c===c&&["am","pm"].includes((MONTH[p.id]||{})[HTODAY])).sort(()=>rnd()-.5);
+    const sites=SITES.map((x,i)=>i).filter(i=>SITES[i].c===c&&SITES[i].loc); let si=0, k=0;
+    while(k<w.length){const size=5+Math.round(rnd()); const grp=w.slice(k,k+size); k+=size; const site=sites[si++%sites.length];
+      grp.forEach(p=>{if(rnd()<.22)return;                         // hasn't arrived yet — their screen shows Check in
+        const v=MONTH[p.id][HTODAY]; CHECK[p.id]=CHECK[p.id]||{};
+        CHECK[p.id][HTODAY]={in:SITES[site][v][0].replace(/:(\d\d)/,(m,x)=>":"+String(Math.max(0,+x-3)).padStart(2,"0")),out:null,site,slot:v,valid:false,cleared:false};
+        if(v==="am"&&rnd()<.45){CHECK[p.id][HTODAY].out=SITES[site].am[1]; ASPC.push(mk(p,HTODAY,site,skill[p.id]*siteBoost[site]*1.3))}})}});
+  P.filter(isTrainee).forEach(p=>p.signups=ASPC.filter(x=>x.pid===p.id).reduce((n,x)=>n+x.c,0));
+})();
+const aspcOf=(pid,d)=>ASPC.find(x=>x.pid===pid&&x.d===d);
+const distM=(a,b,c,d)=>{const R=6371000,t=x=>x*Math.PI/180,dl=t(c-a),dn=t(d-b),h=Math.sin(dl/2)**2+Math.cos(t(a))*Math.cos(t(c))*Math.sin(dn/2)**2;return Math.round(2*R*Math.asin(Math.sqrt(h)))};
+let GSIM="site";
+function getFix(site){ // returns a Promise of {lat,lng,acc} — real GPS when the browser has it, otherwise the preview simulator
+  return new Promise(res=>{
+    const sim=()=>{const x=SITES[site]; if(GSIM==="none")return res(null);
+      const off=GSIM==="site"?[0.0003,0.0002,25]:GSIM==="near"?[0.0028,0.0014,30]:[0.045,0.025,40];
+      res({lat:x.lat+off[0],lng:x.lng+off[1],acc:off[2],sim:true})};
+    if(typeof navigator!=="undefined"&&navigator.geolocation&&!/jsdom/i.test(navigator.userAgent)&&GSIM==="site"){
+      navigator.geolocation.getCurrentPosition(p=>res({lat:p.coords.latitude,lng:p.coords.longitude,acc:Math.round(p.coords.accuracy)}),()=>sim(),{timeout:6000,maximumAge:0,enableHighAccuracy:true})}
+    else sim()})}
+const nowHM=()=>{const d=new Date(); return String(d.getHours()).padStart(2,"0")+":"+String(d.getMinutes()).padStart(2,"0")};
+const IDRf=n=>"Rp "+Number(n||0).toLocaleString("en-US");
+let ME2=null;
+function aspcList(){const sel=document.getElementById("whoami2"), cur=sel.value;
+  sel.innerHTML=P.filter(p=>p.lv>=3&&!p.placeholder).sort((a,b)=>a.lv-b.lv||a.n.localeCompare(b.n)).map(p=>'<option value="'+p.id+'">'+p.n+' · '+LEVELS[p.lv]+'</option>').join("");
+  if([...sel.options].some(o=>o.value===cur)&&cur)sel.value=cur;
+  else {const t=P.find(p=>p.lv>=6&&["am","pm"].includes((MONTH[p.id]||{})[HTODAY])&&!(CHECK[p.id]||{})[HTODAY])
+           ||P.find(p=>p.lv>=6&&(CHECK[p.id]||{})[HTODAY]); if(t)sel.value=t.id}
+  ME2=by(+sel.value)}
+function pickState(kind){
+  const has=p=>(CHECK[p.id]||{})[HTODAY], sub=p=>aspcOf(p.id,HTODAY);
+  const t=kind==="before"?P.find(p=>p.lv>=6&&["am","pm"].includes((MONTH[p.id]||{})[HTODAY])&&!has(p))
+        :kind==="during"?P.find(p=>p.lv>=6&&has(p)&&!sub(p))
+        :P.find(p=>p.lv>=6&&has(p)&&sub(p));
+  if(!t){if(typeof flash==="function")flash("Nobody is in that state right now.");return}
+  document.getElementById("whoami2").value=t.id; ME2=t; renderASPC();
+  document.querySelectorAll(".cstate").forEach(b=>b.classList.toggle("on",b.dataset.k===kind));
+}
+let CIO={};   // per-person draft: {step,fix,photo,site,slot}
+function todaysShift(pid){
+  const a=A.find(x=>x.pid===pid&&x.w===WK&&WEEKS[WK].dates[x.d]===HTODAY);
+  if(a)return {site:a.s,slot:a.slot,from:"roster"};
+  const v=(MONTH[pid]||{})[HTODAY];
+  if(v==="am"||v==="pm"){const p=by(pid); const guess=SITES.findIndex(x=>x.c===p.c&&x.loc); return {site:guess,slot:v,from:"month"}}
+  return null;
+}
+function renderASPC(){
+  aspcList(); if(!ME2)return;
+  const app=document.getElementById("aspcApp"), c=(CHECK[ME2.id]||{})[HTODAY], done=aspcOf(ME2.id,HTODAY);
+  const st=CIO[ME2.id]=CIO[ME2.id]||{};
+  const sh=todaysShift(ME2.id);
+  if(st.site==null&&!c)st.site=sh?sh.site:SITES.findIndex(x=>x.c===ME2.c&&x.loc);
+  if(!st.slot&&!c)st.slot=sh?sh.slot:"am";
+  const site=c?SITES[c.site]:SITES[st.site];
+  const dist=st.fix?distM(st.fix.lat,st.fix.lng,site.lat,site.lng):null;
+  const inside=st.fix?dist<=site.radius+st.fix.acc:false;
+  const far=d=>d>=1000?(d/1000).toFixed(1)+" km":d+" m";
+  let h='<div class="pbar"><b>'+ME2.n.split(" ")[0]+'</b><span>'+TODAY_LABEL+'</span></div>';
+
+  /* ================= A. not checked in ================= */
+  if(!c){
+    h+='<div class="hero in"><span class="lbl">'+(sh?(sh.from==="roster"?"YOU'RE ROSTERED TODAY":"YOU'RE WORKING TODAY"):"NOT ON THE ROSTER TODAY")+'</span>'+
+       '<b>'+site.n+'</b><div class="place">'+st.slot.toUpperCase()+' shift · '+hrs(site,st.slot)+'</div>'+
+       '<button class="heroedit" id="wrongsite">Wrong site or shift?</button></div>';
+    if(!st.step){
+      h+='<div class="bigact"><button class="hugebtn in" id="startIn"><span class="hbt">Check in</span><small>location + photo, takes 10 seconds</small></button></div>'+
+         '<p class="steplist">1 · your location  ·  2 · photo at the booth  ·  3 · confirm</p>';
+    } else {
+      h+=stepsBar(st.step)+'<div class="ciosteps">';
+      if(st.step==="loc") h+= st.fix===undefined
+        ? '<div class="ciorow busy"><i>📍</i><span><b>Finding you…</b><small>hold still for a moment</small></span><button class="minibtn" id="retry">Retry</button></div>'
+        : st.fix===null
+          ? '<div class="ciorow bad"><i>📍</i><span><b>No GPS signal</b><small>step outside or near a window, then try again</small></span><button class="minibtn" id="retry">Retry</button></div>'
+          : '<div class="ciorow '+(inside?"ok":"warn")+'"><i>📍</i><span><b>'+(inside?"You\'re at "+site.n:"You\'re not at "+site.n)+'</b><small>'+far(dist)+' away · accurate to ±'+st.fix.acc+' m'+(inside?"":" · your leader is told")+'</small></span><button class="minibtn" id="retry">Again</button></div>';
+      if(st.step==="photo") h+='<div class="ciorow ok"><i>📍</i><span><b>'+(inside?"At "+site.n:far(dist)+" from "+site.n)+'</b><small>location saved</small></span></div>'+
+        '<button class="photobtn" id="snap"><i>📷</i><b>Take the photo</b><small>you and the booth — the camera opens, no gallery</small></button>';
+      if(st.step==="confirm") h+='<div class="ciorow ok"><i>📍</i><span><b>'+(inside?"At "+site.n:far(dist)+" from "+site.n)+'</b><small>±'+st.fix.acc+' m</small></span></div>'+
+        '<div class="ciorow ok"><i>📷</i><span><b>Photo taken '+st.photo+'</b><small>ready to send</small></span></div>';
+      h+='</div>';
+      if(st.step==="confirm") h+='<div class="bigact"><button class="hugebtn in" id="doIn"><span class="hbt">Confirm check in · '+nowHM()+'</span><small>'+site.n+' · '+st.slot.toUpperCase()+' shift</small></button>'+
+        '<button class="linkbtn" id="cancel">Cancel</button></div>';
+      else if(st.step==="loc"&&st.fix) h+='<div class="bigact"><button class="hugebtn in" id="next">Next · take the photo</button><button class="linkbtn" id="cancel">Cancel</button></div>';
+      else h+='<div class="bigact"><button class="linkbtn" id="cancel">Cancel</button></div>';
+    }
+  }
+  /* ================= B. checked in ================= */
+  else if(!done){
+    if(st.justIn) h+='<div class="okbanner"><i>✓</i><div><b>You\'re checked in</b><span>'+c.in+' at '+site.n+(c.gps&&c.gps.inside?' · location confirmed':'')+'</span></div></div>';
+    h+='<div class="hero '+(st.justIn?"ok":c.slot)+'"><span class="lbl">'+(st.justIn?"✓ CHECKED IN "+c.in:"CHECKED IN "+c.in)+'</span><b>'+site.n+'</b>'+
+       '<div class="place">'+c.slot.toUpperCase()+' shift '+hrs(site,c.slot)+(c.gps?(c.gps.inside?' · at the site':' · '+far(c.gps.dist)+' away'):'')+'</div></div>';
+    const v=Object.assign({a:0,s:0,p:0,sales:[],training:false},ASPC_DRAFT[ME2.id]||{});
+    if(!st.step){
+      h+='<div class="calhead"><b>Your numbers for today</b><span>fill these in, then check out</span></div>'+
+         '<label class="chk trainrow"><input type="checkbox" id="atrain"'+(v.training?" checked":"")+'> I was in a training session today</label>'+
+         '<div class="aspcform'+(v.training?" off":"")+'">'+
+         [["a","A","Approaches"],["s","S","Stops"],["p","P","Presentations"]].map(([k,l,t])=>
+           '<div class="arow"><i>'+l+'</i><span>'+t+'</span><div class="stepper"><button data-k="'+k+'" data-dir="-1">−</button><input id="a_'+k+'" inputmode="numeric" value="'+v[k]+'"><button data-k="'+k+'" data-dir="1">+</button></div></div>').join("")+
+         '<div class="arow crow"><i>C</i><span>Sign-ups <small>one row each</small></span><b id="ccount">'+v.sales.length+'</b></div>'+
+         '<div id="sales">'+v.sales.map((z,i)=>saleRow(z,i)).join("")+'</div>'+
+         '<button class="addsale" id="addsale">＋ Add a sign-up</button></div>'+
+         '<div class="says" id="acheck"></div>'+
+         '<div class="bigact"><button class="hugebtn out" id="startOut"><span class="hbt">Check out</span><small>location + photo, then done</small></button></div>'+
+         '<p class="steplist" id="outnote">1 · your location  ·  2 · photo at the booth  ·  3 · confirm</p>';
+    } else {
+      h+=stepsBar(st.step)+'<div class="ciosteps">';
+      if(st.step==="loc") h+= st.fix===undefined?'<div class="ciorow busy"><i>📍</i><span><b>Finding you…</b><small>hold still</small></span><button class="minibtn" id="retry">Retry</button></div>'
+        : st.fix===null?'<div class="ciorow bad"><i>📍</i><span><b>No GPS signal</b><small>step outside, then retry</small></span><button class="minibtn" id="retry">Retry</button></div>'
+        : '<div class="ciorow '+(inside?"ok":"warn")+'"><i>📍</i><span><b>'+(inside?"You\'re at "+site.n:"You\'re not at "+site.n)+'</b><small>'+far(dist)+' away · ±'+st.fix.acc+' m</small></span><button class="minibtn" id="retry">Again</button></div>';
+      if(st.step==="photo") h+='<div class="ciorow ok"><i>📍</i><span><b>'+(inside?"At "+site.n:far(dist)+" from "+site.n)+'</b><small>location saved</small></span></div>'+
+        '<button class="photobtn" id="snap"><i>📷</i><b>Take the photo</b><small>you and the booth</small></button>';
+      if(st.step==="confirm"){const sum=ASPC_DRAFT[ME2.id]||{};
+        h+='<div class="ciorow ok"><i>📍</i><span><b>'+(inside?"At "+site.n:far(dist)+" from "+site.n)+'</b><small>±'+st.fix.acc+' m</small></span></div>'+
+        '<div class="ciorow ok"><i>📷</i><span><b>Photo taken '+st.photo+'</b></small></span></div>'+
+        '<div class="ciorow ok"><i>✅</i><span><b>'+(sum.training?"Training session":"A "+sum.a+" · S "+sum.s+" · P "+sum.p+" · C "+(sum.sales||[]).length)+'</b><small>'+(sum.training?"no numbers needed":"sent to your leader")+'</small></span></div>'}
+      h+='</div>';
+      if(st.step==="confirm") h+='<div class="bigact"><button class="hugebtn out" id="doOut"><span class="hbt">Confirm check out · '+nowHM()+'</span><small>that\'s your shift finished</small></button><button class="linkbtn" id="cancel">Back</button></div>';
+      else if(st.step==="loc"&&st.fix) h+='<div class="bigact"><button class="hugebtn out" id="next">Next · take the photo</button><button class="linkbtn" id="cancel">Back</button></div>';
+      else h+='<div class="bigact"><button class="linkbtn" id="cancel">Back</button></div>';
+    }
+  }
+  /* ================= C. done ================= */
+  else {
+    if(st.justOut) h+='<div class="okbanner"><i>✓</i><div><b>You\'re checked out</b><span>'+c.out+' · numbers sent to '+(by(ME2.to)?by(ME2.to).n.split(" ")[0]:"your leader")+'</span></div></div>';
+    h+='<div class="hero done"><span class="lbl">✓ DONE FOR TODAY</span><b>'+site.n+'</b><div class="place">In '+c.in+' · out '+c.out+'</div></div>'+
+       '<div class="calhead"><b>Submitted</b><span>Tell your leader if anything is wrong.</span></div>'+
+       '<div class="aspcsum">'+(done.training?'<div class="say plain">Training session — no numbers required.</div>':
+         [["Approaches",done.a],["Stops",done.s],["Presentations",done.p],["Sign-ups",done.c],["Value",IDRf((done.sales||[]).reduce((n,z)=>n+z.amount,0))],["CC / DD · <30",done.cc+" / "+done.dd+" · "+done.u30y]].map(([l,x])=>'<div><span>'+l+'</span><b>'+x+'</b></div>').join(""))+'</div>';
+  }
+  app.innerHTML=h;
+  const g=id=>app.querySelector("#"+id);
+  const locate=()=>{st.fix=undefined; st.step="loc"; renderASPC(); getFix(c?c.site:st.site).then(f=>{st.fix=f; renderASPC()})};
+  if(g("cancel"))g("cancel").onclick=()=>{st.step=null; st.fix=undefined; st.photo=null; renderASPC()};
+  if(g("retry"))g("retry").onclick=locate;
+  if(g("next"))g("next").onclick=()=>{st.step="photo"; renderASPC()};
+  if(g("snap"))g("snap").onclick=()=>{st.photo=nowHM(); st.step="confirm"; renderASPC()};
+  if(g("wrongsite"))g("wrongsite").onclick=()=>siteSheet(st);
+  if(g("startIn"))g("startIn").onclick=locate;
+  if(g("doIn"))g("doIn").onclick=()=>{
+    CHECK[ME2.id]=CHECK[ME2.id]||{}; CHECK[ME2.id][HTODAY]={in:nowHM(),out:null,site:st.site,slot:st.slot,valid:false,cleared:false,gps:{lat:st.fix.lat,lng:st.fix.lng,acc:st.fix.acc,dist,inside},photoIn:st.photo};
+    log(inside?"push":"warn",ME2.n+" checked in at "+site.n+(inside?"":" — "+far(dist)+" from the site"),"GPS ±"+st.fix.acc+" m · photo "+st.photo);
+    CIO[ME2.id]={justIn:nowHM()}; renderASPC(); if(typeof renderHR==="function")renderHR(); if(typeof renderF2F==="function")renderF2F()};
+
+  /* ASPC form wiring (only on the numbers screen) */
+  if(c&&!done&&!st.step){
+    const readSales=()=>[...app.querySelectorAll(".sale")].map(r=>({amount:+String(r.querySelector(".amt").value).replace(/\D/g,"")||0,cc:r.querySelector(".cc.on")!=null,u30:r.querySelector(".u30.on")!=null}));
+    const read=()=>{const o={a:Math.max(0,+g("a_a").value||0),s:Math.max(0,+g("a_s").value||0),p:Math.max(0,+g("a_p").value||0),sales:readSales(),training:g("atrain").checked}; ASPC_DRAFT[ME2.id]=o; return o};
+    const check=()=>{const v=read(), errs=[], n=v.sales.length;
+      if(!v.training){if(v.a<1)errs.push("Enter your approaches first."); if(v.s>v.a)errs.push("Stops can't be more than approaches."); if(v.p>v.s)errs.push("Presentations can't be more than stops."); if(n>v.p)errs.push("You have "+n+" sign-ups but only "+v.p+" presentations.");
+        v.sales.forEach((z,i)=>{if(!z.amount)errs.push("Sign-up "+(i+1)+": enter the amount.")})}
+      const val=v.sales.reduce((x,z)=>x+z.amount,0);
+      g("acheck").innerHTML=errs.map(e=>'<div class="say stop">'+e+'</div>').join("")+(v.training?'<div class="say plain">Training day — numbers not required.</div>':n?'<div class="say done">'+n+' sign-up'+(n>1?"s":"")+' · '+IDRf(val)+'</div>':'');
+      app.querySelector(".aspcform").classList.toggle("off",v.training); g("ccount").textContent=n;
+      g("startOut").disabled=errs.length>0; g("outnote").textContent=errs.length?"Fix the numbers above to check out.":"1 · your location  ·  2 · photo at the booth  ·  3 · confirm";
+      return errs.length===0};
+    const wire=()=>{
+      app.querySelectorAll(".stepper button").forEach(b=>b.onclick=()=>{const i=g("a_"+b.dataset.k); i.value=Math.max(0,(+i.value||0)+ +b.dataset.dir); check()});
+      app.querySelectorAll(".aspcform input").forEach(i=>{i.oninput=check}); g("atrain").oninput=check;
+      app.querySelectorAll(".sale .tog").forEach(b=>b.onclick=()=>{const grp=b.dataset.g; b.closest(".sale").querySelectorAll(".tog[data-g='"+grp+"']").forEach(x=>x.classList.toggle("on",x===b)); check()});
+      app.querySelectorAll(".sale .rm").forEach(b=>b.onclick=()=>{b.closest(".sale").remove(); [...app.querySelectorAll(".sale")].forEach((r,i)=>r.querySelector(".sn").textContent=i+1); check()})};
+    g("addsale").onclick=()=>{g("sales").insertAdjacentHTML("beforeend",saleRow({amount:195000,cc:true,u30:false},app.querySelectorAll(".sale").length)); wire(); check(); const last=[...app.querySelectorAll(".sale .amt")].pop(); if(last)last.focus()};
+    wire(); check();
+    g("startOut").onclick=()=>{if(!check())return; locate()};
+  }
+  if(g("doOut"))g("doOut").onclick=()=>{const v=ASPC_DRAFT[ME2.id]||{a:0,s:0,p:0,sales:[],training:false}, sales=v.training?[]:(v.sales||[]);
+    ASPC.push({pid:ME2.id,d:HTODAY,site:c.site,a:v.a,s:v.s,p:v.p,c:sales.length,cc:sales.filter(z=>z.cc).length,dd:sales.filter(z=>!z.cc).length,u30y:sales.filter(z=>z.u30).length,u30n:sales.filter(z=>!z.u30).length,sales,training:v.training});
+    c.out=nowHM(); c.gpsOut={lat:st.fix.lat,lng:st.fix.lng,acc:st.fix.acc,dist,inside}; c.photoOut=st.photo; delete ASPC_DRAFT[ME2.id]; CIO[ME2.id]={justOut:c.out};
+    if(isTrainee(ME2))ME2.signups=ASPC.filter(z=>z.pid===ME2.id).reduce((n,z)=>n+z.c,0);
+    log(inside?"push":"warn",ME2.n+" checked out"+(inside?"":" — "+far(dist)+" from the site"),"A "+v.a+" · S "+v.s+" · P "+v.p+" · C "+sales.length+(v.training?" · training":""));
+    renderASPC(); if(typeof renderHR==="function")renderHR(); if(typeof renderF2F==="function")renderF2F()};
+}
+function stepsBar(step){const s=["loc","photo","confirm"], l=["Location","Photo","Confirm"], i=s.indexOf(step);
+  return '<div class="stepsbar">'+l.map((x,n)=>'<span class="sp '+(n<i?"done":n===i?"now":"")+'"><i>'+(n<i?"✓":n+1)+'</i>'+x+'</span>').join("")+'</div>'}
+function siteSheet(st){
+  const sc=document.createElement("div"); sc.className="scrim sheetwrap";
+  sc.innerHTML='<div class="sheet2"><div class="grab"></div><h3>Where are you working?</h3><p class="sub">Your leader sees any change.</p>'+
+    '<p class="q">Site</p><div class="cands">'+SITES.map((x,i)=>x.loc?'<button class="cand'+(i===st.site?" on":"")+'" data-s="'+i+'"><b>'+x.n+'</b><small>'+x.addr+' · AM '+x.am[0]+' · PM '+x.pm[0]+'</small></button>':'').join("")+'</div>'+
+    '<p class="q">Shift</p><div class="tg"><button class="tog'+(st.slot==="am"?" on":"")+'" data-slot="am">AM</button><button class="tog'+(st.slot==="pm"?" on":"")+'" data-slot="pm">PM</button></div>'+
+    '<button class="bigsend" id="sdone">Done</button><button class="cancel2">Cancel</button></div>';
+  sc.querySelectorAll(".cand").forEach(b=>b.onclick=()=>{st.site=+b.dataset.s; sc.querySelectorAll(".cand").forEach(x=>x.classList.toggle("on",x===b))});
+  sc.querySelectorAll("[data-slot]").forEach(b=>b.onclick=()=>{st.slot=b.dataset.slot; sc.querySelectorAll("[data-slot]").forEach(x=>x.classList.toggle("on",x===b))});
+  sc.querySelector("#sdone").onclick=()=>{st.fix=undefined; sc.remove(); renderASPC()};
+  sc.querySelector(".cancel2").onclick=()=>sc.remove();
+  document.body.appendChild(sc);
+}
+function saleRow(z,i){return '<div class="sale"><div class="salehead"><b>Sign-up <span class="sn">'+(i+1)+'</span></b><button class="rm" title="Remove">×</button></div>'+
+  '<div class="saleamt"><span>Rp</span><input class="amt" inputmode="numeric" value="'+(z.amount||195000)+'"></div>'+
+  '<div class="saletogs"><div class="tg"><button class="tog cc'+(z.cc?" on":"")+'" data-g="pay">Credit card</button><button class="tog dd'+(z.cc?"":" on")+'" data-g="pay">Debit card</button></div>'+
+  '<div class="tg"><button class="tog u30'+(z.u30?" on":"")+'" data-g="age">Under 30</button><button class="tog o30'+(z.u30?"":" on")+'" data-g="age">30 or over</button></div></div></div>'}
+function todayTable(scope){
+  let rows=monthRows().filter(r=>(CHECK[r.p.id]||{})[HTODAY]);
+  if(scope&&scope!=="all")rows=rows.filter(r=>r.p.id===+scope||isDesc(+scope,r.p.id));
+  const tot={a:0,s:0,p:0,c:0,cc:0,dd:0,u30y:0,u30n:0,val:0};
+  let t='<table class="atab"><tr><th>Name</th><th>Where</th><th>In</th><th class="r">A</th><th class="r">S</th><th class="r">P</th><th class="r">C</th><th class="r">Avg value</th><th class="r">CC / DD</th><th class="r">&lt;30 Y / N</th><th>Status</th></tr>';
+  rows.forEach(r=>{const p=r.p, ck=CHECK[p.id][HTODAY], x=aspcOf(p.id,HTODAY), val=x?(x.sales||[]).reduce((n,z)=>n+z.amount,0):0;
+    if(x&&!x.training){Object.keys(tot).forEach(k=>{if(k!=="val")tot[k]+=x[k]}); tot.val+=val}
+    const gpsTag=ck.gps?(ck.gps.inside?'<span class="gtag ok" title="inside the geofence">📍</span>':'<span class="gtag bad" title="'+(ck.gps.dist>=1000?(ck.gps.dist/1000).toFixed(1)+' km':ck.gps.dist+' m')+' from the site">📍 '+(ck.gps.dist>=1000?(ck.gps.dist/1000).toFixed(1)+'km':ck.gps.dist+'m')+'</span>'):'';
+    t+='<tr class="'+(x?(x.training?"train":"done"):"open")+'"><td style="padding-left:'+(6+r.depth*8)+'px"><b>'+p.n+'</b><small>'+LEVELS[p.lv]+'</small></td><td>'+SITES[ck.site].n+'</td><td>'+ck.in+' '+gpsTag+'</td>'+
+       (x&&!x.training?'<td class="r">'+x.a+'</td><td class="r">'+x.s+'</td><td class="r">'+x.p+'</td><td class="r"><b>'+x.c+'</b></td><td class="r">'+(x.c?IDRx(val/x.c):"–")+'</td><td class="r">'+x.cc+' / '+x.dd+'</td><td class="r">'+x.u30y+' / '+x.u30n+'</td>':'<td class="r dim" colspan="7">'+(x?"training session":"—")+'</td>')+
+       '<td>'+(x?(x.training?'<span class="st tr">training · out '+ck.out+'</span>':'<span class="st ok">out '+ck.out+'</span>'):'<span class="st wait">still in · no ASPC</span>')+'</td></tr>'});
+  t+='<tr class="totrow"><td colspan="3">'+rows.length+' checked in · '+rows.filter(r=>aspcOf(r.p.id,HTODAY)).length+' submitted</td><td class="r">'+tot.a+'</td><td class="r">'+tot.s+'</td><td class="r">'+tot.p+'</td><td class="r"><b>'+tot.c+'</b></td><td class="r">'+IDRx(tot.val)+'</td><td class="r">'+tot.cc+' / '+tot.dd+'</td><td class="r">'+tot.u30y+' / '+tot.u30n+'</td><td></td></tr></table>';
+  return t;
+}
+const ASPC_DRAFT={};
+document.getElementById("whoami2").onchange=e=>{ME2=by(+e.target.value);renderASPC();
+  const c=(CHECK[ME2.id]||{})[HTODAY], k=!c?"before":aspcOf(ME2.id,HTODAY)?"done":"during";
+  document.querySelectorAll(".cstate").forEach(b=>b.classList.toggle("on",b.dataset.k===k))};
+document.querySelectorAll(".cstate").forEach(b=>b.onclick=()=>pickState(b.dataset.k));
+document.querySelectorAll(".gsim").forEach(b=>b.onclick=()=>{document.querySelectorAll(".gsim").forEach(x=>x.classList.toggle("on",x===b)); GSIM=b.dataset.g;
+  const st=ME2?CIO[ME2.id]:null;
+  if(st&&st.step==="loc"){const c=(CHECK[ME2.id]||{})[HTODAY]; st.fix=undefined; renderASPC(); getFix(c?c.site:st.site).then(f=>{st.fix=f; renderASPC()})}
+  else renderASPC()});
+
+/* ======================= F2F DASHBOARD ======================= */
+let FPER="yday"; const FOPEN=new Set(), FBOPEN=new Set(); let FINIT=false;
+const fdays=()=>FPER==="today"?[HTODAY]:FPER==="yday"?[HTODAY-1]:FPER==="week"?WEEKS[WK].dates.filter((x,i)=>WEEKS[WK].mon[i]===9&&x<=HTODAY):Array.from({length:HTODAY},(_,i)=>i+1);
+function fsum(list){const o={a:0,s:0,p:0,c:0,cc:0,dd:0,u30y:0,u30n:0,val:0,n:new Set(),days:0}; list.forEach(x=>{if(x.training)return; ["a","s","p","c","cc","dd","u30y","u30n"].forEach(k=>o[k]+=x[k]); o.val+=(x.sales||[]).reduce((n,z)=>n+(z.amount||0),0); o.n.add(x.pid); o.days++}); o.fr=o.n.size; return o}
+const pct=(a,b)=>b?Math.round(a/b*100):0;
+const ftarget=m=>m==="srate"?+document.getElementById("tS").value:m==="prate"?+document.getElementById("tP").value:m==="crate"?+document.getElementById("tC").value:null;
+const HISTW=[{k:"a1",l:"17–23 Aug",end:new Date(2026,7,23)},{k:"a2",l:"24–30 Aug",end:new Date(2026,7,30)}];
+const HIST={};
+(function seedHist(){let r=77;const rnd=()=>((r=r*16807%2147483647)/2147483647);
+  P.filter(p=>p.lv>=6&&!p.placeholder).forEach(p=>{const st=p.start?new Date(p.start):null;
+    HIST[p.id]={}; const base=3+rnd()*18;
+    HISTW.forEach((h,i)=>{if(st&&st>h.end)return; HIST[p.id][h.k]=Math.max(1,Math.round((base+i*1.4+(rnd()-.5)*4)*10)/10)})})})();
+const BUCKETS=[{k:0,l:"0–9 presentations",s:"bucket 1",c:"b1"},{k:1,l:"10–19 presentations",s:"bucket 2",c:"b2"},{k:2,l:"20+ presentations",s:"bucket 3",c:"b3"}];
+const bucketOf=avg=>avg>=20?2:avg>=10?1:0;
+function avgP(pid,days){const rs=ASPC.filter(x=>x.pid===pid&&days.includes(x.d)&&!x.training); return rs.length?rs.reduce((n,x)=>n+x.p,0)/rs.length:null}
+const weekDays=wi=>WEEKS[wi].dates.filter((x,i)=>WEEKS[wi].mon[i]===9&&x<=HTODAY);
+const weekEnd=wi=>{const dd=WEEKS[wi].dates, mo=WEEKS[wi].mon; return new Date(2026,mo[6]-1,dd[6])};
+const dayTarget=(o)=>o.fr*2;                                    // team target = fundraisers working × 2
+const under=id=>{const ids=new Set([id]); const walk=x=>kidsOf(x).forEach(k=>{ids.add(k.id);walk(k.id)}); walk(id); return ids};
+function renderF2F(){
+  const camp=document.getElementById("fcamp").value, days=fdays();
+  const tS=ftarget("srate"), tP=ftarget("prate"), tC=ftarget("crate");
+  const people=[...P.filter(p=>p.lv>=1&&!p.placeholder),...RESIGNED.map(x=>x.p)].filter(p=>camp==="all"||p.c===camp);
+  const pids=new Set(people.map(p=>p.id));
+  const rows=ASPC.filter(x=>days.includes(x.d)&&pids.has(x.pid));
+  const byPid={}; rows.forEach(x=>{(byPid[x.pid]=byPid[x.pid]||[]).push(x)});
+  const all=fsum(rows), per={today:"today so far",yday:"yesterday",week:"this week",month:"in September"}[FPER];
+  document.getElementById("fnote").textContent=FPER==="today"?"Numbers arrive at check-out, so today fills in through the evening.":FPER==="yday"?"Yesterday is the latest complete day.":"";
+  /* KPIs */
+  document.getElementById("fkpis").innerHTML=
+    [[all.a,"Approaches",all.fr+" fundraisers "+per,""],[all.s,"Stops",pct(all.s,all.a)+"% stop rate · target "+tS+"%",pct(all.s,all.a)>=tS?"good":"warn"],
+     [all.p,"Presentations",pct(all.p,all.s)+"% presentation rate · target "+tP+"%",pct(all.p,all.s)>=tP?"good":"warn"],
+     [all.c,"Sign-ups",pct(all.c,all.p)+"% close rate · target "+tC+"%",pct(all.c,all.p)>=tC?"good":"warn"],
+     [(all.fr?(all.p/all.days).toFixed(1):"–"),"Presentations per person","target 20 a day · "+all.days+" shifts",all.days&&all.p/all.days>=20?"good":"warn"],
+     [IDR(all.val),"Sales value",all.c?"avg "+IDRx(all.val/all.c)+" per sign-up":"—",""],
+     [pct(all.cc,all.c)+"% · "+pct(all.u30y,all.c)+"%","Credit card · Under 30",all.cc+" CC / "+all.dd+" DD",""]]
+    .map(([n,l,sub,cls])=>'<div class="kpi'+(cls?" "+cls:"")+'"><b>'+n+'</b><span>'+l+'</span><small>'+sub+'</small></div>').join("");
+  /* team tree */
+  if(!FINIT){P.filter(p=>p.lv>=1&&p.lv<=2).forEach(p=>FOPEN.add(p.id)); FINIT=true}
+  const agg=id=>{const ids=under(id); return fsum(rows.filter(x=>ids.has(x.pid)))};
+  const pp=o=>{const v=o.days?o.p/o.days:0, w=Math.min(100,v/20*100);
+    return '<td class="r rate pp"><div class="mini"><i class="'+(v>=20?"ok":v>=10?"mid":"bad")+'" style="width:'+w+'%"></i></div><b class="'+(v>=20?"okc":v>=10?"wc":"rc")+'">'+(o.days?v.toFixed(1):"–")+'</b></td>'};
+  const rate=(v,t)=>'<td class="r rate"><div class="mini"><i class="'+(v>=t?"ok":"bad")+'" style="width:'+Math.min(100,v)+'%"></i></div><b class="'+(v>=t?"okc":"wc")+'">'+v+'%</b></td>';
+  let t='<table class="ftree"><colgroup><col style="width:236px"><col style="width:36px"><col style="width:44px"><col style="width:44px"><col style="width:44px"><col style="width:38px"><col style="width:132px"><col style="width:46px"><col style="width:46px"><col style="width:72px"><col style="width:56px"><col style="width:112px"><col style="width:112px"></colgroup>'+
+    '<tr><th>Team / name</th><th class="r">FR</th><th class="r">A</th><th class="r">S</th><th class="r">P</th><th class="r">C</th><th>P per person <small>target 20</small></th><th class="r">&lt;30</th><th class="r">CC</th><th class="r">Avg value</th><th class="r">vs target</th><th>Present rate</th><th>Close rate</th></tr>';
+  const line=(p,depth,o,isPerson,hasKids)=>{const ck=isPerson?(CHECK[p.id]||{})[HTODAY]:null, sub=aspcOf(p.id,HTODAY);
+    return '<tr class="'+(isPerson?"person":"team lv"+p.lv)+(o.a?"":" quiet")+'" data-p="'+p.id+'" style="--d:'+depth+'"><td class="nm">'+
+      (hasKids?'<span class="caret" data-t="'+p.id+'">'+(FOPEN.has(p.id)?"▾":"▸")+'</span>':'<span class="caret sp"></span>')+
+      '<b>'+p.n+'</b>'+(isPerson||p.id<0?'':'<button class="peek" title="See this leader\'s own card">↗</button>')+'<small>'+LEVELS[p.lv]+(isPerson?(FPER==="today"?(ck?(sub?(sub.training?" · training":" · out "+ck.out):" · in "+ck.in+", no ASPC yet"):" · not in today"):(o.days?"":" · no shift "+per)):"")+'</small></td>'+
+      '<td class="r">'+(isPerson?"":o.fr)+'</td><td class="r">'+o.a+'</td><td class="r">'+o.s+'</td><td class="r">'+o.p+'</td><td class="r"><b>'+o.c+'</b></td>'+
+      pp(o)+
+      '<td class="r">'+(o.c?pct(o.u30y,o.c)+'%':'–')+'</td><td class="r">'+(o.c?pct(o.cc,o.c)+'%':'–')+'</td>'+
+      '<td class="r">'+(o.c?IDRx(o.val/o.c):"–")+'</td>'+
+      '<td class="r'+(o.days?(o.c>=o.days*2?" okc":" wc"):"")+'">'+(o.days?Math.round(o.c/(o.days*2)*100)+'%':'–')+'</td>'+
+      rate(pct(o.p,o.s),tP)+rate(pct(o.c,o.p),tC)+'</tr>'};
+  t+=line({id:-1,n:"Everyone",lv:0,c:null},0,all,false,false).replace('class="team lv0','class="team total').replace('<span class="caret sp"></span>','').replace("<small>Head</small>","<small>"+all.fr+" fundraisers · "+per+"</small>");
+  const walk=(id,depth)=>{kidsOf(id).filter(k=>!k.placeholder&&(camp==="all"||k.c===camp)).sort((a,b)=>a.lv-b.lv||a.n.localeCompare(b.n)).forEach(k=>{
+    const kids=kidsOf(k.id).filter(x=>!x.placeholder); const isPerson=k.lv>=6;
+    t+=line(k,depth,isPerson?fsum(byPid[k.id]||[]):agg(k.id),isPerson,kids.length>0);
+    if(kids.length&&FOPEN.has(k.id))walk(k.id,depth+1)})};
+  walk(P.find(p=>p.lv===0).id,0);
+  document.getElementById("ftree").innerHTML=t+'</table>';
+  document.getElementById("fteamSub").textContent=per+" · totals include everyone underneath";
+  document.querySelectorAll("#ftree tr.team[data-p]").forEach(r=>{const id=+r.dataset.p; if(id<0)return;
+    if(r.querySelector(".caret[data-t]"))r.onclick=e=>{if(e.target.closest(".peek"))return; FOPEN.has(id)?FOPEN.delete(id):FOPEN.add(id); renderF2F()};
+    const pk=r.querySelector(".peek"); if(pk)pk.onclick=e=>{e.stopPropagation(); personBox(id)}});
+  document.querySelectorAll("#ftree tr.person").forEach(r=>r.onclick=()=>personBox(+r.dataset.p));
+  /* ===== presentation buckets: compact — one dot per week per fundraiser ===== */
+  const fbt=document.getElementById("fbteam");
+  if(!fbt.options.length){fbt.innerHTML='<option value="all">All teams</option>'+P.filter(p=>p.lv>=1&&p.lv<=5&&!p.placeholder).sort((a,b)=>a.lv-b.lv||a.n.localeCompare(b.n)).map(x=>'<option value="'+x.id+'">'+LEVELS[x.lv]+' — '+x.n+'</option>').join("")}
+  const scopeId=fbt.value==="all"?null:+fbt.value;
+  const liveW=[0,1,2,3,4].filter(wi=>weekDays(wi).length);
+  const cols=[...HISTW.map(h=>({hist:h.k,label:h.l,end:h.end})),
+              ...liveW.map(wi=>({wi,label:WEEKS[wi].label,end:weekEnd(wi)}))].slice(-5);
+  const frAll=P.filter(p=>p.lv>=6&&!p.placeholder&&(camp==="all"||p.c===camp)&&(scopeId==null||under(scopeId).has(p.id)));
+  const colAvg=(pid,col)=>col.hist?((HIST[pid]||{})[col.hist]??null):avgP(pid,weekDays(col.wi));
+  const dot=(v,joined)=>v==null?'<i class="bd none" title="'+(joined?"no shifts that week":"not with us yet")+'">'+(joined?"·":"N/A")+'</i>':'<i class="bd b'+(bucketOf(v)+1)+'" title="'+v.toFixed(1)+' presentations a day">'+(bucketOf(v)+1)+'</i>';
+
+  const groups={}; frAll.forEach(p=>{const tl=by(p.to); const key=tl?tl.id:0; (groups[key]=groups[key]||{tl,list:[]}).list.push(p)});
+  const order=Object.values(groups).sort((a,b)=>(a.tl?a.tl.n:"").localeCompare(b.tl?b.tl.n:""));
+  const latest=cols[cols.length-1], nowB=[0,0,0]; frAll.forEach(p=>{const v=colAvg(p.id,latest); if(v!=null)nowB[bucketOf(v)]++});
+  const openAll=scopeId!=null&&by(scopeId).lv>=4;                    // a chosen STL/TL shows their people straight away
+  let bh='<div class="bkline">'+BUCKETS.map((b,i)=>'<span class="bkc '+b.c+'"><b>'+nowB[i]+'</b>'+b.s.replace("bucket ","")+'</span>').join("")+'<span class="bkhead">'+cols.map(c=>c.label.split(/\s*–\s*/)[0]).join(" · ")+'</span></div>';
+  order.forEach(g=>{
+    const rows=g.list.map(p=>{const st=p.start?new Date(p.start):null; const vals=cols.map(col=>st&&st>col.end?undefined:colAvg(p.id,col)); const have=vals.filter(v=>v!=null&&v!==undefined); const tr=have.length>1?bucketOf(have[have.length-1])-bucketOf(have[0]):0; return {p,vals,tr,last:have[have.length-1]}}).sort((a,b)=>(b.last||0)-(a.last||0));
+    const cnt=[0,0,0]; rows.forEach(r=>{if(r.last!=null)cnt[bucketOf(r.last)]++});
+    const key="tl"+(g.tl?g.tl.id:0), open=openAll||FBOPEN.has(key);
+    bh+='<div class="tlgrp"><button class="tlhead" data-k="'+key+'"><span class="car">'+(open?"▾":"▸")+'</span><b>'+(g.tl?g.tl.n:"No team leader")+'</b>'+
+      '<span class="tlmix small">'+[2,1,0].map(k=>'<i class="b'+(k+1)+'" style="width:'+(rows.length?cnt[k]/rows.length*100:0)+'%"></i>').join("")+'</span>'+
+      '<small>'+rows.length+' FR · <em class="okc">'+cnt[2]+'</em>/<em class="wc">'+cnt[1]+'</em>/<em class="rc">'+cnt[0]+'</em> · ▲'+rows.filter(r=>r.tr>0).length+' ▼'+rows.filter(r=>r.tr<0).length+'</small></button>'+
+      (open?'<div class="frlist">'+rows.map(r=>'<div class="frl pclick" data-p="'+r.p.id+'"><span class="nm">'+r.p.n+(isTrainee(r.p)?' <i class="tr">T</i>':'')+'</span><span class="dots">'+r.vals.map(v=>dot(v===undefined?null:v,v!==undefined)).join("")+'</span>'+
+        '<span class="tr">'+(r.tr>0?'<b class="okc">▲</b>':r.tr<0?'<b class="wc">▼</b>':'<b class="flatc">—</b>')+'</span></div>').join("")+'</div>':'')+'</div>'});
+  document.getElementById("fbuckets").innerHTML=bh;
+  document.querySelectorAll("#fbuckets .tlhead").forEach(b=>b.onclick=()=>{const k=b.dataset.k; FBOPEN.has(k)?FBOPEN.delete(k):FBOPEN.add(k); renderF2F()});
+  document.querySelectorAll("#fbuckets .pclick").forEach(r=>r.onclick=()=>personBox(+r.dataset.p));
+  /* funnel + trend */
+  document.getElementById("ffunnelSub").textContent=per;
+  const steps=[["Approached","people the team spoke to",all.a,null,null],
+    ["Stopped to listen","of those approached",all.s,pct(all.s,all.a),tS],
+    ["Heard the full pitch","of those who stopped",all.p,pct(all.p,all.s),tP],
+    ["Signed up","of those pitched",all.c,pct(all.c,all.p),tC]];
+  const worst=steps.slice(1).reduce((w,x)=>(x[4]!=null&&(x[3]-x[4])<(w[3]-w[4])?x:w));
+  document.getElementById("ffunnel").innerHTML=
+    steps.map(([l,sub,n,r,tg],i)=>'<div class="fun2'+(r!=null&&tg!=null&&r<tg?" bad":"")+'"><div class="funtop"><b>'+n.toLocaleString("en-US")+'</b><span>'+l+'</span>'+
+      (r!=null?'<i class="'+(r>=tg?"okc":"wc")+'">'+r+'%</i>':'')+'</div><div class="funbar"><div style="width:'+(all.a?Math.max(1.5,n/all.a*100):0)+'%"></div></div>'+
+      '<small>'+(r!=null?r+'% '+sub+' · target '+tg+'%':sub)+'</small></div>').join("")+
+    '<p class="fnote">Each step is a share of the step above it. '+(worst[3]<worst[4]?'<b>Weakest step: '+worst[0].toLowerCase()+'</b> — '+worst[3]+'% against a '+worst[4]+'% target. That is where coaching pays most.':'Every step is on target.')+'</p>';
+  /* location */
+  const bySite={}; rows.forEach(x=>{(bySite[x.site]=bySite[x.site]||[]).push(x)});
+  const sites=Object.keys(bySite).map(si=>({si:+si,o:fsum(bySite[si])})).sort((a,b)=>b.o.c-a.o.c);
+  document.getElementById("fsites").innerHTML=sites.length?'<table class="qt"><tr><th>Site</th><th class="r">HC</th><th class="r">Target</th><th class="r">C</th><th class="r">Achieved</th></tr>'+
+    sites.map(({si,o})=>{const nd=new Set(bySite[si].map(x=>x.d)).size, hc=nd?+(o.days/nd).toFixed(1):0, tgt=o.days*2, ach=tgt?Math.round(o.c/tgt*100):0; const bk=BOOKINGS.find(b=>b.si===si&&b.type==="travel");
+      return '<tr><td><b>'+SITES[si].n+'</b><small>'+SITES[si].addr+(bk?' · travel trip':'')+(nd>1?' · '+nd+' days':'')+'</small></td><td class="r" title="average headcount per day">'+(Number.isInteger(hc)?hc:hc)+'</td><td class="r">'+tgt+'</td><td class="r"><b>'+o.c+'</b></td>'+
+      '<td class="r"><div class="mini" style="width:44px"><i class="'+(ach>=100?"ok":"bad")+'" style="width:'+Math.min(100,ach)+'%"></i></div> <b class="'+(ach>=100?"okc":"wc")+'">'+ach+'%</b></td></tr>'}).join("")+
+    '</table><p class="fnote">HC = fundraisers on site per day · target = headcount × 2 sign-ups, per day.</p>':'<div class="qempty">No ASPC '+per+' yet.</div>';
+  /* leaderboard + flags */
+  const lb=Object.keys(byPid).map(pid=>({p:by(+pid)||RESIGNED.find(r=>r.p.id==pid)?.p,o:fsum(byPid[pid])})).filter(x=>x.p).sort((a,b)=>b.o.c-a.o.c||b.o.p-a.o.p);
+  const perDay=x=>x.o.days?x.o.p/x.o.days:0;
+  const lb2=lb.slice();
+  const b1=lb2.filter(x=>bucketOf(perDay(x))===0).sort((a,b)=>perDay(a)-perDay(b));
+  const nearly=lb2.filter(x=>{const v=perDay(x);return v>=15&&v<20}).sort((a,b)=>perDay(b)-perDay(a));
+  const noClose=lb2.filter(x=>x.o.p>=15&&x.o.c===0).sort((a,b)=>b.o.p-a.o.p);
+  const slipped=lb2.map(x=>{const v=[0,1,2,3,4].filter(wi=>weekDays(wi).length).map(wi=>avgP(x.p.id,weekDays(wi))).filter(v=>v!=null);
+    return {x,drop:v.length>1?v[v.length-2]-v[v.length-1]:0,now:v[v.length-1]}}).filter(o=>o.drop>=4).sort((a,b)=>b.drop-a.drop);
+  const noshow=FPER==="today"?P.filter(p=>p.lv>=6&&!p.placeholder&&(camp==="all"||p.c===camp)&&["am","pm"].includes((MONTH[p.id]||{})[HTODAY])&&!(CHECK[p.id]||{})[HTODAY]):[];
+  const blk=(title,sub,list,fmt,cls)=>'<div class="atblk '+(cls||"")+'"><div class="ath"><b>'+list.length+'</b><span>'+title+'</span><small>'+sub+'</small></div>'+
+    (list.length?'<div class="atlist">'+list.slice(0,5).map(fmt).join("")+(list.length>5?'<div class="atmore">+'+(list.length-5)+' more</div>':'')+'</div>':'<div class="atnone">Nobody — good.</div>')+'</div>';
+  const row=(id,name,right)=>'<div class="atrow pclick" data-p="'+id+'"><span>'+name+'</span><i>'+right+'</i></div>';
+  document.getElementById("fflagSub").textContent=per;
+  document.getElementById("fflags").innerHTML=
+    blk("in bucket 1","under 10 presentations a day — the main coaching group",b1,x=>row(x.p.id,x.p.n,perDay(x).toFixed(1)+"/day"),"red")+
+    blk("nearly at 20","15–19 a day — closest to bucket 3, quickest wins",nearly,x=>row(x.p.id,x.p.n,perDay(x).toFixed(1)+"/day"),"amber")+
+    blk("dropped this week","presentations per day fell 4 or more since last week",slipped,o=>row(o.x.p.id,o.x.p.n,"−"+o.drop.toFixed(1)+" → "+o.now.toFixed(1)),"amber")+
+    blk("presenting, not closing","15+ presentations, no sign-up — a pitch problem, not an activity one",noClose,x=>row(x.p.id,x.p.n,x.o.p+" P"),"red")+
+    (FPER==="today"?blk("rostered, not checked in","no check-in yet today",noshow,p=>row(p.id,p.n,by(p.to)?by(p.to).n.split(" ")[0]:""),"red"):"");
+  document.querySelectorAll("#fflags .pclick").forEach(r=>r.onclick=()=>personBox(+r.dataset.p));
+  /* today's check-ins */
+  const sel=document.getElementById("ateam");
+  if(!sel.options.length) sel.innerHTML='<option value="all">Everyone</option>'+P.filter(p=>p.lv>0&&p.lv<=5).sort((a,b)=>a.lv-b.lv).map(x=>'<option value="'+x.id+'">'+LEVELS[x.lv]+" — "+x.n+'</option>').join("");
+  document.getElementById("ftodayH").textContent=TODAY_LABEL+" · check-ins";
+  document.getElementById("ftoday").innerHTML=todayTable(sel.value);
+}
+document.getElementById("fxAll").onclick=()=>{P.filter(p=>p.lv>=1&&p.lv<=5).forEach(p=>FOPEN.add(p.id));renderF2F()};
+document.getElementById("fxTL").onclick=()=>{FOPEN.clear();P.filter(p=>p.lv>=1&&p.lv<=4).forEach(p=>FOPEN.add(p.id));renderF2F()};
+document.getElementById("fxNone").onclick=()=>{FOPEN.clear();renderF2F()};
+document.getElementById("ateam").addEventListener("input",renderF2F);
+document.getElementById("ftodayTog").onclick=e=>{const el=document.getElementById("ftoday"); el.classList.toggle("hidden"); e.target.textContent=el.classList.contains("hidden")?"Show":"Hide"};
+function personBox(pid){
+  const p=by(pid)||RESIGNED.find(r=>r.p.id===pid)?.p; if(!p)return; const days=fdays(), rows=ASPC.filter(x=>x.pid===pid&&days.includes(x.d)&&!x.training), o=fsum(rows);
+  const tP=ftarget("prate"),tS=ftarget("srate"),tC=ftarget("crate");
+  const sc=document.createElement("div"); sc.className="scrim";
+  sc.innerHTML='<div class="modal wide"><h3>'+p.n+' <small style="font-weight:400;color:var(--ink-soft);font-size:12px">'+LEVELS[p.lv]+(by(p.to)?' · under '+by(p.to).n:'')+'</small></h3>'+
+    '<div class="big" style="grid-template-columns:repeat(4,1fr)"><div class="bigcell all"><b>'+o.a+'</b><span>A</span></div><div class="bigcell stc"><b>'+o.s+'</b><span>S · '+pct(o.s,o.a)+'%</span></div><div class="bigcell ykan"><b>'+o.p+'</b><span>P · '+pct(o.p,o.s)+'%</span></div><div class="bigcell" style="background:#EAF3EE;color:var(--ok)"><b>'+o.c+'</b><span>C · '+pct(o.c,o.p)+'%</span></div></div>'+
+    '<table class="hc"><tr><td>Stop rate</td><td class="'+(pct(o.s,o.a)>=tS?"okc":"wc")+'">'+pct(o.s,o.a)+'% <i>target '+tS+'%</i></td></tr><tr><td>Presentation rate</td><td class="'+(pct(o.p,o.s)>=tP?"okc":"wc")+'">'+pct(o.p,o.s)+'% <i>target '+tP+'%</i></td></tr><tr><td>Close rate</td><td class="'+(pct(o.c,o.p)>=tC?"okc":"wc")+'">'+pct(o.c,o.p)+'% <i>target '+tC+'%</i></td></tr>'+
+    '<tr><td>Presentations per day</td><td>'+(o.days?(o.p/o.days).toFixed(1)+' <i>bucket '+(bucketOf(o.p/o.days)+1)+'</i>':'–')+'</td></tr>'+
+    '<tr class="rule"><td>Presentations per day</td><td>'+(o.days?(o.p/o.days).toFixed(1)+' <i>bucket '+(bucketOf(o.p/o.days)+1)+'</i>':'–')+'</td></tr>'+
+    '<tr><td>Sales value</td><td>'+(o.val?IDRx(o.val):"–")+'</td></tr><tr><td>Credit / debit</td><td>'+o.cc+' / '+o.dd+'</td></tr><tr><td>Under 30 · yes / no</td><td>'+o.u30y+' / '+o.u30n+'</td></tr><tr><td>Days with ASPC</td><td>'+o.days+'</td></tr></table>'+
+    (rows.length?'<div class="fsec">By day</div><table class="qt"><tr><th>Day</th><th>Site</th><th class="r">A</th><th class="r">S</th><th class="r">P</th><th class="r">C</th></tr>'+rows.sort((a,b)=>b.d-a.d).slice(0,12).map(x=>'<tr><td>'+x.d+' Sep</td><td>'+SITES[x.site].n+'</td><td class="r">'+x.a+'</td><td class="r">'+x.s+'</td><td class="r">'+x.p+'</td><td class="r"><b>'+x.c+'</b></td></tr>').join("")+'</table>':'')+
+    '<div class="row"><button class="no">Close</button></div></div>';
+  sc.querySelector(".no").onclick=()=>sc.remove(); document.body.appendChild(sc);
+}
+document.querySelectorAll(".fper").forEach(b=>b.onclick=()=>{document.querySelectorAll(".fper").forEach(x=>x.classList.toggle("on",x===b)); FPER=b.dataset.per; renderF2F()});
+["fcamp","tS","tP","tC","fbteam"].forEach(id=>document.getElementById(id).addEventListener("input",renderF2F));
+
+phInit(); render(); renderOrg(); renderMonth(); renderPhone(); renderApprovals(); renderEvents(); renderHR(); renderASPC(); renderF2F();
 </script>
