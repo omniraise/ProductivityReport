@@ -551,6 +551,109 @@
   .hrtimes{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin:12px 0}
   .hrtimes div{background:#F4F6F9;border-radius:8px;padding:8px 10px} .hrtimes span{display:block;font-size:10.5px;color:var(--ink-soft)}
   .hrtimes b{display:block;font-size:15px} .hrtimes small{display:block;font-size:10.5px;color:var(--ink-soft);margin-top:2px} .hrtimes small i{font-style:normal}
+  /* ---------- FR dashboard ---------- */
+  .paycard{margin:12px 16px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff}
+  .payrow{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 14px;border-bottom:1px solid #EEF0F4;font-size:13px}
+  .payrow span{display:flex;flex-direction:column} .payrow small{font-size:10.5px;color:var(--ink-soft)} .payrow b{font-variant-numeric:tabular-nums;font-size:14px}
+  .payrow.dim{color:#9AA3B2} .payrow.dim b{color:#B6BDCA;font-weight:500}
+  .payrow.total{background:var(--ink);color:#fff;border:0;font-weight:700} .payrow.total b{font-size:17px}
+  .ladder{display:flex;gap:6px;margin:0 16px}
+  .rung{flex:1;text-align:center;border:1px solid var(--line);border-radius:10px;padding:8px 4px;font-size:11px;color:var(--ink-soft)}
+  .rung b{display:block;font-size:13px;color:var(--ink)} .rung small{display:block;font-size:10px}
+  .rung.done{background:#EAF3EE;border-color:#A9CBB6} .rung.on{background:var(--ink);border-color:var(--ink);color:#fff} .rung.on b{color:#fff}
+  .paynote{margin:10px 16px 0;font-size:12px;color:var(--ink-soft);line-height:1.4}
+  table.hc.phone td small{display:block;font-size:10px;color:var(--ink-soft)}
+  .hero.money{background:linear-gradient(135deg,#16233A,#2B4A7A)} .hero .finenote{font-size:11px;opacity:.75;margin-top:8px;line-height:1.35}
+  table.hc.phone{margin:0 16px;width:calc(100% - 32px);font-size:12px} table.hc.phone th{text-align:right;font-size:10px;color:var(--ink-soft);font-weight:600} table.hc.phone th:first-child{text-align:left}
+  table.hc.phone td.r{text-align:right;font-variant-numeric:tabular-nums} table.hc.phone tr.dim td{color:#B6BDCA} table.hc.phone td.dim{color:#B6BDCA}
+  .frdet{margin:8px 16px 0;font-size:12px} .frdet summary{cursor:pointer;color:var(--ink-soft);padding:6px 0} .frdet table{margin:6px 0 0;width:100%}
+  .trcard{margin:0 16px 8px;border:1px solid var(--line);border-left-width:4px;border-radius:10px;padding:9px 12px}
+  .trcard b{display:block;font-size:13.5px} .trcard span{display:block;font-size:12px} .trcard small{display:block;font-size:11px;color:var(--ink-soft)}
+  .frnav{display:flex;align-items:center;gap:8px;margin:0 16px 10px;font-size:12.5px} .frnav b{flex:1;text-align:center}
+  .frline{display:flex;align-items:center;gap:8px;margin:8px 16px;font-size:12px;color:var(--ink-soft)} .frline b{font-size:15px;color:var(--ink);font-variant-numeric:tabular-nums} .frline small{font-size:10.5px}
+  .frdays{margin-top:6px}
+  .age4 .tog{padding:8px 4px;font-size:12px}
+  /* ---------- Trainer schedule ---------- */
+  .topgrp{margin-bottom:8px} .topgrp>b{display:block;font-size:11px;letter-spacing:.03em;margin:4px 0 3px} .topgrp details{margin:2px 0} .topgrp summary{font-size:11px;color:var(--ink-soft);cursor:pointer;padding:3px 0}
+  .trsess.past{opacity:.85;background:#FAFBFD} .att.went{background:#EAF3EE;color:var(--ok)} .att.missed{background:var(--flag-bg);color:var(--flag);text-decoration:line-through}
+  .markatt{margin-top:6px;width:100%;font:inherit;font-size:10.5px;padding:4px;border:1px dashed var(--ink);border-radius:6px;background:#fff;cursor:pointer;color:var(--ink)} .markatt.done{border-style:solid;border-color:#A9CBB6;color:var(--ok)}
+  .attlist{display:grid;grid-template-columns:1fr 1fr;gap:4px 12px;margin:10px 0}
+  table.ptab{width:100%;border-collapse:collapse;font-size:12px;table-layout:fixed}
+  table.ptab th{text-align:left;font-size:10px;color:var(--ink-soft);font-weight:650;padding:6px 6px;border-bottom:1px solid var(--line);position:sticky;top:0;background:#fff;vertical-align:bottom}
+  table.ptab th span{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis} table.ptab th small{display:block;font-weight:400;font-size:9.5px}
+  table.ptab th:first-child{width:190px} table.ptab th.r,table.ptab td.r{text-align:right;width:56px}
+  table.ptab td{padding:5px 6px;border-bottom:1px solid #EEF0F4;vertical-align:middle} table.ptab td small{display:block;font-size:10.5px;color:var(--ink-soft)}
+  table.ptab tr.pclick{cursor:pointer} table.ptab tr.pclick:hover td{background:#F4F6F9}
+  .pcell{position:relative;height:18px;background:#EDF0F5;border-radius:4px;overflow:hidden} .pcell i{position:absolute;inset:0 auto 0 0;background:#C9D6E6;border-radius:4px}
+  .pcell.part i{background:var(--warn)} .pcell.full i{background:var(--ok)} .pcell span{position:relative;font-size:10.5px;font-weight:600;line-height:18px;padding-left:6px;color:var(--ink)}
+  .pcell.full span{color:#fff}
+  .chkgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px 18px;max-height:420px;overflow:auto;margin:8px 0}
+  .chkstep>b{display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px;border-bottom:1px solid var(--line);padding-bottom:3px} .chkstep>b span{color:var(--ink-soft);font-weight:400}
+  .chkt{display:grid;grid-template-columns:18px 1fr auto;gap:6px;font-size:11.5px;padding:2px 0;color:var(--ink-soft)} .chkt.done{color:var(--ink)}
+  .chkt i{font-style:normal;width:16px;height:16px;border-radius:4px;border:1px solid var(--line);display:inline-flex;align-items:center;justify-content:center;font-size:10px} .chkt.done i{background:var(--ok);border-color:var(--ok);color:#fff} .chkt small{font-size:10px;color:var(--ink-soft)}
+  #trgrid{margin-top:4px}
+  .addfr{font:inherit;font-size:10.5px;padding:3px 8px;border:1px dashed var(--ink);border-radius:6px;background:#fff;color:var(--ink);cursor:pointer}
+  .modal.picker{width:min(860px,96vw);padding:0;overflow:hidden}
+  .modal.picker h3{padding:18px 22px 6px;margin:0} .modal.picker h3 small{font-weight:400;color:var(--ink-soft);font-size:12.5px;margin-left:8px}
+  .modal.picker .pkbar{padding:6px 22px 12px;margin:0;border-bottom:1px solid var(--line)}
+  .modal.picker .pkbody{max-height:58vh;overflow:auto;border:0;border-radius:0;padding:0 22px 10px}
+  .modal.picker .row{padding:12px 22px 18px;margin:0;border-top:1px solid var(--line);background:#FAFBFD}
+  .pkrh{display:flex;align-items:baseline;gap:10px;padding:16px 0 6px;position:sticky;top:0;background:#fff;z-index:2}
+  .pkrh span{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--ink)} .pkrh small{font-size:11px;color:var(--ink-soft)}
+  .pkteam{border:1px solid var(--line);border-radius:12px;margin:6px 0 10px;overflow:hidden}
+  .pkth{display:flex;align-items:baseline;gap:8px;padding:9px 12px;background:#F4F6F9;border-bottom:1px solid var(--line)}
+  .pkth b{font-size:12.5px} .pkth small{font-size:11px;color:var(--ink-soft);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .pkall{font:inherit;font-size:11px;padding:3px 10px;border:1px solid var(--line);border-radius:14px;background:#fff;cursor:pointer;color:var(--ink)} .pkall:hover{border-color:var(--ink)}
+  .modal label.pk{display:grid;grid-template-columns:20px 28px 1fr auto;gap:10px;align-items:center;padding:8px 12px;margin:0;font-size:13px;font-weight:400;color:var(--ink);cursor:pointer;border-bottom:1px solid #EEF0F4}
+  .modal label.pk:last-child{border-bottom:0} .modal label.pk:hover{background:#FAFBFD} .modal label.pk.on{background:#EEF6F1}
+  .modal label.pk.clash{color:#9AA3B2;cursor:not-allowed} .modal label.pk input{width:16px;height:16px;margin:0;accent-color:#1B7F4B}
+  .pkav{width:28px;height:28px;border-radius:50%;background:#E8EDF4;color:#3C4B63;font-size:11px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;letter-spacing:.02em} .pk.on .pkav{background:#1B7F4B;color:#fff}
+  .pkn{display:flex;align-items:center;gap:8px;min-width:0} .pkn em{font-style:normal;font-size:10px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;background:#F6D86B;border-radius:4px;padding:1px 6px}
+  .pks{font-size:11.5px;color:var(--ink-soft);white-space:nowrap} .pks.done{color:var(--ok)} .pks.need{color:var(--flag);font-weight:600} .pks.busy{color:#9AA3B2}
+  .mxlegend{display:flex;gap:16px;align-items:center;font-size:11px;color:var(--ink-soft);margin:2px 0 10px;flex-wrap:wrap} .mxlegend span{display:inline-flex;align-items:center;gap:5px}
+  .mxwrap{overflow:auto;max-height:600px;border:1px solid var(--line);border-radius:10px}
+  table.mxtable{border-collapse:separate;border-spacing:0;font-size:12px;width:max-content;min-width:100%;table-layout:auto}
+  table.mxtable th,table.mxtable td{padding:0;border-bottom:1px solid #EEF0F4}
+  table.mxtable th.mxn,table.mxtable td.mxn{position:sticky;left:0;background:#fff;z-index:2;text-align:left;padding:4px 10px;min-width:210px;max-width:210px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;border-right:1px solid var(--line);font-size:12px}
+  table.mxtable thead th{position:sticky;top:0;background:#fff;z-index:3} table.mxtable thead th.mxn{z-index:4}
+  table.mxtable th.mxstep{font-size:10px;font-weight:700;color:var(--ink);text-align:left;padding:6px 6px 2px;border-left:2px solid var(--line);letter-spacing:.02em;white-space:nowrap}
+  table.mxtable tr.mxheat th{top:24px;height:34px;vertical-align:bottom} table.mxtable th.mxc{width:14px;cursor:pointer;position:relative} table.mxtable th.mxc i{position:absolute;left:2px;right:2px;bottom:2px;border-radius:2px 2px 0 0;min-height:2px;opacity:.8} table.mxtable th.mxc:hover i{opacity:1}
+  table.mxtable th.mxtot,table.mxtable td.mxtot{text-align:right;padding:2px 8px;position:sticky;right:0;background:#fff;border-left:1px solid var(--line);z-index:2;font-variant-numeric:tabular-nums}
+  table.mxtable tr.mxgrp td{background:#F4F6F9;font-size:11px;font-weight:700;color:var(--ink);padding:5px 8px;max-width:none;position:sticky;left:0} table.mxtable tr.mxgrp small{font-weight:400;color:var(--ink-soft)}
+  table.mxtable tr.pclick{cursor:pointer} table.mxtable tr.pclick:hover td{background:#FAFBFD} table.mxtable tr.pclick:hover td.mxn{background:#F4F6F9}
+  td.mxcell{width:15px;height:20px;text-align:center} td.mxcell:nth-child(8n+2){border-left:2px solid var(--line)}
+  .mxsq{display:inline-block;width:11px;height:11px;border-radius:3px;vertical-align:middle}
+  .mxsq.done{background:var(--ok)} .mxsq.no{background:#E3E7EE} .mxsq.due{background:var(--warn)} .mxsq.booked{background:#fff;border:1.5px solid var(--ink);box-sizing:border-box}
+  .finrow{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:10px}
+  .fin{border:1px solid var(--line);border-radius:10px;padding:10px 12px;border-left-width:4px} .fin b{display:block;font-size:22px;line-height:1} .fin span{font-size:11.5px;color:var(--ink-soft)}
+  .fin.ok{border-left-color:var(--ok)} .fin.warn{border-left-color:var(--warn)} .fin.bad{border-left-color:var(--flag)} .fin:not(.ok):not(.warn):not(.bad){border-left-color:#5B6C8F}
+  .fingrp{margin-bottom:12px} .finh{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-soft);padding:6px 0;border-bottom:1px solid var(--line);margin-bottom:4px} .finh span{font-weight:400;margin-left:4px}
+  .finh.ok{color:var(--ok)} .finh.warn{color:var(--warn)} .finh.bad{color:var(--flag)}
+  .finfr{display:grid;grid-template-columns:220px 120px 1fr;gap:10px;align-items:center;padding:6px 6px;border-bottom:1px solid #EEF0F4;cursor:pointer;border-radius:6px} .finfr:hover{background:#F4F6F9}
+  .finnm b{display:block;font-size:12.5px} .finnm small{display:block;font-size:10.5px;color:var(--ink-soft)} .finnm i{font-style:normal}
+  .finbar{height:8px;background:#EDF0F5;border-radius:4px;overflow:hidden} .finbar i{display:block;height:100%;background:var(--warn)} .finbar i.full{background:var(--ok)}
+  .fintop{display:flex;flex-wrap:wrap;gap:3px} .miss{font-size:10px;background:var(--flag-bg);color:var(--flag);border-radius:4px;padding:1px 6px;white-space:nowrap} .miss.more{background:#EDF0F5;color:var(--ink-soft)} .miss.done{background:#EAF3EE;color:var(--ok)}
+  .trweek{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;min-height:420px}
+  .trday{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px;display:flex;flex-direction:column;gap:6px;min-height:200px}
+  .trday.out{opacity:.35} .trday.today{box-shadow:inset 0 0 0 2px var(--ink)} .trday.over{background:#EEF3FA;border-color:var(--ink)}
+  .trdh{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--ink-soft);font-weight:600} .trdh b{font-size:14px;color:var(--ink)} .trdadd{margin-left:auto;width:22px;height:22px;border-radius:6px;border:1px solid var(--line);background:#fff;font-size:14px;cursor:pointer;line-height:1;color:var(--ink)} .trdadd:hover{border-color:var(--ink)}
+  .trsess{position:relative;border:1px solid var(--line);border-left-width:4px;border-radius:9px;background:#fff;padding:7px 26px 7px 9px}
+  .trdel{position:absolute;top:4px;right:4px;width:20px;height:20px;border:0;border-radius:6px;background:transparent;color:#B6BDCA;font-size:15px;line-height:1;cursor:pointer} .trdel:hover{background:var(--flag-bg);color:var(--flag)}
+  .trsess.over{background:#EEF3FA;border-color:var(--ink)} .trhead{cursor:pointer} .trhead b{display:block;font-size:12.5px} .trhead span{display:block;font-size:10.5px;color:var(--ink-soft)}
+  .tratt{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px;min-height:20px}
+  .att{font-size:10.5px;background:#F4F6F9;border-radius:6px;padding:2px 4px 2px 7px;display:inline-flex;align-items:center;gap:3px}
+  .att .rmatt{border:0;background:transparent;font-size:13px;line-height:1;color:var(--ink-soft);cursor:pointer;padding:0 2px}
+  .trempty{font-size:10.5px;color:#B6BDCA;font-style:italic;flex:1}
+  .trmonth{display:flex;flex-direction:column;gap:6px} .trmrow{display:grid;grid-template-columns:110px repeat(5,1fr);gap:6px}
+  .trmlab{font-size:12px;font-weight:600;padding:8px 6px} .trmlab small{display:block;font-weight:400;color:var(--ink-soft);font-size:10.5px}
+  .trmcell{background:var(--card);border:1px solid var(--line);border-radius:8px;min-height:64px;padding:6px;cursor:pointer;display:flex;flex-direction:column;gap:4px}
+  .trmcell.today{box-shadow:inset 0 0 0 2px var(--ink)}
+  .trml{border:1px solid var(--line);border-left-width:4px;border-radius:6px;padding:4px 6px;background:#fff;min-width:0}
+  .trml b{display:block;font-size:11px;line-height:1.25;white-space:normal} .trml span{display:block;font-size:10px;color:var(--ink-soft)}
+  .trmcell.out{opacity:.35;cursor:default} .trmcell:hover{border-color:var(--ink)} .trmd{width:100%;font-size:11px;color:var(--ink-soft)}
+  .trdot{width:22px;height:22px;border-radius:50%;color:#fff;font-size:10.5px;font-weight:700;font-style:normal;display:inline-flex;align-items:center;justify-content:center}
+  .trtype{cursor:grab;margin-bottom:4px} .chip.trainer{cursor:grab} .chip.trfr{cursor:pointer;display:block} .chip.trfr:hover{border-color:var(--ink)}
+  .frprog{height:5px;background:#EDF0F5;border-radius:3px;margin:4px 0 2px;overflow:hidden} .frprog i{display:block;height:100%;background:var(--warn);border-radius:3px} .frprog i.full{background:var(--ok)}
   /* ---------- Check I/O ---------- */
   .phonebar.preview{background:#EEF1F6;border-bottom:1px solid var(--line)}
   .pvtag{font-size:9.5px;font-weight:800;letter-spacing:.08em;background:var(--ink);color:#fff;padding:3px 8px;border-radius:4px}
@@ -566,17 +669,16 @@
   .hero .place{font-size:14px;opacity:.9}
   .heroedit{margin-top:10px;font:inherit;font-size:12px;background:rgba(255,255,255,.2);border:0;color:#fff;border-radius:8px;padding:6px 12px;cursor:pointer}
   .bigact{padding:16px 16px 0}
-  .hugebtn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
-    width:100%;min-height:78px;border:0;border-radius:16px;padding:18px 20px;margin:0;font:inherit;line-height:1.25;
-    cursor:pointer;background:var(--ink);color:#fff;text-align:center;-webkit-appearance:none;appearance:none;overflow:visible;
-    -webkit-tap-highlight-color:transparent;transition:background .12s,transform .08s;box-shadow:0 2px 0 rgba(22,35,58,.18)}
+  .hugebtn{display:block;width:100%;height:auto;box-sizing:border-box;padding:18px 20px 16px;margin:0;border-radius:16px;
+    background:var(--ink);color:#fff;text-align:center;cursor:pointer;user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent;
+    font-family:inherit;box-shadow:0 2px 0 rgba(22,35,58,.18);transition:background .12s}
+  .hugebtn .cio-label{display:block;height:auto;position:static;overflow:visible;background:transparent;border-radius:0;font-size:20px;line-height:26px;font-weight:700;white-space:nowrap}
+  .hugebtn .cio-hint{display:block;height:auto;position:static;overflow:visible;background:transparent;font-size:12px;line-height:16px;font-weight:400;opacity:.82;margin-top:2px}
+  .hugebtn:focus-visible{outline:3px solid #9CC4F5;outline-offset:2px}
   .hugebtn.in{background:#1B7F4B} .hugebtn.in:hover{background:#16693E} .hugebtn.in:active{background:#125733}
   .hugebtn.out{background:#16233A} .hugebtn.out:hover{background:#0E1728} .hugebtn.out:active{background:#0A1120}
-  .hugebtn:hover{background:#0E1728} .hugebtn *{background:none!important}
-  .hugebtn .hbt{display:block;font-size:20px;font-weight:700;line-height:1.2;background:none;border-radius:0;padding:0;margin:0}
-  .hugebtn small{display:block;font-size:12px;line-height:1.25;opacity:.8;margin:0}
-  .hugebtn:disabled,.hugebtn.in:disabled,.hugebtn.out:disabled{background:#C8CFDA;color:#F2F4F7;box-shadow:none;cursor:default}
-  .hugebtn:active{transform:translateY(1px);box-shadow:none}
+  .hugebtn.isoff,.hugebtn.in.isoff,.hugebtn.out.isoff{background:#C8CFDA;color:#F2F4F7;box-shadow:none;cursor:default}
+  .hugebtn:active{transform:translateY(1px);box-shadow:none} .hugebtn.isoff:active{transform:none}
   .steplist{text-align:center;font-size:11.5px;color:var(--ink-soft);margin:10px 16px 0}
   .stepsbar{display:flex;gap:6px;padding:16px 16px 10px}
   .sp{flex:1;display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--ink-soft)}
@@ -584,7 +686,8 @@
   .sp.now{color:var(--ink);font-weight:700} .sp.now i{background:var(--ink);color:#fff}
   .sp.done i{background:var(--ok);color:#fff}
   .ciorow.busy{border-color:#C8CFDA;background:#F7F8FA}
-  .photobtn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;width:100%;min-height:118px;border:2px dashed var(--ink);border-radius:14px;background:#fff;padding:20px;font:inherit;line-height:1.3;cursor:pointer;color:var(--ink);text-align:center;-webkit-appearance:none;appearance:none}
+  .photobtn{display:block;width:100%;border:2px dashed var(--ink);border-radius:14px;background:#fff;padding:20px;font:inherit;line-height:1.3;cursor:pointer;color:var(--ink);text-align:center;-webkit-appearance:none;appearance:none}
+  .photobtn .hbwrap{display:flex;flex-direction:column;align-items:center;gap:2px}
   .photobtn i{font-style:normal;font-size:30px;line-height:1} .photobtn b{font-size:16px} .photobtn small{font-size:12px;color:var(--ink-soft)}
   .ciosteps{margin:0 16px;display:flex;flex-direction:column;gap:8px}
   .ciorow{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:#fff}
@@ -745,7 +848,7 @@
 </style>
 
 <header>
-  <h1>Popcorn <small class="ver">build 47</small></h1>
+  <h1>Popcorn <small class="ver">build 58</small></h1>
   <div class="wk" id="hdrsub">Week 3 — 14 – 20 Sep 2026 · Jakarta</div>
   <div class="tabs">
     <button data-tab="roster" aria-pressed="true">Weekly roster</button>
@@ -756,6 +859,8 @@
     <button data-tab="hr" aria-pressed="false">HR Dashboard</button>
     <button data-tab="aspc" aria-pressed="false">Check I/O</button>
     <button data-tab="f2f" aria-pressed="false">F2F Dashboard</button>
+    <button data-tab="frd" aria-pressed="false">FR Dashboard</button>
+    <button data-tab="train" aria-pressed="false">Trainer schedule</button>
     <select id="asrole" title="Preview what each role sees"><option value="dir">Viewing as: Director</option><option value="hr">Viewing as: HR</option><option value="ev">Viewing as: Events</option><option value="mgr">Viewing as: Manager</option><option value="tl">Viewing as: Team leader</option><option value="fr">Viewing as: Fundraiser</option></select>
   </div>
 </header>
@@ -903,6 +1008,40 @@
   </section>
 </main>
 
+<!-- ===================== FR DASHBOARD (phone) ===================== -->
+<div id="frd" class="hidden">
+  <div class="phonebar preview"><span class="pvtag">PREVIEW ONLY</span><label class="pvl">Viewing as <select id="whoami3" class="search" style="width:220px;margin:0"></select></label>
+    <span class="hint" style="margin:0 0 0 auto">A fundraiser sees only their own screen.</span></div>
+  <div class="deviceframe"><div class="device" id="frdApp"></div></div>
+</div>
+
+<!-- ===================== TRAINER SCHEDULE ===================== -->
+<main id="train" class="hidden">
+  <section class="orgwrap" style="padding:14px;min-width:0">
+    <div id="trkpis" class="kpis compact" style="grid-template-columns:repeat(6,1fr)"></div>
+    <div class="topbar">
+      <div class="segs" style="margin:0;width:auto"><button class="seg trmode on" data-m="sched">Schedule</button><button class="seg trmode" data-m="prog">Progress</button></div>
+      <div class="segs" style="margin:0 0 0 8px;width:auto" id="trweeks"></div>
+      <div class="segs" style="margin:0 0 0 8px;width:auto" id="trviewsegs"><button class="seg trview on" data-v="week">Week</button><button class="seg trview" data-v="month">Month</button></div>
+      <select id="trprog" class="search hidden" style="width:230px;margin:0 0 0 8px"></select>
+      <select id="trteam" class="search hidden" style="width:200px;margin:0 0 0 6px"></select>
+      <div class="segs hidden" style="margin:0 0 0 8px;width:auto" id="trpview"><button class="seg trpv on" data-v="matrix">Matrix</button><button class="seg trpv" data-v="steps">By step</button><button class="seg trpv" data-v="missing">Who's finished</button></div>
+      <span class="hint" style="margin:0 0 0 auto" id="trhint"></span>
+    </div>
+    <div id="trgrid"></div>
+    <div id="trmatrixCard" class="card" style="margin-top:14px"><div class="ch"><h2>Who has done what</h2><span id="trmxSub"></span>
+      <select id="trmxProg" class="search" style="width:210px;margin:0 0 0 auto"></select><select id="trmxTeam" class="search" style="width:190px;margin:0 0 0 6px"></select></div>
+      <div id="trmatrix"></div></div>
+  </section>
+  <aside class="side">
+    <div class="panel"><h2>Topics <span class="cnum" id="trtopN"></span></h2>
+      <div class="row" style="margin:0 0 6px;gap:4px"><input class="search" id="trnew" placeholder="New topic, e.g. STC product refresher" style="margin:0;flex:1"><button class="btn sm" id="tradd">Add</button></div>
+      <p class="hint" style="margin:0 0 6px">Drag onto a day. Programme topics are grouped by step.</p><div id="trtypes" class="cands" style="max-height:300px;overflow:auto"></div></div>
+    <div class="panel"><h2>Trainers</h2><div id="trtrainers"></div></div>
+    <div class="panel"><h2>Coverage by step</h2><p class="hint" style="margin:0 0 6px">Core programme · share of fundraisers done</p><div id="trcov"></div></div>
+  </aside>
+</main>
+
 <!-- ===================== TEAM ===================== -->
 <main id="team" class="hidden">
   <section class="orgwrap">
@@ -922,7 +1061,7 @@
 
 <script>
 /* ======================= SHARED PEOPLE ======================= */
-const TODAY_D=18;                         // 18 September 2026 — the one "today" every tab uses
+const TODAY_D=19;                         // 19 September 2026 — the one "today" every tab uses
 const TODAY_LABEL=["Mon","Tue","Wed","Thu","Fri","Sat","Sun"][(1+TODAY_D-1)%7]+" "+TODAY_D+" Sep";
 const LEVELS=["Head","Senior manager","Manager","Assistant manager","Senior team leader","Team leader","Fundraiser","Trainee"];
 const CAMPS={stc:{n:"STC",id:1899},ykan:{n:"YKAN",id:1904}};
@@ -1077,8 +1216,10 @@ document.querySelectorAll(".tabs button").forEach(b=>b.onclick=()=>{
   document.getElementById("hr").classList.toggle("hidden",t!=="hr");
   document.getElementById("aspc").classList.toggle("hidden",t!=="aspc");
   document.getElementById("f2f").classList.toggle("hidden",t!=="f2f");
-  document.getElementById("hdrsub").textContent=t==="team"?"Team structure · Indonesia":t==="monthly"?"September 2026 · Indonesia":t==="events"?"Site bookings · September 2026":t==="hr"?"HR Dashboard · September 2026":t==="aspc"?"Check in / out · "+TODAY_LABEL+" 2026":t==="f2f"?"F2F Dashboard · September 2026":"Week "+WEEKS[WK].n+" — "+WEEKS[WK].label+" 2026 · Jakarta";
-  if(t==="roster")render(); if(t==="team")renderOrg(); if(t==="monthly")renderMonth(); if(t==="phone")renderPhone(); if(t==="events")renderEvents(); if(t==="hr")renderHR(); if(t==="aspc")renderASPC(); if(t==="f2f")renderF2F();
+  document.getElementById("frd").classList.toggle("hidden",t!=="frd");
+  document.getElementById("train").classList.toggle("hidden",t!=="train");
+  document.getElementById("hdrsub").textContent=t==="team"?"Team structure · Indonesia":t==="monthly"?"September 2026 · Indonesia":t==="events"?"Site bookings · September 2026":t==="hr"?"HR Dashboard · September 2026":t==="aspc"?"Check in / out · "+TODAY_LABEL+" 2026":t==="f2f"?"F2F Dashboard · September 2026":t==="frd"?"My dashboard · September 2026":t==="train"?"Training sessions · September 2026":"Week "+WEEKS[WK].n+" — "+WEEKS[WK].label+" 2026 · Jakarta";
+  if(t==="roster")render(); if(t==="team")renderOrg(); if(t==="monthly")renderMonth(); if(t==="phone")renderPhone(); if(t==="events")renderEvents(); if(t==="hr")renderHR(); if(t==="aspc")renderASPC(); if(t==="f2f")renderF2F(); if(t==="frd")renderFRD(); if(t==="train")renderTrain();
 });
 
 /* ======================= ROSTER ======================= */
@@ -2107,7 +2248,7 @@ function checkinBox(pid,d,slot){
 ["mteam","mq","permonly"].forEach(id=>document.getElementById(id).addEventListener("input",renderMonth));
 
 /* ======================= ROLE PREVIEW ======================= */
-const ROLE_TABS={dir:["roster","phone","monthly","team","events","hr","aspc","f2f"],hr:["hr","monthly","team"],ev:["events","roster"],mgr:["roster","monthly","aspc","f2f"],tl:["roster","monthly","aspc","f2f"],fr:["phone","aspc"]};
+const ROLE_TABS={dir:["roster","phone","monthly","team","events","hr","aspc","f2f","frd","train"],hr:["hr","monthly","team"],ev:["events","roster"],mgr:["roster","monthly","aspc","f2f","train"],tl:["roster","monthly","aspc","f2f","train"],fr:["phone","aspc","frd"]};
 document.getElementById("asrole").onchange=e=>{
   const allow=ROLE_TABS[e.target.value];
   document.querySelectorAll(".tabs button").forEach(b=>b.classList.toggle("hidden",!allow.includes(b.dataset.tab)));
@@ -2659,7 +2800,7 @@ const ASPC=[];                                 // {pid,d,site,a,s,p,c,cc,dd,u30y
     if(pr>=20&&cl===0)cl=rnd()<0.92?1:0;                               // 20+ presentations ⇒ almost always ≥1
     cl=Math.max(0,Math.min(5,cl));                                    // 5 is a huge day
     const cc=Math.round(cl*(0.4+rnd()*0.4)), u30=Math.round(cl*(0.2+rnd()*0.5));
-    const sales=[]; for(let i=0;i<cl;i++)sales.push({amount:rnd()<.85?195000:rnd()<.5?100000:250000,cc:i<cc,u30:i<u30});
+    const sales=[]; for(let i=0;i<cl;i++){const u=i<u30; sales.push({amount:rnd()<.85?195000:rnd()<.5?100000:250000,cc:i<cc,u30:u,age:u?"u30":["30-34","35-39","40+"][Math.floor(rnd()*3)]})}
     return {pid:p.id,d,site:si,a,s:st,p:pr,c:cl,cc,dd:cl-cc,u30y:u30,u30n:cl-u30,sales,training:false}};
   [...P.filter(p=>p.lv>=3&&!p.placeholder),...RESIGNED.map(x=>x.p)].forEach(p=>{
     skill[p.id]=(isTrainee(p)?0.45:isLeader(p)?0.75:0.65)+rnd()*0.75;
@@ -2675,6 +2816,7 @@ const ASPC=[];                                 // {pid,d,site,a,s,p,c,cc,dd,u30y
         CHECK[p.id][HTODAY]={in:SITES[site][v][0].replace(/:(\d\d)/,(m,x)=>":"+String(Math.max(0,+x-3)).padStart(2,"0")),out:null,site,slot:v,valid:false,cleared:false};
         if(v==="am"&&rnd()<.45){CHECK[p.id][HTODAY].out=SITES[site].am[1]; ASPC.push(mk(p,HTODAY,site,skill[p.id]*siteBoost[site]*1.3))}})}});
   P.filter(isTrainee).forEach(p=>p.signups=ASPC.filter(x=>x.pid===p.id).reduce((n,x)=>n+x.c,0));
+  P.filter(p=>p.lv>=6).forEach((p,i)=>{p.plan=(p.perm||i%3!==0)?"standard":"perf100"});   // IC Perm on Model B; performance-based staff on 100% comms
 })();
 const aspcOf=(pid,d)=>ASPC.find(x=>x.pid===pid&&x.d===d);
 const distM=(a,b,c,d)=>{const R=6371000,t=x=>x*Math.PI/180,dl=t(c-a),dn=t(d-b),h=Math.sin(dl/2)**2+Math.cos(t(a))*Math.cos(t(c))*Math.sin(dn/2)**2;return Math.round(2*R*Math.asin(Math.sqrt(h)))};
@@ -2732,7 +2874,7 @@ function renderASPC(){
        '<b>'+site.n+'</b><div class="place">'+st.slot.toUpperCase()+' shift · '+hrs(site,st.slot)+'</div>'+
        '<button class="heroedit" id="wrongsite">Wrong site or shift?</button></div>';
     if(!st.step){
-      h+='<div class="bigact"><button class="hugebtn in" id="startIn"><span class="hbt">Check in</span><small>location + photo, takes 10 seconds</small></button></div>'+
+      h+='<div class="bigact"><div class="hugebtn in" id="startIn" role="button" tabindex="0"><div class="cio-label">Check in</div><div class="cio-hint">location + photo, takes 10 seconds</div></div></div>'+
          '<p class="steplist">1 · your location  ·  2 · photo at the booth  ·  3 · confirm</p>';
     } else {
       h+=stepsBar(st.step)+'<div class="ciosteps">';
@@ -2742,13 +2884,13 @@ function renderASPC(){
           ? '<div class="ciorow bad"><i>📍</i><span><b>No GPS signal</b><small>step outside or near a window, then try again</small></span><button class="minibtn" id="retry">Retry</button></div>'
           : '<div class="ciorow '+(inside?"ok":"warn")+'"><i>📍</i><span><b>'+(inside?"You\'re at "+site.n:"You\'re not at "+site.n)+'</b><small>'+far(dist)+' away · accurate to ±'+st.fix.acc+' m'+(inside?"":" · your leader is told")+'</small></span><button class="minibtn" id="retry">Again</button></div>';
       if(st.step==="photo") h+='<div class="ciorow ok"><i>📍</i><span><b>'+(inside?"At "+site.n:far(dist)+" from "+site.n)+'</b><small>location saved</small></span></div>'+
-        '<button class="photobtn" id="snap"><i>📷</i><b>Take the photo</b><small>you and the booth — the camera opens, no gallery</small></button>';
+        '<button class="photobtn" id="snap"><span class="hbwrap"><i>📷</i><b>Take the photo</b><small>you and the booth — the camera opens, no gallery</small></span></button>';
       if(st.step==="confirm") h+='<div class="ciorow ok"><i>📍</i><span><b>'+(inside?"At "+site.n:far(dist)+" from "+site.n)+'</b><small>±'+st.fix.acc+' m</small></span></div>'+
         '<div class="ciorow ok"><i>📷</i><span><b>Photo taken '+st.photo+'</b><small>ready to send</small></span></div>';
       h+='</div>';
-      if(st.step==="confirm") h+='<div class="bigact"><button class="hugebtn in" id="doIn"><span class="hbt">Confirm check in · '+nowHM()+'</span><small>'+site.n+' · '+st.slot.toUpperCase()+' shift</small></button>'+
+      if(st.step==="confirm") h+='<div class="bigact"><div class="hugebtn in" id="doIn" role="button" tabindex="0"><div class="cio-label">Confirm check in · '+nowHM()+'</div><div class="cio-hint">'+site.n+' · '+st.slot.toUpperCase()+' shift</div></div>'+
         '<button class="linkbtn" id="cancel">Cancel</button></div>';
-      else if(st.step==="loc"&&st.fix) h+='<div class="bigact"><button class="hugebtn in" id="next">Next · take the photo</button><button class="linkbtn" id="cancel">Cancel</button></div>';
+      else if(st.step==="loc"&&st.fix) h+='<div class="bigact">'+hugeBtn('in','next','Next · take the photo','')+'<button class="linkbtn" id="cancel">Cancel</button></div>';
       else h+='<div class="bigact"><button class="linkbtn" id="cancel">Cancel</button></div>';
     }
   }
@@ -2768,7 +2910,7 @@ function renderASPC(){
          '<div id="sales">'+v.sales.map((z,i)=>saleRow(z,i)).join("")+'</div>'+
          '<button class="addsale" id="addsale">＋ Add a sign-up</button></div>'+
          '<div class="says" id="acheck"></div>'+
-         '<div class="bigact"><button class="hugebtn out" id="startOut"><span class="hbt">Check out</span><small>location + photo, then done</small></button></div>'+
+         '<div class="bigact"><div class="hugebtn out" id="startOut" role="button" tabindex="0"><div class="cio-label">Check out</div><div class="cio-hint">location + photo, then done</div></div></div>'+
          '<p class="steplist" id="outnote">1 · your location  ·  2 · photo at the booth  ·  3 · confirm</p>';
     } else {
       h+=stepsBar(st.step)+'<div class="ciosteps">';
@@ -2776,14 +2918,14 @@ function renderASPC(){
         : st.fix===null?'<div class="ciorow bad"><i>📍</i><span><b>No GPS signal</b><small>step outside, then retry</small></span><button class="minibtn" id="retry">Retry</button></div>'
         : '<div class="ciorow '+(inside?"ok":"warn")+'"><i>📍</i><span><b>'+(inside?"You\'re at "+site.n:"You\'re not at "+site.n)+'</b><small>'+far(dist)+' away · ±'+st.fix.acc+' m</small></span><button class="minibtn" id="retry">Again</button></div>';
       if(st.step==="photo") h+='<div class="ciorow ok"><i>📍</i><span><b>'+(inside?"At "+site.n:far(dist)+" from "+site.n)+'</b><small>location saved</small></span></div>'+
-        '<button class="photobtn" id="snap"><i>📷</i><b>Take the photo</b><small>you and the booth</small></button>';
+        '<button class="photobtn" id="snap"><span class="hbwrap"><i>📷</i><b>Take the photo</b><small>you and the booth</small></span></button>';
       if(st.step==="confirm"){const sum=ASPC_DRAFT[ME2.id]||{};
         h+='<div class="ciorow ok"><i>📍</i><span><b>'+(inside?"At "+site.n:far(dist)+" from "+site.n)+'</b><small>±'+st.fix.acc+' m</small></span></div>'+
         '<div class="ciorow ok"><i>📷</i><span><b>Photo taken '+st.photo+'</b></small></span></div>'+
         '<div class="ciorow ok"><i>✅</i><span><b>'+(sum.training?"Training session":"A "+sum.a+" · S "+sum.s+" · P "+sum.p+" · C "+(sum.sales||[]).length)+'</b><small>'+(sum.training?"no numbers needed":"sent to your leader")+'</small></span></div>'}
       h+='</div>';
-      if(st.step==="confirm") h+='<div class="bigact"><button class="hugebtn out" id="doOut"><span class="hbt">Confirm check out · '+nowHM()+'</span><small>that\'s your shift finished</small></button><button class="linkbtn" id="cancel">Back</button></div>';
-      else if(st.step==="loc"&&st.fix) h+='<div class="bigact"><button class="hugebtn out" id="next">Next · take the photo</button><button class="linkbtn" id="cancel">Back</button></div>';
+      if(st.step==="confirm") h+='<div class="bigact"><div class="hugebtn out" id="doOut" role="button" tabindex="0"><div class="cio-label">Confirm check out · '+nowHM()+'</div><div class="cio-hint">that\'s your shift finished</div></div><button class="linkbtn" id="cancel">Back</button></div>';
+      else if(st.step==="loc"&&st.fix) h+='<div class="bigact">'+hugeBtn('out','next','Next · take the photo','')+'<button class="linkbtn" id="cancel">Back</button></div>';
       else h+='<div class="bigact"><button class="linkbtn" id="cancel">Back</button></div>';
     }
   }
@@ -2811,7 +2953,7 @@ function renderASPC(){
 
   /* ASPC form wiring (only on the numbers screen) */
   if(c&&!done&&!st.step){
-    const readSales=()=>[...app.querySelectorAll(".sale")].map(r=>({amount:+String(r.querySelector(".amt").value).replace(/\D/g,"")||0,cc:r.querySelector(".cc.on")!=null,u30:r.querySelector(".u30.on")!=null}));
+    const readSales=()=>[...app.querySelectorAll(".sale")].map(r=>{const ageEl=r.querySelector(".age.on"); const age=ageEl?ageEl.dataset.age:"40+"; return {amount:+String(r.querySelector(".amt").value).replace(/\D/g,"")||0,cc:r.querySelector(".cc.on")!=null,age,u30:age==="u30"}});
     const read=()=>{const o={a:Math.max(0,+g("a_a").value||0),s:Math.max(0,+g("a_s").value||0),p:Math.max(0,+g("a_p").value||0),sales:readSales(),training:g("atrain").checked}; ASPC_DRAFT[ME2.id]=o; return o};
     const check=()=>{const v=read(), errs=[], n=v.sales.length;
       if(!v.training){if(v.a<1)errs.push("Enter your approaches first."); if(v.s>v.a)errs.push("Stops can't be more than approaches."); if(v.p>v.s)errs.push("Presentations can't be more than stops."); if(n>v.p)errs.push("You have "+n+" sign-ups but only "+v.p+" presentations.");
@@ -2819,14 +2961,14 @@ function renderASPC(){
       const val=v.sales.reduce((x,z)=>x+z.amount,0);
       g("acheck").innerHTML=errs.map(e=>'<div class="say stop">'+e+'</div>').join("")+(v.training?'<div class="say plain">Training day — numbers not required.</div>':n?'<div class="say done">'+n+' sign-up'+(n>1?"s":"")+' · '+IDRf(val)+'</div>':'');
       app.querySelector(".aspcform").classList.toggle("off",v.training); g("ccount").textContent=n;
-      g("startOut").disabled=errs.length>0; g("outnote").textContent=errs.length?"Fix the numbers above to check out.":"1 · your location  ·  2 · photo at the booth  ·  3 · confirm";
+      setDisabled(g("startOut"),errs.length>0); g("outnote").textContent=errs.length?"Fix the numbers above to check out.":"1 · your location  ·  2 · photo at the booth  ·  3 · confirm";
       return errs.length===0};
     const wire=()=>{
       app.querySelectorAll(".stepper button").forEach(b=>b.onclick=()=>{const i=g("a_"+b.dataset.k); i.value=Math.max(0,(+i.value||0)+ +b.dataset.dir); check()});
       app.querySelectorAll(".aspcform input").forEach(i=>{i.oninput=check}); g("atrain").oninput=check;
       app.querySelectorAll(".sale .tog").forEach(b=>b.onclick=()=>{const grp=b.dataset.g; b.closest(".sale").querySelectorAll(".tog[data-g='"+grp+"']").forEach(x=>x.classList.toggle("on",x===b)); check()});
       app.querySelectorAll(".sale .rm").forEach(b=>b.onclick=()=>{b.closest(".sale").remove(); [...app.querySelectorAll(".sale")].forEach((r,i)=>r.querySelector(".sn").textContent=i+1); check()})};
-    g("addsale").onclick=()=>{g("sales").insertAdjacentHTML("beforeend",saleRow({amount:195000,cc:true,u30:false},app.querySelectorAll(".sale").length)); wire(); check(); const last=[...app.querySelectorAll(".sale .amt")].pop(); if(last)last.focus()};
+    g("addsale").onclick=()=>{g("sales").insertAdjacentHTML("beforeend",saleRow({amount:195000,cc:true,age:"30-34",u30:false},app.querySelectorAll(".sale").length)); wire(); check(); const last=[...app.querySelectorAll(".sale .amt")].pop(); if(last)last.focus()};
     wire(); check();
     g("startOut").onclick=()=>{if(!check())return; locate()};
   }
@@ -2837,6 +2979,8 @@ function renderASPC(){
     log(inside?"push":"warn",ME2.n+" checked out"+(inside?"":" — "+far(dist)+" from the site"),"A "+v.a+" · S "+v.s+" · P "+v.p+" · C "+sales.length+(v.training?" · training":""));
     renderASPC(); if(typeof renderHR==="function")renderHR(); if(typeof renderF2F==="function")renderF2F()};
 }
+function hugeBtn(cls,id,label,hint,extra){return '<div class="hugebtn '+cls+'" id="'+id+'" role="button" tabindex="0"'+(extra||"")+'><div class="cio-label">'+label+'</div>'+(hint?'<div class="cio-hint">'+hint+'</div>':'')+'</div>'}
+function setDisabled(el,on){if(!el)return; el.classList.toggle("isoff",!!on); el.setAttribute("aria-disabled",on?"true":"false")}
 function stepsBar(step){const s=["loc","photo","confirm"], l=["Location","Photo","Confirm"], i=s.indexOf(step);
   return '<div class="stepsbar">'+l.map((x,n)=>'<span class="sp '+(n<i?"done":n===i?"now":"")+'"><i>'+(n<i?"✓":n+1)+'</i>'+x+'</span>').join("")+'</div>'}
 function siteSheet(st){
@@ -2854,7 +2998,7 @@ function siteSheet(st){
 function saleRow(z,i){return '<div class="sale"><div class="salehead"><b>Sign-up <span class="sn">'+(i+1)+'</span></b><button class="rm" title="Remove">×</button></div>'+
   '<div class="saleamt"><span>Rp</span><input class="amt" inputmode="numeric" value="'+(z.amount||195000)+'"></div>'+
   '<div class="saletogs"><div class="tg"><button class="tog cc'+(z.cc?" on":"")+'" data-g="pay">Credit card</button><button class="tog dd'+(z.cc?"":" on")+'" data-g="pay">Debit card</button></div>'+
-  '<div class="tg"><button class="tog u30'+(z.u30?" on":"")+'" data-g="age">Under 30</button><button class="tog o30'+(z.u30?"":" on")+'" data-g="age">30 or over</button></div></div></div>'}
+  '<div class="tg age4">'+[["u30","Under 30"],["30-34","30–34"],["35-39","35–39"],["40+","40+"]].map(([k,l])=>'<button class="tog age'+((z.age||(z.u30?"u30":"40+"))===k?" on":"")+'" data-g="age" data-age="'+k+'">'+l+'</button>').join("")+'</div></div></div>'}
 function todayTable(scope){
   let rows=monthRows().filter(r=>(CHECK[r.p.id]||{})[HTODAY]);
   if(scope&&scope!=="all")rows=rows.filter(r=>r.p.id===+scope||isDesc(+scope,r.p.id));
@@ -2874,10 +3018,112 @@ document.getElementById("whoami2").onchange=e=>{ME2=by(+e.target.value);renderAS
   const c=(CHECK[ME2.id]||{})[HTODAY], k=!c?"before":aspcOf(ME2.id,HTODAY)?"done":"during";
   document.querySelectorAll(".cstate").forEach(b=>b.classList.toggle("on",b.dataset.k===k))};
 document.querySelectorAll(".cstate").forEach(b=>b.onclick=()=>pickState(b.dataset.k));
+document.addEventListener("keydown",e=>{const t=e.target; if(t.classList&&t.classList.contains("hugebtn")&&(e.key==="Enter"||e.key===" ")){e.preventDefault(); t.click()}});
+document.addEventListener("click",e=>{const t=e.target.closest&&e.target.closest(".hugebtn.isoff"); if(t){e.stopImmediatePropagation(); e.preventDefault()}},true);
 document.querySelectorAll(".gsim").forEach(b=>b.onclick=()=>{document.querySelectorAll(".gsim").forEach(x=>x.classList.toggle("on",x===b)); GSIM=b.dataset.g;
   const st=ME2?CIO[ME2.id]:null;
   if(st&&st.step==="loc"){const c=(CHECK[ME2.id]||{})[HTODAY]; st.fix=undefined; renderASPC(); getFix(c?c.site:st.site).then(f=>{st.fix=f; renderASPC()})}
   else renderASPC()});
+
+/* ======================= TRAINING: programmes, topics, sessions, completion ======================= */
+// A programme is an ordered set of steps; each step is a list of topics. Recurring programmes have `every` (months).
+const PROGRAMMES=[
+ {id:"core",name:"Core F2F programme",every:null,c:"#2B6F9E",steps:[
+   ["Foundations",["Why F2F works","Omniraise standards","Compliance & consent","Donor journey","Site etiquette","Body language","Voice & energy","Daily routine"]],
+   ["Approach",["Positioning at the booth","The opening line","Reading the crowd","Stopping with a question","Handling brush-offs","Approach volume","Timing the ask","Approach drills"]],
+   ["Stop",["Holding attention","The 10-second hook","Curiosity questions","Mirroring","Stop-to-present bridge","Rejection reset","Stop drills","Stop review"]],
+   ["Presentation",["Charity story","Impact numbers","Show, don't tell","Emotional arc","Handling 'no time'","Presentation drills","Presenting to groups","Presentation review"]],
+   ["Close",["Asking for the gift","Amount anchoring","CC over DD","Under-30 quality","Objection handling","Silence after the ask","Close drills","Close review"]],
+   ["Quality",["Why cancellations happen","Verification call","Donor expectations","Form accuracy","Fraud & red flags","Data privacy","Quality review","Quality drills"]],
+   ["Performance",["Buckets explained","Reading your ASPC","Weekly self-review","Coaching conversations","Travel trip readiness","Site strategy","Personal targets","Performance review"]],
+   ["Mastery",["Leading a warm-up","Buddying a newie","Advanced objections","High-value donors","Team leader pathway","Speed & consistency","Mastery review","Graduation"]]]},
+ {id:"career",name:"Career development",every:3,c:"#8A5A2B",steps:[["Career development",["Career development review"]]]},
+ {id:"stc",name:"Client training · STC",every:6,c:"#B23A3A",steps:[["STC",["STC product & programmes","STC compliance refresher"]]]},
+ {id:"ykan",name:"Client training · YKAN",every:6,c:"#1B7F4B",steps:[["YKAN",["YKAN product & programmes","YKAN compliance refresher"]]]}];
+let CUSTOM_TOPICS=["Team leader huddle","Energy & mindset"];
+const progOf=topic=>{for(const pr of PROGRAMMES)for(const [si,st] of pr.steps.entries())if(st[1].includes(topic))return {prog:pr,step:si+1,stepName:st[0]}; return null};
+const topicColor=t=>{const p=progOf(t); return p?p.prog.c:"#5B6C8F"};
+const allTopics=()=>[...new Set([...PROGRAMMES.flatMap(p=>p.steps.flatMap(s=>s[1])),...CUSTOM_TOPICS])];
+
+let TRAIN=[], trainSeq=1;    // {id,date,start,end,topic,trainer,attendees[],room,series,attended:null|[pid]}
+const DONE={};               // pid -> {topic: "2026-07-14"}  (latest attended date)
+const trainers=()=>P.filter(p=>p.lv>=2&&p.lv<=4&&!p.placeholder);
+(function seedTrain(){let r=91;const rnd=()=>((r=r*16807%2147483647)/2147483647);
+  const tr=trainers(), frs=P.filter(p=>p.lv>=6&&!p.placeholder), core=PROGRAMMES[0].steps.flatMap(s=>s[1]);
+  // completion history proportional to tenure
+  frs.forEach(p=>{DONE[p.id]={}; const days=serviceDays(p); const n=Math.min(64,Math.floor(days/3.2*(0.7+rnd()*0.6)));
+    core.slice(0,n).forEach((t,i)=>{const back=Math.max(1,Math.floor((n-i)*3.2)); const dt=new Date(2026,8,TODAY_D-back); DONE[p.id][t]=dt.toISOString().slice(0,10)});
+    if(days>120&&rnd()<.7){const dt=new Date(2026,8,TODAY_D-Math.floor(30+rnd()*120)); DONE[p.id]["Career development review"]=dt.toISOString().slice(0,10)}
+    if(rnd()<.6){const dt=new Date(2026,8,TODAY_D-Math.floor(20+rnd()*200)); DONE[p.id][p.c==="stc"?"STC product & programmes":"YKAN product & programmes"]=dt.toISOString().slice(0,10)}});
+  const mk=(date,start,end,topic,ti,list,room,series,att)=>TRAIN.push({id:trainSeq++,date,start,end,topic,trainer:tr[ti%tr.length].id,attendees:list.map(p=>p.id),room,series:series||null,attended:att?list.filter(()=>rnd()<.88).map(p=>p.id):null});
+  const need=t=>frs.filter(p=>!DONE[p.id][t]);
+  mk(14,"08:30","10:00","Stopping with a question",0,need("Stopping with a question").slice(0,6),"Office · Room A",null,true);
+  mk(15,"08:30","10:00","Stopping with a question",0,need("Stopping with a question").slice(6,12),"Office · Room A",null,true);
+  mk(16,"08:30","10:00","Charity story",1,need("Charity story").slice(0,5),"Office · Room A",null,true);
+  mk(17,"14:00","15:30","Objection handling",2,need("Objection handling").slice(0,4),"Office · Room B",null,true);
+  mk(18,"08:30","10:00","Career development review",3,frs.slice(40,46),"Office · Room B",null,true);
+  ["21","22","23","24","25"].forEach((d,i)=>mk(+d,"08:30","09:30","Daily routine",1,need("Daily routine").slice(i*4,i*4+4),"Office · Room A","wk4-routine",false));
+  mk(22,"14:00","15:30","STC product & programmes",2,frs.filter(p=>p.c==="stc").slice(0,8),"Office · Room B",null,false);
+  mk(24,"14:00","15:30","Under-30 quality",0,need("Under-30 quality").slice(0,6),"Office · Room A",null,false);
+  mk(29,"08:30","10:00","Asking for the gift",1,need("Asking for the gift").slice(0,6),"Office · Room A",null,false);
+  // fold attended past sessions into DONE
+  TRAIN.filter(t=>t.attended).forEach(t=>t.attended.forEach(pid=>{DONE[pid]=DONE[pid]||{}; DONE[pid][t.topic]="2026-09-"+String(t.date).padStart(2,"0")}));
+})();
+const sessionsFor=(pid,days)=>TRAIN.filter(t=>t.attendees.includes(pid)&&days.includes(t.date)).sort((a,b)=>a.date-b.date||a.start.localeCompare(b.start));
+const monthsAgo=iso=>{const d=new Date(iso), now=new Date(2026,8,TODAY_D); return (now-d)/(30.44*864e5)};
+function progress(pid,pr){const d=DONE[pid]||{}; const topics=pr.steps.flatMap(s=>s[1]); const done=topics.filter(t=>d[t]);
+  const steps=pr.steps.map(([name,ts])=>({name,n:ts.filter(t=>d[t]).length,of:ts.length,topics:ts.map(t=>[t,d[t]||null])}));
+  const last=done.length?done.map(t=>d[t]).sort().pop():null;
+  const due=pr.every?(!last||monthsAgo(last)>=pr.every):false;
+  const nextUp=topics.find(t=>!d[t])||null;
+  return {done:done.length,of:topics.length,pct:Math.round(done.length/topics.length*100),steps,last,due,nextUp,complete:done.length===topics.length}}
+// backwards-compat for the FR dashboard card
+const trType=topic=>({l:topic,c:topicColor(topic)});
+/* ======================= COMMISSION ======================= */
+// --- 100% commission memo (performance-based ICs): rate per processable sign-up, by card, band and DONOR age
+const COMM100={ "u30":{ccA:350000,ddA:175000,ccB:200000,ddB:100000}, "30-34":{ccA:367500,ddA:192500,ccB:210000,ddB:110000},
+                "35-39":{ccA:420000,ddA:210000,ccB:240000,ddB:120000}, "40+":{ccA:455000,ddA:227500,ccB:260000,ddB:130000} };
+const rateFor=z=>{const r=COMM100[z.age||"40+"]; return r[(z.cc?"cc":"dd")+(z.amount>=180000?"A":"B")]};
+// --- Model B (Omniraise_Commission_Sandbox): IC Perm tiered model
+const MODELB={
+  tiers:[{k:"none",l:"No tier",min:0,max:19,m:0},{k:"0.5",l:"Tier 0.5",min:20,max:24,m:0.5},{k:"1",l:"Tier 1",min:25,max:29,m:1.0},{k:"2",l:"Tier 2",min:30,max:34,m:1.2},{k:"3",l:"Tier 3",min:35,max:39,m:1.6},{k:"4",l:"Tier 4",min:40,max:1e9,m:2.2}],
+  base:{ "u30":{cc:100000,dd:50000}, "30-34":{cc:105000,dd:55000}, "35-39":{cc:120000,dd:60000}, "40+":{cc:130000,dd:65000} },
+  u30cap:7, qb:[{maxPct:20,amt:1000000},{maxPct:29,amt:500000}], att:{amt:500000,days:20,fd:16} };
+// gross basic by role (New Jakarta table) — trainee also gets an FD allowance at 16+ FD
+const BASIC={7:{basic:2000000,fdAllow:1500000,fdMin:16,l:"Trainee"},6:{basic:5000000,l:"IC / Fundraiser"},5:{basic:5500000,l:"Team leader"},4:{basic:6050000,l:"Senior team leader"},3:{basic:6655000,l:"Assistant manager"},2:{basic:7320500,l:"Manager"},1:{basic:10395110,l:"Senior manager"},0:{basic:14553154,l:"Head"}};
+const AGE_L={u30:"Under 30","30-34":"30–34","35-39":"35–39","40+":"40+"};
+
+function commissionFor(pid,days){
+  const p=by(pid)||{}; const plan=p.plan||"perf100";
+  const rows=ASPC.filter(x=>x.pid===pid&&days.includes(x.d)&&!x.training);
+  const sales=rows.flatMap(x=>(x.sales||[]).map(z=>Object.assign({d:x.d,site:x.site},z)));
+  const daysWorked=Object.keys(CHECK[pid]||{}).filter(k=>/^\d+$/.test(k)&&days.includes(+k)&&CHECK[pid][k].out).length;
+  const byAge=Object.keys(AGE_L).map(a=>[a,sales.filter(z=>(z.age||"40+")===a).length]);
+  if(plan==="perf100"){
+    const lines=sales.map(z=>({d:z.d,site:z.site,amount:z.amount,cc:z.cc,age:z.age||"40+",band:z.amount>=180000?"A":"B",rate:rateFor(z),paid:true}));
+    const cell=k=>lines.filter(l=>(l.cc?"cc":"dd")+l.band===k).length;
+    return {plan,gross:sales.length,total:lines.reduce((n,l)=>n+l.rate,0),commission:lines.reduce((n,l)=>n+l.rate,0),lines,byAge,daysWorked,ccA:cell("ccA"),ccB:cell("ccB"),ddA:cell("ddA"),ddB:cell("ddB")};
+  }
+  /* ---- Model B ---- */
+  const gross=sales.length, u30=sales.filter(z=>(z.age||"40+")==="u30");
+  const stripped=Math.max(0,u30.length-MODELB.u30cap);                 // excess under-30s: unpaid AND removed from the tier count
+  const qualifying=gross-stripped;
+  const tier=MODELB.tiers.find(t=>qualifying>=t.min&&qualifying<=t.max);
+  let u30seen=0;
+  const lines=sales.map(z=>{const age=z.age||"40+"; let paid=true; if(age==="u30"){u30seen++; if(u30seen>MODELB.u30cap)paid=false}
+    const base=MODELB.base[age][z.cc?"cc":"dd"]; return {d:z.d,site:z.site,amount:z.amount,cc:z.cc,age,base,rate:paid?Math.round(base*tier.m):0,paid}});
+  const commission=lines.reduce((n,l)=>n+l.rate,0);
+  const u30pct=qualifying?Math.round(Math.min(u30.length,MODELB.u30cap)/qualifying*100):0;
+  const quality=tier.m>0?((MODELB.qb.find(q=>u30pct<=q.maxPct)||{amt:0}).amt):0;
+  const attOk=daysWorked>=MODELB.att.days&&gross>=MODELB.att.fd, attendance=attOk?MODELB.att.amt:0;
+  const roleB=BASIC[p.lv]||BASIC[6]; const fdAllow=roleB.fdAllow&&gross>=roleB.fdMin?roleB.fdAllow:0;
+  const basic=roleB.basic;
+  const bySeg=Object.keys(AGE_L).map(a=>{const L=lines.filter(l=>l.age===a); return {a,n:L.length,cc:L.filter(l=>l.cc).length,dd:L.filter(l=>!l.cc).length,rp:L.reduce((n,l)=>n+l.rate,0),base:MODELB.base[a]}});
+  const next=MODELB.tiers.find(t=>t.min>qualifying);
+  return {plan,gross,qualifying,stripped,u30:u30.length,u30pct,tier,next,needForNext:next?next.min-qualifying:0,
+          lines,byAge,bySeg,daysWorked,commission,quality,attendance,attOk,basic,fdAllow,roleLabel:roleB.l,
+          total:basic+fdAllow+commission+quality+attendance};
+}
 
 /* ======================= F2F DASHBOARD ======================= */
 let FPER="yday"; const FOPEN=new Set(), FBOPEN=new Set(); let FINIT=false;
@@ -3043,5 +3289,308 @@ function personBox(pid){
 document.querySelectorAll(".fper").forEach(b=>b.onclick=()=>{document.querySelectorAll(".fper").forEach(x=>x.classList.toggle("on",x===b)); FPER=b.dataset.per; renderF2F()});
 ["fcamp","tS","tP","tC","fbteam"].forEach(id=>document.getElementById(id).addEventListener("input",renderF2F));
 
-phInit(); render(); renderOrg(); renderMonth(); renderPhone(); renderApprovals(); renderEvents(); renderHR(); renderASPC(); renderF2F();
+/* ======================= FR DASHBOARD (phone) ======================= */
+let ME3=null, FRW=WK, FRMODE="week";
+function frdList(){const sel=document.getElementById("whoami3"), cur=sel.value;
+  sel.innerHTML=P.filter(p=>p.lv>=6&&!p.placeholder).sort((a,b)=>a.n.localeCompare(b.n)).map(p=>'<option value="'+p.id+'">'+p.n+'</option>').join("");
+  if(cur&&[...sel.options].some(o=>o.value===cur))sel.value=cur; else{const t=P.find(p=>p.lv===6&&p.plan==="standard"&&ASPC.filter(x=>x.pid===p.id).reduce((n,x)=>n+x.c,0)>=12); if(t)sel.value=t.id}
+  ME3=by(+sel.value)}
+function renderFRD(){
+  frdList(); if(!ME3)return; const app=document.getElementById("frdApp");
+  const monthDays=Array.from({length:HTODAY},(_,i)=>i+1);
+  const cm=commissionFor(ME3.id,monthDays);
+  let h='<div class="pbar"><b>'+ME3.n.split(" ")[0]+'</b><span>September · '+TODAY_LABEL+'</span></div>';
+  /* ---- commission ---- */
+  const monthEnd=30, pace=cm.gross&&HTODAY?Math.round(cm.gross/HTODAY*monthEnd):0;
+  const row=(l,v,cls,sub)=>'<div class="payrow'+(cls?" "+cls:"")+'"><span>'+l+(sub?'<small>'+sub+'</small>':'')+'</span><b>'+v+'</b></div>';
+  if(cm.plan==="standard"){
+    const t=cm.tier;
+    h+='<div class="hero money"><span class="lbl">ESTIMATED PAY · SEPTEMBER SO FAR</span><b>'+IDRf(cm.total)+'</b>'+
+       '<div class="place">'+cm.roleLabel+' · '+t.l+(t.m?' · '+t.m+'× rates':'')+' · '+cm.gross+' sign-up'+(cm.gross===1?"":"s")+'</div>'+
+       '<div class="finenote">Gross, before tax. Commission is on gross FD; cancellations are settled next month.</div></div>'+
+       '<div class="paycard">'+
+         row("Gross basic",IDRf(cm.basic),"","")+
+         (cm.fdAllow?row("FD allowance",IDRf(cm.fdAllow),"","16+ sign-ups"):(BASIC[ME3.lv]&&BASIC[ME3.lv].fdAllow?row("FD allowance","—","dim","needs 16 sign-ups · you have "+cm.gross):""))+
+         row("Commission",IDRf(cm.commission),"",t.l+(t.m?" · "+t.m+"×":" · below 20 qualifying FD"))+
+         row("Quality bonus",cm.quality?IDRf(cm.quality):"—",cm.quality?"":"dim",cm.u30pct+"% under 30"+(t.m?(cm.quality?"":" · needs 29% or less"):" · from Tier 0.5"))+
+         row("Attendance allowance",cm.attendance?IDRf(cm.attendance):"—",cm.attendance?"":"dim",cm.daysWorked+"/20 days · "+cm.gross+"/16 FD")+
+         '<div class="payrow total"><span>Estimated total</span><b>'+IDRf(cm.total)+'</b></div></div>';
+    /* tier ladder */
+    h+='<div class="calhead"><b>Your tier</b><span>'+cm.qualifying+' qualifying FD'+(cm.stripped?' · '+cm.stripped+' under-30 stripped':'')+'</span></div>'+
+       '<div class="ladder">'+MODELB.tiers.filter(x=>x.m>0).map(x=>'<div class="rung'+(x.k===t.k?" on":qualifying(cm)>=x.min?" done":"")+'"><b>'+x.l.replace("Tier ","T")+'</b><span>'+x.min+(x.max<1e9?'–'+x.max:'+')+'</span><small>'+x.m+'×</small></div>').join("")+'</div>'+
+       (cm.next?'<p class="paynote">'+cm.needForNext+' more qualifying sign-up'+(cm.needForNext===1?"":"s")+' to reach '+cm.next.l+' ('+cm.next.m+'×) — on today\'s pace you\'d finish the month on about '+pace+'.</p>':'<p class="paynote">Top tier. Every sign-up pays 2.2× base.</p>');
+    /* age bracket breakdown */
+    h+='<div class="calhead"><b>By donor age</b><span>base × '+t.m+'</span></div>'+
+       '<table class="hc phone"><tr><th>Age</th><th class="r">CC · DD</th><th class="r">Rate CC/DD</th><th class="r">Rp</th></tr>'+
+       cm.bySeg.map(sg=>'<tr'+(sg.n?"":' class="dim"')+'><td>'+AGE_L[sg.a]+(sg.a==="u30"?'<small>cap '+MODELB.u30cap+' · '+Math.min(cm.u30,MODELB.u30cap)+' paid'+(cm.stripped?' · '+cm.stripped+' unpaid':'')+'</small>':'')+'</td><td class="r">'+sg.cc+' · '+sg.dd+'</td><td class="r"><small>'+IDRx(sg.base.cc*t.m)+' / '+IDRx(sg.base.dd*t.m)+'</small></td><td class="r"><b>'+(sg.rp?IDRx(sg.rp):"–")+'</b></td></tr>').join("")+
+       '<tr class="rule"><td>Under-30 share</td><td colspan="3" class="r '+(cm.u30pct<=20?"okc":cm.u30pct<=29?"wc":"rc")+'"><b>'+cm.u30pct+'%</b> <small>'+(cm.u30pct<=20?"quality bonus Rp 1,000,000":cm.u30pct<=29?"quality bonus Rp 500,000":"no quality bonus above 29%")+'</small></td></tr></table>';
+  } else {
+    h+='<div class="hero money"><span class="lbl">EARNED SO FAR · SEPTEMBER</span><b>'+IDRf(cm.total)+'</b>'+
+       '<div class="place">'+cm.gross+' sign-up'+(cm.gross===1?"":"s")+' · 100% commission plan</div>'+
+       '<div class="finenote">Before cancellations and rejections. Paid on processable sign-ups at month end.</div></div>'+
+       '<div class="calhead"><b>By donor age</b><span>rate by card, gift size and donor age</span></div>'+
+       '<table class="hc phone"><tr><th>Age</th><th class="r">Sign-ups</th><th class="r">Rp</th></tr>'+
+       cm.byAge.map(([a,n])=>'<tr'+(n?"":' class="dim"')+'><td>'+AGE_L[a]+'</td><td class="r">'+n+'</td><td class="r"><b>'+(n?IDRx(cm.lines.filter(l=>l.age===a).reduce((x,l)=>x+l.rate,0)):"–")+'</b></td></tr>').join("")+
+       '<tr class="rule"><td>Band A · Rp 180,000+</td><td class="r">'+(cm.ccA+cm.ddA)+'</td><td class="r"><small>CC '+cm.ccA+' · DD '+cm.ddA+'</small></td></tr><tr><td>Band B · under Rp 180,000</td><td class="r">'+(cm.ccB+cm.ddB)+'</td><td class="r"><small>CC '+cm.ccB+' · DD '+cm.ddB+'</small></td></tr></table>';
+  }
+  /* every sign-up with location */
+  if(cm.lines.length)h+='<details class="frdet"><summary>Every sign-up this month · '+cm.lines.length+'</summary><table class="hc phone">'+
+    cm.lines.slice().sort((a,b)=>b.d-a.d).map(l=>'<tr'+(l.paid?"":' class="dim"')+'><td>'+l.d+' Sep<small>'+SITES[l.site].n+'</small></td><td>'+(l.cc?"CC":"DD")+' · '+AGE_L[l.age]+'<small>'+IDRx(l.amount)+'/mo</small></td><td class="r"><b>'+(l.paid?IDRx(l.rate):"unpaid")+'</b>'+(l.paid?"":'<small>over under-30 cap</small>')+'</td></tr>').join("")+'</table></details>';
+  /* ---- training this week ---- */
+  const wkDays=WEEKS[WK].dates.filter((x,i)=>WEEKS[WK].mon[i]===9);
+  const mine=sessionsFor(ME3.id,wkDays), upcoming=TRAIN.filter(t=>t.attendees.includes(ME3.id)&&t.date>wkDays[wkDays.length-1]).sort((a,b)=>a.date-b.date);
+  h+='<div class="calhead"><b>Training this week</b><span>'+WEEKS[WK].label+'</span></div>';
+  h+=mine.length?mine.map(t=>trCard(t)).join(""):'<div class="say plain" style="margin:0 16px">No training this week.</div>';
+  if(upcoming.length)h+='<div class="calhead"><b>Coming up</b></div>'+upcoming.slice(0,3).map(t=>trCard(t)).join("");
+  /* ---- my performance ---- */
+  const wks=[0,1,2,3,4].filter(wi=>weekDays(wi).length);
+  if(!wks.includes(FRW))FRW=wks[wks.length-1];
+  const days=FRMODE==="week"?weekDays(FRW):monthDays;
+  const rows=ASPC.filter(x=>x.pid===ME3.id&&days.includes(x.d)&&!x.training).sort((a,b)=>a.d-b.d), o=fsum(rows);
+  const pp=o.days?o.p/o.days:0;
+  h+='<div class="calhead"><b>My performance</b><span>'+(FRMODE==="week"?"by day":"whole month")+'</span></div>'+
+     '<div class="frnav"><div class="segs" style="margin:0;width:auto"><button class="seg frm'+(FRMODE==="week"?" on":"")+'" data-m="week">Week</button><button class="seg frm'+(FRMODE==="month"?" on":"")+'" data-m="month">Month</button></div>'+
+     (FRMODE==="week"?'<button class="nbtn frw" data-dir="-1"'+(wks.indexOf(FRW)===0?" disabled":"")+'>‹</button><b>'+WEEKS[FRW].label+'</b><button class="nbtn frw" data-dir="1"'+(wks.indexOf(FRW)===wks.length-1?" disabled":"")+'>›</button>':'<b>1 – '+HTODAY+' Sep</b>')+'</div>'+
+     '<div class="big" style="grid-template-columns:repeat(4,1fr);margin:0 16px"><div class="bigcell all"><b>'+o.a+'</b><span>A</span></div><div class="bigcell stc"><b>'+o.s+'</b><span>S</span></div><div class="bigcell ykan"><b>'+o.p+'</b><span>P</span></div><div class="bigcell" style="background:#EAF3EE;color:var(--ok)"><b>'+o.c+'</b><span>C</span></div></div>'+
+     '<div class="frline"><span>Presentations a day</span><b class="'+(pp>=20?"okc":pp>=10?"wc":"rc")+'">'+(o.days?pp.toFixed(1):"–")+'</b><small>target 20 · bucket '+(o.days?bucketOf(pp)+1:"–")+'</small></div>'+
+     '<div class="frline"><span>Stop rate</span><b>'+pct(o.s,o.a)+'%</b><span>Present rate</span><b>'+pct(o.p,o.s)+'%</b><span>Close rate</span><b>'+pct(o.c,o.p)+'%</b></div>';
+  if(FRMODE==="week"){
+    h+='<table class="hc phone frdays"><tr><th>Day</th><th>Site</th><th class="r">A</th><th class="r">S</th><th class="r">P</th><th class="r">C</th></tr>'+
+       days.map(d=>{const x=rows.find(r=>r.d===d); const dn="MTWTFSS"[dow(d)];
+         return '<tr class="'+(x?"":"dim")+'"><td>'+dn+' '+d+'</td><td>'+(x?SITES[x.site].n.replace(/ .*/,""):(d>HTODAY?"":"—"))+'</td>'+(x?'<td class="r">'+x.a+'</td><td class="r">'+x.s+'</td><td class="r">'+x.p+'</td><td class="r"><b>'+x.c+'</b></td>':'<td colspan="4" class="r dim">'+(d>HTODAY?"":"no shift")+'</td>')+'</tr>'}).join("")+'</table>';
+  } else {
+    const wsum=wks.map(wi=>{const dd=weekDays(wi); const ro=fsum(ASPC.filter(x=>x.pid===ME3.id&&dd.includes(x.d)&&!x.training)); return [wi,ro]});
+    h+='<table class="hc phone frdays"><tr><th>Week</th><th class="r">Days</th><th class="r">P/day</th><th class="r">C</th><th class="r">Rp</th></tr>'+
+       wsum.map(([wi,ro])=>'<tr><td>Wk '+WEEKS[wi].n+' <small>'+WEEKS[wi].label.replace(/ Sep.*/,"")+'</small></td><td class="r">'+ro.days+'</td><td class="r '+(ro.days?(ro.p/ro.days>=20?"okc":ro.p/ro.days>=10?"wc":"rc"):"")+'">'+(ro.days?(ro.p/ro.days).toFixed(1):"–")+'</td><td class="r"><b>'+ro.c+'</b></td><td class="r">'+(cm.plan==="perf100"?IDRx(commissionFor(ME3.id,weekDays(wi)).total):"–")+'</td></tr>').join("")+'</table>';
+  }
+  app.innerHTML=h;
+  app.querySelectorAll(".frm").forEach(b=>b.onclick=()=>{FRMODE=b.dataset.m; renderFRD()});
+  app.querySelectorAll(".frw").forEach(b=>b.onclick=()=>{const i=wks.indexOf(FRW)+ +b.dataset.dir; if(wks[i]!=null){FRW=wks[i]; renderFRD()}});
+}
+const qualifying=cm=>cm.qualifying!=null?cm.qualifying:cm.gross;
+function trCard(t){const ty=trType(t.topic), tr=by(t.trainer);
+  return '<div class="trcard" style="border-left-color:'+ty.c+'"><b>'+ty.l+'</b><span>'+["Mon","Tue","Wed","Thu","Fri","Sat","Sun"][dow(t.date)]+' '+t.date+' Sep · '+t.start+'–'+t.end+'</span><small>'+(tr?tr.n+' · ':'')+(t.room||"")+'</small></div>'}
+document.getElementById("whoami3").onchange=e=>{ME3=by(+e.target.value);renderFRD()};
+
+/* ======================= TRAINER SCHEDULE ======================= */
+let TRW=WK, TRVIEW="week", TRMODE="sched", TRPROG="core", TRPV="matrix";
+function renderTrain(){
+  const wks=[0,1,2,3,4].filter(wi=>WEEKS[wi].dates.some((x,i)=>WEEKS[wi].mon[i]===9));
+  const frs=P.filter(p=>p.lv>=6&&!p.placeholder);
+  /* ---------- dashboard ---------- */
+  const wkD=weekDays(WK).length?WEEKS[WK].dates.filter((x,i)=>WEEKS[WK].mon[i]===9):[];
+  const thisWk=TRAIN.filter(t=>wkD.includes(t.date)), seats=thisWk.reduce((n,t)=>n+t.attendees.length,0);
+  const bookedIds=new Set(thisWk.flatMap(t=>t.attendees));
+  const notBooked=frs.filter(p=>!bookedIds.has(p.id)), nbB1=notBooked.filter(p=>{const v=avgP(p.id,weekDays(WK))??avgP(p.id,weekDays(WK-1)); return v!=null&&bucketOf(v)===0});
+  const core=PROGRAMMES[0], coreP=frs.map(p=>progress(p.id,core)); const coreAvg=Math.round(coreP.reduce((n,x)=>n+x.pct,0)/Math.max(1,coreP.length)), coreDone=coreP.filter(x=>x.complete).length;
+  const overdue=frs.flatMap(p=>PROGRAMMES.filter(pr=>pr.every).map(pr=>({p,pr,pg:progress(p.id,pr)})).filter(x=>x.pg.due&&(x.pr.id==="career"||x.pr.id===x.p.c)));
+  const past=TRAIN.filter(t=>t.date<HTODAY&&t.attended), attRate=past.length?Math.round(past.reduce((n,t)=>n+t.attended.length,0)/Math.max(1,past.reduce((n,t)=>n+t.attendees.length,0))*100):null;
+  const unmarked=TRAIN.filter(t=>t.date<HTODAY&&!t.attended).length;
+  const gaps={}; frs.forEach(p=>{const d=DONE[p.id]||{}; core.steps.flatMap(s=>s[1]).forEach(t=>{if(!d[t])gaps[t]=(gaps[t]||0)+1})}); const topGap=Object.entries(gaps).sort((a,b)=>b[1]-a[1])[0];
+  const kpi=(n,l,sub,cls)=>'<div class="kpi'+(cls?" "+cls:"")+'"><b>'+n+'</b><span>'+l+'</span><small>'+sub+'</small></div>';
+  document.getElementById("trkpis").innerHTML=
+    kpi(thisWk.length,"Sessions this week",seats+" seats booked · "+new Set(thisWk.map(t=>t.trainer)).size+" trainers","")+
+    kpi(notBooked.length,"Not booked this week",nbB1.length+" of them in bucket 1",nbB1.length?"warn":"")+
+    kpi(coreAvg+"%","Core programme done","avg across "+frs.length+" · "+coreDone+" graduated","")+
+    kpi(overdue.length,"Refreshers overdue","career dev every 3 mo · client every 6",overdue.length?"bad":"")+
+    kpi(attRate==null?"–":attRate+"%","Attendance","booked vs turned up · "+unmarked+" past session"+(unmarked===1?"":"s")+" unmarked",unmarked?"warn":"")+
+    kpi(topGap?topGap[1]:0,"Biggest gap",topGap?'"'+topGap[0]+'" — run this next':"—","");
+  /* ---------- mode switches ---------- */
+  document.querySelectorAll(".trmode").forEach(b=>{b.classList.toggle("on",b.dataset.m===TRMODE); b.onclick=()=>{TRMODE=b.dataset.m; renderTrain()}});
+  document.getElementById("trweeks").classList.toggle("hidden",TRMODE!=="sched"); document.getElementById("trviewsegs").classList.toggle("hidden",TRMODE!=="sched");
+  document.getElementById("trprog").classList.toggle("hidden",TRMODE!=="prog"); document.getElementById("trteam").classList.toggle("hidden",TRMODE!=="prog"); document.getElementById("trpview").classList.toggle("hidden",TRMODE!=="prog");
+  document.getElementById("trhint").textContent=TRMODE==="sched"?"Drag a topic or a trainer onto a day · click a session to edit · Add fundraisers inside the session":"One row per fundraiser, one square per topic · click a column to run that topic for everyone missing it";
+  document.getElementById("trmatrixCard").classList.toggle("hidden",TRMODE!=="sched");
+  if(TRMODE==="prog")return renderProgress();
+  renderScheduleMatrix();
+  document.getElementById("trweeks").innerHTML=wks.map(wi=>'<button class="seg trwk'+(wi===TRW?" on":"")+'" data-w="'+wi+'">Wk '+WEEKS[wi].n+'</button>').join("");
+  document.querySelectorAll(".trwk").forEach(b=>b.onclick=()=>{TRW=+b.dataset.w; TRVIEW="week"; renderTrain()});
+  document.querySelectorAll(".trview").forEach(b=>{b.classList.toggle("on",b.dataset.v===TRVIEW); b.onclick=()=>{TRVIEW=b.dataset.v; renderTrain()}});
+  const grid=document.getElementById("trgrid");
+  const dayCol=(wi,di)=>{const d=WEEKS[wi].dates[di], inMonth=WEEKS[wi].mon[di]===9; const list=inMonth?TRAIN.filter(t=>t.date===d).sort((a,b)=>a.start.localeCompare(b.start)):[];
+    return '<div class="trday'+(inMonth?"":" out")+(inMonth&&d===HTODAY?" today":"")+(inMonth&&d<HTODAY?" past":"")+'" data-d="'+(inMonth?d:"")+'"><div class="trdh">'+DAYS[di]+' <b>'+d+'</b>'+(inMonth?'<button class="trdadd" data-d="'+d+'" title="New session">+</button>':'')+'</div>'+
+      list.map(t=>sessionCard(t)).join("")+(inMonth&&!list.length?'<div class="trempty">drop a topic here</div>':'')+'</div>'};
+  if(TRVIEW==="week"){grid.innerHTML='<div class="trweek">'+[0,1,2,3,4].map(di=>dayCol(TRW,di)).join("")+'</div>'}
+  else {grid.innerHTML='<div class="trmonth">'+wks.map(wi=>'<div class="trmrow"><div class="trmlab">Wk '+WEEKS[wi].n+'<small>'+WEEKS[wi].label+'</small></div>'+[0,1,2,3,4].map(di=>{const d=WEEKS[wi].dates[di], inMonth=WEEKS[wi].mon[di]===9; const list=inMonth?TRAIN.filter(t=>t.date===d):[];
+      return '<div class="trmcell'+(inMonth?"":" out")+(inMonth&&d===HTODAY?" today":"")+'" data-d="'+(inMonth?d:"")+'" data-w="'+wi+'"><span class="trmd">'+DAYS[di]+' '+d+'</span>'+list.sort((a,b)=>a.start.localeCompare(b.start)).map(t=>'<div class="trml" style="border-left-color:'+topicColor(t.topic)+'" title="'+t.topic+' · '+t.start+'–'+t.end+(by(t.trainer)?' · '+by(t.trainer).n:'')+'"><b>'+t.topic+'</b><span>'+t.start+' · '+t.attendees.length+' FR'+(t.attended?' · '+t.attended.length+' came':'')+'</span></div>').join("")+'</div>'}).join("")+'</div>').join("")+'</div><p class="fnote">Click a day to open that week.</p>';
+    grid.querySelectorAll(".trmcell[data-w]").forEach(c=>c.onclick=()=>{TRW=+c.dataset.w; TRVIEW="week"; renderTrain()})}
+  /* ---------- sidebar ---------- */
+  document.getElementById("trtopN").textContent=allTopics().length;
+  document.getElementById("trtypes").innerHTML=
+    PROGRAMMES.map(pr=>'<div class="topgrp"><b style="color:'+pr.c+'">'+pr.name+(pr.every?' · every '+pr.every+' mo':'')+'</b>'+pr.steps.map(([sn,ts],i)=>'<details'+(pr.id==="core"&&i>0?"":" open")+'><summary>'+(pr.steps.length>1?'Step '+(i+1)+' · ':'')+sn+'</summary>'+ts.map(t=>'<div class="cand trtype" draggable="true" data-topic="'+t+'" style="border-left:4px solid '+pr.c+'"><b>'+t+'</b><small>'+(gaps[t]||0)+' still to do</small></div>').join("")+'</details>').join("")+'</div>').join("")+
+    '<div class="topgrp"><b>Your topics</b>'+CUSTOM_TOPICS.map(t=>'<div class="cand trtype" draggable="true" data-topic="'+t+'" style="border-left:4px solid #5B6C8F"><b>'+t+'</b><small>not part of a programme</small></div>').join("")+'</div>';
+  document.getElementById("trtrainers").innerHTML=trainers().map(p=>'<div class="chip trainer" draggable="true" data-trainer="'+p.id+'"><span class="nm">'+p.n+'</span><small>'+LEVELS[p.lv]+' · '+TRAIN.filter(t=>t.trainer===p.id&&t.date>=HTODAY).length+' upcoming</small></div>').join("");
+  const coreT=core.steps; const covs=coreT.map(([sn,ts])=>Math.round(frs.reduce((n,p)=>n+ts.filter(t=>(DONE[p.id]||{})[t]).length/ts.length,0)/Math.max(1,frs.length)*100));
+  document.getElementById("trcov").innerHTML=coreT.map(([sn],i)=>'<div class="brow"><span>'+(i+1)+' · '+sn+'</span><div class="btrack"><i class="'+(covs[i]>=80?"ok":"")+'" style="width:'+covs[i]+'%;background:'+(covs[i]>=80?"var(--ok)":covs[i]>=40?"var(--warn)":"var(--flag)")+'"></i></div><b>'+covs[i]+'%</b></div>').join("");
+  /* ---------- drag & drop ---------- */
+  const DT=e=>e.dataTransfer;
+  document.querySelectorAll("#trtypes .trtype").forEach(el=>el.ondragstart=e=>DT(e).setData("text/plain","topic:"+el.dataset.topic));
+  document.querySelectorAll("#trtrainers .trainer").forEach(el=>el.ondragstart=e=>DT(e).setData("text/plain","trainer:"+el.dataset.trainer));
+  grid.querySelectorAll(".trday[data-d]").forEach(col=>{if(!col.dataset.d)return;
+    col.ondragover=e=>{e.preventDefault(); col.classList.add("over")}; col.ondragleave=()=>col.classList.remove("over");
+    col.ondrop=e=>{e.preventDefault(); col.classList.remove("over"); const s=DT(e).getData("text/plain"); const kind=s.slice(0,s.indexOf(":")), val=s.slice(s.indexOf(":")+1); const d=+col.dataset.d;
+      if(kind==="topic")return sessionForm({date:d,topic:val});
+      if(kind==="trainer")return sessionForm({date:d,trainer:+val});
+      if(kind==="fr"){const onCard=e.target.closest(".trsess"); if(onCard)return addAttendee(+onCard.dataset.id,+val); const list=TRAIN.filter(t=>t.date===d); if(list.length===1)return addAttendee(list[0].id,+val); return sessionForm({date:d,attendees:[+val]})}}});
+  grid.querySelectorAll(".trsess").forEach(card=>{const t=TRAIN.find(x=>x.id===+card.dataset.id);
+    card.ondragover=e=>{e.preventDefault(); e.stopPropagation(); card.classList.add("over")}; card.ondragleave=()=>card.classList.remove("over");
+    card.ondrop=e=>{e.preventDefault(); e.stopPropagation(); card.classList.remove("over"); const s=DT(e).getData("text/plain"); const kind=s.slice(0,s.indexOf(":")), val=s.slice(s.indexOf(":")+1); if(kind==="fr")addAttendee(t.id,+val); if(kind==="trainer"){t.trainer=+val; renderTrain()}};
+    card.querySelector(".trhead").onclick=()=>sessionForm(t);
+    const mk=card.querySelector(".markatt"); if(mk)mk.onclick=e=>{e.stopPropagation(); attendanceSheet(t)};
+    const af=card.querySelector(".addfr"); if(af)af.onclick=e=>{e.stopPropagation(); frPicker(t)};
+    card.querySelector(".trdel").onclick=e=>{e.stopPropagation(); deleteSession(t)};
+    card.querySelectorAll(".rmatt").forEach(b=>b.onclick=e=>{e.stopPropagation(); t.attendees=t.attendees.filter(id=>id!==+b.dataset.p); renderTrain(); if(typeof renderFRD==="function")renderFRD()})});
+  grid.querySelectorAll(".trdadd").forEach(b=>b.onclick=()=>sessionForm({date:+b.dataset.d}));
+}
+function sessionCard(t){const tr=by(t.trainer), pg=progOf(t.topic), past=t.date<HTODAY;
+  return '<div class="trsess'+(past?" past":"")+'" data-id="'+t.id+'" style="border-left-color:'+topicColor(t.topic)+'"><button class="trdel" title="Delete this session">×</button><div class="trhead"><b>'+t.topic+'</b><span>'+t.start+'–'+t.end+(tr?' · '+tr.n.split(" ")[0]:'')+(t.room?' · '+t.room.replace("Office · ",""):'')+(pg?' · '+(pg.prog.steps.length>1?'step '+pg.step:pg.prog.name.replace("Client training · ",""))+'':'')+(t.series?' · <i title="part of a repeating series">↻</i>':'')+'</span></div>'+
+    '<div class="tratt">'+t.attendees.map(id=>{const p=by(id); const went=t.attended?t.attended.includes(id):null; return p?'<span class="att'+(went===true?" went":went===false?" missed":"")+'">'+p.n.split(" ")[0]+' '+(p.n.split(" ")[1]||"").slice(0,1)+(past?'':'<button class="rmatt" data-p="'+id+'" title="Remove">×</button>')+'</span>':''}).join("")+
+    (past?'':'<button class="addfr" data-id="'+t.id+'">'+(t.attendees.length?'＋ Add':'＋ Add fundraisers')+'</button>')+'</div>'+
+    (past?'<button class="markatt'+(t.attended?" done":"")+'">'+(t.attended?t.attended.length+'/'+t.attendees.length+' attended · edit':'Mark attendance')+'</button>':'')+'</div>'}
+function addAttendee(sid,pid){const t=TRAIN.find(x=>x.id===sid); if(!t)return; if(t.attendees.includes(pid))return flash(by(pid).n+" is already in this session");
+  const clash=TRAIN.find(x=>x.id!==sid&&x.date===t.date&&x.attendees.includes(pid)&&x.start<t.end&&t.start<x.end); if(clash)return flash(by(pid).n+" is already in "+clash.topic+" at "+clash.start);
+  if((DONE[pid]||{})[t.topic]&&!(progOf(t.topic)||{}).prog?.every)flash(by(pid).n+" already completed "+t.topic+" on "+DONE[pid][t.topic]+" — booked anyway");
+  t.attendees.push(pid); renderTrain(); if(typeof renderFRD==="function")renderFRD()}
+function deleteSession(t){const sc=document.createElement("div"); sc.className="scrim"; const n=t.series?TRAIN.filter(x=>x.series===t.series).length:1;
+  sc.innerHTML='<div class="modal"><h3>Delete "'+t.topic+'"?</h3><p class="hint">'+t.date+' Sep · '+t.start+'–'+t.end+' · '+t.attendees.length+' fundraiser'+(t.attendees.length===1?"":"s")+' booked.'+(t.series?' This session repeats — '+n+' in the series.':'')+'</p>'+
+    '<div class="row"><button class="no">Keep it</button>'+(t.series?'<button class="danger" id="dser">Delete all '+n+'</button>':'')+'<button class="danger" id="done">Delete'+(t.series?' this one':'')+'</button></div></div>';
+  sc.querySelector(".no").onclick=()=>sc.remove();
+  sc.querySelector("#done").onclick=()=>{TRAIN=TRAIN.filter(x=>x.id!==t.id); sc.remove(); renderTrain(); renderFRD()};
+  const ds=sc.querySelector("#dser"); if(ds)ds.onclick=()=>{TRAIN=TRAIN.filter(x=>x.series!==t.series); sc.remove(); renderTrain(); renderFRD()};
+  document.body.appendChild(sc)}
+function attendanceSheet(t){const sc=document.createElement("div"); sc.className="scrim"; const cur=new Set(t.attended||t.attendees);
+  sc.innerHTML='<div class="modal"><h3>'+t.topic+' · '+t.date+' Sep</h3><p class="hint">Tick who turned up. Ticked people get this topic marked complete.</p>'+
+    '<div class="attlist">'+t.attendees.map(id=>'<label class="chk"><input type="checkbox" data-p="'+id+'"'+(cur.has(id)?" checked":"")+'> '+by(id).n+'</label>').join("")+'</div>'+
+    '<div class="row"><button class="no">Cancel</button><button class="go">Save attendance</button></div></div>';
+  sc.querySelector(".no").onclick=()=>sc.remove();
+  sc.querySelector(".go").onclick=()=>{t.attended=[...sc.querySelectorAll("input:checked")].map(i=>+i.dataset.p); const iso="2026-09-"+String(t.date).padStart(2,"0");
+    t.attended.forEach(pid=>{DONE[pid]=DONE[pid]||{}; DONE[pid][t.topic]=iso}); sc.remove(); renderTrain(); if(typeof renderFRD==="function")renderFRD()};
+  document.body.appendChild(sc)}
+function sessionForm(t){const isNew=!t.id; const o=Object.assign({date:HTODAY,start:"08:30",end:"10:00",topic:"",trainer:trainers()[0]?.id,attendees:[],room:"Office · Room A"},t);
+  const sc=document.createElement("div"); sc.className="scrim";
+  sc.innerHTML='<div class="modal"><h3>'+(isNew?"New training session":"Edit session")+'</h3>'+
+    '<label>Topic <i class="req">required</i><input id="ttopic" list="topiclist" value="'+o.topic.replace(/"/g,"&quot;")+'" placeholder="Type anything — or pick a programme topic"><datalist id="topiclist">'+allTopics().map(x=>'<option value="'+x.replace(/"/g,"&quot;")+'">').join("")+'</datalist></label>'+
+    '<div class="two"><label>Day (Sep)<input type="number" id="tdate" min="1" max="30" value="'+o.date+'"></label><label>Trainer<select id="ttr">'+trainers().map(p=>'<option value="'+p.id+'"'+(p.id===o.trainer?" selected":"")+'>'+p.n+'</option>').join("")+'</select></label></div>'+
+    '<div class="two"><label>Start<input type="time" id="tstart" value="'+o.start+'"></label><label>Finish<input type="time" id="tend" value="'+o.end+'"></label></div>'+
+    '<label>Where<input id="troom" value="'+o.room+'"></label>'+
+    (isNew?'<label>Repeat<select id="trep"><option value="none">Just this once</option><option value="week">Every day this week (Mon–Fri)</option><option value="w4">Same day, every week for 4 weeks</option><option value="q">Every 3 months (career development)</option></select></label>':(o.series?'<p class="hint">Part of a repeating series ↻</p>':''))+
+    '<p class="hint">'+o.attendees.length+' fundraiser'+(o.attendees.length===1?"":"s")+' booked · use ＋ Add on the session to change who\'s coming.</p>'+
+    '<div class="row">'+(isNew?'':'<button class="danger" id="tdel">Delete'+(o.series?' this one':'')+'</button>'+(o.series?'<button class="danger" id="tdelall">Delete whole series</button>':''))+'<button class="no">Cancel</button><button class="go">'+(isNew?"Create":"Save")+'</button></div></div>';
+  const q=id=>sc.querySelector("#"+id);
+  sc.querySelector(".no").onclick=()=>sc.remove();
+  if(q("tdel"))q("tdel").onclick=()=>{TRAIN=TRAIN.filter(x=>x.id!==t.id); sc.remove(); renderTrain(); renderFRD()};
+  if(q("tdelall"))q("tdelall").onclick=()=>{TRAIN=TRAIN.filter(x=>x.series!==t.series); sc.remove(); renderTrain(); renderFRD()};
+  sc.querySelector(".go").onclick=()=>{const date=+q("tdate").value, start=q("tstart").value, end=q("tend").value, topic=q("ttopic").value.trim();
+    if(!topic)return flash("Give the session a topic"); if(!(date>=1&&date<=30)||dow(date)>4)return flash("Training runs Monday to Friday"); if(end<=start)return flash("Finish must be after start");
+    if(!allTopics().includes(topic))CUSTOM_TOPICS.push(topic);
+    Object.assign(o,{date,start,end,topic,trainer:+q("ttr").value,room:q("troom").value.trim()});
+    if(isNew){const rep=q("trep").value; const dates=rep==="week"?[0,1,2,3,4].map(di=>{const wi=[0,1,2,3,4].find(w=>WEEKS[w].dates.includes(date)&&WEEKS[w].mon[WEEKS[w].dates.indexOf(date)]===9); return wi!=null?WEEKS[wi].dates[di]:null}).filter(x=>x&&x<=30&&x>=1)
+        :rep==="w4"?[0,1,2,3].map(k=>date+7*k).filter(x=>x<=30):[date];
+      const series=rep==="none"?null:"s"+trainSeq; dates.forEach(dd=>TRAIN.push(Object.assign({},o,{id:trainSeq++,date:dd,series,attendees:[...o.attendees],attended:null})));
+      if(rep==="q")flash("Career development booked — Popcorn will remind you to schedule the next one in December.")}
+    sc.remove(); TRW=[0,1,2,3,4].find(wi=>WEEKS[wi].dates.includes(o.date)&&WEEKS[wi].mon[WEEKS[wi].dates.indexOf(o.date)]===9)??TRW; renderTrain(); renderFRD()};
+  document.body.appendChild(sc)}
+/* ---------- progress matrix ---------- */
+function renderProgress(){
+  const sel=document.getElementById("trprog"); if(!sel.options.length){sel.innerHTML=PROGRAMMES.map(pr=>'<option value="'+pr.id+'">'+pr.name+'</option>').join(""); sel.value=TRPROG; sel.oninput=()=>{TRPROG=sel.value; renderTrain()}}
+  const tsel=document.getElementById("trteam"); if(!tsel.options.length){tsel.innerHTML='<option value="all">All teams</option>'+P.filter(p=>p.lv>=1&&p.lv<=5&&!p.placeholder).sort((a,b)=>a.lv-b.lv||a.n.localeCompare(b.n)).map(x=>'<option value="'+x.id+'">'+LEVELS[x.lv]+' — '+x.n+'</option>').join(""); tsel.oninput=renderTrain}
+  const pr=PROGRAMMES.find(x=>x.id===TRPROG), scope=tsel.value==="all"?null:+tsel.value;
+  let frs=P.filter(p=>p.lv>=6&&!p.placeholder&&(scope==null||under(scope).has(p.id)));
+  if(pr.id==="stc"||pr.id==="ykan")frs=frs.filter(p=>p.c===pr.id);
+  const rows=frs.map(p=>({p,pg:progress(p.id,pr)})).sort((a,b)=>b.pg.done-a.pg.done||a.p.n.localeCompare(b.p.n));
+  document.querySelectorAll(".trpv").forEach(b=>{b.classList.toggle("on",b.dataset.v===TRPV); b.onclick=()=>{TRPV=b.dataset.v; renderTrain()}});
+  if(TRPV==="missing")return renderMissing(pr,rows);
+  if(TRPV==="matrix")return renderMatrix(pr,rows);
+  const stepAvg=pr.steps.map((_,si)=>Math.round(rows.reduce((n,r)=>n+r.pg.steps[si].n/r.pg.steps[si].of,0)/Math.max(1,rows.length)*100));
+  let h='<table class="ptab"><tr><th>Fundraiser</th>'+pr.steps.map(([sn],si)=>'<th><span>'+(pr.steps.length>1?(si+1)+' · ':'')+sn+'</span><small>'+stepAvg[si]+'% avg</small></th>').join("")+'<th class="r">Done</th>'+(pr.every?'<th>Refresh</th>':'<th>Next up</th>')+'</tr>';
+  rows.forEach(({p,pg})=>{h+='<tr class="pclick" data-p="'+p.id+'"><td><b>'+p.n+'</b><small>'+(by(p.to)?by(p.to).n.split(" ")[0]+' · ':'')+serviceDays(p)+'d</small></td>'+
+    pg.steps.map(st=>'<td><div class="pcell '+(st.n===st.of?"full":st.n?"part":"")+'"><i style="width:'+(st.n/st.of*100)+'%"></i><span>'+st.n+'/'+st.of+'</span></div></td>').join("")+
+    '<td class="r"><b class="'+(pg.complete?"okc":"")+'">'+pg.pct+'%</b></td>'+
+    (pr.every?'<td>'+(pg.due?'<span class="st bad">'+(pg.last?'due · last '+pg.last.slice(5).replace("-","/"):"never done")+'</span>':'<span class="st ok">ok · '+pg.last.slice(5).replace("-","/")+'</span>')+'</td>':'<td><small>'+(pg.nextUp||"complete")+'</small></td>')+'</tr>'});
+  document.getElementById("trgrid").innerHTML=h+'</table>'+(rows.length?'':'<div class="qempty">Nobody in this scope.</div>');
+  document.querySelectorAll("#trgrid .pclick").forEach(r=>r.onclick=()=>checklistBox(+r.dataset.p,pr));
+}
+/* pick fundraisers inside the session: grouped by region, then the reporting line */
+function frPicker(t){
+  const sc=document.createElement("div"); sc.className="scrim";
+  const chosen=new Set(t.attendees), pg=progOf(t.topic);
+  const frs=P.filter(p=>p.lv>=6&&!p.placeholder);
+  const regions=[...new Set(frs.map(p=>p.region||"Jakarta"))].sort();
+  const chain=p=>{const c=[]; let x=by(p.to); while(x&&x.lv>0){c.unshift(x); x=by(x.to)} return c};
+  const fmtD=iso=>{const d=new Date(iso); return d.getDate()+" "+["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][d.getMonth()]};
+  const line=p=>{const done=(DONE[p.id]||{})[t.topic];
+    const clash=TRAIN.find(x=>x.id!==t.id&&x.date===t.date&&x.attendees.includes(p.id)&&x.start<t.end&&t.start<x.end);
+    const status=clash?'<span class="pks busy">In '+clash.topic+' · '+clash.start+'</span>':done?'<span class="pks done">✓ Done '+fmtD(done)+'</span>':pg?'<span class="pks need">Needs it</span>':'<span class="pks"></span>';
+    return '<label class="pk'+(chosen.has(p.id)?" on":"")+(clash?" clash":"")+'"><input type="checkbox" data-p="'+p.id+'"'+(chosen.has(p.id)?" checked":"")+(clash?" disabled":"")+'><span class="pkav">'+p.n.split(" ").map(x=>x[0]).slice(0,2).join("")+'</span><span class="pkn">'+p.n+(isTrainee(p)?'<em>Trainee</em>':'')+'</span>'+status+'</label>'};
+  let h='<div class="modal wide picker"><h3>'+t.topic+' <small>'+t.date+' Sep · '+t.start+'–'+t.end+'</small></h3>'+
+    '<div class="pkbar"><input class="search" id="pkq" placeholder="Search name" style="margin:0;flex:1"><button class="btn sm" id="pkneed">Select everyone who needs it</button><button class="btn sm" id="pknone">Clear</button><span class="hint" id="pkcount" style="margin-left:auto"></span></div>'+
+    '<div class="pkbody">'+regions.map(rg=>{const inR=frs.filter(p=>(p.region||"Jakarta")===rg); if(!inR.length)return '';
+      // group by full chain text so teams sit under their leaders
+      const groups={}; inR.forEach(p=>{const c=chain(p); const key=c.map(x=>x.id).join(">"); (groups[key]=groups[key]||{c,list:[]}).list.push(p)});
+      const ordered=Object.values(groups).sort((a,b)=>a.c.map(x=>x.n).join("/").localeCompare(b.c.map(x=>x.n).join("/")));
+      return '<div class="pkregion"><div class="pkrh"><span>'+rg+'</span><small>'+inR.length+' fundraisers</small></div>'+ordered.map(g=>{const tl=g.c[g.c.length-1]; const path=g.c.slice(0,-1).map(x=>x.n.split(" ")[0]).join(" › ");
+        return '<div class="pkteam"><div class="pkth"><b>'+(tl?tl.n:"No team leader")+'</b><small>'+(tl?LEVELS[tl.lv]:"")+(path?' · '+path:'')+'</small><button class="pkall">Select team</button></div>'+g.list.sort((a,b)=>a.n.localeCompare(b.n)).map(line).join("")+'</div>'}).join("")+'</div>'}).join("")+'</div>'+
+    '<div class="row"><button class="no">Cancel</button><button class="go">Save · <span id="pksave">'+chosen.size+'</span> booked</button></div></div>';
+  sc.innerHTML=h; document.body.appendChild(sc);
+  const count=()=>{const n=sc.querySelectorAll("input[data-p]:checked").length; sc.querySelector("#pksave").textContent=n; sc.querySelector("#pkcount").textContent=n+" selected"};
+  sc.querySelectorAll("input[data-p]").forEach(i=>i.onchange=()=>{i.closest(".pk").classList.toggle("on",i.checked); count()});
+  sc.querySelector("#pkq").oninput=e=>{const q=e.target.value.toLowerCase(); sc.querySelectorAll(".pk").forEach(l=>l.classList.toggle("hidden",!!q&&!l.querySelector(".pkn").textContent.toLowerCase().includes(q)))};
+  sc.querySelector("#pkneed").onclick=()=>{sc.querySelectorAll(".pk").forEach(l=>{const i=l.querySelector("input"); if(!i.disabled&&l.querySelector(".rc")){i.checked=true; l.classList.add("on")}}); count()};
+  sc.querySelector("#pknone").onclick=()=>{sc.querySelectorAll("input[data-p]").forEach(i=>{i.checked=false; i.closest(".pk").classList.remove("on")}); count()};
+  sc.querySelectorAll(".pkall").forEach(b=>b.onclick=()=>{b.closest(".pkteam").querySelectorAll("input[data-p]:not(:disabled)").forEach(i=>{i.checked=true; i.closest(".pk").classList.add("on")}); count()});
+  sc.querySelector(".no").onclick=()=>sc.remove();
+  sc.querySelector(".go").onclick=()=>{t.attendees=[...sc.querySelectorAll("input[data-p]:checked")].map(i=>+i.dataset.p); sc.remove(); renderTrain(); if(typeof renderFRD==="function")renderFRD()};
+  count();
+}
+/* the matrix: one row per fundraiser, one square per topic, grouped by region and team leader */
+function renderMatrix(pr,rows,container){
+  const topics=pr.steps.flatMap(([sn,ts])=>ts.map(t=>[sn,t]));
+  const frs=rows.map(r=>r.p);
+  const colDone=topics.map(([,t])=>frs.filter(p=>(DONE[p.id]||{})[t]).length);
+  const groups={}; rows.forEach(r=>{const rg=r.p.region||"Jakarta"; const tl=by(r.p.to); const key=rg+"|"+(tl?tl.n:"—"); (groups[key]=groups[key]||{rg,tl,list:[]}).list.push(r)});
+  const ordered=Object.values(groups).sort((a,b)=>a.rg.localeCompare(b.rg)||(a.tl?a.tl.n:"").localeCompare(b.tl?b.tl.n:""));
+  let h='<div class="mxlegend"><span><i class="mxsq done"></i>done</span><span><i class="mxsq no"></i>not yet</span>'+(pr.every?'<span><i class="mxsq due"></i>refresh due</span>':'')+'<span><i class="mxsq booked"></i>booked, not yet run</span><span style="margin-left:auto">columns = topics in step order · click a column to schedule it for everyone missing it</span></div>';
+  h+='<div class="mxwrap"><table class="mxtable"><thead><tr><th class="mxn"></th>'+pr.steps.map(([sn,ts],i)=>'<th colspan="'+ts.length+'" class="mxstep">'+(pr.steps.length>1?(i+1)+' · ':'')+sn+'</th>').join("")+'<th class="mxtot">Done</th></tr>'+
+    '<tr class="mxheat"><th class="mxn"><small>share done ↓</small></th>'+topics.map(([,t],i)=>{const pc=frs.length?Math.round(colDone[i]/frs.length*100):0; return '<th class="mxc" data-topic="'+t.replace(/"/g,"&quot;")+'" title="'+t+' · '+pc+'% done · click to schedule"><i style="height:'+pc+'%;background:'+(pc>=80?"var(--ok)":pc>=40?"var(--warn)":"var(--flag)")+'"></i></th>'}).join("")+'<th></th></tr></thead><tbody>';
+  const booked=new Set(TRAIN.filter(t=>t.date>=HTODAY).flatMap(t=>t.attendees.map(pid=>pid+"|"+t.topic)));
+  ordered.forEach(g=>{h+='<tr class="mxgrp"><td class="mxn" colspan="'+(topics.length+2)+'">'+g.rg+' · '+(g.tl?g.tl.n+' <small>'+LEVELS[g.tl.lv]+'</small>':'no team leader')+' <small>· '+g.list.length+'</small></td></tr>';
+    g.list.sort((a,b)=>b.pg.done-a.pg.done).forEach(({p,pg})=>{const d=DONE[p.id]||{};
+      h+='<tr class="pclick" data-p="'+p.id+'"><td class="mxn"><b>'+p.n+'</b></td>'+topics.map(([,t])=>{const dt=d[t]; const due=pr.every&&dt&&monthsAgo(dt)>=pr.every; const bk=!dt&&booked.has(p.id+"|"+t);
+        return '<td class="mxcell"><i class="mxsq '+(dt?(due?"due":"done"):bk?"booked":"no")+'" title="'+p.n.split(" ")[0]+' · '+t+(dt?' · '+dt:bk?' · booked':' · not yet')+'"></i></td>'}).join("")+
+        '<td class="mxtot"><b class="'+(pg.complete?"okc":"")+'">'+pg.pct+'%</b></td></tr>'})});
+  const box=container||document.getElementById("trgrid"); box.innerHTML=h+'</tbody></table></div>';
+  box.querySelectorAll(".pclick").forEach(r=>r.onclick=()=>checklistBox(+r.dataset.p,pr));
+  box.querySelectorAll(".mxc").forEach(th=>th.onclick=()=>{const topic=th.dataset.topic; const need=frs.filter(p=>!(DONE[p.id]||{})[topic]).map(p=>p.id); TRMODE="sched"; sessionForm({date:Math.max(HTODAY,21),topic,attendees:need.slice(0,12)}); flash(need.length+" fundraisers still need "+topic+(need.length>12?" — first 12 pre-selected":""))});
+}
+let TRMXP="core";
+function renderScheduleMatrix(){
+  const ps=document.getElementById("trmxProg"); if(!ps.options.length){ps.innerHTML=PROGRAMMES.map(pr=>'<option value="'+pr.id+'">'+pr.name+'</option>').join(""); ps.oninput=()=>{TRMXP=ps.value; renderScheduleMatrix()}}
+  const ts=document.getElementById("trmxTeam"); if(!ts.options.length){ts.innerHTML='<option value="all">All teams</option>'+P.filter(p=>p.lv>=1&&p.lv<=5&&!p.placeholder).sort((a,b)=>a.lv-b.lv||a.n.localeCompare(b.n)).map(x=>'<option value="'+x.id+'">'+LEVELS[x.lv]+' — '+x.n+'</option>').join(""); ts.oninput=renderScheduleMatrix}
+  const pr=PROGRAMMES.find(x=>x.id===TRMXP), scope=ts.value==="all"?null:+ts.value;
+  let frs=P.filter(p=>p.lv>=6&&!p.placeholder&&(scope==null||under(scope).has(p.id))); if(pr.id==="stc"||pr.id==="ykan")frs=frs.filter(p=>p.c===pr.id);
+  const rows=frs.map(p=>({p,pg:progress(p.id,pr)}));
+  const done=rows.filter(r=>r.pg.complete).length;
+  document.getElementById("trmxSub").textContent=rows.length+" fundraisers · "+done+" complete · "+Math.round(rows.reduce((n,r)=>n+r.pg.pct,0)/Math.max(1,rows.length))+"% average";
+  renderMatrix(pr,rows,document.getElementById("trmatrix"));
+}
+function renderMissing(pr,rows){
+  const groups=[["Finished the whole programme",r=>r.pg.complete,"ok"],["Nearly there · 8 or fewer to go",r=>!r.pg.complete&&r.pg.of-r.pg.done<=8,"warn"],["In progress",r=>r.pg.done>0&&r.pg.of-r.pg.done>8,""],["Not started",r=>r.pg.done===0,"bad"]];
+  let h='<div class="finrow">'+groups.map(([l,f,c])=>'<div class="fin '+c+'"><b>'+rows.filter(f).length+'</b><span>'+l+'</span></div>').join("")+'</div>';
+  groups.forEach(([l,f,c])=>{const list=rows.filter(f); if(!list.length)return;
+    h+='<div class="fingrp"><div class="finh '+c+'">'+l+' <span>'+list.length+'</span></div>'+list.map(({p,pg})=>{const missing=pg.steps.flatMap(st=>st.topics.filter(([t,d])=>!d).map(([t])=>t));
+      return '<div class="finfr pclick" data-p="'+p.id+'"><div class="finnm"><b>'+p.n+'</b><small>'+(by(p.to)?by(p.to).n.split(" ")[0]+' · ':'')+pg.done+'/'+pg.of+(pg.last?' · last '+pg.last.slice(5).replace("-","/"):'')+(pr.every?(pg.due?' · <i class="wc">refresh due</i>':' · up to date'):'')+'</small></div>'+
+        '<div class="finbar"><i style="width:'+pg.pct+'%" class="'+(pg.complete?"full":"")+'"></i></div>'+
+        '<div class="fintop">'+(missing.length?missing.slice(0,10).map(t=>'<span class="miss" title="not done">'+t+'</span>').join("")+(missing.length>10?'<span class="miss more">+'+(missing.length-10)+' more</span>':''):'<span class="miss done">✓ nothing missing</span>')+'</div></div>'}).join("")+'</div>'});
+  document.getElementById("trgrid").innerHTML=h;
+  document.querySelectorAll("#trgrid .pclick").forEach(r=>r.onclick=()=>checklistBox(+r.dataset.p,pr));
+}
+function checklistBox(pid,pr){const p=by(pid), pg=progress(pid,pr); const sc=document.createElement("div"); sc.className="scrim";
+  sc.innerHTML='<div class="modal wide"><h3>'+p.n+' · '+pr.name+' <small style="font-weight:400;color:var(--ink-soft);font-size:12px">'+pg.done+' of '+pg.of+(pr.every?' · refresh every '+pr.every+' months':'')+'</small></h3>'+
+    '<div class="chkgrid">'+pg.steps.map((st,si)=>'<div class="chkstep"><b>'+(pr.steps.length>1?'Step '+(si+1)+' · ':'')+st.name+' <span>'+st.n+'/'+st.of+'</span></b>'+st.topics.map(([t,d])=>'<div class="chkt'+(d?" done":"")+'"><i>'+(d?"✓":"")+'</i><span>'+t+'</span><small>'+(d?d.slice(5).replace("-","/"):"")+'</small></div>').join("")+'</div>').join("")+'</div>'+
+    '<p class="hint">'+(pg.nextUp?'Next up: <b>'+pg.nextUp+'</b> — book '+p.n.split(" ")[0]+' into the next session that runs it, or click that column in the matrix to schedule one.':pr.every?(pg.due?'<b class="wc">Refresher due.</b>':'Up to date.'):'Programme complete.')+'</p>'+
+    '<div class="row"><button class="no">Close</button></div></div>';
+  sc.querySelector(".no").onclick=()=>sc.remove(); document.body.appendChild(sc)}
+document.getElementById("tradd").onclick=()=>{const v=document.getElementById("trnew").value.trim(); if(!v)return; if(!allTopics().includes(v))CUSTOM_TOPICS.push(v); document.getElementById("trnew").value=""; renderTrain()};
+
+phInit(); render(); renderOrg(); renderMonth(); renderPhone(); renderApprovals(); renderEvents(); renderHR(); renderASPC(); renderF2F(); renderFRD(); renderTrain();
 </script>
