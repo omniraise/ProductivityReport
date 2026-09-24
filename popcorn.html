@@ -210,6 +210,7 @@
   table.mtab td.c.m{background:var(--flag-bg);color:var(--flag)}
   table.mtab td.c.s{background:var(--flag);color:#fff}
   table.mtab td.c.l{background:#FFF3D6;color:var(--warn)}
+  table.mtab td.c.noshow{background:#fff;box-shadow:inset 0 0 0 1px #E3BEBC}
   table.mtab td.c.w.wknd{background:var(--am)}
   table.mtab td.c.late{box-shadow:inset 0 -4px 0 var(--flag)}
   table.mtab td.tot{text-align:center;font-variant-numeric:tabular-nums;background:#F7F8FA;min-width:34px;white-space:nowrap;padding:3px 6px}
@@ -592,7 +593,7 @@
   .chkt{display:grid;grid-template-columns:18px 1fr auto;gap:6px;font-size:11.5px;padding:2px 0;color:var(--ink-soft)} .chkt.done{color:var(--ink)}
   .chkt i{font-style:normal;width:16px;height:16px;border-radius:4px;border:1px solid var(--line);display:inline-flex;align-items:center;justify-content:center;font-size:10px} .chkt.done i{background:var(--ok);border-color:var(--ok);color:#fff} .chkt small{font-size:10px;color:var(--ink-soft)}
   #trgrid{margin-top:4px}
-  .addfr{font:inherit;font-size:10.5px;padding:3px 8px;border:1px dashed var(--ink);border-radius:6px;background:#fff;color:var(--ink);cursor:pointer}
+  .addfr{font:inherit;font-size:12px;padding:6px 10px;border:1px dashed var(--ink);border-radius:6px;background:#fff;color:var(--ink);cursor:pointer}
   .modal.picker{width:min(860px,96vw);padding:0;overflow:hidden}
   .modal.picker h3{padding:18px 22px 6px;margin:0} .modal.picker h3 small{font-weight:400;color:var(--ink-soft);font-size:12.5px;margin-left:8px}
   .modal.picker .pkbar{padding:6px 22px 12px;margin:0;border-bottom:1px solid var(--line)}
@@ -845,14 +846,66 @@
   .binlist span{flex:1} .binlist small{display:block;color:var(--ink-soft);font-size:10.5px}
   .stats{font-size:12px;display:block}
   @media (max-width:1040px){main{flex-direction:column}.pool,.side{width:100%;position:static;max-height:none}}
+  /* MAIN landing (fundraiser) */
+  .mnland{padding:18px 16px 26px;display:flex;flex-direction:column;gap:12px}
+  .mnbtn{display:flex;align-items:center;gap:12px;min-height:76px;padding:16px 18px;border-radius:14px;background:var(--ink);color:#fff;cursor:pointer;user-select:none}
+  .mnbtn b{display:block;font-size:18px;letter-spacing:.2px} .mnbtn span{display:block;font-size:12.5px;opacity:.78;margin-top:3px;line-height:1.3}
+  .mnbtn>div{flex:1} .mnbtn i{margin-left:auto;font-style:normal;font-size:24px;opacity:.7}
+  .mnbtn:focus-visible{outline:3px solid var(--warn);outline-offset:2px}
+  .mnback{display:flex;align-items:center;min-height:44px;width:100%;margin:0;padding:0 18px;text-align:left;font-size:15px;color:var(--ink);border-bottom:1px solid var(--line);border-radius:0;cursor:pointer}
+  .mnback:active{background:#F4F6F9}
+  .lvcancel{display:block;width:100%;margin-top:10px;min-height:44px;background:none;border:1px solid currentColor;border-radius:10px;padding:8px 12px;font:inherit;font-size:13.5px;font-weight:600;color:inherit;cursor:pointer}
+  .say.linkrow{width:100%;text-align:left;border:0;font:inherit;cursor:pointer}
+  /* LEAVE page */
+  .lvbal{margin:16px 16px 0;border-radius:14px;padding:14px 18px;background:#EAF3EE;display:flex;gap:14px;align-items:center}
+  .lvbal b{font-size:34px;line-height:1;color:var(--ok)} .lvbal span{font-size:14px;line-height:1.3} .lvbal small{display:block;font-size:12px;color:var(--ink-soft);margin-top:2px}
+  /* HR terminations: kit status */
+  .tqtag{display:inline-block;padding:2px 9px;border-radius:999px;font-size:11.5px;font-weight:600;white-space:nowrap}
+  .tqtag.ok{background:#EAF3EE;color:var(--ok)} .tqtag.hold{background:var(--flag-bg);color:var(--flag)}
+  /* Events: month pager, days outside the month, forecast panel */
+  .evmonths{display:flex;gap:4px} .evmonths button{padding:5px 12px;border:1px solid var(--line);background:#fff;border-radius:7px;font-size:12.5px;cursor:pointer}
+  .evmonths button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+  table.gantt th.dh.om{opacity:.45}
+  #evfc .fcrange{display:flex;gap:8px} #evfc .fcrange label{flex:1;font-size:11.5px;color:var(--ink-soft)} #evfc .fcrange input{width:100%}
+  #evfc .fckpi{display:flex;gap:6px;margin:10px 0 6px} #evfc .fckpi div{flex:1;background:#F4F6FA;border-radius:8px;padding:7px 8px;text-align:center}
+  #evfc .fckpi b{display:block;font-size:19px} #evfc .fckpi span{font-size:10.5px;color:var(--ink-soft)}
+  #evfc .fcline{font-size:12px;margin:4px 0} #evfc .fcline.warn{color:var(--warn)}
+  #evfc table.fct{table-layout:fixed;width:100%;font-size:11.5px} #evfc table.fct td{vertical-align:top}
+  #evfc .fcn{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis} #evfc table.fct small{display:block;font-size:10px;color:var(--ink-soft)}
+  /* "also accredited for" on the person forms */
+  .alsobox{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;margin:2px 0 10px;font-size:12.5px}
+  .alsobox>span{font-weight:600;color:var(--ink-soft);width:100%} .alsobox small{width:100%;color:var(--ink-soft);font-size:11px}
+  .modal label.alsoc{display:inline-flex;align-items:center;gap:6px;margin:0;font-weight:500}
+  /* Events sees the weekly roster read-only: no pool, no lock/publish, no absence or remove buttons */
+  body.roleEv #roster .pool,body.roleEv #roster .side,body.roleEv .lockbtn,body.roleEv .cell .chip .ab,body.roleEv .cell .chip .x{display:none}
+  body.roleEv #board::before{content:"Read-only for Events — team leaders and managers roster people.";display:block;margin:0 0 10px;padding:8px 12px;border-radius:8px;background:#FFF9E8;color:var(--warn);font-size:12.5px}
+  /* HR grid total headers and Monthly "available that day" counts were clipped (three-digit numbers in 19px columns) */
+  /* Both grids are fixed-layout tables, so the FIRST header row sets every column width (§17 rule 4).
+     Days 24px (three-digit counts), totals 54px each (the spanning header carries 4 or 6 columns). */
+  table.mtab tr.availrow th{width:24px}
+  table.mtab tr.availrow th.who{width:196px} table.mtab tr.availrow th.role{width:112px}
+  table.mtab tr.availrow th.tot[colspan="4"]{width:216px}
+  table.mtab tr.availrow th.tot[colspan="6"]{width:324px}
+  /* HR grid: a training day (Trainer schedule attendance, or a check-out flagged training) */
+  table.htab td.c.trn{background:#DDE7FB;color:#1E4BA8;font-weight:700} .mlegend i.trn{background:#DDE7FB;color:#1E4BA8}
+  table.htab td.c.trnq{background:#fff;color:#1E4BA8;box-shadow:inset 0 0 0 2px #1E4BA8;font-weight:700} .mlegend i.trnq{background:#fff;color:#1E4BA8;box-shadow:inset 0 0 0 2px #1E4BA8}
+  table.htab td.c.trnno{background:#F3F4F7;color:#9AA3B2;text-decoration:line-through}
+  /* phone tap targets: nothing a fundraiser taps is under 44px (audit 24 Sep) */
+  .hero .heroedit{min-height:44px;padding:10px 14px}
+  .stepper button,.stepper input{min-height:44px}
+  .segs .frm{min-height:44px}
+  label.chk.trainrow{min-height:44px;display:flex;align-items:center;gap:10px}
+  .rangesel{display:flex;gap:8px;margin:0 16px 8px} .rangesel .rbtn{min-height:44px}
 </style>
 
 <header>
-  <h1>Popcorn <small class="ver">build 58</small></h1>
+  <h1>Popcorn <small class="ver">build 59</small></h1>
   <div class="wk" id="hdrsub">Week 3 — 14 – 20 Sep 2026 · Jakarta</div>
   <div class="tabs">
     <button data-tab="roster" aria-pressed="true">Weekly roster</button>
-    <button data-tab="phone" aria-pressed="false">F2F working days</button>
+    <button data-tab="main" aria-pressed="false">Main · phone</button>
+    <button data-tab="phone" aria-pressed="false">Monthly roster · phone</button>
+    <button data-tab="leave" aria-pressed="false">Leave · phone</button>
     <button data-tab="monthly" aria-pressed="false">Monthly roster</button>
     <button data-tab="team" aria-pressed="false">Team structure</button>
     <button data-tab="events" aria-pressed="false">Events</button>
@@ -894,6 +947,24 @@
   <div class="deviceframe"><div class="device" id="pApp"></div></div>
 </div>
 
+<!-- ===================== MAIN (what a fundraiser lands on) ===================== -->
+<div id="main" class="hidden">
+  <div class="phonebar">
+    <select id="whoami0" class="search" style="width:210px;margin:0"></select>
+    <span class="hint" style="margin:0">Preview — a fundraiser lands here after login. Two tabs only: MAIN and FR DASHBOARD.</span>
+  </div>
+  <div class="deviceframe"><div class="device" id="mainApp"></div></div>
+</div>
+
+<!-- ===================== LEAVE (phone) ===================== -->
+<div id="leave" class="hidden">
+  <div class="phonebar">
+    <select id="whoami4" class="search" style="width:210px;margin:0"></select>
+    <span class="hint" style="margin:0">Preview — every leave request lives here, not on the roster page.</span>
+  </div>
+  <div class="deviceframe"><div class="device" id="leaveApp"></div></div>
+</div>
+
 <!-- ===================== MONTHLY ===================== -->
 <main id="monthly" class="hidden">
   <section class="orgwrap">
@@ -907,14 +978,16 @@
   </section>
   <aside class="side">
     <div class="panel"><h2>Month at a glance</h2><div id="msum"></div></div>
-    <div class="panel"><h2>Needs attention</h2><p class="hint">Perms under 20 days are pro-rated unless covered by an MC.</p><div id="mflags"></div></div>
+    <div class="panel"><h2>Needs attention</h2><p class="hint">Perms are paid for days worked, MC days whose certificate HR has, and approved leave. Under 20 of those, pay is pro-rated. A sick day without a certificate is unpaid.</p><div id="mflags"></div></div>
     <div class="panel"><h2>Legend</h2><div class="mlegend">
       <span><i class="c w"></i>worked</span>
       <span><i class="c free"></i>available, not rostered</span>
       <span><i class="c x">×</i>said they can't work</span>
       <span><i class="c m">M</i>medical certificate</span>
       <span><i class="c s">!</i>sick, certificate outstanding</span>
+      <span><i class="c s">S</i>sick, certificate not provided</span>
       <span><i class="c l">L</i>leave</span>
+      <span><i class="c noshow"></i>rostered, no-show</span>
       <span><i class="c w late"></i>late over 10 min</span></div></div>
   </aside>
 </main>
@@ -931,13 +1004,15 @@
   <section class="orgwrap" style="padding:14px;min-width:0">
     <div class="topbar">
       <select id="evcamp" class="search" style="width:150px;margin:0"><option value="all">Both campaigns</option><option value="stc">STC</option><option value="ykan">YKAN</option></select>
+      <div class="evmonths" id="evmonths"><button data-m="9">Sep</button><button data-m="10">Oct</button><button data-m="11">Nov</button><button data-m="12">Dec</button></div>
       <div class="evlegend" id="evlegend"></div>
       <span class="hint" style="margin:0 0 0 auto">Press and drag a booking to move it · drag its edge to stretch it · × to delete · click to edit.</span>
     </div>
     <div id="evgrid"></div>
   </section>
   <aside class="side">
-    <div class="panel"><h2>September at a glance</h2><div id="evsum"></div></div>
+    <div class="panel"><h2 id="evsumh">September at a glance</h2><div id="evsum"></div></div>
+    <div class="panel"><h2>Gross speed forecast</h2><div id="evfc"></div></div>
     <div class="panel"><h2>Needs attention</h2><div id="evflags"></div></div>
   </aside>
 </main>
@@ -955,12 +1030,12 @@
       <label class="chk"><input type="checkbox" class="hfilt" value="lead" checked> Leaders</label>
       <label class="chk"><input type="checkbox" class="hfilt" value="left" checked> Left this month</label>
       <div class="exports" style="margin:0 0 0 auto"><span>Export</span>
-        <button class="btn" data-x="payroll">Payroll CSV</button><button class="btn" data-x="contracts">Contract mail-merge CSV</button><button class="btn" data-x="attendance">Attendance CSV</button></div>
+        <button class="btn" data-x="payroll">IC Payroll</button><button class="btn" data-x="contracts">Employment Database</button><button class="btn" data-x="attendance">Attendance Perm</button></div>
     </div>
     <div class="mlegend inline">
       <span><i class="c half"></i>checked in, no check-out</span><span><i class="c w"></i>in and out</span><span><i class="c noshow"></i>rostered, no check-in</span>
-      <span><i class="c x">×</i>can't work</span><span><i class="c m">M</i>MC</span><span><i class="c s">!</i>sick, no certificate</span><span><i class="c l">L</i>leave</span>
-      <span><i class="c w late unval"></i>late, unvalidated</span><span><i class="c w late"></i>late, validated</span></div>
+      <span><i class="c x">×</i>can't work</span><span><i class="c m">M</i>MC, certificate on file</span><span><i class="c s">!</i>sick, certificate outstanding</span><span><i class="c s">S</i>sick, certificate not provided</span><span><i class="c l">L</i>leave</span>
+      <span><i class="c w late unval"></i>late, unvalidated</span><span><i class="c w late"></i>late, validated</span><span><i class="c trn">T</i>training session</span><span><i class="c trnq">T?</i>training claimed, awaiting HR</span></div>
     <div id="hgrid"></div>
   </section>
 </main>
@@ -1059,15 +1134,33 @@
   </aside>
 </main>
 
+<!-- real Waysact team locations: made by tools/import_omniraise.py into local-data/ (git-ignored, never committed).
+     Missing file = the invented sample sites only. -->
+<script src="local-data/sites.js" onerror="this.remove()"></script>
+<script src="local-data/staff.js" onerror="this.remove()"></script>
 <script>
 /* ======================= SHARED PEOPLE ======================= */
+/* --- XSS: every free-text field a user types is HTML-escaped on the way IN.
+   Storing escaped text keeps all ~100 innerHTML render sites safe without
+   touching them. Attribute and text contexts both decode correctly. csv()
+   reverses it so payroll/contract exports carry the real characters. --- */
+const ESCMAP={"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"};
+const esc=v=>String(v==null?"":v).replace(/[&<>"']/g,c=>ESCMAP[c]);
+const unesc=v=>String(v==null?"":v).replace(/&(amp|lt|gt|quot|#39);/g,
+  m=>({"&amp;":"&","&lt;":"<","&gt;":">","&quot;":'"',"&#39;":"'"}[m]));
 const TODAY_D=19;                         // 19 September 2026 — the one "today" every tab uses
 const TODAY_LABEL=["Mon","Tue","Wed","Thu","Fri","Sat","Sun"][(1+TODAY_D-1)%7]+" "+TODAY_D+" Sep";
 const LEVELS=["Head","Senior manager","Manager","Assistant manager","Senior team leader","Team leader","Fundraiser","Trainee"];
 const CAMPS={stc:{n:"STC",id:1899},ykan:{n:"YKAN",id:1904}};
+/* A person has a HOME campaign (p.c: grouping, bands, reports) and may be accredited for more (p.also), e.g. the
+   Head of Fundraising works STC and YKAN (Dave, 24 Sep 2026). Rostering asks accredited(), never p.c directly.
+   Production: people.campaign_id + person_campaigns (0013). */
+const campsOf=p=>p?[...new Set([p.c,...(p.also||[])].filter(c=>CAMPS[c]))]:[];
+const accredited=(p,c)=>campsOf(p).includes(c);
+const campName=p=>campsOf(p).map(c=>CAMPS[c].n).join(" + ")||"\u2014";
 let P=[
  {id:1,n:"Dave",code:"HD-0001",lv:0,to:null,c:null,eg:1,eid:1,off:[],start:"2023-08-14",perm:true,tg:"@dave"},
- {id:2,n:"Lina Iskandar",code:"SM-0100",lv:1,to:1,c:"stc",eg:1,eid:102100,off:[],start:"2023-08-14",perm:true,tg:"@linai"},
+ {id:2,n:"Lina Iskandar",code:"SM-0100",lv:1,to:1,c:"stc",also:["ykan"],eg:1,eid:102100,off:[],start:"2023-08-14",perm:true,tg:"@linai"},
  {id:3,n:"Oka Cahyani",code:"MG-0200",lv:2,to:2,c:"stc",eg:1,eid:102200,off:[],start:"2025-01-20",perm:true,tg:""},
  {id:4,n:"Bayu Gunawan",code:"AM-0300",lv:3,to:3,c:"stc",eg:1,eid:102300,off:[],start:"2022-06-05",perm:true,tg:"@bayug"},
  {id:5,n:"Nadia Cahyani",code:"SL-0401",lv:4,to:4,c:"stc",eg:1,eid:102401,off:[],start:"2024-03-01",perm:true,tg:"@nadiac"},
@@ -1183,8 +1276,8 @@ let P=[
  {id:115,n:"Sari Fitriani",code:"FR-2082",lv:6,to:33,c:"ykan",eg:1,eid:103082,off:[0, 5],start:"2026-08-30",perm:false,tg:"@sarif"},
  {id:116,n:"Bayu Oktaviani",code:"FR-2083",lv:6,to:33,c:"ykan",eg:1,eid:103083,off:[],start:"2026-08-25",perm:false,tg:"@bayuo"}
 ];
-let RESIGNED=[], nextId=100, newieN=0;
-(function seedResigned(){const mk=(n,code,lv,c,start,last,why)=>RESIGNED.push({p:{id:9000+RESIGNED.length,n,code,lv,c,start,to:null},last,why});
+let RESIGNED=[], nextId=Math.max(0,...P.map(p=>p.id))+1, newieN=0;   // new people must never reuse a seeded id
+(function seedResigned(){const mk=(n,code,lv,c,start,last,why)=>RESIGNED.push({p:{id:9000+RESIGNED.length,n,code,lv,c,start,to:(P.find(x=>x.lv===5&&x.c===c)||{}).id||null},last,why});   // leavers keep their team for the HR kit-return list
   mk("Andi Setiawan","OMID0221",6,"stc","2026-08-31","2026-09-09","Withdraw"); mk("Nurul Fitriani","OMID0234",6,"ykan","2026-09-01","2026-09-10","Withdraw");
   mk("Bagus Halim","OMID0198",7,"stc","2026-08-10","2026-09-04","Did not pass probation"); mk("Tira Purnama","OMID0176",6,"ykan","2026-06-20","2026-09-12","Resigned");
   mk("Joko Saputra","OMID0142",6,"stc","2026-03-05","2026-09-02","Resigned"); mk("Ika Rahayu","OMID0088",5,"ykan","2025-08-15","2026-09-06","Resigned");
@@ -1210,6 +1303,8 @@ document.querySelectorAll(".tabs button").forEach(b=>b.onclick=()=>{
   document.getElementById("roster").classList.toggle("hidden",t!=="roster");
   document.getElementById("daybar").classList.toggle("hidden",t!=="roster");
   document.getElementById("phone").classList.toggle("hidden",t!=="phone");
+  document.getElementById("main").classList.toggle("hidden",t!=="main");
+  document.getElementById("leave").classList.toggle("hidden",t!=="leave");
   document.getElementById("team").classList.toggle("hidden",t!=="team");
   document.getElementById("monthly").classList.toggle("hidden",t!=="monthly");
   document.getElementById("events").classList.toggle("hidden",t!=="events");
@@ -1218,8 +1313,8 @@ document.querySelectorAll(".tabs button").forEach(b=>b.onclick=()=>{
   document.getElementById("f2f").classList.toggle("hidden",t!=="f2f");
   document.getElementById("frd").classList.toggle("hidden",t!=="frd");
   document.getElementById("train").classList.toggle("hidden",t!=="train");
-  document.getElementById("hdrsub").textContent=t==="team"?"Team structure · Indonesia":t==="monthly"?"September 2026 · Indonesia":t==="events"?"Site bookings · September 2026":t==="hr"?"HR Dashboard · September 2026":t==="aspc"?"Check in / out · "+TODAY_LABEL+" 2026":t==="f2f"?"F2F Dashboard · September 2026":t==="frd"?"My dashboard · September 2026":t==="train"?"Training sessions · September 2026":"Week "+WEEKS[WK].n+" — "+WEEKS[WK].label+" 2026 · Jakarta";
-  if(t==="roster")render(); if(t==="team")renderOrg(); if(t==="monthly")renderMonth(); if(t==="phone")renderPhone(); if(t==="events")renderEvents(); if(t==="hr")renderHR(); if(t==="aspc")renderASPC(); if(t==="f2f")renderF2F(); if(t==="frd")renderFRD(); if(t==="train")renderTrain();
+  document.getElementById("hdrsub").textContent=t==="main"?"Main · phone":t==="leave"?"Leave · phone":t==="team"?"Team structure · Indonesia":t==="monthly"?"September 2026 · Indonesia":t==="events"?"Site bookings · September 2026":t==="hr"?"HR Dashboard · September 2026":t==="aspc"?"Check in / out · "+TODAY_LABEL+" 2026":t==="f2f"?"F2F Dashboard · September 2026":t==="frd"?"My dashboard · September 2026":t==="train"?"Training sessions · September 2026":"Week "+WEEKS[WK].n+" — "+WEEKS[WK].label+" 2026 · Jakarta";
+  if(t==="roster")render(); if(t==="team")renderOrg(); if(t==="monthly")renderMonth(); if(t==="phone")renderPhone(); if(t==="main")renderMain(); if(t==="leave")renderLeave(); if(t==="events")renderEvents(); if(t==="hr")renderHR(); if(t==="aspc")renderASPC(); if(t==="f2f")renderF2F(); if(t==="frd")renderFRD(); if(t==="train")renderTrain();
 });
 
 /* ======================= ROSTER ======================= */
@@ -1248,13 +1343,19 @@ const GEO={ "Grand Indonesia":[-6.1952,106.8210,200],"Kota Kasablanka":[-6.2237,
   "Pacific Place":[-6.2246,106.8100,200],"Lotte Shopping Avenue":[-6.2244,106.8210,200],"AEON Mall BSD":[-6.3050,106.6440,250]};
 SITES.forEach((x,i)=>{const g=GEO[x.n]||[-6.2+i*0.01,106.8+i*0.01,200]; x.lat=g[0]; x.lng=g[1]; x.radius=g[2]; x.cost=x.n.includes("Hatta")||x.n.includes("Halim")?1850000:1200000;
   x.loa="signed"; x.addr=["Jakarta Pusat","Jakarta Selatan","Tangerang","Jakarta Selatan","Jakarta Selatan","Jakarta Barat","Jakarta Timur","Jakarta Barat","Jakarta Selatan","Jakarta Utara","Bandung","Jakarta Barat","Jakarta Selatan","Tangerang","Jakarta Selatan","Jakarta Selatan","Tangerang"][i]||"Jakarta"});
+const siteCamp=si=>CAMPS[SITES[si].c]?SITES[si].c:"stc";
+const dayCamps=(si,w,d)=>{const bs=bookingsAt(si,gday(w,d)).filter(isLive); return bs.length?[...new Set(bs.map(b=>b.c||siteCamp(si)))]:[siteCamp(si)]};   // every campaign booked there that day   // booking default when a site has no usual campaign
 const hrs=(s,slot)=>s[slot][0]+"–"+s[slot][1];
 /* Events bookings: continuous date ranges over a 35-day span (0 = Mon 31 Aug … 34 = Sun 4 Oct) */
-const SPAN=35, TYPES={local:"Local",travel:"Travel trip",streets:"Streets"};
+/* Events timeline: day i = 31 Aug 2026 + i, up to Sun 3 Jan 2027 so Events can book Oct–Dec (Dave, 24 Sep 2026).
+   Only the first 5 weeks also exist on the Weekly roster (WEEKS); later bookings show on the Events grid and forecast. */
+const G0=Date.UTC(2026,7,31), SPAN=126, TYPES={local:"Local",travel:"Travel trip",streets:"Streets"};
+const MNAME=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"], MLONG=["January","February","March","April","May","June","July","August","September","October","November","December"];
+const gD=i=>new Date(G0+i*864e5);
 let BOOKINGS=[];
 const gday=(w,d)=>w*7+d, gw=i=>Math.floor(i/7), gd=i=>i%7;
-const glabel=i=>DAYS[gd(i)]+" "+WEEKS[gw(i)].dates[gd(i)]+" "+(WEEKS[gw(i)].mon[gd(i)]===10?"Oct":WEEKS[gw(i)].mon[gd(i)]===8?"Aug":"Sep");
-const gdate=i=>{const m=WEEKS[gw(i)].mon[gd(i)], dd=WEEKS[gw(i)].dates[gd(i)]; return "2026-"+String(m).padStart(2,"0")+"-"+String(dd).padStart(2,"0")};
+const glabel=i=>{const t=gD(i); return DAYS[gd(i)]+" "+t.getUTCDate()+" "+MNAME[t.getUTCMonth()]};
+const gdate=i=>gD(i).toISOString().slice(0,10);
 const gfrom=iso=>{for(let i=0;i<SPAN;i++)if(gdate(i)===iso)return i; return null};
 const bkDays=b=>b.end-b.start+1;
 const isPending=b=>b.type!=="streets"&&!b.sitePaid;                 // yellow only when the site itself isn't paid
@@ -1291,7 +1392,7 @@ const bookedDays=(si,w)=>{const set=new Set(); for(let d=0;d<7;d++)if(bookingsAt
       b.party=P.filter(p=>p.lv>=5&&p.c===b.c&&p.eg).slice(i%2?0:4,(i%2?0:4)+b.hc).map(p=>p.id)}});
 })();
 const ABS_TYPES=[
- {k:"mc",l:"Medical certificate",s:"Certificate uploaded. Counts as MC."},
+ {k:"mc",l:"Medical certificate",s:"Says they have one. HR collects it before it counts as MC."},
  {k:"sick",l:"Sick, no certificate",s:"Unpaid unless a certificate arrives."},
  {k:"emg",l:"Emergency leave",s:"Reason needed. Manager approves."},
  {k:"plan",l:"Planned leave",s:"Requested in advance by the fundraiser."},
@@ -1335,7 +1436,7 @@ function drawDaybar(){
     b.onclick=()=>{day=i;picked=null;render()}; bar.appendChild(b)});
   const lb=document.createElement("button"); lb.className="lockbtn"+(lockedW().has(day)?" on":"");
   lb.textContent=(lockedW().has(day)?"Unlock ":"Lock ")+DAYS[day];
-  lb.onclick=()=>{lockedW().has(day)?lockedW().delete(day):lockedW().add(day);render()}; bar.appendChild(lb);
+  lb.onclick=()=>{if(ROLE==="ev")return; lockedW().has(day)?lockedW().delete(day):lockedW().add(day);render()}; bar.appendChild(lb);
 }
 function drawBoard(){
   const b=document.getElementById("board"); b.innerHTML="";
@@ -1418,6 +1519,7 @@ function cellChip(a){
   return el;
 }
 function render(){
+  if(typeof bridgeMonth==="function")bridgeMonth();   // roster → month record at once (phone banner, HR certificate list)
   drawDaybar(); drawBoard();
   document.getElementById("poolHead").innerHTML=(lockedW().has(day)?"Locked — ":"Available ")+DAYS[day]+" "+DATES[day]+
     (MSEL.size>1?' <span class="selcount">'+MSEL.size+' selected · drag them together <button id="clearsel">clear</button></span>':'');
@@ -1427,10 +1529,11 @@ function render(){
   const unavailable=[];
   const ordered=monthRows().map(r=>r.p).filter(p=>p.lv>=3&&!p.placeholder);   // tree order: leader, then their people
   ["stc","ykan"].forEach(c=>{
-    const free=ordered.filter(p=>p.c===c&&match(p)&&!WA().some(a=>a.pid===p.id&&a.d===day)).filter(p=>{
-      if(!p.eg){unavailable.push([p,"no Evergiving ID"]);return false}
-      const ab=absOn(p.id,day); if(ab){unavailable.push([p,ABS_TYPES.find(t=>t.k===ab.t).l.toLowerCase()]);return false}
-      if(offOn(p,WK,day)){unavailable.push([p,"can't work"]);return false} return true});
+    const un=(p,why)=>{if(!unavailable.some(u=>u[0]===p))unavailable.push([p,why])};
+    const free=ordered.filter(p=>accredited(p,c)&&match(p)&&!WA().some(a=>a.pid===p.id&&a.d===day)).filter(p=>{
+      if(!p.eg){un(p,"no Evergiving ID");return false}
+      const ab=absOn(p.id,day); if(ab){un(p,ABS_TYPES.find(t=>t.k===ab.t).l.toLowerCase());return false}
+      if(offOn(p,WK,day)){un(p,"can't work");return false} return true});
     const wrap=document.createElement("div"); wrap.className="group";
     wrap.innerHTML='<div class="grouphead '+c+'">'+CAMPS[c].n+'<span>'+free.length+' free</span></div>';
     const list=document.createElement("div"); list.className="pool-list";
@@ -1451,7 +1554,7 @@ function render(){
     if(st&&!st.querySelector(".nb")&&!why)st.appendChild(cellChip(a)); else orphans.push([a,why||"day no longer booked"])});
   if(orphans.length){const ob=document.createElement("div"); ob.className="panel orphan";
     ob.innerHTML='<h2>'+orphans.length+' shift'+(orphans.length>1?"s":"")+' no longer valid — not sent to Evergiving</h2><p class="hint">Events changed the booking after these were rostered. Move or remove them.</p>'+
-      orphans.map(([a,why])=>'<div class="say wait orph" style="font-size:12px;margin-bottom:5px"><span>'+by(a.pid).n+' — '+SITES[a.s].n+', '+DAYS[a.d]+' '+a.slot.toUpperCase()+' · <i>'+why+'</i></span><button class="undo" data-orph="'+k(a)+'">Remove</button></div>').join("");
+      orphans.map(([a,why])=>'<div class="say wait orph" style="font-size:12px;margin-bottom:5px"><span>'+nameOf(a.pid)+' — '+SITES[a.s].n+', '+DAYS[a.d]+' '+a.slot.toUpperCase()+' · <i>'+why+'</i></span><button class="undo" data-orph="'+k(a)+'">Remove</button></div>').join("");
     document.getElementById("board").prepend(ob);
     ob.querySelectorAll("[data-orph]").forEach(b=>b.onclick=()=>{A=A.filter(x=>k(x)!==b.dataset.orph);render()})}
   let noLead=0;
@@ -1466,14 +1569,22 @@ function render(){
   cov.innerHTML='<div class="ctiles">'+tile(noLead,"shifts with no leader","","bad")+tile(under.length,"people under 4 shifts",nm(under),"warn")+tile(six.length,"people on 6 shifts",nm(six),"")+'</div>';
   const al=document.getElementById("abslist"); al.innerHTML=""; if(!ABS.some(x=>x.w===WK)) al.innerHTML='<span class="empty">None this week.</span>';
   ABS.forEach((x,i)=>{if(x.w!==WK)return; const t=ABS_TYPES.find(t=>t.k===x.t); const d=document.createElement("div");
-    d.innerHTML='<span>'+by(x.pid).n+' — '+DAYS[x.d]+' '+DATES[x.d]+'<small>'+t.l+(x.reason?' · '+x.reason:'')+'</small></span>';
-    const u=document.createElement("button"); u.className="undo"; u.textContent="Undo"; u.onclick=()=>{ABS.splice(i,1);render()}; d.appendChild(u); al.appendChild(d)});
+    d.innerHTML='<span>'+nameOf(x.pid)+' — '+DAYS[x.d]+' '+DATES[x.d]+'<small>'+t.l+(x.reason?' · '+x.reason:'')+'</small></span>';
+    const u=document.createElement("button"); u.className="undo"; u.textContent="Undo"; u.onclick=()=>{undoAbs(i);render()}; d.appendChild(u); al.appendChild(d)});
   const {adds,dels}=pendingLocked();
   document.getElementById("pubBtn").disabled=!(adds.length||dels.length);
   document.getElementById("pend").textContent=(adds.length||dels.length)?adds.length+" to add, "+dels.length+" to remove across "+[...lockedW()].map(i=>DAYS[i]).join(", "):(lockedW().size?"Locked days are up to date.":"No locked days yet.");
 }
+/* Undo on a roster absence: the month record goes back to what it was, a stashed same-day check-in returns,
+   and no certificate is chased for a sick day that never was (review, 24 Sep) */
+function undoAbs(i){const x=ABS[i]; if(!x)return; ABS.splice(i,1);
+  const [mon,dd]=dateOf(x.w,x.d); if(mon!==9)return;
+  const m=MONTH[x.pid]||{}; if(m[dd]===(ABS_TO_MONTH[x.t]||"leave")){ if(x.prev&&x.prev!=="am"&&x.prev!=="pm")m[dd]=x.prev; else delete m[dd] }
+  if(x.hr&&x.shift&&!A.some(y=>k(y)===k(x.shift)))A.push(x.shift);   // an HR absence undone from the roster list gives the shift back
+  const u=(CHECK[x.pid]||{})["_undo"+dd]; if(u&&(u.v===x.t||x.hr)){CHECK[x.pid][dd]=u.c; delete CHECK[x.pid]["_undo"+dd]; if(u.c&&(u.c.slot==="am"||u.c.slot==="pm"))m[dd]=u.c.slot}
+  certForget(x.pid,dd)}
 function orphanWhy(a){const bks=bookingsAt(a.s,gday(a.w,a.d)).filter(isLive); if(!bks.length)return "day no longer booked";
-  const p=by(a.pid); if(!p)return "person no longer exists"; if(!bks.some(b=>(b.c||SITES[a.s].c)===p.c))return "site is now "+CAMPS[bks[0].c||SITES[a.s].c].n+", "+p.n.split(" ")[0]+" is "+CAMPS[p.c].n;
+  const p=by(a.pid); if(!p)return "person no longer exists"; if(!bks.some(b=>accredited(p,b.c||SITES[a.s].c)))return "site is now "+CAMPS[bks[0].c||siteCamp(a.s)].n+", "+p.n.split(" ")[0]+" is "+campName(p);
   return ""}
 function pendingLocked(){return {adds:WA().filter(a=>lockedW().has(a.d)&&!published.has(k(a))&&!orphanWhy(a)),dels:[...published].filter(key=>(+key.split("-")[0]===WK&&lockedW().has(+key.split("-")[3]))&&!WA().some(a=>k(a)===key))}}
 function wireCells(){
@@ -1500,6 +1611,7 @@ function assignMany(payload,td){
     placed===ids.length?"":"The rest were refused — see the warnings above.");
 }
 function assign(payload,td,quiet){
+  if(ROLE==="ev"){log("warn","Events can look at the roster but not change it","Team leaders and managers roster people."); return}
   const [pidStr,fromKey]=String(payload).split("|");
   const pid=+pidStr, p=by(pid), d=+td.dataset.d, s=+td.dataset.s, slot=td.dataset.slot, site=SITES[s];
   const bounce=(m,sub)=>{td.classList.add("reject");setTimeout(()=>td.classList.remove("reject"),320);log("warn",m,sub)};
@@ -1513,8 +1625,8 @@ function assign(payload,td,quiet){
   const bks=bookingsAt(s,gday(WK,d)).filter(isLive), bk=bks[0], capDay=bks.reduce((n,b)=>n+b.hc,0), onDay=WA().filter(a=>a.s===s&&a.d===d).length;
   if(bk&&onDay>=capDay){restore();return bounce(site.n+" is full on "+DAYS[d],"Events set "+capDay+" per day"+(bks.length>1?" across "+bks.length+" teams":"")+".")}
   if(!p.eg){restore();return bounce(p.n+" has no Evergiving ID yet","Add it in Team structure first.")}
-  const sc=site.cw||site.c;
-  if(p.c!==sc){restore();return bounce(p.n+" isn't accredited for "+CAMPS[sc].n,site.n+" is a "+CAMPS[sc].n+" site this week.")}
+  const dc=dayCamps(s,WK,d), sc=dc.find(c=>accredited(p,c))||dc[0];
+  if(!accredited(p,sc)){restore();return bounce(p.n+" isn't accredited for "+CAMPS[sc].n,site.n+" is a "+CAMPS[sc].n+" site on "+DAYS[d]+".")}
   const tv=travelDayFor(pid,gday(WK,d)); if(tv&&tv.si!==s){restore();return bounce(p.n+" is travelling that day","To or from "+SITES[tv.si].n+".")}
   if(bks.length&&bks.every(b=>b.type==="travel")&&!bks.some(b=>(b.party||[]).includes(pid))){restore();return bounce(p.n+" isn't in the travel party for "+site.n,"Events books flights from that list. Add them on the booking first.")}
   if(absOn(pid,d)){restore();return bounce(p.n+" is absent "+DAYS[d],"Undo the absence first if this was a mistake.")}
@@ -1533,22 +1645,23 @@ function absenceBox(a){
   sc.querySelectorAll("input[name=t]").forEach(r=>r.onchange=()=>reason.classList.toggle("hidden",r.value!=="emg"));
   sc.querySelector(".no").onclick=()=>sc.remove();
   sc.querySelector(".go").onclick=()=>{const t=sc.querySelector("input[name=t]:checked").value, wasLive=published.has(k(a));
-    ABS.push({pid:a.pid,w:WK,d:a.d,t,reason:t==="emg"?reason.value:""}); A=A.filter(x=>k(x)!==k(a)); const tl=ABS_TYPES.find(x=>x.k===t).l;
+    ABS.push({pid:a.pid,w:WK,d:a.d,t,reason:t==="emg"?reason.value:"",prev:(MONTH[a.pid]||{})[dateOf(WK,a.d)[1]]}); A=A.filter(x=>k(x)!==k(a)); const tl=ABS_TYPES.find(x=>x.k===t).l;
     if(wasLive){published.delete(k(a));log("pull",p.n+" — "+tl+", "+DAYS[a.d],"Shift removed. Day logged as "+tl.toLowerCase()+".");log("warn","Evergiving still shows "+p.n+" at "+SITES[a.s].n,"Already published. Needs an update call or a manual removal.")}
     else log("pull",p.n+" — "+tl+", "+DAYS[a.d],"Not published yet, so Evergiving never sees them.");
     sc.remove(); render()};
   document.body.appendChild(sc);
 }
 document.getElementById("pubBtn").onclick=()=>{
+  if(ROLE==="ev")return;
   const {adds,dels}=pendingLocked();
-  const lines=[...adds.map(a=>"Add "+by(a.pid).n+" — "+DAYS[a.d]+" "+a.slot.toUpperCase()+", "+SITES[a.s].n),
-    ...dels.map(key=>{const[w,pid,s,d,slot]=key.split("-");return "Remove "+by(+pid).n+" — "+DAYS[d]+" "+slot.toUpperCase()+", "+SITES[s].n})];
+  const lines=[...adds.map(a=>"Add "+nameOf(a.pid)+" — "+DAYS[a.d]+" "+a.slot.toUpperCase()+", "+SITES[a.s].n),
+    ...dels.map(key=>{const[w,pid,s,d,slot]=key.split("-");return "Remove "+nameOf(+pid)+" — "+DAYS[d]+" "+slot.toUpperCase()+", "+SITES[s].n})];
   const sc=document.createElement("div"); sc.className="scrim";
   sc.innerHTML='<div class="modal"><h3>Publish '+lines.length+' change'+(lines.length>1?'s':'')+' for '+[...lockedW()].map(i=>DAYS[i]).join(", ")+'?</h3><p class="hint">Builds one Evergiving team per site per day. Each fundraiser gets a WhatsApp with their own shifts.</p><ul>'+lines.map(l=>"<li>"+l+"</li>").join("")+'</ul><div class="row"><button class="no">Keep editing</button><button class="go">Publish</button></div></div>';
   sc.querySelector(".no").onclick=()=>sc.remove();
   sc.querySelector(".go").onclick=()=>{const touched=new Set();
-    adds.forEach(a=>{published.add(k(a));touched.add(a.pid);log("push",by(a.pid).n+" → "+SITES[a.s].n+", "+DAYS[a.d]+" "+a.slot.toUpperCase(),"POST /v1/teams · campaign "+CAMPS[SITES[a.s].c].id+" · location "+SITES[a.s].loc+" · user "+by(a.pid).eid)});
-    dels.forEach(key=>{published.delete(key);const[w,pid,s,d]=key.split("-");touched.add(+pid);log("pull","Removed "+by(+pid).n+" from "+SITES[s].n+", "+DAYS[d],"Team rebuilt without them.")});
+    adds.forEach(a=>{published.add(k(a));touched.add(a.pid);log("push",nameOf(a.pid)+" → "+SITES[a.s].n+", "+DAYS[a.d]+" "+a.slot.toUpperCase(),"POST /v1/teams · campaign "+CAMPS[(()=>{const dc=dayCamps(a.s,a.w,a.d), p=by(a.pid); return dc.find(c=>accredited(p,c))||dc[0]})()].id+" · location "+SITES[a.s].loc+" · user "+by(a.pid).eid)});
+    dels.forEach(key=>{published.delete(key);const[w,pid,s,d]=key.split("-");touched.add(+pid);log("pull","Removed "+nameOf(+pid)+" from "+SITES[s].n+", "+DAYS[d],"Team rebuilt without them.")});
     const pid=[...touched][0], p=by(pid), mine=WA().filter(a=>a.pid===pid&&published.has(k(a))).sort((x,y)=>x.d-y.d);
     document.getElementById("msgs").innerHTML='<div class="msg"><b>WhatsApp → '+p.n.split(" ")[0]+'</b>Halo '+p.n.split(" ")[0]+' — your shifts are confirmed:\n'+(mine.length?mine.map(a=>DAYS[a.d]+" "+DATES[a.d]+" · "+SITES[a.s].n+" · "+a.slot.toUpperCase()+" "+hrs(SITES[a.s],a.slot)).join("\n"):"No shifts this week.")+'\nTap to see details: popcorn.omniraise.com/me</div>';
     sc.remove(); render()};
@@ -1562,7 +1675,20 @@ const TDAY=TODAY_D, TMON=9;                  // same today as every other tab
 const MONTHS={9:{n:"September",days:30,start:1},10:{n:"October",days:31,start:3}};
 const OCT_DEADLINE=25;                       // October availability closes 25 Sep
 let ME=null, showAll=false, PM=10, rangeMode=false, rangeAnchor=null;
-const SUBMITTED={}, CERT={}, NEEDCERT={};
+const SUBMITTED={}, CERT={}, CERTNO={};
+/* ONE rule for medical certificates (Dave, 24 Sep 2026): a day recorded as sick or MC needs a certificate on file.
+   ok = on file (photo sent from the phone, or HR received it) · no = HR closed it as not provided (unpaid) · wait = outstanding.
+   The phone banner, both grids, the HR queue and the pro-rate all read this — there is no second list. */
+const personOf=id=>by(id)||(RESIGNED.find(r=>r.p.id===id)||{}).p;   // people who have left keep their month
+const certState=(pid,d)=>{const v=(MONTH[pid]||{})[d]; if(v!=="sick"&&v!=="mc")return null; if((CERT[pid]||[]).includes(d))return "ok"; if((CERTNO[pid]||[]).includes(d))return "no";
+  const p=personOf(pid); if(!p||!p.perm)return v==="mc"?"ok":"na";   // contractors and trainees: unpaid either way, no certificate to chase
+  return d>TODAY_D?"na":"wait"};   // nothing to collect for a day that has not happened yet
+const certOutstanding=pid=>Object.keys(MONTH[pid]||{}).map(Number).filter(d=>d<=TODAY_D&&certState(pid,d)==="wait").sort((a,b)=>a-b);
+const certReceive=(pid,d)=>{CERT[pid]=CERT[pid]||[]; if(!CERT[pid].includes(d))CERT[pid].push(d); CERTNO[pid]=(CERTNO[pid]||[]).filter(x=>x!==d); MONTH[pid]=MONTH[pid]||{}; MONTH[pid][d]="mc"};
+const certForget=(pid,d)=>{CERT[pid]=(CERT[pid]||[]).filter(x=>x!==d); CERTNO[pid]=(CERTNO[pid]||[]).filter(x=>x!==d)};   // the day is no longer a sick day: no certificate record either
+const certRefuse=(pid,d)=>{CERTNO[pid]=CERTNO[pid]||[]; if(!CERTNO[pid].includes(d))CERTNO[pid].push(d); MONTH[pid]=MONTH[pid]||{}; MONTH[pid][d]="sick"};
+/* one mapping for every screen that records an absence; a no-show is its own state, not sick */
+const ABS_TO_MONTH={mc:"mc",sick:"sick",emg:"leave",plan:"leave",off:"leave",ns:"ns"};
 const REQ=[];
 const RTYPES=[
  {k:"off", l:"Just an off day",             ic:"\u{1F6CB}\uFE0F", note:"No reason needed. Your manager decides."},
@@ -1576,8 +1702,10 @@ const offOf=(p,m)=>{OFFD[p.id]=OFFD[p.id]||{}; return OFFD[p.id][m]=OFFD[p.id][m
 const joinedOn=p=>{const t=new Date(p.start); return (t.getFullYear()===2026&&t.getMonth()===8)?t.getDate():0};
 
 function seedCerts(){let r=99;const rnd=()=>((r=r*16807%2147483647)/2147483647);
-  P.filter(p=>p.lv>=6).forEach(p=>{NEEDCERT[p.id]=[];CERT[p.id]=[];
-    if(rnd()<.35){const j=joinedOn(p)||1;const lo=Math.max(j+1,2);if(lo>=TDAY-1)return;const d=lo+Math.floor(rnd()*(TDAY-1-lo));NEEDCERT[p.id].push(d);if(MONTH[p.id])MONTH[p.id][d]="sick"}})}
+  P.filter(p=>p.lv>=6&&!p.real).forEach(p=>{CERT[p.id]=[];   // real staff never get invented sick days
+    if(rnd()<.35){const j=joinedOn(p)||1;const lo=Math.max(j+1,2);if(lo>=TDAY-1)return;const d=lo+Math.floor(rnd()*(TDAY-1-lo));if(MONTH[p.id])MONTH[p.id][d]="sick"}});
+  /* MCs already in the sample month come with their certificate on file */
+  [...P,...RESIGNED.map(x=>x.p)].forEach(p=>{const m=MONTH[p.id]||{}; CERT[p.id]=CERT[p.id]||[]; Object.keys(m).forEach(d=>{if(m[d]==="mc"&&!CERT[p.id].includes(+d))CERT[p.id].push(+d)})})}
 
 function phList(){const sel=document.getElementById("whoami"), cur=sel.value;
   sel.innerHTML=P.filter(p=>p.lv>=6&&!p.placeholder).map(p=>'<option value="'+p.id+'">'+p.n+'</option>').join("");
@@ -1585,6 +1713,62 @@ function phList(){const sel=document.getElementById("whoami"), cur=sel.value;
 function phInit(){
   seedCerts(); phList();
   document.getElementById("whoami").onchange=e=>{ME=by(+e.target.value);showAll=false;rangeAnchor=null;renderPhone()};
+  document.getElementById("whoami0").onchange=e=>{ME=by(+e.target.value);document.getElementById("whoami").value=e.target.value;renderMain()};
+  document.getElementById("whoami4").onchange=e=>{ME=by(+e.target.value);document.getElementById("whoami").value=e.target.value;renderLeave()};
+}
+const leaderOf=p=>{const l=p&&by(p.to); return l?l.n.split(" ")[0]:"your leader"};
+const nameOf=id=>{const p=personOf(id); return p?p.n:"(left)"};   // history keeps ids of people who have left   // never crash a phone page over a missing leader
+/* the phone pages share one "who am I"; mirror the roster page's list onto the other two */
+function syncWho(id){const src=document.getElementById("whoami"), dst=document.getElementById(id);
+  if(dst.innerHTML!==src.innerHTML)dst.innerHTML=src.innerHTML; dst.value=String(ME.id)}
+
+/* ======================= MAIN — the fundraiser's landing page ======================= */
+const mnBtn=(go,l,sub)=>'<div class="mnbtn" role="button" tabindex="0" data-go="'+go+'"><div><b>'+l+'</b><span>'+sub+'</span></div><i>\u203A</i></div>';
+function renderMain(){
+  phList(); if(!ME)return; syncWho("whoami0");
+  const app=document.getElementById("mainApp");
+  const mine=A.filter(a=>a.pid===ME.id&&a.w>=WK).sort((x,y)=>(x.w-y.w)||(x.d-y.d)), next=mine[0];
+  const pend=REQ.filter(r=>r.pid===ME.id&&r.status==="pending").length;
+  const today=(CHECK[ME.id]||{})[TDAY];
+  app.innerHTML='<div class="pbar"><b>'+ME.n.split(" ")[0]+'</b><span>'+campName(ME)+' · '+TODAY_LABEL+'</span></div>'+
+    '<div class="mnland">'+
+      mnBtn("aspc","Check I/O",today?(today.out?"Done for today":"Checked in "+today.in+" · check out when you finish"):next?"Next: "+SITES[next.s].n+" · "+dayName[next.d]+" "+WEEKS[next.w].dates[next.d]:"No shift rostered yet")+
+      mnBtn("phone","Monthly roster","Your days off, your shifts and where you\'re working")+
+      mnBtn("leave","Leave",pend?pend+" request"+(pend>1?"s":"")+" waiting for a reply":"Ask for time off · see your requests")+
+    '</div>';
+  app.querySelectorAll(".mnbtn").forEach(b=>{b.onclick=()=>goTab(b.dataset.go); b.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();goTab(b.dataset.go)}}});
+}
+
+/* ======================= LEAVE — requests are made and tracked here ======================= */
+let LEAVE_PICK=null;
+function renderLeave(){
+  phList(); if(!ME)return; syncWho("whoami4");
+  const app=document.getElementById("leaveApp");
+  const mine=REQ.filter(r=>r.pid===ME.id).sort((a,b)=>b.id-a.id);
+  const acc=accrued(ME), used=leaveUsed(ME), bal=acc-used, M=MONTHS[9], joined=joinedOn(ME);
+  let h='<div class="pbar"><b>'+ME.n.split(" ")[0]+'</b><span>Leave</span></div>';
+  if(ROLE==="fr")h+='<button class="linkbtn mnback" onclick="goTab(\'main\')">\u2039 Main</button>';
+  h+='<div class="lvbal">'+(ME.perm?'<b>'+bal+'</b><span>paid days left this year<small>'+acc+' accrued · '+used+' used · 1 day per full month, resets 1 January</small></span>'
+      :'<b>\u2014</b><span>unpaid leave<small>Contractors do not accrue paid leave. Time off still needs approval.</small></span>')+'</div>';
+  h+='<div class="calhead"><b>Ask for time off</b><span>'+M.n+' · tap the first day. '+leaderOf(ME)+' decides; 3 days or more also goes to HR.</span></div>';
+  h+='<div class="bigcal">';
+  ["M","T","W","T","F","S","S"].forEach(x=>h+='<div class="dow">'+x+'</div>');
+  for(let i=0;i<M.start;i++)h+='<div></div>';
+  for(let d=1;d<=M.days;d++){const r=REQ.find(x=>x.pid===ME.id&&x.mon===9&&x.days.includes(d)&&x.status!=="declined");
+    const cls=(joined&&d<joined)||d<TDAY?"na":r?(r.status==="pending"?"pend":"appr"):mdow(9,d)>4?"wk":"";
+    h+='<button class="bday '+cls+'" data-d="'+d+'"><span>'+d+'</span>'+(r&&r.status==="pending"?'<i class="dot clock">\u23F1</i>':'')+'</button>'}
+  h+='</div>';
+  h+='<div class="calhead"><b>Your requests</b><span>'+(mine.length?mine.length+' this month':'None yet')+'</span></div><div class="says">'+
+     (mine.length?mine.map(r=>'<div class="say '+(r.status==="pending"?"wait":r.status==="approved"?"done":"stop")+'"><b>'+RTYPES.find(t=>t.k===r.type).l+'</b> · '+listDays(r.days,r.mon)+'<br>'+
+        (r.status==="pending"?'Sent to '+r.to+(r.hr?' and HR':'')+'. '+(r.hr?'More than 2 days in a row needs HR.':'You\'ll get a WhatsApp when they reply.')+'<button class="lvcancel" data-cancelreq="'+r.id+'">Cancel this request</button>'
+         :r.status==="approved"?'Approved for '+listDays(r.days,r.mon)+'.':'Declined.')+'</div>').join("")
+      :'<div class="say plain">No requests yet.</div>')+'</div>';
+  app.innerHTML=h;
+  app.querySelectorAll(".bday").forEach(b=>b.onclick=()=>{const d=+b.dataset.d; if(b.classList.contains("na"))return;
+    const r=REQ.find(x=>x.pid===ME.id&&x.mon===9&&x.days.includes(d)&&x.status!=="declined");
+    if(r){flash("Already requested — "+r.status+"."); return} PM=9; leaveSheet(d)});
+  app.querySelectorAll("[data-cancelreq]").forEach(b=>b.onclick=()=>{const i=REQ.findIndex(x=>x.id==b.dataset.cancelreq); if(i>=0)REQ.splice(i,1); renderLeave(); renderPhone(); renderApprovals(); flash("Request cancelled.")});
+  if(LEAVE_PICK){const pk=LEAVE_PICK; LEAVE_PICK=null; PM=pk.m; leaveSheet(pk.d)}
 }
 const myReq=(m,d)=>REQ.find(r=>r.pid===ME.id&&r.mon===m&&r.days.includes(d)&&r.status!=="declined");
 const octOpen=()=>TMON===9&&TDAY<=OCT_DEADLINE;
@@ -1593,7 +1777,7 @@ function renderPhone(){
   phList(); if(!ME)return;
   const app=document.getElementById("pApp");
   const mine=A.filter(a=>a.pid===ME.id&&a.w>=WK).sort((x,y)=>(x.w-y.w)||(x.d-y.d)), next=mine[0];
-  let h='<div class="pbar"><b>'+ME.n.split(" ")[0]+'</b><span>'+CAMPS[ME.c].n+'</span></div>';
+  let h='<div class="pbar"><b>'+ME.n.split(" ")[0]+'</b><span>'+campName(ME)+'</span></div>';
 
   /* next shift */
   if(next){
@@ -1604,10 +1788,10 @@ function renderPhone(){
     if(showAll) h+='<div class="allshifts">'+mine.map(a=>'<div class="li '+a.slot+'"><b>'+DAYS[a.d]+' '+WEEKS[a.w].dates[a.d]+
       '</b><span>'+SITES[a.s].n+'</span><i>'+hrs(SITES[a.s],a.slot)+'</i></div>').join("")+'</div>';
   } else h+='<div class="nextshift none"><span class="lbl">YOUR NEXT SHIFT · THIS WEEK</span><b>Nothing yet</b>'+
-       '<div class="place">'+by(ME.to).n.split(" ")[0]+' will confirm your shifts and send you a WhatsApp.</div></div>';
+       '<div class="place">'+leaderOf(ME)+' will confirm your shifts and send you a WhatsApp.</div></div>';
 
   /* certificate reminder */
-  const need=(NEEDCERT[ME.id]||[]).filter(d=>!(CERT[ME.id]||[]).includes(d));
+  const need=certOutstanding(ME.id);
   if(need.length) h+='<button class="certbanner" id="certban"><i>\u{1FA7A}</i><span><b>'+
     (need.length===1?"1 sick day needs a certificate":need.length+" sick days need a certificate")+'</b>'+
     listDays(need,9)+' · tap to add a photo</span><em>\u203A</em></button>';
@@ -1620,11 +1804,13 @@ function renderPhone(){
 
   h+='<div class="calhead"><b>'+(open?"Tap the days you can\'t work":PM===9?"Your "+M.n:"Need a day off in "+M.n+"?")+'</b>'+
      '<span>'+(open?M.n+" 2026 · change it any time until "+OCT_DEADLINE+" September"
-      :PM===9?"Already rostered. Tap a day to ask "+by(ME.to).n.split(" ")[0]+" for time off."
-      :M.n+" is closed. Tap a day to ask "+by(ME.to).n.split(" ")[0]+" for leave.")+'</span></div>';
+      :PM===9?"Already rostered. Need time off? Tap a day — it opens on the Leave page."
+      :M.n+" is closed. Need a day off? Tap it — it opens on the Leave page.")+'</span></div>';
 
-  if(open) h+='<div class="rhint'+(rangeAnchor?" live":"")+'">'+
-    (rangeAnchor?"Tap another day to take everything in between":"Tap a day. Tap a second day for everything in between.")+'</div>';
+  /* single days by default; a run of days is an explicit choice, so two separate days never fill the gap between them */
+  if(open) h+='<div class="rangesel"><button class="rbtn'+(!rangeMode?" on":"")+'" data-r="0">Single days</button><button class="rbtn'+(rangeMode?" on":"")+'" data-r="1">A run of days</button></div>'+
+    '<div class="rhint'+(rangeAnchor?" live":"")+'">'+
+    (rangeMode?(rangeAnchor?"Now tap the last day of the run":"Tap the first day, then the last day"):"Tap each day you can\'t work. Tap it again to clear it.")+'</div>';
 
   h+='<div class="bigcal">';
   ["M","T","W","T","F","S","S"].forEach(x=>h+='<div class="dow">'+x+'</div>');
@@ -1637,9 +1823,9 @@ function renderPhone(){
     if(before){cls.push("na")}
     else if(r) cls.push(r.status==="pending"?"pend":"appr");
     else if(isOff) cls.push("off");
-    else if(past){
-      if(rec==="sick"&&!(CERT[ME.id]||[]).includes(d)){cls.push("needcert");inner='<i class="dot">!</i>'}
-      else if(rec==="mc"){cls.push("was-mc")}
+    else if(past||(PM===9&&d===TDAY&&certState(ME.id,d)==="wait")){   // today counts once HR has marked it sick
+      if(certState(ME.id,d)==="wait"){cls.push("needcert");inner='<i class="dot">!</i>'}
+      else if(certState(ME.id,d)==="ok"){cls.push("was-mc")}
       else if(rec==="leave"){cls.push("was-leave")}
       else if(rec==="am"||rec==="pm"){cls.push("worked");inner='<i class="dot '+rec+'"></i>'}
       else cls.push("na");
@@ -1661,10 +1847,10 @@ function renderPhone(){
     h+='<div class="say plain">'+st.worked+' days worked so far'+(st.mc?', '+st.mc+' MC':'')+(st.leave?', '+st.leave+' leave':'')+'.</div>';
     if(joined) h+='<div class="say plain">You joined on '+joined+' Sep, so days before that are greyed out.</div>';
   }
-  const pend=REQ.filter(r=>r.pid===ME.id&&r.status==="pending"), appr=REQ.filter(r=>r.pid===ME.id&&r.status==="approved");
-  h+=pend.map(r=>'<div class="say wait">Sent to '+r.to+(r.hr?' and HR':'')+' for '+listDays(r.days,r.mon)+'. '+
-      (r.hr?'More than 2 days in a row needs HR.':'You\'ll get a WhatsApp when they reply.')+'</div>').join("")+
-     appr.map(r=>'<div class="say done">Approved for '+listDays(r.days,r.mon)+'.</div>').join("")+'</div>';
+  /* leave requests are listed and made on the Leave page, not here */
+  const nreq=REQ.filter(r=>r.pid===ME.id&&r.status!=="declined").length;
+  if(nreq) h+='<button class="say plain linkrow" id="tolv">'+nreq+' leave request'+(nreq>1?"s":"")+' — see Leave \u203A</button>';
+  h+='</div>';
 
   if(open){const can=M.days-off.length, blocked=can<20, sent=SUBMITTED[ME.id];
     h+='<div class="sendwrap"><button class="bigsend" id="psend"'+(blocked?" disabled":"")+'>'+
@@ -1690,6 +1876,10 @@ function renderPhone(){
   app.querySelectorAll(".rbtn").forEach(b=>b.onclick=()=>{rangeMode=b.dataset.r==="1";rangeAnchor=null;renderPhone()});
   const ps=document.getElementById("psend"); if(ps)ps.onclick=()=>{SUBMITTED[ME.id]="20 Sep";renderPhone()};
   app.querySelectorAll(".bday").forEach(b=>b.onclick=()=>dayTap(+b.dataset.d));
+  const tl=document.getElementById("tolv"); if(tl)tl.onclick=()=>goTab("leave");
+  if(ROLE==="fr")app.insertAdjacentHTML("afterbegin",'<button class="linkbtn mnback" onclick="goTab(\'main\')">\u2039 Main</button>');
+  if(!document.getElementById("leave").classList.contains("hidden"))renderLeave();   // an approval may have changed it
+  if(!document.getElementById("main").classList.contains("hidden"))renderMain();
 }
 function flash(msg){
   document.querySelectorAll(".toast").forEach(t=>t.remove());
@@ -1722,18 +1912,15 @@ function dayTap(d){
     if(off.includes(d)){off.splice(off.indexOf(d),1); renderPhone(); return}
     const bad=wouldBreak([d]);
     if(bad){flash("You must work one day of every weekend. "+bad+"–"+(bad+1)+" "+M2.n.slice(0,3)+" can't both be off."); return}
-    off.push(d); off.sort((p,q)=>p-q); rangeAnchor=d; renderPhone(); return;
+    off.push(d); off.sort((p,q)=>p-q); rangeAnchor=rangeMode?d:null; renderPhone(); return;
   }
   const past=PM===9&&d<TDAY;
-  if(past){
-    const rec=(MONTH[ME.id]||{})[d];
-    if(rec==="sick"&&!(CERT[ME.id]||[]).includes(d)) certSheet([d]);
+  if(past||(PM===9&&d===TDAY&&certState(ME.id,d)==="wait")){
+    if(certState(ME.id,d)==="wait") certSheet([d]);
     return;
   }
-  const r=myReq(PM,d);
-  if(r){ if(r.status==="pending"&&window.confirm("Cancel your request for "+listDays(r.days,r.mon)+"?")){
-    REQ.splice(REQ.indexOf(r),1);renderPhone();renderApprovals()} return }
-  leaveSheet(d);
+  if(myReq(PM,d)){goTab("leave"); return}   // already requested — it is managed on the Leave page
+  LEAVE_PICK={m:PM,d}; goTab("leave");     // requests are made on the Leave page
 }
 
 function certSheet(days){
@@ -1755,13 +1942,14 @@ function certSheet(days){
     '<button class="bigsend hidden" id="csend">Send certificate</button>'+
     '<button class="cancel2">Cancel</button></div>';
   const cov=sc.querySelector("#cov"), done=sc.querySelector("#done"), send=sc.querySelector("#csend");
-  const covered=()=>{const a=[];for(let i=0;i<cover&&pickDay+i<=MONTHS[9].days;i++)a.push(pickDay+i);return a};
-  const upd=()=>{const a=covered();
-    cov.textContent=a.length===1?dstr(a[0]):dstr(a[0])+"  \u2192  "+dstr(a[a.length-1]);
+  const span=()=>{const a=[];for(let i=0;i<cover&&pickDay+i<=MONTHS[9].days;i++)a.push(pickDay+i);return a};
+  const covered=()=>span().filter(dd=>certState(ME.id,dd)==="wait");   // only sick days still waiting for a certificate change; worked, leave, no-show and future days never become MC (review, 24 Sep)
+  const upd=()=>{const a=covered(), sp=span(), skipped=sp.length-a.length;
+    cov.textContent=(sp.length===1?dstr(sp[0]):dstr(sp[0])+"  \u2192  "+dstr(sp[sp.length-1]))+(skipped?"  \u00b7  "+a.length+" sick day"+(a.length===1?"":"s")+" in this run":"");
     if(got){done.className="";done.innerHTML='<div class="say done" style="margin-top:12px">Photo attached for '+
       (a.length===1?dstr(a[0]):a.length+" days, "+dstr(a[0])+" to "+dstr(a[a.length-1]))+
-      '. It goes to '+by(ME.to).n.split(" ")[0]+' and HR.</div>'}
-    send.textContent="Send certificate · "+a.length+" day"+(a.length>1?"s":"")};
+      '. It goes to '+leaderOf(ME)+' and HR.</div>'}
+    send.textContent="Send certificate · "+a.length+" day"+(a.length===1?"":"s"); send.disabled=!a.length};
   sc.querySelectorAll(".nbtn.wide").forEach(b=>b.onclick=()=>{pickDay=+b.dataset.d;
     sc.querySelectorAll(".nbtn.wide").forEach(x=>x.classList.toggle("on",x===b)); upd()});
   sc.querySelectorAll("#covsel .nbtn").forEach(b=>b.onclick=()=>{cover=+b.dataset.n;
@@ -1770,11 +1958,10 @@ function certSheet(days){
     got=true; b.classList.add("attached"); send.classList.remove("hidden"); upd()});
   send.onclick=()=>{
     CERT[ME.id]=CERT[ME.id]||[];
-    covered().forEach(dd=>{CERT[ME.id].push(dd); if(MONTH[ME.id])MONTH[ME.id][dd]="mc";
-      const i=(NEEDCERT[ME.id]||[]).indexOf(dd); if(i>=0)NEEDCERT[ME.id].splice(i,1)});
+    covered().forEach(dd=>{certReceive(ME.id,dd)});   // the photo is the certificate: nothing left for HR to collect
     log("push",ME.n+" sent a certificate covering "+covered().map(x=>x+" Sep").join(", "),
       "Those days change from sick-no-certificate to MC.");
-    sc.remove(); renderPhone(); if(typeof renderMonth==="function")renderMonth()};
+    sc.remove(); renderPhone(); if(typeof renderMonth==="function")renderMonth(); if(typeof renderHR==="function")renderHR()};
   sc.querySelector(".cancel2").onclick=()=>sc.remove();
   upd();
   document.body.appendChild(sc);
@@ -1794,10 +1981,11 @@ function leaveSheet(d){
       '<textarea id="why" rows="2" placeholder="Tell your manager why (optional)"></textarea>'+
       '<button class="bigsend" id="sendreq"></button><button class="cancel2">Cancel</button></div>'+
     '<button class="cancel2" id="c1">Cancel</button></div>';
-  let type=null,n=1;
+  let type=null,n=1,photo=false;
   const step2=sc.querySelector("#step2"), send=sc.querySelector("#sendreq");
+  const cph=sc.querySelector("#certrow .photo"); cph.onclick=()=>{photo=true; cph.classList.add("attached"); cph.textContent="\u2713 Certificate photo attached"};
   const upd=()=>{sc.querySelector("#certrow").classList.toggle("hidden",type!=="mc");
-    send.textContent=(n>2?"Send to "+by(ME.to).n.split(" ")[0]+" and HR":"Send to "+by(ME.to).n.split(" ")[0])+" · "+n+" day"+(n>1?"s":"")};
+    send.textContent=(n>2?"Send to "+leaderOf(ME)+" and HR":"Send to "+leaderOf(ME))+" · "+n+" day"+(n>1?"s":"")};
   sc.querySelectorAll(".reason").forEach(b=>b.onclick=()=>{type=b.dataset.k;
     sc.querySelectorAll(".reason").forEach(x=>x.classList.toggle("on",x===b));
     step2.classList.remove("hidden"); sc.querySelector("#c1").classList.add("hidden"); upd()});
@@ -1805,9 +1993,9 @@ function leaveSheet(d){
     sc.querySelectorAll("#step2 .nbtn").forEach(x=>x.classList.toggle("on",x===b));upd()});
   sc.querySelectorAll(".cancel2, #c1").forEach(b=>b.onclick=()=>sc.remove());
   send.onclick=()=>{const ds=[];for(let i=0;i<n&&d+i<=M.days;i++)ds.push(d+i);
-    REQ.push({id:Date.now(),pid:ME.id,mon:PM,days:ds,type,reason:sc.querySelector("#why").value.trim(),
-      status:"pending",to:by(ME.to).n.split(" ")[0],hr:n>2,sent:"20 Sep"});
-    sc.remove(); renderPhone(); renderApprovals()};
+    REQ.push({id:Date.now(),pid:ME.id,mon:PM,days:ds,type,reason:esc(sc.querySelector("#why").value.trim()),
+      status:"pending",to:leaderOf(ME),hr:n>2,sent:"20 Sep",cert:type==="mc"&&photo});
+    sc.remove(); renderPhone(); renderApprovals(); renderLeave()};
   document.body.appendChild(sc);
 }
 /* ---- approvals list for the manager (roster side panel) ---- */
@@ -1825,13 +2013,14 @@ function renderApprovals(){
       const a=A.find(x=>x.pid===r.pid&&x.w===w&&x.d===di);
       if(a){const live=published.has(k(a)); A=A.filter(x=>x!==a); if(live){published.delete(k(a));
         log("warn","Evergiving still shows "+p.n+" at "+SITES[a.s].n,"Leave approved after publishing. Needs removing there.")}}
-      ABS.push({pid:r.pid,w:w,d:di,t:r.type==="plan"?"plan":r.type,reason:r.reason})});
+      ABS.push({pid:r.pid,w:w,d:di,t:r.type==="plan"?"plan":r.type,reason:r.reason});
+      if(r.type==="mc"&&r.cert&&r.mon===9){CERT[r.pid]=CERT[r.pid]||[]; if(!CERT[r.pid].includes(dd))CERT[r.pid].push(dd)}});   // a photo sent with the request is on file
     log("pull",p.n+" — leave approved, "+r.days.join(", ")+" "+MONTHS[r.mon].n.slice(0,3),RTYPES.find(t=>t.k===r.type).l+". Shifts released.");
     renderApprovals(); render(); renderPhone(); if(document.getElementById("hreq"))renderHRLeave();
   });
   el.querySelectorAll("[data-no]").forEach(b=>b.onclick=()=>{
     const r=REQ.find(x=>x.id==b.dataset.no); r.status="declined";
-    log("warn",by(r.pid).n+" — leave declined","They keep their shifts. They get a WhatsApp.");
+    log("warn",nameOf(r.pid)+" — leave declined","They keep their shifts. They get a WhatsApp.");
     renderApprovals(); renderPhone();
   });
 }
@@ -1853,7 +2042,7 @@ function layout(){
   P.filter(p=>p.to===null&&p.lv===0).forEach(place);
   return {cells,cols:col};
 }
-const intake=()=>P.filter(p=>p.placeholder&&p.to===null);
+const intake=()=>P.filter(p=>(p.placeholder||p.unplaced)&&p.to===null);   // planned newies, and real newies not yet on a team
 function renderOrg(){
   const org=document.getElementById("org"); org.innerHTML="";
   const {cells,cols}=layout();
@@ -1880,7 +2069,7 @@ function renderOrg(){
   // fundraiser columns
   function frCard(p){
     const f=document.createElement("div"); f.className="fr"+(tmatch(p)?"":" dim")+(p.placeholder?" ph":""); f.draggable=true; f.tabIndex=0;
-    f.innerHTML='<span class="nm">'+p.n+'</span>'+(p.placeholder?'<span class="tag new">PLANNED</span>':'')+(!p.eg&&!p.placeholder?'<span class="tag noeg">no EG ID</span>':'')+'<span class="code">'+p.code+'</span>';
+    f.innerHTML='<span class="nm">'+p.n+'</span>'+(p.placeholder?'<span class="tag new">PLANNED</span>':p.unplaced&&p.to===null?'<span class="tag new">NO TEAM YET</span>':'')+(!p.eg&&!p.placeholder?'<span class="tag noeg">no EG ID</span>':'')+'<span class="code">'+p.code+'</span>';
     f.onclick=()=>p.placeholder?personForm(p):editBox(p);
     f.addEventListener("dragstart",e=>{e.dataTransfer.setData("text/plain",p.id);f.classList.add("dragging")});
     f.addEventListener("dragend",()=>f.classList.remove("dragging"));
@@ -1952,6 +2141,7 @@ function reassign(movingId,targetId,el){
   if(t.lv>=m.lv) return tbounce(el,LEVELS[t.lv]+" can't manage a "+LEVELS[m.lv].toLowerCase(),"Drop them on someone more senior, or change their role first.");
   if(isDesc(m.id,t.id)) return tbounce(el,"That's inside "+m.n+"'s own team","");
   if(m.to===t.id) return;
+  if(m.unplaced)m.unplaced=false;
   const from=by(m.to); m.to=t.id;
   if(m.placeholder){m.c=t.c;tlog("ok",m.n+" planned under "+t.n,"Counts as +1 "+(t.c?CAMPS[t.c].n:"")+" in the projection. Click the name when they're hired.");renderOrg();return}
   if(t.c&&m.c!==t.c) tlog("warn",m.n+" moved into a "+CAMPS[t.c].n+" team","Their campaign is still "+(m.c?CAMPS[m.c].n:"unset")+". Retrain and update it, or they can't be rostered on "+CAMPS[t.c].n+" sites.");
@@ -1962,19 +2152,26 @@ function editBox(p){
   if(p.lv===0)return;
   const sc=document.createElement("div"); sc.className="scrim";
   sc.innerHTML='<div class="modal"><h3>'+p.n+' <span class="code" style="font-weight:400;color:var(--ink-soft);font-size:12px">'+p.code+'</span></h3>'+
-    '<div class="two"><label>Role<select id="lv">'+LEVELS.map((l,i)=>i?'<option value="'+i+'"'+(i===p.lv?" selected":"")+'>'+l+'</option>':'').join("")+'</select></label>'+
-    '<label>Campaign<select id="c"><option value="stc"'+(p.c==="stc"?" selected":"")+'>STC</option><option value="ykan"'+(p.c==="ykan"?" selected":"")+'>YKAN</option></select></label></div>'+
+    '<div class="two"><label>Role<select id="lv">'+LEVELS.map((l,i)=>i?'<option value="'+i+'"'+(i===p.lv?" selected":"")+(i===7&&p.perm?" disabled":"")+'>'+l+(i===7&&p.perm?" \u2014 not for permanent staff":"")+'</option>':'').join("")+'</select></label>'+
+    '<label>Home campaign<select id="c">'+Object.keys(CAMPS).map(k=>'<option value="'+k+'"'+(p.c===k?" selected":"")+'>'+CAMPS[k].n+'</option>').join("")+'</select></label></div>'+
+    (Object.keys(CAMPS).length>1?'<div class="alsobox"><span>Also accredited for</span>'+Object.keys(CAMPS).map(k=>'<label class="alsoc"><input type="checkbox" class="also" value="'+k+'"'+(((p.also||[]).includes(k))?" checked":"")+'> '+CAMPS[k].n+'</label>').join("")+'<small>The home campaign always counts. Tick the others this person may be rostered on.</small></div>':'')+
     '<label>Reports to<select id="to">'+P.filter(x=>x.lv<p.lv&&x.id!==p.id).sort((a,b)=>a.lv-b.lv).map(x=>'<option value="'+x.id+'"'+(x.id===p.to?" selected":"")+'>'+x.n+' — '+LEVELS[x.lv]+'</option>').join("")+'</select></label>'+
     (p.lv>=3?'<label>Evergiving user ID<input id="eid" value="'+(p.eid||"")+'" placeholder="Blank = not yet created"></label>':'')+
+    '<label>Commission plan <i class="hronly">HR only \u00b7 an underperforming IC is offered performance-based pay before termination</i><select id="plan"><option value="standard"'+((p.plan||"standard")==="standard"?" selected":"")+'>IC Perm \u00b7 Model B</option><option value="perf100"'+(p.plan==="perf100"?" selected":"")+'>Performance based \u00b7 100% commission</option></select></label>'+
+    '<label>Gross basic (Rp), if not the role table <i class="hronly">HR only</i><input id="salary" inputmode="numeric" value="'+(p.salary!=null?p.salary:"")+'" placeholder="Blank = role table ('+IDRf((BASIC[p.lv]||BASIC[6]).basic)+')"></label>'+
     '<div class="row"><button class="no">Cancel</button><button class="go">Save</button></div></div>';
   sc.querySelector(".no").onclick=()=>sc.remove();
   sc.querySelector(".go").onclick=()=>{
     const lv=+sc.querySelector("#lv").value, c=sc.querySelector("#c").value, to=+sc.querySelector("#to").value;
+    const also=[...sc.querySelectorAll(".also:checked")].map(x=>x.value).filter(k=>k!==c);
+    if(lv===7&&p.perm){flash("A trainee cannot be permanent. End the PKWTT contract first."); return}
     const boss=by(to); if(boss.lv>=lv){tlog("warn",p.n+" can't be "+LEVELS[lv]+" under "+boss.n,"Pick a more senior manager.");return}
     const tooJunior=kidsOf(p.id).filter(k=>k.lv<=lv&&k.lv<6);
     if(tooJunior.length){tooJunior.forEach(k=>k.to=to);tlog("ok",tooJunior.map(k=>k.n.split(" ")[0]).join(", ")+" moved up to "+boss.n,"They can't report to a "+LEVELS[lv].toLowerCase()+". Drag them elsewhere if that's wrong.")}
-    const changes=[]; if(lv!==p.lv)changes.push(LEVELS[p.lv]+" → "+LEVELS[lv]); if(c!==p.c)changes.push("now on "+CAMPS[c].n); if(to!==p.to)changes.push("reports to "+boss.n);
-    p.lv=lv; p.c=c; p.to=to; if(lv>=3&&sc.querySelector("#eid")){const v=sc.querySelector("#eid").value.trim(); p.eid=v?+v:null; p.eg=v?1:0; p.off=p.off||[]; if(v&&!changes.includes("x"))changes.push("Evergiving ID set")}
+    const changes=[]; if(lv!==p.lv)changes.push(LEVELS[p.lv]+" → "+LEVELS[lv]); if(c!==p.c)changes.push("now on "+CAMPS[c].n); if(also.join()!==(p.also||[]).filter(k=>k!==c).join())changes.push(also.length?"also accredited for "+also.map(k=>CAMPS[k].n).join(", "):"one campaign only"); if(to!==p.to)changes.push("reports to "+boss.n);
+    const np=sc.querySelector("#plan").value; if(np!==(p.plan||"standard")){p.plan=np; changes.push(np==="perf100"?"moved to performance-based pay (100% commission)":"moved to IC pay \u00b7 Model B")}
+    const sal=sc.querySelector("#salary").value.replace(/\D/g,""); const ns=sal?+sal:null; if(ns!==(p.salary==null?null:p.salary)){p.salary=ns; changes.push(ns?"gross basic set to "+IDRf(ns):"gross basic back to the role table")}
+    p.lv=lv; p.c=c; p.also=also; p.to=to; if(lv>=3&&sc.querySelector("#eid")){const v=sc.querySelector("#eid").value.trim(); p.eid=v?+v:null; p.eg=v?1:0; p.off=p.off||[]; if(v&&!changes.includes("x"))changes.push("Evergiving ID set")}
     if(changes.length)tlog("ok",p.n+": "+changes.join(", "),"Takes effect from the next roster week.");
     sc.remove(); renderOrg()};
   document.body.appendChild(sc);
@@ -1987,18 +2184,26 @@ bin.addEventListener("drop",e=>{
   const p=by(+e.dataTransfer.getData("text/plain")); if(!p||p.lv===0)return;
   const kids=kidsOf(p.id); const sc=document.createElement("div"); sc.className="scrim";
   sc.innerHTML='<div class="modal"><h3>'+p.n+' is leaving</h3><label>Last working day<input type="date" id="last" value="2026-09-30"></label>'+
-    '<label>Reason<select id="why"><option>Resigned</option><option>Withdraw</option><option>Terminated</option><option>Contract ended</option><option>Did not pass probation</option></select></label>'+
+    '<label>Reason<select id="why"><option>Resigned</option><option>Withdraw</option><option>Terminated</option><option>Missing (MIA)</option><option>Contract ended</option><option>Did not pass probation</option></select></label>'+
     (kids.length?'<label>'+kids.length+' people report to '+p.n.split(" ")[0]+' — who takes them?<select id="heir">'+P.filter(x=>x.lv<p.lv&&x.id!==p.id).map(x=>'<option value="'+x.id+'"'+(x.id===p.to?" selected":"")+'>'+x.n+' ('+LEVELS[x.lv]+')</option>').join("")+'</select></label>':'')+
     '<div class="note">On the last day: Evergiving login retired, future shifts removed from the roster, WhatsApp login switched off. Name stays in the reports.</div>'+
     '<div class="row"><button class="no">Cancel</button><button class="danger">Confirm</button></div></div>';
   sc.querySelector(".no").onclick=()=>sc.remove();
   sc.querySelector(".danger").onclick=()=>{const last=sc.querySelector("#last").value, why=sc.querySelector("#why").value, heir=kids.length?+sc.querySelector("#heir").value:null;
     if(heir){kids.forEach(k=>k.to=heir);tlog("ok",kids.length+" people moved to "+by(heir).n,"From "+p.n+"'s team.")}
-    P=P.filter(x=>x.id!==p.id); A=A.filter(a=>a.pid!==p.id); RESIGNED.unshift({p,last,why});
+    P=P.filter(x=>x.id!==p.id); offboard(p); RESIGNED.unshift({p,last,why});
     tlog("pull",p.n+" — "+why.toLowerCase()+", last day "+last,p.eid?"DELETE /v1/users/"+p.eid+" queued for that date.":"No Evergiving user to retire.");
     sc.remove(); renderOrg()};
   document.body.appendChild(sc);
 });
+/* everything that must happen when someone leaves, whichever screen started it */
+function offboard(p){
+  A=A.filter(a=>a.pid!==p.id);                                                                   // future shifts
+  for(let i=REQ.length-1;i>=0;i--)if(REQ[i].pid===p.id&&REQ[i].status==="pending")REQ.splice(i,1); // open leave requests
+  BOOKINGS.forEach(b=>{if(b.party)b.party=b.party.filter(id=>id!==p.id)});                       // travel parties
+  TRAIN.forEach(t=>{if(t.date>=TODAY_D&&t.attendees)t.attendees=t.attendees.filter(id=>id!==p.id)}); // future training; past attendance stays as history
+  if(typeof MSEL!=="undefined")MSEL.delete(p.id);
+}
 function nextCode(){const n=Math.max(452,...P.map(p=>+(String(p.code).match(/^OMID(\d{4})$/)||[])[1]||0)); return "OMID"+String(n+1).padStart(4,"0")}
 function personForm(existing){
   const sc=document.createElement("div"); sc.className="scrim";
@@ -2011,6 +2216,10 @@ function personForm(existing){
     '<div class="two"><label>Staff code <i class="req">required</i><input id="code" value="'+nextCode()+'" placeholder="OMID0453"></label>'+
     '<label>Region<select id="region">'+["Jakarta","Surabaya","Bandung","Medan","Bali","Yogyakarta"].map(r=>'<option>'+r+'</option>').join("")+'</select></label></div>'+
     '<div class="two"><label>Date of birth<input type="date" id="dob"></label><label>Place of birth<input id="pob" placeholder="City as on KTP"></label></div>'+
+    '<div class="two"><label>Gender<select id="gender"><option value="">\u2014</option><option>Male</option><option>Female</option></select></label>'+
+    '<label>Marital status <i class="hronly">sets the tax status</i><select id="marital"><option value="">\u2014</option><option>Single</option><option>Married</option><option>Divorced</option><option>Widowed</option></select></label></div>'+
+    '<div class="two"><label>Race<input id="race" placeholder="As on the KTP"></label><label>Religion<input id="religion" placeholder="As on the KTP"></label></div>'+
+    '<div class="two"><label>Passport no.<input id="passport" placeholder="If they have one"></label><label>Recruiter<input id="recruiter" placeholder="Who brought them in"></label></div>'+
     '<div class="fsec">Residential address <i class="req" style="color:var(--ink-soft)">none required</i></div>'+
     '<div class="two" style="grid-template-columns:3fr 1fr"><label>Jalan / street<input id="a_jl" placeholder="Jl. Sudirman"></label><label>No.<input id="a_no" placeholder="12A"></label></div>'+
     '<div class="two" style="grid-template-columns:1fr 1fr 2fr"><label>RT<input id="a_rt" placeholder="003"></label><label>RW<input id="a_rw" placeholder="007"></label><label>Kelurahan / Desa<input id="a_kel"></label></div>'+
@@ -2028,7 +2237,8 @@ function personForm(existing){
 
     '<div class="fsec">Where they sit</div>'+
     '<div class="two"><label>Role<select id="lv">'+LEVELS.map((l,i)=>i?'<option value="'+i+'"'+(i===6?" selected":"")+'>'+l+'</option>':'').join("")+'</select></label>'+
-    '<label>Campaign trained on<select id="c"><option value="stc"'+(c0==="stc"?" selected":"")+'>STC</option><option value="ykan"'+(c0==="ykan"?" selected":"")+'>YKAN</option></select></label></div>'+
+    '<label>Home campaign<select id="c">'+Object.keys(CAMPS).map(k=>'<option value="'+k+'"'+(c0===k?" selected":"")+'>'+CAMPS[k].n+'</option>').join("")+'</select></label></div>'+
+    (Object.keys(CAMPS).length>1?'<div class="alsobox"><span>Also accredited for</span>'+Object.keys(CAMPS).map(k=>'<label class="alsoc"><input type="checkbox" class="also" value="'+k+'"'+((((existing||{}).also||[]).includes(k))?" checked":"")+'> '+CAMPS[k].n+'</label>').join("")+'<small>The home campaign always counts. Tick the others this person may be rostered on.</small></div>':'')+
     '<label>Reports to<select id="to">'+P.filter(x=>x.lv<6&&!x.placeholder).sort((a,b)=>a.lv-b.lv).map(x=>'<option value="'+x.id+'"'+(x.id===to0?" selected":"")+'>'+x.n+' — '+LEVELS[x.lv]+'</option>').join("")+'</select></label>'+
 
     '<div class="fsec">Contract</div>'+
@@ -2044,6 +2254,10 @@ function personForm(existing){
     '<div class="fsec">Bank <i class="hronly">HR only · used for the payroll export</i></div>'+
     '<div class="two"><label>Bank name<input id="bank" placeholder="BCA, Mandiri, BNI…"></label><label>Account name<input id="bankn" placeholder="As on the account"></label></div>'+
     '<label>Account number<input id="banka" placeholder="Digits only"></label>'+
+    '<div class="fsec">Pay <i class="hronly">HR only · shown on their FR Dashboard</i></div>'+
+    '<div class="two"><label>Commission plan<select id="plan"><option value="standard">IC Perm · Model B</option><option value="perf100">Performance based \u00b7 100% commission</option></select></label>'+
+    '<label>Gross basic (Rp), if not the role table<input id="salary" inputmode="numeric" placeholder="Blank = role table"></label></div>'+
+    '<p class="fnote">Use the amount only when someone is paid outside the standard table (a grade the table lacks, or an agreed figure).</p>'+
     '<div class="fsec">Systems</div>'+
     '<label>Evergiving user ID<input id="eid" placeholder="Leave blank to create one via the API"></label>'+
     '<p class="fnote">Without this they can\'t be dragged onto the weekly roster.</p>'+
@@ -2051,25 +2265,33 @@ function personForm(existing){
 
     '<div class="note">On save: a WhatsApp login link goes out and they appear in Team structure. Bank details, contracts and ID scans stay in HR Easily — not here.</div>'+
     '<div class="row"><button class="no">Cancel</button><button class="go">Save and send invite</button></div></div>';
+  /* a trainee is never permanent: choosing Trainee locks the contract to independent contractor */
+  const lvSel=sc.querySelector("#lv"), ctSel=sc.querySelector("#ct");
+  const syncCt=()=>{const tr=lvSel.value==="7"; ctSel.querySelector('option[value="pkwtt"]').disabled=tr; if(tr)ctSel.value="ic"; ctSel.title=tr?"Trainees are never permanent":""};
+  lvSel.addEventListener("change",syncCt); ctSel.addEventListener("change",syncCt); syncCt();
   const tgb=sc.querySelector("#tgconn");
   tgb.onclick=()=>{tgb.textContent="Link sent";tgb.classList.add("sent");
     tgb.previousElementSibling.querySelector("small").textContent="Waiting for them to tap it"};
   sc.querySelector(".no").onclick=()=>sc.remove();
   sc.querySelector(".go").onclick=()=>{
     const eid=sc.querySelector("#eid").value.trim(), ktp=sc.querySelector("#ktp").value.replace(/\s/g,"");
-    const ct=sc.querySelector("#ct").value, nm=sc.querySelector("#fn").value.trim();
+    const ct=sc.querySelector("#ct").value, nm=esc(sc.querySelector("#fn").value.trim());
     if(!nm){sc.querySelector("#fn").style.borderColor="var(--flag)";return}
     const p=existing||{id:nextId++}; if(!P.includes(p))P.push(p);
-    Object.assign(p,{n:nm,code:sc.querySelector("#code").value.trim()||"FR-"+(2230+p.id),
-      lv:+sc.querySelector("#lv").value,to:+sc.querySelector("#to").value,c:sc.querySelector("#c").value,
-      eg:eid?1:0,eid:eid?+eid:null,off:[],start:sc.querySelector("#sd").value,perm:ct!=="ic",
-      tg:sc.querySelector("#tg").value.trim(),ec:sc.querySelector("#ecn").value.trim(),region:sc.querySelector("#region").value,
-      dob:sc.querySelector("#dob").value,pob:sc.querySelector("#pob").value.trim(),addr:[sc.querySelector("#a_jl").value.trim()+(sc.querySelector("#a_no").value.trim()?" No. "+sc.querySelector("#a_no").value.trim():""),
-        (sc.querySelector("#a_rt").value.trim()||sc.querySelector("#a_rw").value.trim())?"RT "+sc.querySelector("#a_rt").value.trim()+"/RW "+sc.querySelector("#a_rw").value.trim():"",
-        sc.querySelector("#a_kel").value.trim(),sc.querySelector("#a_kec").value.trim(),sc.querySelector("#a_kota").value.trim(),sc.querySelector("#a_prov").value.trim(),sc.querySelector("#a_pos").value.trim()].filter(Boolean).join(", "),email:sc.querySelector("#email").value.trim(),
-      bank:sc.querySelector("#bank").value.trim(),bankn:sc.querySelector("#bankn").value.trim(),banka:sc.querySelector("#banka").value.replace(/\D/g,""),signups:0,
-      ecp:sc.querySelector("#ecp").value.trim(),placeholder:false,
-      ktp:ktp?"\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022"+ktp.slice(-4):null});
+    if(typeof MONTH!=="undefined"){MONTH[p.id]=MONTH[p.id]||{}; LATE[p.id]=LATE[p.id]||{}; CHECK[p.id]=CHECK[p.id]||{}}   // a new person starts with empty attendance, not none
+    Object.assign(p,{n:nm,code:esc(sc.querySelector("#code").value.trim())||"FR-"+(2230+p.id),
+      lv:+sc.querySelector("#lv").value,to:+sc.querySelector("#to").value,c:sc.querySelector("#c").value,also:[...sc.querySelectorAll(".also:checked")].map(x=>x.value).filter(k=>k!==sc.querySelector("#c").value),
+      eg:eid?1:0,eid:eid?+eid:null,off:[],start:sc.querySelector("#sd").value,perm:ct!=="ic"&&+sc.querySelector("#lv").value!==7,
+      tg:esc(sc.querySelector("#tg").value.trim()),ec:esc(sc.querySelector("#ecn").value.trim()),region:sc.querySelector("#region").value,
+      dob:sc.querySelector("#dob").value,pob:esc(sc.querySelector("#pob").value.trim()),addr:[esc(sc.querySelector("#a_jl").value.trim())+(esc(sc.querySelector("#a_no").value.trim())?" No. "+esc(sc.querySelector("#a_no").value.trim()):""),
+        (esc(sc.querySelector("#a_rt").value.trim())||esc(sc.querySelector("#a_rw").value.trim()))?"RT "+esc(sc.querySelector("#a_rt").value.trim())+"/RW "+esc(sc.querySelector("#a_rw").value.trim()):"",
+        esc(sc.querySelector("#a_kel").value.trim()),esc(sc.querySelector("#a_kec").value.trim()),esc(sc.querySelector("#a_kota").value.trim()),esc(sc.querySelector("#a_prov").value.trim()),esc(sc.querySelector("#a_pos").value.trim())].filter(Boolean).join(", "),email:esc(sc.querySelector("#email").value.trim()),
+      bank:esc(sc.querySelector("#bank").value.trim()),bankn:esc(sc.querySelector("#bankn").value.trim()),banka:sc.querySelector("#banka").value.replace(/\D/g,""),signups:0,
+      plan:sc.querySelector("#plan").value,salary:(v=>v?+v:null)(sc.querySelector("#salary").value.replace(/\D/g,"")),
+      gender:sc.querySelector("#gender").value,marital:sc.querySelector("#marital").value,race:esc(sc.querySelector("#race").value.trim()),religion:esc(sc.querySelector("#religion").value.trim()),
+      passport:esc(sc.querySelector("#passport").value.trim()),recruiter:esc(sc.querySelector("#recruiter").value.trim()),
+      ecp:esc(sc.querySelector("#ecp").value.trim()),placeholder:false,
+      ktp:ktp?"\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022"+esc(ktp.slice(-4)):null});
     tlog("ok",p.n+" added under "+by(p.to).n,
       (eid?"WhatsApp invite sent.":"WhatsApp invite sent. Creating Evergiving user — POST /v1/users.")+
       (p.ec?"":" No emergency contact yet."));
@@ -2096,8 +2318,7 @@ const START={am:"10:00",pm:"12:00"};   // fallback; real start comes from the si
       if(p.off.includes(dow(d))){MONTH[p.id][d]="x";continue}
       if(rnd()<.03){MONTH[p.id][d]=rnd()<.5?"mc":"leave";continue}
       if(worked<target&&rnd()<.88){MONTH[p.id][d]=rnd()<.55?"am":"pm";worked++;
-        if(rnd()<.02){const late=Math.round(11+rnd()*35);const[h,m]=START[MONTH[p.id][d]].split(":").map(Number);
-          const t=h*60+m+late;LATE[p.id][d]=String(Math.floor(t/60)).padStart(2,"0")+":"+String(t%60).padStart(2,"0")}}
+        if(rnd()<.02)rnd()}   // (lateness now comes only from check-ins; the draw is kept so the demo month is unchanged)
     }
   });
 })();
@@ -2105,25 +2326,35 @@ const START={am:"10:00",pm:"12:00"};   // fallback; real start comes from the si
   RESIGNED.forEach(x=>{const p=x.p; if(MONTH[p.id])return; MONTH[p.id]={}; LATE[p.id]={}; p.c=p.c||"stc"; p.off=p.off||[]; p.eg=1; p.perm=p.lv<=5;
     const last=+x.last.slice(8), first=x.p.start>="2026-09-01"?+x.p.start.slice(8):1;
     for(let d=first;d<=last;d++){if(dow(d)===6&&rnd()<.6){MONTH[p.id][d]="x";continue} if(rnd()<.85)MONTH[p.id][d]=rnd()<.55?"am":"pm"}})})();
-function lateCount(pid){return Object.keys(LATE[pid]||{}).length}
-function mstats(p){const m=MONTH[p.id]||{};const v=Object.values(m);
-  return {worked:v.filter(x=>x==="am"||x==="pm").length,mc:v.filter(x=>x==="mc").length,
-          leave:v.filter(x=>x==="leave").length,off:v.filter(x=>x==="x").length,late:lateCount(p.id)}}
+function mstats(p){const m=MONTH[p.id]||{};const v=Object.values(m), ks=Object.keys(m).map(Number);
+  /* ONE definition for every screen (audit 24 Sep 2026): worked = checked-out paid days (hActual, as HR and payroll);
+     late = lateness from check-ins (hLate, as HR). The month record only says what was planned. */
+  const st={worked:hActual(p.id),rostered:v.filter(x=>x==="am"||x==="pm").length,mc:ks.filter(d=>certState(p.id,d)==="ok").length,
+          waiting:ks.filter(d=>certState(p.id,d)==="wait").length,leave:v.filter(x=>x==="leave").length,off:v.filter(x=>x==="x").length,late:hLate(p.id)};
+  st.ahead=ks.filter(d=>d>=TODAY_D&&(m[d]==="am"||m[d]==="pm")&&!paidDay(p.id,d)).length;   // rostered days still to come this month, today included until they check out
+  st.covered=st.worked+st.ahead+st.mc+st.leave;   // month forecast: perms are paid for worked days, MC with a certificate and HR-approved leave (Dave, 24 Sep 2026); mid-month the days still rostered count toward the 20
+  return st}
 // ordered rows: walk the tree so leaders sit above their own people
 function monthRows(){
   const rows=[]; const rank=c=>c==="stc"?0:c==="ykan"?1:2;
   const walk=(id,depth)=>{
     kidsOf(id).filter(x=>!x.placeholder).sort((a,b)=>rank(a.c)-rank(b.c)||a.lv-b.lv||a.n.localeCompare(b.n)).forEach(x=>{
       if(x.lv>=3)rows.push({p:x,depth}); walk(x.id,x.lv>=3?depth+1:depth)})};
-  walk(P.find(p=>p.lv===0).id,0); return rows;
+  walk(P.find(p=>p.lv===0).id,0);
+  P.filter(p=>p.unplaced&&p.to===null&&!p.placeholder).forEach(p=>rows.push({p,depth:0}));   // newies not yet on a team still have attendance
+  return rows;
 }
 /* roster → monthly/HR bridge: published shifts and absences are written into the month record */
+const BRIDGED={};   // "pid:day" -> what the month record held before a published shift was written over it
 function bridgeMonth(){
-  const map={mc:"mc",sick:"sick",emg:"leave",plan:"leave",off:"leave",ns:"sick"};
-  A.forEach(a=>{const [mon,dd]=dateOf(a.w,a.d); if(mon!==9)return; MONTH[a.pid]=MONTH[a.pid]||{}; const v=MONTH[a.pid][dd];
-    if(published.has(k(a))&&(!v||v==="am"||v==="pm"))MONTH[a.pid][dd]=a.slot});
+  const map=ABS_TO_MONTH, live=new Set();
+  A.forEach(a=>{const [mon,dd]=dateOf(a.w,a.d); if(mon!==9||!published.has(k(a)))return; MONTH[a.pid]=MONTH[a.pid]||{}; const v=MONTH[a.pid][dd], key=a.pid+":"+dd;
+    if(!v||v==="am"||v==="pm"){if(!(key in BRIDGED))BRIDGED[key]=v; MONTH[a.pid][dd]=a.slot; live.add(key)}});
+  // a published shift that has since been removed or moved no longer counts as rostered (audit 24 Sep 2026)
+  Object.keys(BRIDGED).forEach(key=>{if(live.has(key))return; const [pid,dd]=key.split(":").map(Number), m=MONTH[pid]||{};
+    if(m[dd]==="am"||m[dd]==="pm"){if(BRIDGED[key]==null)delete m[dd]; else m[dd]=BRIDGED[key]} delete BRIDGED[key]});
   ABS.forEach(x=>{const [mon,dd]=dateOf(x.w,x.d); if(mon!==9)return; MONTH[x.pid]=MONTH[x.pid]||{}; MONTH[x.pid][dd]=map[x.t]||"leave";
-    if(typeof CHECK!=='undefined'&&CHECK[x.pid]&&CHECK[x.pid][dd]&&x.t!=="ns"){CHECK[x.pid]["_undo"+dd]={c:CHECK[x.pid][dd],v:x.t}; delete CHECK[x.pid][dd]}});
+    if(!x.hr&&typeof CHECK!=='undefined'&&CHECK[x.pid]&&CHECK[x.pid][dd]&&x.t!=="ns"){CHECK[x.pid]["_undo"+dd]={c:CHECK[x.pid][dd],v:x.t}; delete CHECK[x.pid][dd]}});
   // phone submissions: days they can't work show as × in the month
   Object.keys(OFFD).forEach(pid=>{const sub=OFFD[pid][9]||[]; MONTH[pid]=MONTH[pid]||{}; sub.forEach(dd=>{if(!MONTH[pid][dd]||MONTH[pid][dd]==="x")MONTH[pid][dd]="x"})});
 }
@@ -2140,29 +2371,29 @@ function renderMonth(){
   if(permOnly)rows=rows.filter(r=>r.p.perm);
   if(mq)rows=rows.filter(r=>r.p.n.toLowerCase().includes(mq)||r.p.code.toLowerCase().includes(mq));
 
-  const availOn=d=>rows.filter(r=>{const v=(MONTH[r.p.id]||{})[d];return v!=="x"&&v!=="mc"&&v!=="leave"&&v!=="sick"}).length;
+  const availOn=d=>rows.filter(r=>{const v=(MONTH[r.p.id]||{})[d];return v!=="x"&&v!=="mc"&&v!=="leave"&&v!=="sick"&&v!=="ns"}).length;
   let h='<table class="mtab"><thead>'+
     '<tr class="availrow"><th class="who">Available that day</th><th class="role"></th>';
   for(let d=1;d<=MDAYS;d++)h+='<th class="'+(dow(d)>4?"wknd":"")+'">'+availOn(d)+'</th>';
   h+='<th class="tot" colspan="4"></th></tr>';
   h+='<tr><th class="who">Name</th><th class="role">Role</th>';
   for(let d=1;d<=MDAYS;d++)h+='<th class="'+(dow(d)>4?"wknd":"")+'">'+d+'<small>'+"MTWTFSS"[dow(d)]+'</small></th>';
-  h+='<th class="tot">Days</th><th class="tot">MC</th><th class="tot">Leave</th><th class="tot">Late</th></tr></thead><tbody>';
+  h+='<th class="tot" title="checked-out days so far">Worked</th><th class="tot">MC</th><th class="tot">Leave</th><th class="tot">Late</th></tr></thead><tbody>';
   let lastCamp=null;
   rows.forEach(r=>{
     const p=r.p, st=mstats(p), m=MONTH[p.id]||{};
     if(p.c!==lastCamp){lastCamp=p.c;
-      h+='<tr class="band '+p.c+'"><td class="who" colspan="2">'+CAMPS[p.c].n+'</td><td colspan="'+(MDAYS+4)+'"></td></tr>'}
-    const short=p.perm&&st.worked<20;
+      h+='<tr class="band '+(p.c||"none")+'"><td class="who" colspan="2">'+(CAMPS[p.c]?CAMPS[p.c].n:"NO CAMPAIGN YET · HR to set")+'</td><td colspan="'+(MDAYS+4)+'"></td></tr>'}
+    const short=p.perm&&st.covered<20;
     h+='<tr class="'+(p.perm?"perm":"")+'"><td class="who" style="padding-left:'+(8+r.depth*9)+'px">'+
        '<span class="nmw">'+p.n+(p.perm?'<span class="pm">PERM</span>':'')+'</span>'+
        '<small>'+p.code+(p.tg?' · '+p.tg:'')+'</small></td>'+
        '<td class="role">'+LEVELS[p.lv]+'</td>';
     for(let d=1;d<=MDAYS;d++){
-      const v=m[d], late=(LATE[p.id]||{})[d];
-      const sick=v==="sick";
-      const cls=(v==="am"||v==="pm")?"w":v==="x"?"x":v==="mc"?"m":sick?"s":v==="leave"?"l":"free";
-      const txt=(v==="am"||v==="pm")?"":v==="x"?"\u00d7":v==="mc"?"M":sick?"!":v==="leave"?"L":"";
+      const v=m[d], late=lateBy(p.id,d)?(CHECK[p.id]||{})[d].in:null;
+      const cs=certState(p.id,d);
+      const cls=(v==="am"||v==="pm")?"w":v==="x"?"x":cs==="ok"?"m":cs?"s":v==="leave"?"l":v==="ns"?"noshow":"free";
+      const txt=(v==="am"||v==="pm")?"":v==="x"?"\u00d7":cs==="ok"?"M":cs==="wait"?"!":(cs==="no"||cs==="na")?"S":v==="leave"?"L":"";
       h+='<td class="c '+cls+(late?" late":"")+(dow(d)>4?" wknd":"")+'" data-p="'+p.id+'" data-d="'+d+'"'+
          (late?' title="checked in '+late+'"':'')+'>'+txt+'</td>';
     }
@@ -2170,10 +2401,6 @@ function renderMonth(){
        '<td class="tot">'+(st.leave||"")+'</td><td class="tot'+(st.late>=4?" bad":"")+'">'+(st.late||"")+'</td></tr>';
   });
   document.getElementById("mgrid").innerHTML=h+'</tbody></table>';
-  document.querySelectorAll(".mtab td.c").forEach(td=>{
-    const v=MONTH[+td.dataset.p][+td.dataset.d];
-
-  });
   // summaries
   const all=rows.map(r=>r.p);
   const tot=all.reduce((a,p)=>{const s=mstats(p);a.w+=s.worked;a.mc+=s.mc;a.l+=s.leave;a.late+=s.late;return a},{w:0,mc:0,l:0,late:0});
@@ -2185,73 +2412,28 @@ function renderMonth(){
     '<table class="hc"><tr><td>Shifts worked</td><td>'+tot.w+'</td></tr>'+
     '<tr><td>MC days</td><td>'+tot.mc+'</td></tr><tr><td>Leave days</td><td>'+tot.l+'</td></tr>'+
     '<tr class="rule"><td>Permanent staff</td><td>'+perms.length+'</td></tr>'+
-    '<tr><td>Perms on full 20+</td><td>'+perms.filter(p=>mstats(p).worked>=20).length+'</td></tr></table>';
-  const short=all.filter(p=>p.perm&&mstats(p).worked<20), late4=all.filter(p=>mstats(p).late>=4);
+    '<tr><td>Perms on full 20+</td><td>'+perms.filter(p=>mstats(p).covered>=20).length+'</td></tr></table>';
+  const short=all.filter(p=>p.perm&&mstats(p).covered<20), late4=all.filter(p=>mstats(p).late>=4);
   document.getElementById("mflags").innerHTML=
     '<div class="flagblock"><b>Pro-rate ('+short.length+')</b>'+(short.length?short.map(p=>{const s=mstats(p);
-      return '<div>'+p.n+' <i>'+s.worked+' days'+(s.mc?' · '+s.mc+' MC':'')+'</i></div>'}).join(""):'<div class="empty">None</div>')+'</div>'+
+      return '<div>'+p.n+' <i>'+s.worked+' worked'+(s.mc?' · '+s.mc+' MC':'')+(s.leave?' · '+s.leave+' leave':'')+(s.waiting?' · '+s.waiting+' awaiting certificate':'')+'</i></div>'}).join(""):'<div class="empty">None</div>')+'</div>'+
     '<div class="flagblock"><b>Four or more late ('+late4.length+')</b>'+(late4.length?late4.map(p=>
       '<div>'+p.n+' <i>'+mstats(p).late+' times</i></div>').join(""):'<div class="empty">None</div>')+'</div>';
 }
 const MTODAY=TODAY_D;
-function checkinBox(pid,d,slot){
-  const p=by(pid), site=SITES.find(x=>x.c===p.c)||SITES[0], planned=site[slot][0], past=d<MTODAY;
-  const sc=document.createElement("div"); sc.className="scrim";
-  sc.innerHTML='<div class="modal"><h3>'+p.n+' — '+d+' Sep, '+slot.toUpperCase()+' shift</h3>'+
-    '<div class="segs"><button class="seg on" data-s="in">Record check-in</button><button class="seg" data-s="ab">Mark absent</button></div>'+
-    '<div id="segIn">'+
-      '<p class="hint">Shift starts '+planned+' at '+site.n+'. More than 10 minutes late counts as a lateness.</p>'+
-      '<label>Check-in time<input type="time" id="ci" value="'+((LATE[pid]||{})[d]||planned)+'"></label>'+
-      '<div class="note">Typed in by an admin today. Once the Telegram check-in bot is connected it fills itself, matched on '+(p.tg||"their Telegram handle")+'.</div>'+
-    '</div>'+
-    '<div id="segAb" class="hidden">'+
-      (past?'<div class="pastwarn">This day has already passed. A reason is required and the entry is stamped with today\'s date.</div>':'')+
-      '<label>How many days?<select id="nd">'+[1,2,3,4,5,6,7].map(n=>'<option value="'+n+'">'+n+' day'+(n>1?"s":"")+' — '+d+(n>1?" to "+(d+n-1):"")+' Sep</option>').join("")+'</select></label>'+
-      '<label>Type</label>'+
-      ABS_TYPES.map((t,i)=>'<label class="opt"><input type="radio" name="at" value="'+t.k+'"'+(i===2?" checked":"")+'><span>'+t.l+'<small>'+t.s+'</small></span></label>').join("")+
-      '<label>What happened'+(past?' <i class="hronly">required</i>':'')+'<textarea id="ar" rows="2" placeholder="Short reason"></textarea></label>'+
-      '<div class="note" id="aroute"></div>'+
-    '</div>'+
-    '<div class="row"><button class="no">Cancel</button>'+((LATE[pid]||{})[d]?'<button class="danger" id="clr">Clear lateness</button>':'')+'<button class="go" id="save">Save</button></div></div>';
-  let mode="in";
-  const segIn=sc.querySelector("#segIn"), segAb=sc.querySelector("#segAb"), route=sc.querySelector("#aroute");
-  const upd=()=>{const n=+sc.querySelector("#nd").value;
-    route.textContent=(n>2?"More than 2 consecutive days — goes to HR for review. ":"")+
-      "Recorded by "+by(P.find(x=>x.lv===0).id).n+" on "+MTODAY+" September."};
-  sc.querySelector("#nd").onchange=upd; upd();
-  sc.querySelectorAll(".seg").forEach(b=>b.onclick=()=>{
-    mode=b.dataset.s; sc.querySelectorAll(".seg").forEach(x=>x.classList.toggle("on",x===b));
-    segIn.classList.toggle("hidden",mode!=="in"); segAb.classList.toggle("hidden",mode!=="ab");
-    sc.querySelector("#save").textContent=mode==="in"?"Save":"Mark absent"});
-  sc.querySelector(".no").onclick=()=>sc.remove();
-  const clr=sc.querySelector("#clr"); if(clr)clr.onclick=()=>{delete LATE[pid][d];sc.remove();renderMonth()};
-  sc.querySelector("#save").onclick=()=>{
-    if(mode==="in"){
-      const t=sc.querySelector("#ci").value, [h,m]=t.split(":").map(Number), [ph,pm]=planned.split(":").map(Number);
-      LATE[pid]=LATE[pid]||{};
-      if((h*60+m)-(ph*60+pm)>10){LATE[pid][d]=t; const n=lateCount(pid);
-        if(n>=4)tlog("warn",p.n+" now has "+n+" latenesses this month","Four or more is grounds for termination under policy. HR review.")}
-      else delete LATE[pid][d];
-    } else {
-      const n=+sc.querySelector("#nd").value, type=sc.querySelector("input[name=at]:checked").value, why=sc.querySelector("#ar").value.trim();
-      if(past&&!why){sc.querySelector("#ar").style.borderColor="var(--flag)";return}
-      const done=[];
-      for(let i=0;i<n;i++){const dd=d+i; if(dd>MDAYS)break;
-        MONTH[pid][dd]=type==="mc"?"mc":"leave"; if(LATE[pid])delete LATE[pid][dd]; done.push(dd)}
-      const tl=ABS_TYPES.find(t=>t.k===type).l;
-      tlog(n>2?"warn":"ok",p.n+" — "+tl+", "+done.join(", ")+" Sep",
-        (past?"Backdated, recorded "+MTODAY+" Sep. ":"")+(why?'"'+why+'" ':"")+(n>2?"Sent to HR.":""));
-    }
-    sc.remove(); renderMonth()};
-  document.body.appendChild(sc);
-}
 ["mteam","mq","permonly"].forEach(id=>document.getElementById(id).addEventListener("input",renderMonth));
 
 /* ======================= ROLE PREVIEW ======================= */
-const ROLE_TABS={dir:["roster","phone","monthly","team","events","hr","aspc","f2f","frd","train"],hr:["hr","monthly","team"],ev:["events","roster"],mgr:["roster","monthly","aspc","f2f","train"],tl:["roster","monthly","aspc","f2f","train"],fr:["phone","aspc","frd"]};
+// A fundraiser gets two tabs: MAIN (Check I/O · Monthly roster · Leave) and FR DASHBOARD. Team structure is Director + HR only.
+const ROLE_TABS={dir:["roster","main","phone","leave","monthly","team","events","hr","aspc","f2f","frd","train"],hr:["hr","monthly","team"],ev:["events","roster"],mgr:["roster","monthly","aspc","f2f","train"],tl:["roster","monthly","aspc","f2f","train"],fr:["main","frd"]};
+let ROLE="dir";
+const goTab=t=>{const b=[...document.querySelectorAll(".tabs button")].find(x=>x.dataset.tab===t); if(b)b.click()};
 document.getElementById("asrole").onchange=e=>{
-  const allow=ROLE_TABS[e.target.value];
+  ROLE=e.target.value; const allow=ROLE_TABS[ROLE]; document.body.classList.toggle("roleEv",ROLE==="ev");
+  const lab={main:ROLE==="fr"?"MAIN":"Main · phone",frd:ROLE==="fr"?"FR DASHBOARD":"FR Dashboard"};
+  document.querySelectorAll(".tabs button").forEach(b=>{if(lab[b.dataset.tab])b.textContent=lab[b.dataset.tab]});
   document.querySelectorAll(".tabs button").forEach(b=>b.classList.toggle("hidden",!allow.includes(b.dataset.tab)));
+  const tabsEl=document.querySelector(".tabs"); [...allow,...ROLE_TABS.dir.filter(t=>!allow.includes(t))].forEach(t=>{const b=[...tabsEl.querySelectorAll("button")].find(x=>x.dataset.tab===t); if(b)tabsEl.appendChild(b)}); tabsEl.appendChild(e.target);   // home tab first
   const cur=[...document.querySelectorAll(".tabs button")].find(b=>b.getAttribute("aria-pressed")==="true");
   if(!cur||!allow.includes(cur.dataset.tab))
     [...document.querySelectorAll(".tabs button")].find(b=>b.dataset.tab===allow[0]).click();
@@ -2261,19 +2443,63 @@ document.getElementById("asrole").onchange=e=>{
 /* ======================= EVENTS (site bookings) ======================= */
 const IDR=n=>"Rp "+(n/1e6).toFixed(n%1e6?1:0)+"m";
 const IDRx=n=>"Rp "+Math.round(n).toLocaleString("en-US");   // exact, for per-shift figures
+let EVM=9, EV_V0=0;                             // Events grid month (9 = Sep … 12 = Dec)
+const evWindow=m=>{const y=m>=8?2026:2027, first=Date.UTC(y,m-1,1), last=Date.UTC(y,m,0);
+  const a=Math.max(0,Math.round((first-G0)/864e5)), b=Math.min(SPAN-1,Math.round((last-G0)/864e5));
+  return [a-gd(a), Math.min(SPAN-1,b+(6-gd(b)))]};
+/* Gross speed forecast (Dave, 24 Sep 2026): for the paid bookings in a date range, expected sign-ups per shift from
+   each site's own history (Weekly Performance: Σ gross ÷ Σ working days, as Omniraise's Overall tab), or the average
+   for its type when it has none. Shifts = event days in range × headcount; travel days are not shifts. */
+let FC={from:"2026-10-01",to:"2026-12-31"};
+const LOCAL_TYPE=(typeof window!=="undefined"&&window.LOCAL_SPEED_BY_TYPE)||null;
+function forecast(from,to){
+  const a=gfrom(from), b=gfrom(to); if(a==null||b==null||b<a)return null;
+  const rows=[]; let unpaid=0, sample=0; const realOnly=SITES.some(x=>x.real);   // with the client's sites loaded, the demo's invented bookings stay out
+  BOOKINGS.forEach(bk=>{const s0=Math.max(bk.start,a), s1=Math.min(bk.end,b); if(s1<s0)return;
+    if(realOnly&&!SITES[bk.si].real){sample++;return}
+    if(isPending(bk)){unpaid++;return}
+    const x=SITES[bk.si], days=s1-s0+1, shifts=days*bk.hc;
+    const h=x.hist||null, t=LOCAL_TYPE&&LOCAL_TYPE[bk.type]||null, sp=h||t;
+    rows.push({bk,x,days,shifts,src:h?"site":t?"type":"none",gs:sp?sp.gs:null,ns:sp?sp.ns:null,ncs:sp?sp.ncs:null,ccs:sp?sp.ccs:null,weeks:h?h.weeks:0})});
+  const known=rows.filter(r=>r.gs!=null), sh=known.reduce((n,r)=>n+r.shifts,0), sum=k=>known.reduce((n,r)=>n+r.shifts*r[k],0);
+  return {rows,unpaid,sample,shifts:rows.reduce((n,r)=>n+r.shifts,0),known:sh,gross:sum("gs"),net:sum("ns"),netcc:sum("ncs"),cc:sum("ccs"),
+    gs:sh?sum("gs")/sh:null,ns:sh?sum("ns")/sh:null,ncs:sh?sum("ncs")/sh:null,ccs:sh?sum("ccs")/sh:null}}
+function renderForecast(){
+  const el=document.getElementById("evfc"); if(!el)return;
+  const f=forecast(FC.from,FC.to), n2=v=>v==null?"–":v.toFixed(2);
+  let h='<div class="fcrange"><label>From<input type="date" id="fcfrom" value="'+FC.from+'" min="'+gdate(0)+'" max="'+gdate(SPAN-1)+'"></label>'+
+        '<label>To<input type="date" id="fcto" value="'+FC.to+'" min="'+gdate(0)+'" max="'+gdate(SPAN-1)+'"></label></div>';
+  if(!f)h+='<p class="hint">Pick a range between '+glabel(0)+' and '+glabel(SPAN-1)+'.</p>';
+  else if(!f.rows.length)h+='<p class="hint">No paid bookings in this range yet.'+(f.unpaid?' '+f.unpaid+' booking'+(f.unpaid>1?"s":"")+' waiting for the site fee.':'')+'</p>';
+  else{
+    h+='<div class="fckpi"><div><b>'+n2(f.gs)+'</b><span>gross speed</span></div><div><b>'+n2(f.ns)+'</b><span>est. net speed</span></div><div><b>'+n2(f.ncs)+'</b><span>est. net CC speed</span></div></div>'+
+       '<p class="fcline"><b>'+Math.round(f.gross)+'</b> gross sign-ups expected from <b>'+f.shifts+'</b> shifts ('+Math.round(f.net)+' est. net, '+Math.round(f.cc)+' gross credit card)'+
+       (f.known<f.shifts?' · '+(f.shifts-f.known)+' shifts at sites with no history are left out':'')+'.</p>'+
+       (f.sample?'<p class="fcline">'+f.sample+' sample booking'+(f.sample>1?"s":"")+' left out.</p>':'')+
+       (f.unpaid?'<p class="fcline warn">'+f.unpaid+' unpaid booking'+(f.unpaid>1?"s":"")+' in this range not counted.</p>':'')+
+       '<table class="qt fct"><colgroup><col><col style="width:44px"><col style="width:46px"><col style="width:50px"></colgroup><tr><th>Site</th><th class="r">Shifts</th><th class="r">Speed</th><th class="r">Gross</th></tr>'+
+       f.rows.sort((p,q)=>q.shifts*(q.gs||0)-p.shifts*(p.gs||0)).map(r=>'<tr><td title="'+(r.x.wa||r.x.n)+'"><span class="fcn">'+r.x.n+'</span><small>'+glabel(Math.max(r.bk.start,gfrom(FC.from)))+' · '+TYPES[r.bk.type]+' · '+
+         (r.src==="site"?r.weeks+' past weeks':r.src==="type"?'no history · '+TYPES[r.bk.type].toLowerCase()+' average':'no history')+'</small></td>'+
+         '<td class="r">'+r.shifts+'</td><td class="r">'+n2(r.gs)+'</td><td class="r">'+(r.gs==null?"–":Math.round(r.shifts*r.gs))+'</td></tr>').join("")+'</table>'+
+       '<p class="hint">Speed = sign-ups per fundraiser shift, from each site\'s own past weeks (as in the Overall Performance report). Before cancellations and rejections.</p>'}
+  el.innerHTML=h;
+  const upd=()=>{FC={from:el.querySelector("#fcfrom").value,to:el.querySelector("#fcto").value}; renderForecast()};
+  el.querySelector("#fcfrom").onchange=upd; el.querySelector("#fcto").onchange=upd}
 function renderEvents(){
   const camp=document.getElementById("evcamp").value, q=(document.getElementById("evq").value||"").toLowerCase();
   const canBook=x=>x.loc&&x.loa!=="expired";
   /* --- site library (left) --- */
   const lib=document.getElementById("evsites"); lib.innerHTML="";
-  ["stc","ykan"].forEach(c=>{
-    const list=SITES.map((x,i)=>i).filter(si=>SITES[si].c===c&&(!q||SITES[si].n.toLowerCase().includes(q)));
+  [...Object.keys(CAMPS),"none"].forEach(c=>{
+    const list=SITES.map((x,i)=>i).filter(si=>(c==="none"?!CAMPS[SITES[si].c]:SITES[si].c===c)&&(!q||SITES[si].n.toLowerCase().includes(q)||(SITES[si].wa||"").toLowerCase().includes(q)));
+    if(!list.length&&c!=="stc"&&c!=="ykan")return;
+    if(c==="none"&&!list.length)return;
     const wrap=document.createElement("div"); wrap.className="group";
-    wrap.innerHTML='<div class="grouphead '+c+'">'+CAMPS[c].n+'<span>'+list.length+' sites</span></div>';
+    wrap.innerHTML='<div class="grouphead '+c+'">'+(CAMPS[c]?CAMPS[c].n:"No usual campaign")+'<span>'+list.length+' sites</span></div>';
     const ul=document.createElement("div"); ul.className="pool-list";
     list.forEach(si=>{const x=SITES[si], ok=canBook(x), n=BOOKINGS.filter(b=>b.si===si).length;
       const el=document.createElement("div"); el.className="chip sitechip"+(ok?"":" out"); el.draggable=ok;
-      el.innerHTML='<span class="nm">'+x.n+'<small>AM '+x.am[0]+' · PM '+x.pm[0]+(ok?"":" · "+(x.loc?"LOA expired":"no Evergiving location"))+'</small></span>'+
+      el.innerHTML='<span class="nm"'+(x.wa?' title="'+x.wa+'"':'')+'>'+x.n+'<small>'+(x.wa?x.wa.slice(0,4)+' · '+x.addr+' · ':'')+'AM '+x.am[0]+' · PM '+x.pm[0]+(ok?"":" · "+(x.loc?"LOA expired":"no Evergiving location"))+'</small></span>'+
         (n?'<span class="wk" title="bookings this month">'+n+'</span>':'');
       if(ok){el.addEventListener("dragstart",e=>{e.dataTransfer.setData("text/plain","site:"+si);el.classList.add("dragging")});
              el.addEventListener("dragend",()=>el.classList.remove("dragging"))}
@@ -2283,10 +2509,12 @@ function renderEvents(){
   /* --- grid rows: only sites with a booking, in campaign order --- */
   const rows=SITES.map((x,i)=>i).filter(si=>(camp==="all"||SITES[si].c===camp)&&(BOOKINGS.some(b=>b.si===si)||NEWROWS.has(si)))
     .sort((a,b)=>(SITES[a].c===SITES[b].c?0:SITES[a].c==="stc"?-1:1)||SITES[a].n.localeCompare(SITES[b].n));
+  const [V0,V1]=evWindow(EVM); EV_V0=V0; const inM=i=>gD(i).getUTCMonth()+1===EVM;
+  document.querySelectorAll("#evmonths button").forEach(b=>b.classList.toggle("on",+b.dataset.m===EVM));
   let h='<table class="gantt"><thead><tr>';
-  WEEKS.forEach((w,wi)=>h+='<th class="wkh'+(wi===WK?" cur":"")+'" colspan="7">Week '+w.n+'<small>'+w.label+'</small></th>');
+  for(let i=V0;i<=V1;i+=7)h+='<th class="wkh'+(gw(i)===WK?" cur":"")+'" colspan="7">'+(WEEKS[gw(i)]?'Week '+WEEKS[gw(i)].n:'Week of')+'<small>'+gD(i).getUTCDate()+' '+MNAME[gD(i).getUTCMonth()]+' – '+gD(i+6).getUTCDate()+' '+MNAME[gD(i+6).getUTCMonth()]+'</small></th>';
   h+='</tr><tr>';
-  for(let i=0;i<SPAN;i++)h+='<th class="dh'+(gd(i)>4?" we":"")+(gw(i)===WK?" cur":"")+'">'+DAYS[gd(i)][0]+'<small>'+WEEKS[gw(i)].dates[gd(i)]+'</small></th>';
+  for(let i=V0;i<=V1;i++)h+='<th class="dh'+(gd(i)>4?" we":"")+(gw(i)===WK?" cur":"")+(inM(i)?"":" om")+'">'+DAYS[gd(i)][0]+'<small>'+gD(i).getUTCDate()+'</small></th>';
   h+='</tr></thead><tbody>';
   rows.forEach(si=>{const x=SITES[si], ok=canBook(x);
     const lanes=lanesFor(si); if(!lanes.length)lanes.push([]);
@@ -2294,12 +2522,12 @@ function renderEvents(){
     [...lanes,...spare].forEach((lane,li)=>{
       const isSpare=li===lanes.length&&spare.length, empty=!lane.length&&!isSpare;
       h+='<tr class="'+(ok?"":"nobk")+(isSpare?" spare":"")+(li>0&&!isSpare?" lane2":"")+'" data-si="'+si+'">';
-      for(let i=0;i<SPAN;i++){
+      for(let i=V0;i<=V1;i++){
         const bk=lane.find(b=>i>=spanStart(b)&&i<=spanEnd(b));
-        if(bk&&spanStart(bk)===i){const s0=spanStart(bk), s1=spanEnd(bk), len=s1-s0+1;
-          const lo=bk.start-s0, hi=s1-bk.end, pct=n=>(n/len*100).toFixed(2)+"%";
+        if(bk&&Math.max(spanStart(bk),V0)===i){const s0=Math.max(spanStart(bk),V0), s1=Math.min(spanEnd(bk),V1), len=s1-s0+1;   // clipped to the month shown
+          const lo=Math.max(0,bk.start-s0), hi=Math.max(0,s1-bk.end), pct=n=>(n/len*100).toFixed(2)+"%";
           const mask=(lo||hi)?'-webkit-mask:linear-gradient(90deg,#000 0 '+pct(lo)+',transparent '+pct(lo)+' '+pct(len-hi)+',#000 '+pct(len-hi)+');mask:linear-gradient(90deg,#000 0 '+pct(lo)+',transparent '+pct(lo)+' '+pct(len-hi)+',#000 '+pct(len-hi)+');':'';
-          h+='<td class="bar '+bk.type+(isPending(bk)?" pending":"")+(gw(i)===WK?" cur":"")+'" colspan="'+len+'" data-id="'+bk.id+'" title="'+glabel(bk.start)+' → '+glabel(bk.end)+' · '+TYPES[bk.type]+(isPending(bk)?" · site fee unpaid":" · site fee paid")+(lo||hi?" · travel "+glabel(s0)+" / "+glabel(s1):"")+'">'+
+          h+='<td class="bar '+bk.type+(isPending(bk)?" pending":"")+(gw(i)===WK?" cur":"")+'" colspan="'+len+'" data-id="'+bk.id+'" title="'+glabel(bk.start)+' → '+glabel(bk.end)+' · '+TYPES[bk.type]+(isPending(bk)?" · site fee unpaid":" · site fee paid")+(lo||hi?" · travel "+glabel(spanStart(bk))+" / "+glabel(spanEnd(bk)):"")+'">'+
              '<div class="barin"><span class="hdl l" data-id="'+bk.id+'" data-edge="start" title="Drag to change start"></span>'+
              ((lo||hi)?'<span class="travelends" style="'+mask+'"></span>':'')+
              '<div class="bartxt" style="padding-left:'+(lo?pct(lo):0)+';padding-right:'+(hi?pct(hi):0)+'"><b>'+x.n+(isPending(bk)?' <em class="pend">pending</em>':' <em class="paid">paid</em>')+
@@ -2308,12 +2536,12 @@ function renderEvents(){
              '<span>'+bkDays(bk)+'d · '+bk.hc+'/day · '+CAMPS[bk.c||x.c].n+(bkPerShift(bk)?' · '+IDRx(bkPerShift(bk))+'/shift':'')+'</span></div>'+
              '<button class="bardel" data-id="'+bk.id+'" title="Delete booking">×</button>'+
              '<span class="hdl r" data-id="'+bk.id+'" data-edge="end" title="Drag to stretch"></span></div></td>'}
-        else if(!bk) h+='<td class="gcell'+(gd(i)>4?" we":"")+(gw(i)===WK?" cur":"")+((empty||isSpare)&&i===0?" labelcell":"")+'" data-si="'+si+'" data-i="'+i+'"'+
-          (empty&&i===0?' data-label="'+x.n+' — press and drag across the days"':isSpare&&i===0?' data-label="'+x.n+' — another team? press and drag here"':'')+'></td>';
+        else if(!bk) h+='<td class="gcell'+(gd(i)>4?" we":"")+(gw(i)===WK?" cur":"")+((empty||isSpare)&&i===V0?" labelcell":"")+'" data-si="'+si+'" data-i="'+i+'"'+
+          (empty&&i===V0?' data-label="'+x.n+' — press and drag across the days"':isSpare&&i===V0?' data-label="'+x.n+' — another team? press and drag here"':'')+'></td>';
       }
       h+='</tr>'});
   });
-  h+='<tr class="droprow"><td class="dzwide" id="newrowbtn" colspan="'+SPAN+'"><b>＋ New booking</b><small>click to add a row · or drag a site from the left and drop it on the day it starts</small></td>';
+  h+='<tr class="droprow"><td class="dzwide" id="newrowbtn" colspan="'+(V1-V0+1)+'"><b>＋ New booking</b><small>click to add a row · or drag a site from the left and drop it on the day it starts</small></td>';
   h+='</tr></tbody></table>';
   document.getElementById("evgrid").innerHTML=h;
 
@@ -2333,7 +2561,7 @@ function renderEvents(){
     c.addEventListener("drop",e=>{e.preventDefault();c.classList.remove("over");
       const v=e.dataTransfer.getData("text/plain"); if(!v.startsWith("site:"))return;   // a site from the library → new booking
       const si=+v.slice(5), i=+c.dataset.i;
-      const bk={id:Date.now(),si,start:i,end:i,type:"local",c:SITES[si].c,site:0,transport:0,accom:0,hc:3,sitePaid:false,transportPaid:false,accomPaid:false};
+      const bk={id:Date.now(),si,start:i,end:i,type:"local",c:siteCamp(si),site:0,transport:0,accom:0,hc:3,sitePaid:false,transportPaid:false,accomPaid:false};
       BOOKINGS.push(bk); NEWROWS.delete(si); renderEvents(); render(); bookingForm(bk)})});
   const dzw=document.getElementById("newrowbtn");
   dzw.addEventListener("dragover",e=>{e.preventDefault();dzw.classList.add("over")});
@@ -2341,13 +2569,13 @@ function renderEvents(){
   dzw.addEventListener("drop",e=>{e.preventDefault();dzw.classList.remove("over");
     const v=e.dataTransfer.getData("text/plain"); if(!v.startsWith("site:"))return;
     const si=+v.slice(5), i=colAtX(e.clientX)??0;
-    const bk={id:Date.now(),si,start:i,end:i,type:"local",c:SITES[si].c,site:0,transport:0,accom:0,hc:3,sitePaid:false,transportPaid:false,accomPaid:false};
+    const bk={id:Date.now(),si,start:i,end:i,type:"local",c:siteCamp(si),site:0,transport:0,accom:0,hc:3,sitePaid:false,transportPaid:false,accomPaid:false};
     BOOKINGS.push(bk); NEWROWS.delete(si); renderEvents(); render(); bookingForm(bk)});
   dzw.onclick=()=>{
     const sc=document.createElement("div"); sc.className="scrim";
     const opts=SITES.map((x,i)=>i).filter(si=>canBook(SITES[si])&&!rows.includes(si));
     sc.innerHTML='<div class="modal"><h3>New booking row</h3><p class="hint">Pick the site. Then press and drag across the days on its row.</p>'+
-      '<label>Site<select id="nrs">'+opts.map(si=>'<option value="'+si+'">'+SITES[si].n+' — '+CAMPS[SITES[si].c].n+'</option>').join("")+'</select></label>'+
+      '<label>Site<select id="nrs">'+opts.map(si=>'<option value="'+si+'">'+SITES[si].n+' — '+(CAMPS[SITES[si].c]?CAMPS[SITES[si].c].n:"no usual campaign")+'</option>').join("")+'</select></label>'+
       (opts.length?'':'<p class="fnote">Every bookable site already has a row.</p>')+
       '<div class="row"><button class="no">Cancel</button><button class="go"'+(opts.length?'':' disabled')+'>Add row</button></div></div>';
     sc.querySelector(".no").onclick=()=>sc.remove();
@@ -2365,20 +2593,25 @@ function renderEvents(){
     '<span><i class="sw pending"></i>Payment pending</span>';
 
   /* --- summary --- */
-  const perWeek=WEEKS.map((w,wi)=>{let sites=new Set(),shifts=0,cost=0;
+  const [W0,W1]=evWindow(EVM), inView=b=>b.start<=W1&&b.end>=W0;   // bookings touching the month shown
+  const VW=[]; for(let i=W0;i<=W1;i+=7)VW.push(gw(i));                 // weeks of the month shown (week index from 31 Aug)
+  const wkName=wi=>WEEKS[wi]?'Week '+WEEKS[wi].n:gD(wi*7).getUTCDate()+' '+MNAME[gD(wi*7).getUTCMonth()];
+  const perWeek=VW.map(wi=>{let sites=new Set(),shifts=0,cost=0;
     BOOKINGS.forEach(b=>{let n=0;for(let d=0;d<7;d++)if(gday(wi,d)>=b.start&&gday(wi,d)<=b.end)n++;
       if(n){sites.add(b.si);shifts+=n*b.hc;cost+=bkTotal(b)*n/bkDays(b)}});
-    return {sites:sites.size,shifts,cost}});
+    return {wi,sites:sites.size,shifts,cost}});
   const tot=perWeek.reduce((a,b)=>({shifts:a.shifts+b.shifts,cost:a.cost+b.cost}),{shifts:0,cost:0});
-  const byType=Object.keys(TYPES).map(t=>[TYPES[t],BOOKINGS.filter(b=>b.type===t).length]);
-  const pendB=BOOKINGS.filter(b=>isPending(b)&&bkTotal(b)), pendVal=pendB.reduce((n,b)=>n+bkTotal(b),0);
-  const grp=f=>{const bs=BOOKINGS.filter(f); const sh=bs.reduce((n,b)=>n+bkShifts(b),0), c=bs.reduce((n,b)=>n+bkTotal(b),0); return {sh,c,avg:sh?c/sh:0}};
+  const byType=Object.keys(TYPES).map(t=>[TYPES[t],BOOKINGS.filter(b=>inView(b)&&b.type===t).length]);
+  const pendB=BOOKINGS.filter(b=>inView(b)&&isPending(b)&&bkTotal(b)), pendVal=pendB.reduce((n,b)=>n+bkTotal(b),0);
+  document.getElementById("evsumh").textContent=MLONG[EVM-1]+" at a glance";
+  const grp=f=>{const bs=BOOKINGS.filter(b=>inView(b)&&f(b)); const sh=bs.reduce((n,b)=>n+bkShifts(b),0), c=bs.reduce((n,b)=>n+bkTotal(b),0); return {sh,c,avg:sh?c/sh:0}};
   const L=grp(b=>b.type!=="travel"), T=grp(b=>b.type==="travel"), ALL={sh:L.sh+T.sh,c:L.c+T.c}; ALL.avg=ALL.sh?ALL.c/ALL.sh:0;
   const mixT=ALL.sh?Math.round(T.sh/ALL.sh*100):0, mixL=ALL.sh?100-mixT:0;
   const vs=(v,target)=>'<i class="'+(v<=target?"good":"over")+'">'+(v<=target?"on target":"over by "+IDRx(v-target))+'</i>';
   const mixCls=Math.abs(mixT-60)<=10?"good":"over";
+  renderForecast();
   document.getElementById("evsum").innerHTML=
-    '<div class="big"><div class="bigcell all"><b>'+BOOKINGS.length+'</b><span>BOOKINGS</span></div>'+
+    '<div class="big"><div class="bigcell all"><b>'+BOOKINGS.filter(inView).length+'</b><span>BOOKINGS</span></div>'+
     '<div class="bigcell stc"><b>'+ALL.sh+'</b><span>SHIFTS</span></div>'+
     '<div class="bigcell ykan"><b>'+IDR(ALL.c)+'</b><span>COST</span></div></div>'+
     '<div class="avgs">'+
@@ -2389,12 +2622,12 @@ function renderEvents(){
         '<small><b class="'+mixCls+'">'+mixT+'% travel</b> · '+mixL+'% local + streets · aim 60 / 40</small></div>'+
     '</div>'+
     '<table class="hc"><tr><th></th><th>Sites</th><th>Shifts</th><th>Cost</th></tr>'+
-    perWeek.map((p,wi)=>'<tr'+(wi===WK?' class="rule"':'')+'><td>Week '+WEEKS[wi].n+(wi===WK?' <i>(this week)</i>':'')+'</td><td>'+p.sites+'</td><td>'+p.shifts+'</td><td>'+(p.cost?IDR(p.cost):"–")+'</td></tr>').join("")+'</table>'+
+    perWeek.map(p=>{const wi=p.wi; return '<tr'+(wi===WK?' class="rule"':'')+'><td>'+wkName(wi)+(wi===WK?' <i>(this week)</i>':'')+'</td><td>'+p.sites+'</td><td>'+p.shifts+'</td><td>'+(p.cost?IDR(p.cost):"–")+'</td></tr>'}).join("")+'</table>'+
     '<div class="byrole" style="margin-top:8px">'+byType.map(([n,c])=>'<div><span>'+n+'</span><b>'+c+'</b><b></b></div>').join("")+
     '<div class="rt pendrow"><span>Site fees unpaid</span><b>'+pendB.length+'</b><b>'+(pendVal?IDR(pendVal):"")+'</b></div></div>'+
     '<p class="fnote">Shifts = headcount per day × event days (travel days excluded). Cost per shift = (site + transport + accommodation) ÷ shifts.</p>';
   const pend=SITES.filter(x=>x.loa==="pending"), exp=SITES.filter(x=>x.loa==="expired"), noloc=SITES.filter(x=>!x.loc);
-  const thin=WEEKS.map((w,wi)=>[wi,perWeek[wi].sites]).filter(([wi,n])=>wi>=WK&&n<4);
+  const thin=perWeek.filter(p=>p.wi>=WK&&p.sites<4).map(p=>[p.wi,p.sites]);
   const nocost=BOOKINGS.filter(b=>b.type!=="streets"&&!bkTotal(b));
   const notrav=BOOKINGS.filter(b=>b.type==="travel"&&!b.travelOk&&b.start>=gday(WK,0));
   const trUnpaid=BOOKINGS.filter(b=>b.type==="travel"&&b.travelOk&&!(b.transportPaid&&b.accomPaid));
@@ -2402,13 +2635,13 @@ function renderEvents(){
   const notRost=BOOKINGS.filter(b=>b.type==="travel"&&b.travelOk).map(b=>[b,(b.party||[]).filter(id=>!rosteredOn(b).includes(id))]).filter(([b,m])=>m.length&&lockedW&&b.start<=gday(WK,6));
   document.getElementById("evflags").innerHTML=
     '<div class="flagblock"><b>Travel party incomplete ('+shortParty.length+')</b>'+(shortParty.map(b=>'<div>'+SITES[b.si].n+' <i>'+glabel(b.start)+' · '+(b.party||[]).length+' of '+b.hc+' named</i></div>').join("")||'<div class="empty">None</div>')+'</div>'+
-    '<div class="flagblock"><b>Flight booked, not rostered ('+notRost.length+')</b>'+(notRost.map(([b,m])=>'<div>'+SITES[b.si].n+' <i>'+m.map(id=>by(id).n.split(" ")[0]).join(", ")+'</i></div>').join("")||'<div class="empty">None</div>')+'</div>'+
+    '<div class="flagblock"><b>Flight booked, not rostered ('+notRost.length+')</b>'+(notRost.map(([b,m])=>'<div>'+SITES[b.si].n+' <i>'+m.map(id=>nameOf(id).split(" ")[0]).join(", ")+'</i></div>').join("")||'<div class="empty">None</div>')+'</div>'+
     '<div class="flagblock"><b>Travel booked but unpaid ('+trUnpaid.length+')</b>'+(trUnpaid.map(b=>'<div>'+SITES[b.si].n+' <i>'+glabel(b.start)+(b.transportPaid?"":" · transport")+(b.accomPaid?"":" · accommodation")+'</i></div>').join("")||'<div class="empty">None</div>')+'</div>'+
     '<div class="flagblock"><b>Travel not yet booked ('+notrav.length+')</b>'+(notrav.map(b=>'<div>'+SITES[b.si].n+' <i>'+glabel(b.start)+' · '+(b.party||[]).length+' named</i></div>').join("")||'<div class="empty">None</div>')+'</div>'+
     '<div class="flagblock"><b>Bookings with no cost entered ('+nocost.length+')</b>'+(nocost.map(b=>'<div>'+SITES[b.si].n+' <i>'+glabel(b.start)+'</i></div>').join("")||'<div class="empty">None</div>')+'</div>'+
 
     '<div class="flagblock"><b>No Evergiving location ('+noloc.length+')</b>'+(noloc.map(x=>'<div>'+x.n+'</div>').join("")||'<div class="empty">None</div>')+'</div>'+
-    '<div class="flagblock"><b>Weeks under 4 sites ('+thin.length+')</b>'+(thin.map(([wi,n])=>'<div>Week '+WEEKS[wi].n+' <i>'+n+' booked</i></div>').join("")||'<div class="empty">None</div>')+'</div>';
+    '<div class="flagblock"><b>Weeks under 4 sites ('+thin.length+')</b>'+(thin.map(([wi,n])=>'<div>'+wkName(wi)+' <i>'+n+' booked</i></div>').join("")||'<div class="empty">None</div>')+'</div>';
 }
 let RZ=null, SEL=null, MV=null, MVDONE=false; const NEWROWS=new Set();
 function paintSel(){document.querySelectorAll(".gantt .gcell.selg").forEach(c=>c.classList.remove("selg"));
@@ -2416,11 +2649,11 @@ function paintSel(){document.querySelectorAll(".gantt .gcell.selg").forEach(c=>c
   SEL.row.querySelectorAll(".gcell").forEach(c=>{const i=+c.dataset.i; if(i>=a&&i<=b)c.classList.add("selg")})}
 document.addEventListener("mousemove",e=>{if(!SEL)return; const col=colAtX(e.clientX); if(col==null||col===SEL.b)return; SEL.b=col; paintSel()});
 document.addEventListener("mouseup",()=>{if(!SEL)return; const a=Math.min(SEL.a,SEL.b), b=Math.max(SEL.a,SEL.b), si=SEL.si; SEL=null; paintSel();
-  const bk={id:Date.now(),si,start:a,end:b,type:"local",c:SITES[si].c,site:0,transport:0,accom:0,hc:3,sitePaid:false,transportPaid:false,accomPaid:false};
+  const bk={id:Date.now(),si,start:a,end:b,type:"local",c:siteCamp(si),site:0,transport:0,accom:0,hc:3,sitePaid:false,transportPaid:false,accomPaid:false};
   BOOKINGS.push(bk); NEWROWS.delete(si); renderEvents(); render(); bookingForm(bk)});
 function colAtX(x){const ths=document.querySelectorAll(".gantt th.dh");
-  for(let i=0;i<ths.length;i++){const r=ths[i].getBoundingClientRect(); if(x>=r.left&&x<r.right)return i}
-  if(ths.length){const f=ths[0].getBoundingClientRect(), l=ths[ths.length-1].getBoundingClientRect(); if(x<f.left)return 0; if(x>=l.right)return ths.length-1}
+  for(let i=0;i<ths.length;i++){const r=ths[i].getBoundingClientRect(); if(x>=r.left&&x<r.right)return EV_V0+i}
+  if(ths.length){const f=ths[0].getBoundingClientRect(), l=ths[ths.length-1].getBoundingClientRect(); if(x<f.left)return EV_V0; if(x>=l.right)return EV_V0+ths.length-1}
   return null}
 function resizeTo(bk,edge,col){
   if(col==null)return false;
@@ -2510,7 +2743,7 @@ function bookingForm(bk){
   }
   function drawCands(){
     const camp=g("bcamp").value, pq=g("pq").value.toLowerCase();
-    const cands=monthRows().map(r=>r.p).filter(p=>!p.placeholder&&p.eg&&p.c===camp&&!party.includes(p.id)&&(!pq||p.n.toLowerCase().includes(pq)||p.code.toLowerCase().includes(pq)));
+    const cands=monthRows().map(r=>r.p).filter(p=>!p.placeholder&&p.eg&&accredited(p,camp)&&!party.includes(p.id)&&(!pq||p.n.toLowerCase().includes(pq)||p.code.toLowerCase().includes(pq)));
     g("pcands").innerHTML=cands.map(p=>'<button class="cand" data-add="'+p.id+'"><b>'+(isLeader(p)?'<span class="ldr">'+p.n+'</span>':p.n)+'</b><small>'+LEVELS[p.lv]+' · '+p.code+(p.lv===6&&by(p.to)?' · under '+by(p.to).n.split(" ")[0]:'')+'</small></button>').join("")||'<span class="empty">No one else matches.</span>';
     g("pcands").querySelectorAll("[data-add]").forEach(b=>b.onclick=()=>{party.push(+b.dataset.add);drawParty();g("pq").focus()});
   }
@@ -2541,8 +2774,9 @@ function siteForm(si){
     '<div class="fsec">Site</div>'+
     '<label>Name <i class="req">required</i><input id="sn" value="'+(x?x.n:"")+'" placeholder="Mall, airport, venue"></label>'+
     '<div class="two"><label>Area<input id="sa" value="'+(x?x.addr:"")+'" placeholder="Jakarta Selatan"></label>'+
-    '<label>Usual campaign<select id="sc"><option value="stc"'+(x&&x.c==="stc"?" selected":"")+'>STC</option><option value="ykan"'+(x&&x.c==="ykan"?" selected":"")+'>YKAN</option></select></label></div>'+
+    '<label>Usual campaign<select id="sc">'+(x&&!CAMPS[x.c]?'<option value="" selected>None — set on each booking</option>':'')+Object.keys(CAMPS).map(k=>'<option value="'+k+'"'+(x&&x.c===k?" selected":"")+'>'+CAMPS[k].n+'</option>').join("")+'</select></label></div>'+
     '<div class="fsec">Evergiving</div>'+
+    (x&&x.wa?'<p class="fnote">Waysact / Evergiving team location: <b>'+x.wa+'</b>'+(x.real?'<br>Evergiving location id '+x.wa.slice(0,4)+' (the Waysact code). Map pin: '+(x.lat!=null?'found ('+x.lat.toFixed(5)+', '+x.lng.toFixed(5)+'), check-in radius '+x.radius+' m':x.pin==='check'?'a possible match needs checking before it is used':'not found yet')+'.':'')+'</p>':'')+
     '<label>Evergiving location <i class="req">required to book</i><select id="sloc"><option value="">— pick from your Evergiving locations —</option>'+
       EG_LOCATIONS.map(([id,n])=>'<option value="'+id+'"'+(x&&x.loc===id?" selected":"")+'>'+n+' · '+id+'</option>').join("")+'</select></label>'+
     '<p class="fnote">This list comes from Evergiving. If the venue isn\'t here it must be created in Evergiving first — Popcorn sends the location ID, never the name.</p>'+
@@ -2552,9 +2786,9 @@ function siteForm(si){
     '<div class="row"><button class="no">Cancel</button><button class="go">'+(x?"Save":"Add site")+'</button></div></div>';
   sc.querySelector(".no").onclick=()=>sc.remove();
   sc.querySelector(".go").onclick=()=>{
-    const nm=sc.querySelector("#sn").value.trim(); if(!nm){sc.querySelector("#sn").style.borderColor="var(--flag)";return}
+    const nm=esc(sc.querySelector("#sn").value.trim()); if(!nm){sc.querySelector("#sn").style.borderColor="var(--flag)";return}
     const loc=+sc.querySelector("#sloc").value||null, loa="signed";
-    const o=x||{}; Object.assign(o,{n:nm,addr:sc.querySelector("#sa").value.trim()||"Jakarta",c:sc.querySelector("#sc").value,loc,
+    const o=x||{}; Object.assign(o,{n:nm,addr:esc(sc.querySelector("#sa").value.trim())||"Jakarta",c:sc.querySelector("#sc").value||null,loc,
       am:[sc.querySelector("#a1").value,sc.querySelector("#a2").value],pm:[sc.querySelector("#p1").value,sc.querySelector("#p2").value],
       loa,hlock:o.hlock||false,note:""});
     if(!x){SITES.push(o); NEWROWS.add(SITES.length-1)}
@@ -2585,12 +2819,12 @@ const CHECK={};                                   // pid -> {day:{in,out,site,sl
 })();
 const cmins=t=>{const[h,m]=t.split(":").map(Number);return h*60+m};
 const lateBy=(pid,d)=>{const c=(CHECK[pid]||{})[d]; if(!c||c.cleared)return 0; const diff=cmins(c.in)-cmins(SITES[c.site][c.slot][0]); return diff>10?diff:0};
-const hActual=pid=>Object.values(CHECK[pid]||{}).filter(c=>c.out).length;              // a day counts when they checked out
-const hIn=pid=>Object.values(CHECK[pid]||{}).filter(c=>!c.out).length;
-const hLate=pid=>Object.keys(CHECK[pid]||{}).filter(d=>lateBy(pid,+d)).length;
+const hActual=pid=>Object.keys(CHECK[pid]||{}).filter(k=>/^\d+$/.test(k)&&paidDay(pid,+k)).length;   // a day counts when they checked out — and any training claim is confirmed
+const hIn=pid=>Object.keys(CHECK[pid]||{}).filter(k=>/^\d+$/.test(k)&&!CHECK[pid][k].out).length;   // "_undo" stashes are not check-ins
+const hLate=pid=>Object.keys(CHECK[pid]||{}).filter(d=>/^\d+$/.test(d)&&lateBy(pid,+d)).length;
 const serviceDays=p=>p.start?Math.floor((new Date("2026-09-"+TODAY_D)-new Date(p.start))/864e5):0;
-const probationDue=p=>isTrainee(p)&&!p.probation&&hActual(p.id)>=10;
-const probSuggest=p=>p.signups>6?"pass":p.signups>=3?"ext":"term";
+const probationDue=p=>isTrainee(p)&&!p.probation&&hActual(p.id)-(p.probFrom||0)>=10;   // an extension restarts the 10-day count
+const probSuggest=p=>p.signups>=6?"pass":p.signups>=3?"ext":"term";
 
 function renderHR(){
   if(typeof bridgeMonth==='function')bridgeMonth();
@@ -2612,17 +2846,21 @@ function renderHR(){
   let lastCamp=null;
   rows.forEach(r=>{const p=r.p, m=MONTH[p.id]||{}, st=mstats(p);
     const band=r.left?"left":p.c;
-    if(band!==lastCamp){lastCamp=band; h+='<tr class="band '+(r.left?"leftband":p.c)+'"><td class="who" colspan="2">'+(r.left?"LEFT THIS MONTH · still paid for days worked":CAMPS[p.c].n)+'</td><td colspan="'+(MDAYS+6)+'"></td></tr>'}
+    if(band!==lastCamp){lastCamp=band; h+='<tr class="band '+(r.left?"leftband":p.c)+'"><td class="who" colspan="2">'+(r.left?"LEFT THIS MONTH · still paid for days worked":CAMPS[p.c]?CAMPS[p.c].n:"NO CAMPAIGN YET · HR to set")+'</td><td colspan="'+(MDAYS+6)+'"></td></tr>'}
     const twenty=hActual(p.id)>=20;
     h+='<tr class="'+(p.perm?"perm":"")+(probationDue(p)?" probdue":"")+(r.left?" leftrow":"")+(twenty?" twenty":"")+'"><td class="who" style="padding-left:'+(8+r.depth*9)+'px"><span class="nmw">'+p.n+(p.perm?'<span class="pm">PERM</span>':'')+(isTrainee(p)?'<span class="pm tr">TRAINEE</span>':'')+(r.left?'<span class="pm lf">LEFT '+r.left.last.slice(8)+' SEP</span>':'')+(twenty?'<span class="pm tw">20 DAYS</span>':'')+'</span><small>'+p.code+' · '+(p.region||"")+(r.left?' · '+r.left.why:'')+'</small></td>'+
        '<td class="role">'+LEVELS[p.lv]+'</td>';
-    for(let d=1;d<=MDAYS;d++){const v=m[d], c=(CHECK[p.id]||{})[d], late=lateBy(p.id,d);
+    for(let d=1;d<=MDAYS;d++){const v=m[d], c=(CHECK[p.id]||{})[d], late=lateBy(p.id,d), ts=trainingState(p.id,d), cs=certState(p.id,d);
       let cls="free", txt="";
-      if(v==="x"){cls="x";txt="\u00d7"} else if(v==="mc"){cls="m";txt="M"} else if(v==="sick"){cls="s";txt="!"} else if(v==="leave"){cls="l";txt="L"}
+      if(v==="x"){cls="x";txt="\u00d7"} else if(cs==="ok"){cls="m";txt="M"} else if(cs==="wait"){cls="s";txt="!"} else if(cs==="no"||cs==="na"){cls="s sno";txt="S"} else if(v==="leave"){cls="l";txt="L"} else if(v==="ns"){cls="noshow"}
+      else if(ts==="ok"){cls="trn";txt="T"}
+      else if(ts==="pending"){cls="trnq";txt="T?"}
+      else if(ts==="no"){cls="trnno";txt="T"}
       else if(c){cls=c.out?"w":"half"}
       else if(v==="am"||v==="pm"){cls=d<HTODAY?"noshow":"free"}
       if(late)cls+=(c.valid?" late":" late unval");
-      h+='<td class="c '+cls+(dow(d)>4?" wknd":"")+(d===HTODAY?" today":"")+'" data-p="'+p.id+'" data-d="'+d+'"'+(c?' title="in '+c.in+(c.out?' · out '+c.out:' · no check-out')+' · '+SITES[c.site].n+'"':'')+'>'+txt+'</td>'}
+      const tt=[cs==="ok"?"medical certificate on file":cs==="wait"?"sick \u2014 certificate outstanding, HR to collect":cs==="no"?"sick \u2014 certificate not provided, unpaid":cs==="na"?(d>HTODAY?"sick \u2014 certificate due after the day":"sick \u2014 unpaid (not permanent), no certificate needed"):v==="ns"?"no-show":"",ts==="ok"?"training session":ts==="pending"?"training — awaiting HR confirmation, not yet a paid day":ts==="no"?"training not confirmed by HR — not a paid day":"",c?"in "+c.in+(c.out?" · out "+c.out:" · no check-out")+" · "+SITES[c.site].n:""].filter(Boolean).join(" · ");
+      h+='<td class="c '+cls+(dow(d)>4?" wknd":"")+(d===HTODAY?" today":"")+'" data-p="'+p.id+'" data-d="'+d+'"'+(tt?' title="'+tt+'"':'')+'>'+txt+'</td>'}
     h+='<td class="tot'+(twenty?" hit20":"")+'">'+hActual(p.id)+'</td><td class="tot">'+(hIn(p.id)||"")+'</td><td class="tot">'+(st.mc||"")+'</td><td class="tot">'+(st.leave||"")+'</td>'+
        '<td class="tot'+(hLate(p.id)>=4?" bad":"")+'">'+(hLate(p.id)||"")+'</td><td class="tot">'+serviceDays(p)+'d</td></tr>'});
   document.getElementById("hgrid").innerHTML=h+'</tbody></table>';
@@ -2630,8 +2868,9 @@ function renderHR(){
 
   /* ===== dashboards on top ===== */
   const lateToday=rows.filter(r=>lateBy(r.p.id,HTODAY-1)).length, lateMonth=rows.reduce((n,r)=>n+hLate(r.p.id),0);
-  const unval=rows.reduce((n,r)=>n+Object.keys(CHECK[r.p.id]||{}).filter(d=>lateBy(r.p.id,+d)&&!CHECK[r.p.id][d].valid).length,0);
+  const unval=rows.reduce((n,r)=>n+Object.keys(CHECK[r.p.id]||{}).filter(d=>/^\d+$/.test(d)&&lateBy(r.p.id,+d)&&!CHECK[r.p.id][d].valid).length,0);
   const cnt=k=>rows.reduce((n,r)=>n+Object.values(MONTH[r.p.id]||{}).filter(v=>v===k).length,0);
+  const cert=k=>rows.reduce((n,r)=>n+Object.keys(MONTH[r.p.id]||{}).filter(d=>certState(r.p.id,+d)===k).length,0);   // same rule as the cells
   const emg=ABS.filter(a=>a.t==="emg").length, ppl=P.filter(p=>p.lv>=3&&!p.placeholder);
   const marks=[30,90,180,365,730];
   const hit=marks.map(m=>[m,ppl.filter(p=>{const d=serviceDays(p);return d>=m&&d<m+31})]).filter(([m,l])=>l.length);
@@ -2641,7 +2880,7 @@ function renderHR(){
   const thisMonth=RESIGNED.filter(r=>r.last>="2026-09-01");
   const bk=buckets.map(([l,lo,hi])=>[l,thisMonth.filter(r=>{const d=svc(r);return d>=lo&&d<hi}).length]);
   const mx=Math.max(1,...bk.map(x=>x[1]));
-  const byWhy=["Resigned","Withdraw","Terminated","Did not pass probation","Contract ended"].map(w=>[w,thisMonth.filter(r=>r.why===w).length]).filter(x=>x[1]);
+  const byWhy=["Resigned","Withdraw","Terminated","Missing (MIA)","Did not pass probation","Contract ended"].map(w=>[w,thisMonth.filter(r=>r.why===w).length]).filter(x=>x[1]);
   // leave requests + accrual (1 day per full month worked this year, perms)
   const pendReq=REQ.filter(r=>r.status==="pending");
   const kpi=(n,l,sub,cls)=>'<div class="kpi'+(cls?" "+cls:"")+'"><b>'+n+'</b><span>'+l+'</span>'+(sub?'<small>'+sub+'</small>':'')+'</div>';
@@ -2654,10 +2893,13 @@ function renderHR(){
       kpi(thisMonth.length,"Left this month",thisMonth.filter(r=>svc(r)<31).length+" within their first month",thisMonth.length?"bad":"")+
       kpi(pendReq.length,"Leave requests","waiting for HR",pendReq.length?"warn":"")+
       kpi(dueN,"Probation decisions","trainees at 10 days",dueN?"warn":"")+
+      kpi(RESIGNED.filter(r=>r.kit!=="return").length,"Pay on hold","kit not returned",RESIGNED.some(r=>r.kit!=="return")?"bad":"")+
+      kpi(trainingPending().length,"Training days to confirm","claimed at check-out",trainingPending().length?"warn":"")+
+      kpi(certQueue().length,"Certificates to collect","permanent staff, sick days",certQueue().length?"warn":"")+
     '</div>'+
     '<div class="cards3">'+
       '<div class="card"><div class="ch"><h2>Attendance · September</h2></div>'+
-        '<table class="hc"><tr><td>Medical certificate days</td><td>'+cnt("mc")+'</td></tr><tr><td>Sick, no certificate</td><td>'+cnt("sick")+'</td></tr><tr><td>Leave days</td><td>'+cnt("leave")+'</td></tr><tr><td>Emergency leave</td><td>'+emg+'</td></tr>'+
+        '<table class="hc"><tr><td>Medical certificate days</td><td>'+cert("ok")+'</td></tr><tr><td>Sick, certificate outstanding</td><td>'+cert("wait")+'</td></tr><tr><td>Sick, no certificate</td><td>'+(cert("no")+cert("na"))+'</td></tr><tr><td>Leave days</td><td>'+cnt("leave")+'</td></tr><tr><td>No-shows</td><td>'+cnt("ns")+'</td></tr><tr><td>Training days</td><td>'+rows.reduce((n,r)=>{let k=0;for(let d=1;d<HTODAY;d++)if(trainedOn(r.p.id,d))k++;return n+k},0)+'</td></tr><tr><td>Emergency leave</td><td>'+emg+'</td></tr>'+
         '<tr class="rule"><td><b>Reached 20 actual days</b></td><td><b class="okc" style="font-size:12px">'+rows.filter(r=>hActual(r.p.id)>=20).length+'</b></td></tr>'+
         '<tr><td>On 15–19 days · close to 20</td><td>'+rows.filter(r=>{const n=hActual(r.p.id);return n>=15&&n<20}).length+'</td></tr>'+
         '<tr class="rule"><td>Checked in, no check-out</td><td>'+rows.reduce((n,r)=>n+hIn(r.p.id),0)+'</td></tr><tr><td>Rostered, no check-in</td><td>'+rows.reduce((n,r)=>{const m=MONTH[r.p.id]||{};for(let d=1;d<HTODAY;d++)if((m[d]==="am"||m[d]==="pm")&&!(CHECK[r.p.id]||{})[d])n++;return n},0)+'</td></tr></table></div>'+
@@ -2672,24 +2914,57 @@ function renderHR(){
     '</div>'+
     '<div class="cards2">'+
       '<div class="card queue"><div class="ch"><h2>Leave requests</h2><span>'+pendReq.length+' waiting · 1 day accrued per full month · resets 1 Jan</span></div><div id="hreq" class="qbody"></div></div>'+
-      '<div class="card queue"><div class="ch"><h2>Probation decisions</h2><span>trainees at 10 actual days · pass above 6 sign-ups · extend 3–6 · terminate below 3</span></div><div id="hprob" class="qbody"></div></div>'+
-    '</div>';
+      '<div class="card queue"><div class="ch"><h2>Probation decisions</h2><span>trainees at 10 actual days · pass at 6+ sign-ups · extend 3–5 · terminate 0–2</span></div><div id="hprob" class="qbody"></div></div>'+
+    '</div>'+
+    '<div class="card queue" style="margin-top:14px"><div class="ch"><h2>Terminations &amp; leavers · kit return</h2><span>pay is held until vest, kit and ID card are back · resigned, terminated or missing (MIA)</span></div><div id="hterm" class="qbody"></div></div>'+
+    '<div class="card queue" style="margin-top:14px"><div class="ch"><h2>Medical certificates to collect</h2><span>permanent staff \u00b7 a sick day is paid only once HR has the certificate \u00b7 a photo sent from the phone clears it</span></div><div id="hcert" class="qbody"></div></div>'+
+    '<div class="card queue" style="margin-top:14px"><div class="ch"><h2>Training days to confirm</h2><span>claimed at check-out · not a paid day until HR confirms · the trainer\'s attendance mark confirms it automatically</span></div><div id="htrq" class="qbody"></div></div>';
   renderHRLeave();
 
   /* probation */
   const due=P.filter(probationDue);
   document.getElementById("hprob").innerHTML=due.length?'<table class="qt"><colgroup><col class="cn"><col class="ct"><col class="cd"><col class="cs"><col class="cg"><col class="ca"></colgroup><tr><th>Name</th><th>Team</th><th class="r">Days</th><th class="r">Sign-ups</th><th>Suggested</th><th></th></tr>'+
     due.map(p=>{const sug=probSuggest(p);
-      return '<tr><td><b>'+p.n+'</b><small>'+p.code+'</small></td><td>'+by(p.to).n.split(" ")[0]+'</td><td class="r">'+hActual(p.id)+'</td><td class="r"><b>'+p.signups+'</b></td>'+
+      return '<tr><td><b>'+p.n+'</b><small>'+p.code+'</small></td><td>'+by(p.to).n.split(" ")[0]+'</td><td class="r">'+(hActual(p.id)-(p.probFrom||0))+(p.probFrom?'<small> since ext.</small>':'')+'</td><td class="r"><b>'+p.signups+'</b></td>'+
         '<td><span class="sugtag '+sug+'">'+({pass:"Pass",ext:"Extend",term:"Terminate"})[sug]+'</span></td>'+
         '<td class="acts"><button class="qb pass'+(sug==="pass"?" sug":"")+'" data-dec="pass" data-p="'+p.id+'">Pass</button><button class="qb'+(sug==="ext"?" sug":"")+'" data-dec="ext" data-p="'+p.id+'">Extend</button><button class="qb term'+(sug==="term"?" sug":"")+'" data-dec="term" data-p="'+p.id+'">Terminate</button></td></tr>'}).join("")+'</table>'
     :'<div class="qempty">No trainee has reached 10 actual days.</div>';
+  /* terminations & kitRows: kit return decides whether pay is released */
+  const kitRows=RESIGNED.slice().sort((a,b)=>b.last.localeCompare(a.last));
+  document.getElementById("hterm").innerHTML=kitRows.length?'<table class="qt"><colgroup><col style="width:24%"><col style="width:12%"><col style="width:16%"><col style="width:10%"><col style="width:10%"><col style="width:12%"><col style="width:16%"></colgroup>'+
+    '<tr><th>Name</th><th>Team</th><th>Reason</th><th>Last day</th><th class="r">Days with us</th><th>Kit</th><th></th></tr>'+
+    kitRows.map(r=>{const p=r.p, ret=r.kit==="return", tl=by(p.to);
+      return '<tr><td><b>'+p.n+'</b><small>'+p.code+'</small></td><td>'+(tl?tl.n.split(" ")[0]:"\u2014")+'</td><td>'+r.why+'</td><td>'+(+r.last.slice(8))+' Sep</td><td class="r"><b>'+svc(r)+'</b></td>'+
+        '<td><span class="tqtag '+(ret?"ok":"hold")+'">'+(ret?"Full return":"Pending")+'</span></td>'+
+        '<td class="acts"><button class="qb'+(ret?"":" sug")+'" data-kit="pending" data-r="'+p.id+'">Pending</button><button class="qb pass'+(ret?" sug":"")+'" data-kit="return" data-r="'+p.id+'">Full Return</button></td></tr>'}).join("")+'</table>'
+    :'<div class="qempty">Nobody has left this month.</div>';
+  document.querySelectorAll("#hterm [data-kit]").forEach(b=>b.onclick=()=>{const r=RESIGNED.find(x=>x.p.id==b.dataset.r); if(!r)return;
+    r.kit=b.dataset.kit; tlog(r.kit==="return"?"ok":"warn",r.p.n+": "+(r.kit==="return"?"full return — pay released":"kit pending — pay on hold"),r.kit==="return"?"Cleared for the IC Payroll export.":"Shows as HOLD on the IC Payroll export until everything is back."); renderHR()});
+
+  /* medical certificates outstanding for permanent staff (incl. leavers still in this month's payroll) */
+  const cq=certQueue();
+  document.getElementById("hcert").innerHTML=cq.length?'<table class="qt"><colgroup><col style="width:28%"><col style="width:13%"><col style="width:11%"><col style="width:22%"><col style="width:26%"></colgroup><tr><th>Name</th><th>Team</th><th>Day</th><th>Recorded as</th><th></th></tr>'+
+    cq.map(({p,d})=>{const tl=by(p.to), v=MONTH[p.id][d]; return '<tr><td><b>'+p.n+'</b><small>'+p.code+'</small></td><td>'+(tl?tl.n.split(" ")[0]:"\u2014")+'</td><td>'+d+' Sep</td><td>'+(v==="mc"?"MC \u2014 certificate not yet with HR":"Sick \u2014 no certificate")+'</td>'+
+      '<td class="acts"><button class="qb" data-cert="no" data-p="'+p.id+'" data-d="'+d+'">Not provided</button><button class="qb pass sug" data-cert="ok" data-p="'+p.id+'" data-d="'+d+'">Received</button></td></tr>'}).join("")+'</table>'
+    :'<div class="qempty">Every permanent sick day has its certificate.</div>';
+  document.querySelectorAll("#hcert [data-cert]").forEach(b=>b.onclick=()=>{const pid=+b.dataset.p, d=+b.dataset.d, ok=b.dataset.cert==="ok"; ok?certReceive(pid,d):certRefuse(pid,d);
+    tlog(ok?"ok":"warn",nameOf(pid)+": certificate for "+d+" Sep "+(ok?"received":"not provided"),ok?"Counts as MC \u2014 paid, protects the 20-day minimum.":"Stays a sick day without a certificate \u2014 unpaid."); renderHR()});   // Monthly redraws when opened
+
+  /* training days claimed at check-out: HR confirms or rejects (the trainer's attendance mark already counts as confirmed) */
+  const trq=trainingPending();
+  document.getElementById("htrq").innerHTML=trq.length?'<table class="qt"><colgroup><col style="width:26%"><col style="width:12%"><col style="width:12%"><col style="width:16%"><col style="width:16%"><col style="width:18%"></colgroup><tr><th>Name</th><th>Team</th><th>Day</th><th>In · out</th><th>Site</th><th></th></tr>'+
+    trq.map(({p,d})=>{const c=CHECK[p.id][d], tl=by(p.to); return '<tr><td><b>'+p.n+'</b><small>'+p.code+'</small></td><td>'+(tl?tl.n.split(" ")[0]:"\u2014")+'</td><td>'+d+' Sep</td><td>'+c.in+' \u00b7 '+c.out+'</td><td>'+SITES[c.site].n+'</td>'+
+      '<td class="acts"><button class="qb" data-trq="no" data-p="'+p.id+'" data-d="'+d+'">Not training</button><button class="qb pass sug" data-trq="ok" data-p="'+p.id+'" data-d="'+d+'">Confirm</button></td></tr>'}).join("")+'</table>'
+    :'<div class="qempty">Nothing claimed.</div>';
+  document.querySelectorAll("#htrq [data-trq]").forEach(b=>b.onclick=()=>{const c=CHECK[+b.dataset.p][+b.dataset.d]; c.trainingOk=b.dataset.trq==="ok";
+    tlog(c.trainingOk?"ok":"warn",by(+b.dataset.p).n+": training on "+b.dataset.d+" Sep "+(c.trainingOk?"confirmed":"not confirmed"),c.trainingOk?"Counts as a worked day.":"Not a paid day. The check-in stays on record."); renderHR()});
+
   document.querySelectorAll("#hprob [data-dec]").forEach(b=>b.onclick=()=>{const p=by(+b.dataset.p), dec=b.dataset.dec;
-    if(!window.confirm(({pass:"Pass "+p.n+" — becomes Fundraiser.",ext:"Extend "+p.n+"'s probation by 10 working days.",term:"Terminate "+p.n+" — moves to Resigned."})[dec]))return;
+    if(!window.confirm(({pass:"Pass "+p.n+" — becomes a Fundraiser on performance-based pay (100% commission).",ext:"Extend "+p.n+"'s probation by 10 working days.",term:"Terminate "+p.n+" — moves to Resigned."})[dec]))return;
     p.probation=dec; p.probationOn=TODAY_D+" Sep";
-    if(dec==="pass"){p.lv=6; tlog("ok",p.n+" passed probation","Now a Fundraiser. "+p.signups+" sign-ups in "+hActual(p.id)+" days.")}
+    if(dec==="pass"){p.lv=6; p.plan="perf100"; tlog("ok",p.n+" passed probation","Now a Fundraiser on performance-based pay (100% commission). "+p.signups+" sign-ups in "+hActual(p.id)+" days.")}
     else if(dec==="ext"){delete p.probation; p.probFrom=hActual(p.id); tlog("warn",p.n+" probation extended","Reviewed again at "+(hActual(p.id)+10)+" actual days.")}
-    else {P=P.filter(x=>x!==p); RESIGNED.unshift({p,last:"2026-09-"+TODAY_D,why:"Did not pass probation"}); tlog("pull",p.n+" terminated","Did not pass probation. "+p.signups+" sign-ups.")}
+    else {P=P.filter(x=>x!==p); offboard(p); RESIGNED.unshift({p,last:"2026-09-"+TODAY_D,why:"Did not pass probation"}); tlog("pull",p.n+" terminated","Did not pass probation. "+p.signups+" sign-ups.")}
     renderHR(); renderOrg()});
 }
 /* accrued leave: one day per full month worked this calendar year, minus leave taken this year */
@@ -2711,17 +2986,20 @@ function renderHRLeave(){
   el.querySelectorAll("[data-hno]").forEach(b=>b.onclick=()=>{const r=REQ.find(x=>x.id==b.dataset.hno); if(r)r.status="declined"; renderHR(); renderApprovals(); renderPhone()});
 }
 function hrDay(pid,d){
-  const p=by(pid), c=(CHECK[pid]||{})[d], v=(MONTH[pid]||{})[d];
+  const p=personOf(pid), c=(CHECK[pid]||{})[d], v=(MONTH[pid]||{})[d];
+  if(!p)return;
   const sc=document.createElement("div"); sc.className="scrim";
   const late=lateBy(pid,d), site=c?SITES[c.site]:null, start=c?site[c.slot][0]:null;
   sc.innerHTML='<div class="modal"><h3>'+p.n+' — '+d+' Sep</h3>'+
     (c?'<div class="hrtimes"><div><span>Site</span><b>'+site.n+'</b><small>'+c.slot.toUpperCase()+' shift starts '+start+'</small></div>'+
         '<div><span>Checked in</span><b>'+c.in+'</b><small>'+(late?'<i class="wc">'+late+' min late</i>':c.cleared?'<i class="okc">lateness cleared</i>':'<i class="okc">on time</i>')+'</small></div>'+
-        '<div><span>Checked out</span><b>'+(c.out||"—")+'</b><small>'+(c.out?"counts as a worked day":"not counted until check-out")+'</small></div></div>'+
-        (c.gps?'<div class="note">Check-in location: '+(c.gps.inside?'<b class="okc">inside the geofence</b>':'<b class="wc">'+(c.gps.dist>=1000?(c.gps.dist/1000).toFixed(1)+' km':c.gps.dist+' m')+' from '+site.n+'</b>')+' · GPS ±'+c.gps.acc+' m · photo '+(c.photoIn||"—")+(c.gpsOut?' · check-out '+(c.gpsOut.inside?'inside':(c.gpsOut.dist>=1000?(c.gpsOut.dist/1000).toFixed(1)+' km away':c.gpsOut.dist+' m away')):'')+'</div>':'')+
+        '<div><span>Checked out</span><b>'+(c.out||"—")+'</b><small>'+(c.out?(c.training?(c.trainingOk===true?"training day \u2014 confirmed":c.trainingOk===false?"training not confirmed \u2014 not a paid day":"training day \u2014 awaiting HR confirmation"):"counts as a worked day"):"not counted until check-out")+'</small></div></div>'+
+        (c.gps?'<div class="note">Check-in location: '+(c.gps.inside?'<b class="okc">inside the geofence</b>':'<b class="wc">'+(c.gps.dist==null?'no map pin for '+site.n:(c.gps.dist>=1000?(c.gps.dist/1000).toFixed(1)+' km':c.gps.dist+' m')+' from '+site.n)+'</b>')+' · GPS ±'+c.gps.acc+' m · photo '+(c.photoIn||"—")+(c.gpsOut?' · check-out '+(c.gpsOut.inside?'inside':(c.gpsOut.dist>=1000?(c.gpsOut.dist/1000).toFixed(1)+' km away':c.gpsOut.dist+' m away')):'')+'</div>':'')+
         (late?'<div class="note">Late against '+site.n+'\'s '+c.slot.toUpperCase()+' start of '+start+'. '+(c.valid?'Validated by HR.':'Not yet validated.')+'</div>':'')
-      :'<p class="hint">'+(v==="mc"?"Medical certificate.":v==="sick"?"Sick, no certificate.":v==="leave"?"Leave.":v==="x"?"They marked this day as unavailable.":v?"Rostered, but no Telegram check-in.":"Not rostered.")+'</p>')+
+      :'<p class="hint">'+(certState(pid,d)==="ok"?"Medical certificate on file.":certState(pid,d)==="wait"?"Sick \u2014 certificate outstanding."+(p.perm?" Permanent staff are paid for it only once HR has the certificate.":""):certState(pid,d)==="no"?"Sick \u2014 certificate not provided. Unpaid.":v==="ns"?"No-show.":v==="leave"?"Leave.":v==="x"?"They marked this day as unavailable.":v?"Rostered, but no Telegram check-in.":"Not rostered.")+'</p>')+
     '<div class="row" style="flex-wrap:wrap">'+
+    (!c&&certState(pid,d)==="wait"?'<button class="go" id="crec">Certificate received</button><button class="no" id="cno">Not provided</button>':'')+
+    (c&&c.training&&c.trainingOk==null?'<button class="go" id="tok">Confirm training day</button><button class="no" id="tno">Not training</button>':'')+
     (c&&late&&!c.valid?'<button class="go" id="val">Validate lateness</button>':'')+
     (c&&late?'<button class="no" id="clr">Clear lateness, keep check-in</button>':'')+
     (c&&c.cleared?'<button class="no" id="unclr">Restore lateness</button>':'')+
@@ -2730,18 +3008,45 @@ function hrDay(pid,d){
     '<button class="no" id="close">Close</button></div></div>';
   const q=id=>sc.querySelector("#"+id);
   q("close").onclick=()=>sc.remove();
+  if(q("crec"))q("crec").onclick=()=>{certReceive(pid,d);sc.remove();renderHR()};   // Monthly redraws when opened
+  if(q("cno"))q("cno").onclick=()=>{certRefuse(pid,d);sc.remove();renderHR()};
+  if(q("tok"))q("tok").onclick=()=>{c.trainingOk=true;sc.remove();renderHR()};
+  if(q("tno"))q("tno").onclick=()=>{c.trainingOk=false;sc.remove();renderHR()};
   if(q("val"))q("val").onclick=()=>{c.valid=true;sc.remove();renderHR()};
   if(q("clr"))q("clr").onclick=()=>{c.cleared=true;c.valid=true;sc.remove();renderHR()};
   if(q("unclr"))q("unclr").onclick=()=>{c.cleared=false;sc.remove();renderHR()};
-  if(q("abs"))q("abs").onclick=()=>{const t=window.prompt("Absence type: mc / sick / leave","sick"); if(!["mc","sick","leave"].includes(t))return;
-    CHECK[pid]["_undo"+d]={c,v}; delete CHECK[pid][d]; MONTH[pid][d]=t; sc.remove(); renderHR(); renderMonth()};
-  if(q("undo"))q("undo").onclick=()=>{const u=CHECK[pid]["_undo"+d]; CHECK[pid][d]=u.c; MONTH[pid][d]=u.v; delete CHECK[pid]["_undo"+d]; sc.remove(); renderHR(); renderMonth()};
+  if(q("abs"))q("abs").onclick=()=>{sc.remove(); hrAbsenceBox(pid,d,c,v)};
+  if(q("undo"))q("undo").onclick=()=>{const u=CHECK[pid]["_undo"+d]; hrAbsenceUndo(pid,d); CHECK[pid][d]=u.c; MONTH[pid][d]=u.v; delete CHECK[pid]["_undo"+d]; certForget(pid,d); sc.remove(); renderHR()};
+  document.body.appendChild(sc);
+}
+/* HR's absence reaches the roster the same way a roster absence does (audit 24 Sep 2026): an ABS entry for that day,
+   and the shift is taken off — if it was already published, Evergiving is told at the next publish. Undo reverses both. */
+function hrAbsenceToRoster(pid,d,t,prev){
+  const wd=findWD(d,9); if(!wd)return; const [w,di]=wd;
+  const a=A.find(x=>x.pid===pid&&x.w===w&&x.d===di);
+  if(a){A=A.filter(x=>x!==a); if(published.has(k(a)))log("warn","Evergiving still shows "+nameOf(pid)+" at "+SITES[a.s].n,"HR marked them absent. Publish the week to remove them.")}
+  ABS.push({pid,w,d:di,t:t==="leave"?"plan":t,reason:"",prev,hr:true,shift:a||null})}
+function hrAbsenceUndo(pid,d){
+  const wd=findWD(d,9); if(!wd)return; const [w,di]=wd;
+  const i=ABS.findIndex(x=>x.hr&&x.pid===pid&&x.w===w&&x.d===di); if(i<0)return;
+  const x=ABS.splice(i,1)[0]; if(x.shift&&!A.some(y=>k(y)===k(x.shift)))A.push(x.shift)}
+/* HR turns a checked-in day into an absence: a choice on screen, not a typed prompt. The check-in is kept for Undo. */
+function hrAbsenceBox(pid,d,c,v){
+  const p=personOf(pid), sc=document.createElement("div"); sc.className="scrim";
+  const opts=[["mc","Medical certificate \u2014 HR has it","On file now. Counts as MC and protects the 20-day minimum."],["sick","Sick, no certificate yet","Goes to \u201cCertificates to collect\u201d. Permanent staff are unpaid for it unless one arrives."],["leave","Leave","Approved time off."]];
+  sc.innerHTML='<div class="modal"><h3>'+p.n+' \u2014 '+d+' Sep \u00b7 mark absent</h3><p class="hint">Checked in at '+c.in+(c.out?', out '+c.out:'')+'. The check-in is kept and can be restored with Undo.</p>'+
+    opts.map(([k,l,x],i)=>'<label class="opt"><input type="radio" name="hat" value="'+k+'"'+(i===0?" checked":"")+'><span>'+l+'<small>'+x+'</small></span></label>').join("")+
+    '<div class="row"><button class="no">Cancel</button><button class="danger" id="hago">Mark absent</button></div></div>';
+  sc.querySelector(".no").onclick=()=>sc.remove();
+  sc.querySelector("#hago").onclick=()=>{const t=sc.querySelector("input[name=hat]:checked").value;
+    CHECK[pid]["_undo"+d]={c,v}; delete CHECK[pid][d]; MONTH[pid]=MONTH[pid]||{}; MONTH[pid][d]=t; if(t==="mc")certReceive(pid,d);
+    hrAbsenceToRoster(pid,d,t,v); sc.remove(); renderHR()};
   document.body.appendChild(sc);
 }
 /* ---- exports ---- */
-function csv(rows){return rows.map(r=>r.map(v=>{v=v==null?"":String(v); return /[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v}).join(",")).join("\n")}
+function csv(rows){return rows.map(r=>r.map(v=>{v=v==null?"":unesc(String(v)); return /[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v}).join(",")).join("\n")}
 function download(name,text){const a=document.createElement("a"); a.href="data:text/csv;charset=utf-8,\uFEFF"+encodeURIComponent(text); a.download=name; document.body.appendChild(a); a.click(); a.remove()}
-function exportCSV(kind,from,to){
+function exportCSV(kind,from,to,visible,dry){   // visible: ids shown on the HR grid (its team/search/tick filters); dry: names only
   from=from||"2026-09-01"; to=to||"2026-09-30";
   const inRange=d=>{const iso="2026-09-"+String(d).padStart(2,"0"); return iso>=from&&iso<=to};   // sample data lives in September
   const days=Array.from({length:MDAYS},(_,i)=>i+1).filter(inRange);
@@ -2749,35 +3054,72 @@ function exportCSV(kind,from,to){
   const worked=p=>days.filter(d=>{const c=(CHECK[p.id]||{})[d];return c&&c.out}).length;
   const late=p=>days.filter(d=>lateBy(p.id,d)).length;
   let ppl=P.filter(p=>p.lv>=3&&!p.placeholder).map(p=>({p,last:""}));
-  if(kind!=="contracts")ppl=ppl.concat(RESIGNED.filter(x=>x.last>=from&&x.last<=to).map(x=>({p:x.p,last:x.last})));   // leavers inside the range are still paid
+  if(kind==="contracts")ppl=ppl.concat(RESIGNED.map(x=>({p:x.p,last:x.last})));                                   // the database lists everyone who ever joined
+  else ppl=ppl.concat(RESIGNED.filter(x=>x.last>=from&&x.last<=to).map(x=>({p:x.p,last:x.last})));                 // leavers inside the range are still paid
   ppl=ppl.map(o=>Object.assign(Object.create(o.p),{_last:o.last}));
-  if(kind==="contracts")ppl=ppl.filter(p=>p.start>=from&&p.start<=to);
+  if(kind==="payroll")ppl=ppl.filter(p=>!p.perm&&p.lv>=6);       // contractors and trainees only
+  if(kind==="attendance")ppl=ppl.filter(p=>p.perm);              // permanent staff only
+  if(visible)ppl=ppl.filter(p=>visible.has(p.id));              // and only who the HR grid currently shows
   const tag=from.replace(/-/g,"")+"-"+to.replace(/-/g,"");
+  /* Day rates and columns come from Omniraise's real monthly files (Sep 2026). RATES are per client. */
+  const ord=n=>n+(n%10===1&&n!==11?"st":n%10===2&&n!==12?"nd":n%10===3&&n!==13?"rd":"th");
+  const fmtD=iso=>{const [y,m,d]=iso.split("-"); return ord(+d)+" "+["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][+m-1]+" "+y};
+  const period=fmtD(from)+" - "+fmtD(to);
+  const dayRec=(p,d)=>(CHECK[p.id]||{})[d];
+  const outDays=p=>days.filter(d=>paidDay(p.id,d));   // an unconfirmed training day is not a paid day
+  const leaver=p=>RESIGNED.find(r=>r.p.id===p.id);
+  const kitStatus=p=>{const r=leaver(p); return r?(r.kit==="return"?"return":"pending"):""};
+  const contractType=p=>p.lv===7?"Trainee":p.plan==="perf100"?"Performance based":"Independent Contract";   // Dave: the role type is "performance based" (the Aug file called it "Commission (100%)")
+  const dayRate=p=>p.lv===7?RATES.trainee:p.plan==="perf100"?0:RATES.ic;
+  const svcLen=p=>{if(!p.start)return ""; const a=new Date(p.start), b=new Date(p._last||"2026-09-"+TODAY_D); let m=(b.getFullYear()-a.getFullYear())*12+(b.getMonth()-a.getMonth()); if(b.getDate()<a.getDate())m--; return Math.floor(m/12)+" Year "+(m%12)+" Month(s)"};
+  const hod=p=>{let x=p, n=0; while(x&&x.to&&n++<12){const up=by(x.to); if(!up)break; x=up} return x&&x.id!==p.id?x.n:""};
+  const age=p=>p.dob?Math.floor((new Date("2026-09-"+TODAY_D)-new Date(p.dob))/31557600000):"";
+  const kitCol=p=>leaver(p)?(kitStatus(p)==="return"?"Returned":"Pending"):"Issued";
   const K={
-    payroll:{name:"popcorn_payroll_"+tag+".csv",head:["Staff code","Full name","KTP","Date of birth","Role","Contract","Region","Status","Last day","Period from","Period to","Actual days worked","MC days","Leave days","Late count","Bank","Account name","Account number"],
-      row:p=>[p.code,p.n,p.ktpFull||p.ktp||"",p.dob||"",LEVELS[p.lv],p.perm?"PKWTT":"IC",p.region||"",p._last?"Left":"Active",p._last||"",from,to,worked(p),cnt(p,"mc"),cnt(p,"leave"),late(p),p.bank||"",p.bankn||"",p.banka||""]},
-    contracts:{name:"popcorn_contracts_"+tag+".csv",head:["Full name","Staff code","KTP","Place of birth","Date of birth","Residential address","Email","WhatsApp","Role","Contract type","Start date","Region","Campaign","Reports to"],
-      row:p=>[p.n,p.code,p.ktpFull||p.ktp||"",p.pob||"",p.dob||"",p.addr||"",p.email||"",p.ph||"",LEVELS[p.lv],p.perm?"PKWTT":"Independent contractor",p.start||"",p.region||"",p.c?CAMPS[p.c].n:"",by(p.to)?by(p.to).n:""]},
-    attendance:{name:"popcorn_attendance_"+tag+".csv",head:["Staff code","Full name","Role","Status","Last day",...days.map(d=>"Sep "+d),"Worked","Late"],
-      row:p=>[p.code,p.n,LEVELS[p.lv],p._last?"Left":"Active",p._last||"",...days.map(d=>{const c=(CHECK[p.id]||{})[d],v=(MONTH[p.id]||{})[d];
-        return c?(c.out?"W"+(lateBy(p.id,d)?"L":""):"IN"):v==="mc"?"MC":v==="sick"?"S":v==="leave"?"L":v==="x"?"X":""}),worked(p),late(p)]}};
-  const k=K[kind]; const text=csv([k.head,...ppl.map(k.row)]); download(k.name,text); return text;
+    payroll:{name:"popcorn_ic_payroll_"+tag+".csv",
+      head:["Payment Period","Name as per IC/Bank Account Name","Region","Department","Perm-Position/IC-Work Scope","Campaign","Independent Contractor ID","National ID","Email Address","Bank","Bank Account No.","Status","Contract Type","IC/Perm-Contract Start Date","Status Materials","Resign Date","Payroll Remarks",
+            "Total Days on Duty","Service Rate/ Per Day","Total Pay","Total Days on Duty (Weekend)","Service Rate/ Weekend","Total Weekend Pay","Total Days on Duty (PH Weekday)","Service Rate/ PH Weekday","Total Weekdays PH Pay",
+            "Travel Allowance","Backpay","F2F_20/30% Payout","F2F_Overriding 30% Payout","F2F_Overriding 70%","TM_20% Payout","TM_Overriding 80%","Total WC Bonus","Total WC Overriding Bonus","Lost Asset/ Other Deduction","Total Pay for Duty","Medical Allowance","Attendance Allowance","Commission","Deduction","Net Pay"],
+      row:p=>{const od=outDays(p), wd=od.length, rate=dayRate(p), cm=commissionFor(p.id,days), fromDay=+from.slice(8);
+        const prior=p.lv===7?Object.keys(CHECK[p.id]||{}).filter(k=>/^\d+$/.test(k)&&+k<fromDay&&CHECK[p.id][k].out).length:0;   // trainee shifts already paid before this range
+        const payable=p.lv===7?Math.min(wd,Math.max(0,RATES.traineeShifts-prior)):wd;
+        const pay=payable*rate, duty=pay, att=p.plan==="standard"?cm.attendance:0, com=cm.commission||0, hold=kitStatus(p)==="pending";
+        return [period,p.bankn||p.n,p.region||"","F2F","F2F Fundraising",campsOf(p).length?campName(p):"",p.code,p.ktpFull||p.ktp||"",p.email||"",p.bank||"",p.banka||"",p._last?"inactive":"active",contractType(p),p.start||"",kitStatus(p),p._last||"",
+          hold?"HOLD - kit not returned":(p.lv===7&&payable<wd?"Trainee: "+payable+" of "+wd+" shifts at the day rate":"Finance Payment"),wd,rate,pay,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,duty,0,att,com,0,duty+att+com]}},
+    contracts:{name:"popcorn_employment_database_"+tag+".csv",
+      head:["Status","Emp No","Name","Department","Position","Type of agreement","Length of Service","Date Join","Expected Confirmation Date","Confirmed?","Resign Date","EOM","Reason","Region","HOD","Campaign","Bank","Account Number","National ID","Passport No","DOB","Age","Gender","Race","Religion","Marital Status","Phone Number","Email Address","Home Address","Emergency Contact","Relationship","Emergency Number","Recruiter Name","Vest","T-shirt","Pitch card","Lanyard","Stopping Tool","ID card","Remark"],
+      row:p=>{const r=leaver(p); return [p._last?"Inactive":"Active",p.code,p.n,"F2F",LEVELS[p.lv],p.lv===7?"Trainee":p.perm?"Permanent":"Independent Contract",svcLen(p),p.start||"","",p.probation==="pass"?"Y":p.probation==="ext"?'"Extended"':"",p._last||"","",r?r.why:"",p.region||"",hod(p),p.c?CAMPS[p.c].n:"",
+        p.bank||"",p.banka||"",p.ktpFull||p.ktp||"",p.passport||"",p.dob||"",age(p),p.gender||"",p.race||"",p.religion||"",p.marital||"",p.ph||"",p.email||"",p.addr||"",p.ec||"","",p.ecp||"",p.recruiter||"",kitCol(p),kitCol(p),kitCol(p),kitCol(p),kitCol(p),kitCol(p),""]}},
+    attendance:{name:"popcorn_attendance_perm_"+tag+".csv",
+      head:["Staff Name","Working Days","Days w/ Clock In","Days w/ Clock Out","Incomplete Days",...days.map(d=>String(d).padStart(2,"0")+"/09")],
+      row:p=>{const recs=days.map(d=>dayRec(p,d)), wdays=recs.filter(c=>c).length, ins=recs.filter(c=>c&&c.in).length, outs=recs.filter(c=>c&&c.out).length, both=recs.filter(c=>c&&c.in&&c.out).length;
+        return [p.n,wdays,ins,outs,wdays-both,...recs.map(c=>(c&&c.in?c.in:"\u2014")+"  /  "+(c&&c.out?c.out:"\u2014"))]}}};
+  const k=K[kind]; if(dry)return ppl.map(p=>p.n); const text=csv([k.head,...ppl.map(k.row)]); download(k.name,text); return text;
 }
 document.querySelectorAll(".exports [data-x]").forEach(b=>b.onclick=()=>exportBox(b.dataset.x));
 function exportBox(kind){
-  const T={payroll:["Payroll export","Actual days, MC, leave and lateness are counted within the range. One row per person."],
-           contracts:["Contract mail-merge export","People whose start date falls inside the range — new joiners needing a contract. Leave the range wide for everyone."],
-           attendance:["Attendance export","One column per day inside the range."]}[kind];
+  const T={payroll:["IC Payroll","Contractors and trainees, in the layout of the monthly IC & Trainee Service Fee file. Days on duty inside the range × the day rate, plus commission. Leavers whose kit is pending show HOLD. Follows the grid\'s team, search and tick filters."],
+           contracts:["Employment Database","Everyone who has ever joined, in the layout of the Indo Employee Data workbook, within the grid\'s filters. The date range is ignored."],
+           attendance:["Attendance Perm","Permanent staff, in the layout of the Working Days Perm Staff file: one column per day with clock-in / clock-out times. Follows the grid\'s filters."]}[kind];
+  const visible=new Set([...document.querySelectorAll(".htab td.c[data-p]")].map(td=>+td.dataset.p));
+  const ticks=[...document.querySelectorAll(".hfilt")].filter(c=>c.checked).map(c=>c.parentElement.textContent.trim());
+  const why={payroll:"contractors and trainees",contracts:"everyone who has ever joined",attendance:"permanent staff"}[kind];
   const sc=document.createElement("div"); sc.className="scrim";
   sc.innerHTML='<div class="modal"><h3>'+T[0]+'</h3><p class="hint">'+T[1]+'</p>'+
     '<div class="two"><label>From<input type="date" id="xf" value="2026-09-01"></label><label>To<input type="date" id="xt" value="2026-09-15"></label></div>'+
     '<div class="two" style="margin-top:8px"><button class="btn" id="xm">This month</button><button class="btn" id="xy">This year</button></div>'+
+    '<p class="hint" id="xcount"></p>'+
     '<div class="row"><button class="no">Cancel</button><button class="go">Download CSV</button></div></div>';
-  sc.querySelector("#xm").onclick=()=>{sc.querySelector("#xf").value="2026-09-01";sc.querySelector("#xt").value="2026-09-30"};
-  sc.querySelector("#xy").onclick=()=>{sc.querySelector("#xf").value="2026-01-01";sc.querySelector("#xt").value="2026-12-31"};
+  const upd=()=>{const f=sc.querySelector("#xf").value, t=sc.querySelector("#xt").value, go=sc.querySelector(".go"); const n=(f&&t&&t>=f)?exportCSV(kind,f,t,visible,true).length:0;
+    sc.querySelector("#xcount").innerHTML=n?'<b>'+n+' '+(n===1?"person":"people")+' in this file</b> \u2014 '+why+', within your grid filters ('+ticks.join(", ")+').'
+      :'<b class="wc">Nobody matches.</b> This file is '+why+' only, and your grid filters ('+(ticks.join(", ")||"none ticked")+') leave none of them. Change the ticks on the grid and open this again.';
+    go.disabled=n===0};
+  sc.querySelector("#xm").onclick=()=>{sc.querySelector("#xf").value="2026-09-01";sc.querySelector("#xt").value="2026-09-30";upd()};
+  sc.querySelector("#xy").onclick=()=>{sc.querySelector("#xf").value="2026-01-01";sc.querySelector("#xt").value="2026-12-31";upd()};
+  ["xf","xt"].forEach(id=>sc.querySelector("#"+id).oninput=upd);
   sc.querySelector(".no").onclick=()=>sc.remove();
-  sc.querySelector(".go").onclick=()=>{const f=sc.querySelector("#xf").value, t=sc.querySelector("#xt").value; if(!f||!t||t<f)return; exportCSV(kind,f,t); sc.remove()};
-  document.body.appendChild(sc);
+  sc.querySelector(".go").onclick=()=>{const f=sc.querySelector("#xf").value, t=sc.querySelector("#xt").value; if(!f||!t||t<f||sc.querySelector(".go").disabled)return; exportCSV(kind,f,t,visible); sc.remove()};
+  document.body.appendChild(sc); upd();
 }
 ["hteam","hq"].forEach(id=>document.getElementById(id).addEventListener("input",renderHR));
 document.querySelectorAll(".hfilt").forEach(c=>c.addEventListener("change",renderHR));
@@ -2816,14 +3158,22 @@ const ASPC=[];                                 // {pid,d,site,a,s,p,c,cc,dd,u30y
         CHECK[p.id][HTODAY]={in:SITES[site][v][0].replace(/:(\d\d)/,(m,x)=>":"+String(Math.max(0,+x-3)).padStart(2,"0")),out:null,site,slot:v,valid:false,cleared:false};
         if(v==="am"&&rnd()<.45){CHECK[p.id][HTODAY].out=SITES[site].am[1]; ASPC.push(mk(p,HTODAY,site,skill[p.id]*siteBoost[site]*1.3))}})}});
   P.filter(isTrainee).forEach(p=>p.signups=ASPC.filter(x=>x.pid===p.id).reduce((n,x)=>n+x.c,0));
-  P.filter(p=>p.lv>=6).forEach((p,i)=>{p.plan=(p.perm||i%3!==0)?"standard":"perf100"});   // IC Perm on Model B; performance-based staff on 100% comms
+  P.filter(p=>p.lv>=6).forEach((p,i)=>{if(p.lv===7)p.perm=false; p.plan=p.lv===7?"perf100":(p.perm||i%3!==0)?"standard":"perf100"});   // trainees are never permanent staff   // trainees go performance-based after their 10 paid shifts; IC Perm on Model B; some ICs moved to performance-based
 })();
 const aspcOf=(pid,d)=>ASPC.find(x=>x.pid===pid&&x.d===d);
+const trainerMarked=(pid,d)=>TRAIN.some(t=>t.date===d&&(t.attended||[]).includes(pid));
+/* A training day is a CLAIM until confirmed — by the trainer's attendance mark, or by HR (Dave, 24 Sep 2026):
+   anyone paid per day could otherwise claim a training day. States: ok · pending · no · null (not training). */
+const trainingState=(pid,d)=>{const c=(CHECK[pid]||{})[d]; if(trainerMarked(pid,d))return "ok"; if(c&&c.training)return c.trainingOk===true?"ok":c.trainingOk===false?"no":"pending"; return null};
+const trainedOn=(pid,d)=>trainingState(pid,d)==="ok";
+const paidDay=(pid,d)=>{const c=(CHECK[pid]||{})[d]; if(!c||!c.out)return false; const st=trainingState(pid,d); return st==null||st==="ok"};   // checked out, and any training claim confirmed
+const certQueue=()=>{const out=[]; [...P.filter(p=>p.perm&&!p.placeholder),...RESIGNED.filter(r=>r.p.perm&&r.last>="2026-09-01").map(r=>r.p)].forEach(p=>certOutstanding(p.id).forEach(d=>out.push({p,d}))); return out};   // permanent staff only: their pay depends on it
+const trainingPending=()=>{const out=[]; P.filter(p=>p.lv>=3&&!p.placeholder).forEach(p=>{for(let d=1;d<=MDAYS;d++)if(trainingState(p.id,d)==="pending")out.push({p,d})}); return out};
 const distM=(a,b,c,d)=>{const R=6371000,t=x=>x*Math.PI/180,dl=t(c-a),dn=t(d-b),h=Math.sin(dl/2)**2+Math.cos(t(a))*Math.cos(t(c))*Math.sin(dn/2)**2;return Math.round(2*R*Math.asin(Math.sqrt(h)))};
 let GSIM="site";
 function getFix(site){ // returns a Promise of {lat,lng,acc} — real GPS when the browser has it, otherwise the preview simulator
   return new Promise(res=>{
-    const sim=()=>{const x=SITES[site]; if(GSIM==="none")return res(null);
+    const sim=()=>{const x=SITES[site]; if(GSIM==="none")return res(null); if(x.lat==null)return res({lat:-6.2,lng:106.82,acc:25,sim:true});
       const off=GSIM==="site"?[0.0003,0.0002,25]:GSIM==="near"?[0.0028,0.0014,30]:[0.045,0.025,40];
       res({lat:x.lat+off[0],lng:x.lng+off[1],acc:off[2],sim:true})};
     if(typeof navigator!=="undefined"&&navigator.geolocation&&!/jsdom/i.test(navigator.userAgent)&&GSIM==="site"){
@@ -2863,9 +3213,11 @@ function renderASPC(){
   if(st.site==null&&!c)st.site=sh?sh.site:SITES.findIndex(x=>x.c===ME2.c&&x.loc);
   if(!st.slot&&!c)st.slot=sh?sh.slot:"am";
   const site=c?SITES[c.site]:SITES[st.site];
-  const dist=st.fix?distM(st.fix.lat,st.fix.lng,site.lat,site.lng):null;
-  const inside=st.fix?dist<=site.radius+st.fix.acc:false;
-  const far=d=>d>=1000?(d/1000).toFixed(1)+" km":d+" m";
+  const pinned=site.lat!=null&&site.lng!=null;   // real sites have no map pin until they are geocoded (OPEN)
+  const dist=st.fix&&pinned?distM(st.fix.lat,st.fix.lng,site.lat,site.lng):null;
+  const inside=st.fix&&pinned?dist<=site.radius+st.fix.acc:false;
+  const far=d=>d==null?"Unknown distance":d>=1000?(d/1000).toFixed(1)+" km":d+" m";
+  const away=d=>d==null?"site has no map pin yet":far(d)+" away";
   let h='<div class="pbar"><b>'+ME2.n.split(" ")[0]+'</b><span>'+TODAY_LABEL+'</span></div>';
 
   /* ================= A. not checked in ================= */
@@ -2882,7 +3234,7 @@ function renderASPC(){
         ? '<div class="ciorow busy"><i>📍</i><span><b>Finding you…</b><small>hold still for a moment</small></span><button class="minibtn" id="retry">Retry</button></div>'
         : st.fix===null
           ? '<div class="ciorow bad"><i>📍</i><span><b>No GPS signal</b><small>step outside or near a window, then try again</small></span><button class="minibtn" id="retry">Retry</button></div>'
-          : '<div class="ciorow '+(inside?"ok":"warn")+'"><i>📍</i><span><b>'+(inside?"You\'re at "+site.n:"You\'re not at "+site.n)+'</b><small>'+far(dist)+' away · accurate to ±'+st.fix.acc+' m'+(inside?"":" · your leader is told")+'</small></span><button class="minibtn" id="retry">Again</button></div>';
+          : '<div class="ciorow '+(inside?"ok":"warn")+'"><i>📍</i><span><b>'+(inside?"You\'re at "+site.n:"You\'re not at "+site.n)+'</b><small>'+away(dist)+' · accurate to ±'+st.fix.acc+' m'+(inside?"":" · your leader is told")+'</small></span><button class="minibtn" id="retry">Again</button></div>';
       if(st.step==="photo") h+='<div class="ciorow ok"><i>📍</i><span><b>'+(inside?"At "+site.n:far(dist)+" from "+site.n)+'</b><small>location saved</small></span></div>'+
         '<button class="photobtn" id="snap"><span class="hbwrap"><i>📷</i><b>Take the photo</b><small>you and the booth — the camera opens, no gallery</small></span></button>';
       if(st.step==="confirm") h+='<div class="ciorow ok"><i>📍</i><span><b>'+(inside?"At "+site.n:far(dist)+" from "+site.n)+'</b><small>±'+st.fix.acc+' m</small></span></div>'+
@@ -2898,7 +3250,7 @@ function renderASPC(){
   else if(!done){
     if(st.justIn) h+='<div class="okbanner"><i>✓</i><div><b>You\'re checked in</b><span>'+c.in+' at '+site.n+(c.gps&&c.gps.inside?' · location confirmed':'')+'</span></div></div>';
     h+='<div class="hero '+(st.justIn?"ok":c.slot)+'"><span class="lbl">'+(st.justIn?"✓ CHECKED IN "+c.in:"CHECKED IN "+c.in)+'</span><b>'+site.n+'</b>'+
-       '<div class="place">'+c.slot.toUpperCase()+' shift '+hrs(site,c.slot)+(c.gps?(c.gps.inside?' · at the site':' · '+far(c.gps.dist)+' away'):'')+'</div></div>';
+       '<div class="place">'+c.slot.toUpperCase()+' shift '+hrs(site,c.slot)+(c.gps?(c.gps.inside?' · at the site':' · '+away(c.gps.dist)):'')+'</div></div>';
     const v=Object.assign({a:0,s:0,p:0,sales:[],training:false},ASPC_DRAFT[ME2.id]||{});
     if(!st.step){
       h+='<div class="calhead"><b>Your numbers for today</b><span>fill these in, then check out</span></div>'+
@@ -2916,7 +3268,7 @@ function renderASPC(){
       h+=stepsBar(st.step)+'<div class="ciosteps">';
       if(st.step==="loc") h+= st.fix===undefined?'<div class="ciorow busy"><i>📍</i><span><b>Finding you…</b><small>hold still</small></span><button class="minibtn" id="retry">Retry</button></div>'
         : st.fix===null?'<div class="ciorow bad"><i>📍</i><span><b>No GPS signal</b><small>step outside, then retry</small></span><button class="minibtn" id="retry">Retry</button></div>'
-        : '<div class="ciorow '+(inside?"ok":"warn")+'"><i>📍</i><span><b>'+(inside?"You\'re at "+site.n:"You\'re not at "+site.n)+'</b><small>'+far(dist)+' away · ±'+st.fix.acc+' m</small></span><button class="minibtn" id="retry">Again</button></div>';
+        : '<div class="ciorow '+(inside?"ok":"warn")+'"><i>📍</i><span><b>'+(inside?"You\'re at "+site.n:"You\'re not at "+site.n)+'</b><small>'+away(dist)+' · ±'+st.fix.acc+' m</small></span><button class="minibtn" id="retry">Again</button></div>';
       if(st.step==="photo") h+='<div class="ciorow ok"><i>📍</i><span><b>'+(inside?"At "+site.n:far(dist)+" from "+site.n)+'</b><small>location saved</small></span></div>'+
         '<button class="photobtn" id="snap"><span class="hbwrap"><i>📷</i><b>Take the photo</b><small>you and the booth</small></span></button>';
       if(st.step==="confirm"){const sum=ASPC_DRAFT[ME2.id]||{};
@@ -2934,10 +3286,11 @@ function renderASPC(){
     if(st.justOut) h+='<div class="okbanner"><i>✓</i><div><b>You\'re checked out</b><span>'+c.out+' · numbers sent to '+(by(ME2.to)?by(ME2.to).n.split(" ")[0]:"your leader")+'</span></div></div>';
     h+='<div class="hero done"><span class="lbl">✓ DONE FOR TODAY</span><b>'+site.n+'</b><div class="place">In '+c.in+' · out '+c.out+'</div></div>'+
        '<div class="calhead"><b>Submitted</b><span>Tell your leader if anything is wrong.</span></div>'+
-       '<div class="aspcsum">'+(done.training?'<div class="say plain">Training session — no numbers required.</div>':
+       '<div class="aspcsum">'+(done.training?'<div class="say plain">Training session — no numbers needed. HR confirms it before it counts as a paid day.</div>':
          [["Approaches",done.a],["Stops",done.s],["Presentations",done.p],["Sign-ups",done.c],["Value",IDRf((done.sales||[]).reduce((n,z)=>n+z.amount,0))],["CC / DD · <30",done.cc+" / "+done.dd+" · "+done.u30y]].map(([l,x])=>'<div><span>'+l+'</span><b>'+x+'</b></div>').join(""))+'</div>';
   }
   app.innerHTML=h;
+  if(ROLE==="fr")app.insertAdjacentHTML("afterbegin",'<button class="linkbtn mnback" onclick="goTab(\'main\')">\u2039 Main</button>');
   const g=id=>app.querySelector("#"+id);
   const locate=()=>{st.fix=undefined; st.step="loc"; renderASPC(); getFix(c?c.site:st.site).then(f=>{st.fix=f; renderASPC()})};
   if(g("cancel"))g("cancel").onclick=()=>{st.step=null; st.fix=undefined; st.photo=null; renderASPC()};
@@ -2974,7 +3327,7 @@ function renderASPC(){
   }
   if(g("doOut"))g("doOut").onclick=()=>{const v=ASPC_DRAFT[ME2.id]||{a:0,s:0,p:0,sales:[],training:false}, sales=v.training?[]:(v.sales||[]);
     ASPC.push({pid:ME2.id,d:HTODAY,site:c.site,a:v.a,s:v.s,p:v.p,c:sales.length,cc:sales.filter(z=>z.cc).length,dd:sales.filter(z=>!z.cc).length,u30y:sales.filter(z=>z.u30).length,u30n:sales.filter(z=>!z.u30).length,sales,training:v.training});
-    c.out=nowHM(); c.gpsOut={lat:st.fix.lat,lng:st.fix.lng,acc:st.fix.acc,dist,inside}; c.photoOut=st.photo; delete ASPC_DRAFT[ME2.id]; CIO[ME2.id]={justOut:c.out};
+    c.out=nowHM(); c.gpsOut={lat:st.fix.lat,lng:st.fix.lng,acc:st.fix.acc,dist,inside}; c.photoOut=st.photo; c.training=!!v.training; if(v.training)c.trainingOk=null; delete ASPC_DRAFT[ME2.id]; CIO[ME2.id]={justOut:c.out};
     if(isTrainee(ME2))ME2.signups=ASPC.filter(z=>z.pid===ME2.id).reduce((n,z)=>n+z.c,0);
     log(inside?"push":"warn",ME2.n+" checked out"+(inside?"":" — "+far(dist)+" from the site"),"A "+v.a+" · S "+v.s+" · P "+v.p+" · C "+sales.length+(v.training?" · training":""));
     renderASPC(); if(typeof renderHR==="function")renderHR(); if(typeof renderF2F==="function")renderF2F()};
@@ -2986,7 +3339,7 @@ function stepsBar(step){const s=["loc","photo","confirm"], l=["Location","Photo"
 function siteSheet(st){
   const sc=document.createElement("div"); sc.className="scrim sheetwrap";
   sc.innerHTML='<div class="sheet2"><div class="grab"></div><h3>Where are you working?</h3><p class="sub">Your leader sees any change.</p>'+
-    '<p class="q">Site</p><div class="cands">'+SITES.map((x,i)=>x.loc?'<button class="cand'+(i===st.site?" on":"")+'" data-s="'+i+'"><b>'+x.n+'</b><small>'+x.addr+' · AM '+x.am[0]+' · PM '+x.pm[0]+'</small></button>':'').join("")+'</div>'+
+    '<p class="q">Site</p><div class="cands">'+SITES.map((x,i)=>x.loc&&(!x.real||i===st.site||bookedDays(i,WK).size)?'<button class="cand'+(i===st.site?" on":"")+'" data-s="'+i+'"><b>'+x.n+'</b><small>'+x.addr+' · AM '+x.am[0]+' · PM '+x.pm[0]+'</small></button>':'').join("")+'</div>'+
     '<p class="q">Shift</p><div class="tg"><button class="tog'+(st.slot==="am"?" on":"")+'" data-slot="am">AM</button><button class="tog'+(st.slot==="pm"?" on":"")+'" data-slot="pm">PM</button></div>'+
     '<button class="bigsend" id="sdone">Done</button><button class="cancel2">Cancel</button></div>';
   sc.querySelectorAll(".cand").forEach(b=>b.onclick=()=>{st.site=+b.dataset.s; sc.querySelectorAll(".cand").forEach(x=>x.classList.toggle("on",x===b))});
@@ -3090,14 +3443,20 @@ const MODELB={
   base:{ "u30":{cc:100000,dd:50000}, "30-34":{cc:105000,dd:55000}, "35-39":{cc:120000,dd:60000}, "40+":{cc:130000,dd:65000} },
   u30cap:7, qb:[{maxPct:20,amt:1000000},{maxPct:29,amt:500000}], att:{amt:500000,days:20,fd:16} };
 // gross basic by role (New Jakarta table) — trainee also gets an FD allowance at 16+ FD
-const BASIC={7:{basic:2000000,fdAllow:1500000,fdMin:16,l:"Trainee"},6:{basic:5000000,l:"IC / Fundraiser"},5:{basic:5500000,l:"Team leader"},4:{basic:6050000,l:"Senior team leader"},3:{basic:6655000,l:"Assistant manager"},2:{basic:7320500,l:"Manager"},1:{basic:10395110,l:"Senior manager"},0:{basic:14553154,l:"Head"}};
+/* Gross basic by role — Dave's GROSS BASIC sheet, 24 Sep 2026. hc = team headcount for the grade, fdQual = FD to qualify
+   for the allowance. Grades the sheet has beyond this ladder: Manager Grade 2 8,784,600 · General Manager 21,829,731 ·
+   Director 38,202,029 — set those with HR's manual amount (p.salary). IC and trainee pay in the payroll file is PER DAY
+   (RATES); 5,000,000 is the 20-day figure. OPEN: the sheet says trainee "Rp100,000 per day for first 2 weeks only". */
+const BASIC={7:{basic:2000000,fdAllow:1500000,fdMin:16,fdQual:16,hc:1,l:"Trainee"},6:{basic:5000000,fdQual:16,hc:1,l:"IC / Fundraiser"},5:{basic:5500000,hc:4,l:"Team leader"},4:{basic:6050000,hc:8,l:"Senior team leader"},3:{basic:6655000,hc:12,l:"Assistant manager"},2:{basic:7320500,hc:16,l:"Manager (Grade 1)"},1:{basic:10395110,hc:24,l:"Senior manager"},0:{basic:14553154,hc:32,l:"Head of fundraising"}};
+const RATES={ic:250000,trainee:100000,traineeShifts:10};   // per day on duty (Aug 2026 file). No weekend or public-holiday rate (Dave, 24 Sep).
+                                                          // A trainee is paid the day rate for their first 10 shifts only, then moves to performance-based pay.
 const AGE_L={u30:"Under 30","30-34":"30–34","35-39":"35–39","40+":"40+"};
 
 function commissionFor(pid,days){
   const p=by(pid)||{}; const plan=p.plan||"perf100";
   const rows=ASPC.filter(x=>x.pid===pid&&days.includes(x.d)&&!x.training);
   const sales=rows.flatMap(x=>(x.sales||[]).map(z=>Object.assign({d:x.d,site:x.site},z)));
-  const daysWorked=Object.keys(CHECK[pid]||{}).filter(k=>/^\d+$/.test(k)&&days.includes(+k)&&CHECK[pid][k].out).length;
+  const daysWorked=Object.keys(CHECK[pid]||{}).filter(k=>/^\d+$/.test(k)&&days.includes(+k)&&paidDay(pid,+k)).length;
   const byAge=Object.keys(AGE_L).map(a=>[a,sales.filter(z=>(z.age||"40+")===a).length]);
   if(plan==="perf100"){
     const lines=sales.map(z=>({d:z.d,site:z.site,amount:z.amount,cc:z.cc,age:z.age||"40+",band:z.amount>=180000?"A":"B",rate:rateFor(z),paid:true}));
@@ -3117,11 +3476,11 @@ function commissionFor(pid,days){
   const quality=tier.m>0?((MODELB.qb.find(q=>u30pct<=q.maxPct)||{amt:0}).amt):0;
   const attOk=daysWorked>=MODELB.att.days&&gross>=MODELB.att.fd, attendance=attOk?MODELB.att.amt:0;
   const roleB=BASIC[p.lv]||BASIC[6]; const fdAllow=roleB.fdAllow&&gross>=roleB.fdMin?roleB.fdAllow:0;
-  const basic=roleB.basic;
+  const basic=p.salary!=null?p.salary:roleB.basic, salarySet=p.salary!=null;   // HR can set an amount outside the role table
   const bySeg=Object.keys(AGE_L).map(a=>{const L=lines.filter(l=>l.age===a); return {a,n:L.length,cc:L.filter(l=>l.cc).length,dd:L.filter(l=>!l.cc).length,rp:L.reduce((n,l)=>n+l.rate,0),base:MODELB.base[a]}});
   const next=MODELB.tiers.find(t=>t.min>qualifying);
   return {plan,gross,qualifying,stripped,u30:u30.length,u30pct,tier,next,needForNext:next?next.min-qualifying:0,
-          lines,byAge,bySeg,daysWorked,commission,quality,attendance,attOk,basic,fdAllow,roleLabel:roleB.l,
+          lines,byAge,bySeg,daysWorked,commission,quality,attendance,attOk,basic,salarySet,fdAllow,roleLabel:roleB.l,
           total:basic+fdAllow+commission+quality+attendance};
 }
 
@@ -3309,7 +3668,7 @@ function renderFRD(){
        '<div class="place">'+cm.roleLabel+' · '+t.l+(t.m?' · '+t.m+'× rates':'')+' · '+cm.gross+' sign-up'+(cm.gross===1?"":"s")+'</div>'+
        '<div class="finenote">Gross, before tax. Commission is on gross FD; cancellations are settled next month.</div></div>'+
        '<div class="paycard">'+
-         row("Gross basic",IDRf(cm.basic),"","")+
+         row("Gross basic",IDRf(cm.basic),"",cm.salarySet?"set by HR":cm.roleLabel)+
          (cm.fdAllow?row("FD allowance",IDRf(cm.fdAllow),"","16+ sign-ups"):(BASIC[ME3.lv]&&BASIC[ME3.lv].fdAllow?row("FD allowance","—","dim","needs 16 sign-ups · you have "+cm.gross):""))+
          row("Commission",IDRf(cm.commission),"",t.l+(t.m?" · "+t.m+"×":" · below 20 qualifying FD"))+
          row("Quality bonus",cm.quality?IDRf(cm.quality):"—",cm.quality?"":"dim",cm.u30pct+"% under 30"+(t.m?(cm.quality?"":" · needs 29% or less"):" · from Tier 0.5"))+
@@ -3326,7 +3685,7 @@ function renderFRD(){
        '<tr class="rule"><td>Under-30 share</td><td colspan="3" class="r '+(cm.u30pct<=20?"okc":cm.u30pct<=29?"wc":"rc")+'"><b>'+cm.u30pct+'%</b> <small>'+(cm.u30pct<=20?"quality bonus Rp 1,000,000":cm.u30pct<=29?"quality bonus Rp 500,000":"no quality bonus above 29%")+'</small></td></tr></table>';
   } else {
     h+='<div class="hero money"><span class="lbl">EARNED SO FAR · SEPTEMBER</span><b>'+IDRf(cm.total)+'</b>'+
-       '<div class="place">'+cm.gross+' sign-up'+(cm.gross===1?"":"s")+' · 100% commission plan</div>'+
+       '<div class="place">'+cm.gross+' sign-up'+(cm.gross===1?"":"s")+' · performance based · 100% commission</div>'+
        '<div class="finenote">Before cancellations and rejections. Paid on processable sign-ups at month end.</div></div>'+
        '<div class="calhead"><b>By donor age</b><span>rate by card, gift size and donor age</span></div>'+
        '<table class="hc phone"><tr><th>Age</th><th class="r">Sign-ups</th><th class="r">Rp</th></tr>'+
@@ -3383,7 +3742,7 @@ function renderTrain(){
   const bookedIds=new Set(thisWk.flatMap(t=>t.attendees));
   const notBooked=frs.filter(p=>!bookedIds.has(p.id)), nbB1=notBooked.filter(p=>{const v=avgP(p.id,weekDays(WK))??avgP(p.id,weekDays(WK-1)); return v!=null&&bucketOf(v)===0});
   const core=PROGRAMMES[0], coreP=frs.map(p=>progress(p.id,core)); const coreAvg=Math.round(coreP.reduce((n,x)=>n+x.pct,0)/Math.max(1,coreP.length)), coreDone=coreP.filter(x=>x.complete).length;
-  const overdue=frs.flatMap(p=>PROGRAMMES.filter(pr=>pr.every).map(pr=>({p,pr,pg:progress(p.id,pr)})).filter(x=>x.pg.due&&(x.pr.id==="career"||x.pr.id===x.p.c)));
+  const overdue=frs.flatMap(p=>PROGRAMMES.filter(pr=>pr.every).map(pr=>({p,pr,pg:progress(p.id,pr)})).filter(x=>x.pg.due&&(x.pr.id==="career"||accredited(x.p,x.pr.id))));
   const past=TRAIN.filter(t=>t.date<HTODAY&&t.attended), attRate=past.length?Math.round(past.reduce((n,t)=>n+t.attended.length,0)/Math.max(1,past.reduce((n,t)=>n+t.attendees.length,0))*100):null;
   const unmarked=TRAIN.filter(t=>t.date<HTODAY&&!t.attended).length;
   const gaps={}; frs.forEach(p=>{const d=DONE[p.id]||{}; core.steps.flatMap(s=>s[1]).forEach(t=>{if(!d[t])gaps[t]=(gaps[t]||0)+1})}); const topGap=Object.entries(gaps).sort((a,b)=>b[1]-a[1])[0];
@@ -3445,7 +3804,7 @@ function renderTrain(){
 function sessionCard(t){const tr=by(t.trainer), pg=progOf(t.topic), past=t.date<HTODAY;
   return '<div class="trsess'+(past?" past":"")+'" data-id="'+t.id+'" style="border-left-color:'+topicColor(t.topic)+'"><button class="trdel" title="Delete this session">×</button><div class="trhead"><b>'+t.topic+'</b><span>'+t.start+'–'+t.end+(tr?' · '+tr.n.split(" ")[0]:'')+(t.room?' · '+t.room.replace("Office · ",""):'')+(pg?' · '+(pg.prog.steps.length>1?'step '+pg.step:pg.prog.name.replace("Client training · ",""))+'':'')+(t.series?' · <i title="part of a repeating series">↻</i>':'')+'</span></div>'+
     '<div class="tratt">'+t.attendees.map(id=>{const p=by(id); const went=t.attended?t.attended.includes(id):null; return p?'<span class="att'+(went===true?" went":went===false?" missed":"")+'">'+p.n.split(" ")[0]+' '+(p.n.split(" ")[1]||"").slice(0,1)+(past?'':'<button class="rmatt" data-p="'+id+'" title="Remove">×</button>')+'</span>':''}).join("")+
-    (past?'':'<button class="addfr" data-id="'+t.id+'">'+(t.attendees.length?'＋ Add':'＋ Add fundraisers')+'</button>')+'</div>'+
+    (past?'':'<button class="addfr" data-id="'+t.id+'">'+'＋ Add fundraisers'+'</button>')+'</div>'+
     (past?'<button class="markatt'+(t.attended?" done":"")+'">'+(t.attended?t.attended.length+'/'+t.attendees.length+' attended · edit':'Mark attendance')+'</button>':'')+'</div>'}
 function addAttendee(sid,pid){const t=TRAIN.find(x=>x.id===sid); if(!t)return; if(t.attendees.includes(pid))return flash(by(pid).n+" is already in this session");
   const clash=TRAIN.find(x=>x.id!==sid&&x.date===t.date&&x.attendees.includes(pid)&&x.start<t.end&&t.start<x.end); if(clash)return flash(by(pid).n+" is already in "+clash.topic+" at "+clash.start);
@@ -3460,7 +3819,7 @@ function deleteSession(t){const sc=document.createElement("div"); sc.className="
   document.body.appendChild(sc)}
 function attendanceSheet(t){const sc=document.createElement("div"); sc.className="scrim"; const cur=new Set(t.attended||t.attendees);
   sc.innerHTML='<div class="modal"><h3>'+t.topic+' · '+t.date+' Sep</h3><p class="hint">Tick who turned up. Ticked people get this topic marked complete.</p>'+
-    '<div class="attlist">'+t.attendees.map(id=>'<label class="chk"><input type="checkbox" data-p="'+id+'"'+(cur.has(id)?" checked":"")+'> '+by(id).n+'</label>').join("")+'</div>'+
+    '<div class="attlist">'+t.attendees.map(id=>'<label class="chk"><input type="checkbox" data-p="'+id+'"'+(cur.has(id)?" checked":"")+'> '+nameOf(id)+'</label>').join("")+'</div>'+
     '<div class="row"><button class="no">Cancel</button><button class="go">Save attendance</button></div></div>';
   sc.querySelector(".no").onclick=()=>sc.remove();
   sc.querySelector(".go").onclick=()=>{t.attended=[...sc.querySelectorAll("input:checked")].map(i=>+i.dataset.p); const iso="2026-09-"+String(t.date).padStart(2,"0");
@@ -3474,21 +3833,24 @@ function sessionForm(t){const isNew=!t.id; const o=Object.assign({date:HTODAY,st
     '<div class="two"><label>Start<input type="time" id="tstart" value="'+o.start+'"></label><label>Finish<input type="time" id="tend" value="'+o.end+'"></label></div>'+
     '<label>Where<input id="troom" value="'+o.room+'"></label>'+
     (isNew?'<label>Repeat<select id="trep"><option value="none">Just this once</option><option value="week">Every day this week (Mon–Fri)</option><option value="w4">Same day, every week for 4 weeks</option><option value="q">Every 3 months (career development)</option></select></label>':(o.series?'<p class="hint">Part of a repeating series ↻</p>':''))+
-    '<p class="hint">'+o.attendees.length+' fundraiser'+(o.attendees.length===1?"":"s")+' booked · use ＋ Add on the session to change who\'s coming.</p>'+
-    '<div class="row">'+(isNew?'':'<button class="danger" id="tdel">Delete'+(o.series?' this one':'')+'</button>'+(o.series?'<button class="danger" id="tdelall">Delete whole series</button>':''))+'<button class="no">Cancel</button><button class="go">'+(isNew?"Create":"Save")+'</button></div></div>';
+    '<p class="hint">'+o.attendees.length+' fundraiser'+(o.attendees.length===1?"":"s")+' booked. Pick who\'s coming with <b>'+(isNew?"Create":"Save")+' &amp; add fundraisers</b> below — grouped by region and team, showing who still needs this topic.</p>'+
+    '<div class="row">'+(isNew?'':'<button class="danger" id="tdel">Delete'+(o.series?' this one':'')+'</button>'+(o.series?'<button class="danger" id="tdelall">Delete whole series</button>':''))+'<button class="no">Cancel</button><button class="go">'+(isNew?"Create":"Save")+'</button><button class="go" id="tgopick">'+(isNew?"Create &amp; add fundraisers":"Save &amp; add fundraisers")+'</button></div></div>';
   const q=id=>sc.querySelector("#"+id);
   sc.querySelector(".no").onclick=()=>sc.remove();
   if(q("tdel"))q("tdel").onclick=()=>{TRAIN=TRAIN.filter(x=>x.id!==t.id); sc.remove(); renderTrain(); renderFRD()};
   if(q("tdelall"))q("tdelall").onclick=()=>{TRAIN=TRAIN.filter(x=>x.series!==t.series); sc.remove(); renderTrain(); renderFRD()};
-  sc.querySelector(".go").onclick=()=>{const date=+q("tdate").value, start=q("tstart").value, end=q("tend").value, topic=q("ttopic").value.trim();
+  const save=()=>{let target=isNew?null:t; const date=+q("tdate").value, start=q("tstart").value, end=q("tend").value, topic=esc(q("ttopic").value.trim());
     if(!topic)return flash("Give the session a topic"); if(!(date>=1&&date<=30)||dow(date)>4)return flash("Training runs Monday to Friday"); if(end<=start)return flash("Finish must be after start");
     if(!allTopics().includes(topic))CUSTOM_TOPICS.push(topic);
-    Object.assign(o,{date,start,end,topic,trainer:+q("ttr").value,room:q("troom").value.trim()});
+    Object.assign(o,{date,start,end,topic,trainer:+q("ttr").value,room:esc(q("troom").value.trim())});
+    if(!isNew)Object.assign(t,{date:o.date,start:o.start,end:o.end,topic:o.topic,trainer:o.trainer,room:o.room});   // the form edits a copy — write the changes back to the session
     if(isNew){const rep=q("trep").value; const dates=rep==="week"?[0,1,2,3,4].map(di=>{const wi=[0,1,2,3,4].find(w=>WEEKS[w].dates.includes(date)&&WEEKS[w].mon[WEEKS[w].dates.indexOf(date)]===9); return wi!=null?WEEKS[wi].dates[di]:null}).filter(x=>x&&x<=30&&x>=1)
         :rep==="w4"?[0,1,2,3].map(k=>date+7*k).filter(x=>x<=30):[date];
-      const series=rep==="none"?null:"s"+trainSeq; dates.forEach(dd=>TRAIN.push(Object.assign({},o,{id:trainSeq++,date:dd,series,attendees:[...o.attendees],attended:null})));
+      const series=rep==="none"?null:"s"+trainSeq; dates.forEach(dd=>TRAIN.push(Object.assign({},o,{id:trainSeq++,date:dd,series,attendees:[...o.attendees],attended:null}))); target=TRAIN[TRAIN.length-dates.length];
       if(rep==="q")flash("Career development booked — Popcorn will remind you to schedule the next one in December.")}
-    sc.remove(); TRW=[0,1,2,3,4].find(wi=>WEEKS[wi].dates.includes(o.date)&&WEEKS[wi].mon[WEEKS[wi].dates.indexOf(o.date)]===9)??TRW; renderTrain(); renderFRD()};
+    sc.remove(); TRW=[0,1,2,3,4].find(wi=>WEEKS[wi].dates.includes(o.date)&&WEEKS[wi].mon[WEEKS[wi].dates.indexOf(o.date)]===9)??TRW; renderTrain(); renderFRD(); return target};
+  sc.querySelector(".go").onclick=()=>{save()};
+  q("tgopick").onclick=()=>{const made=save(); if(made)frPicker(made)};   // the picker opens on the session just saved
   document.body.appendChild(sc)}
 /* ---------- progress matrix ---------- */
 function renderProgress(){
@@ -3496,7 +3858,7 @@ function renderProgress(){
   const tsel=document.getElementById("trteam"); if(!tsel.options.length){tsel.innerHTML='<option value="all">All teams</option>'+P.filter(p=>p.lv>=1&&p.lv<=5&&!p.placeholder).sort((a,b)=>a.lv-b.lv||a.n.localeCompare(b.n)).map(x=>'<option value="'+x.id+'">'+LEVELS[x.lv]+' — '+x.n+'</option>').join(""); tsel.oninput=renderTrain}
   const pr=PROGRAMMES.find(x=>x.id===TRPROG), scope=tsel.value==="all"?null:+tsel.value;
   let frs=P.filter(p=>p.lv>=6&&!p.placeholder&&(scope==null||under(scope).has(p.id)));
-  if(pr.id==="stc"||pr.id==="ykan")frs=frs.filter(p=>p.c===pr.id);
+  if(pr.id==="stc"||pr.id==="ykan")frs=frs.filter(p=>accredited(p,pr.id));
   const rows=frs.map(p=>({p,pg:progress(p.id,pr)})).sort((a,b)=>b.pg.done-a.pg.done||a.p.n.localeCompare(b.p.n));
   document.querySelectorAll(".trpv").forEach(b=>{b.classList.toggle("on",b.dataset.v===TRPV); b.onclick=()=>{TRPV=b.dataset.v; renderTrain()}});
   if(TRPV==="missing")return renderMissing(pr,rows);
@@ -3567,7 +3929,7 @@ function renderScheduleMatrix(){
   const ps=document.getElementById("trmxProg"); if(!ps.options.length){ps.innerHTML=PROGRAMMES.map(pr=>'<option value="'+pr.id+'">'+pr.name+'</option>').join(""); ps.oninput=()=>{TRMXP=ps.value; renderScheduleMatrix()}}
   const ts=document.getElementById("trmxTeam"); if(!ts.options.length){ts.innerHTML='<option value="all">All teams</option>'+P.filter(p=>p.lv>=1&&p.lv<=5&&!p.placeholder).sort((a,b)=>a.lv-b.lv||a.n.localeCompare(b.n)).map(x=>'<option value="'+x.id+'">'+LEVELS[x.lv]+' — '+x.n+'</option>').join(""); ts.oninput=renderScheduleMatrix}
   const pr=PROGRAMMES.find(x=>x.id===TRMXP), scope=ts.value==="all"?null:+ts.value;
-  let frs=P.filter(p=>p.lv>=6&&!p.placeholder&&(scope==null||under(scope).has(p.id))); if(pr.id==="stc"||pr.id==="ykan")frs=frs.filter(p=>p.c===pr.id);
+  let frs=P.filter(p=>p.lv>=6&&!p.placeholder&&(scope==null||under(scope).has(p.id))); if(pr.id==="stc"||pr.id==="ykan")frs=frs.filter(p=>accredited(p,pr.id));
   const rows=frs.map(p=>({p,pg:progress(p.id,pr)}));
   const done=rows.filter(r=>r.pg.complete).length;
   document.getElementById("trmxSub").textContent=rows.length+" fundraisers · "+done+" complete · "+Math.round(rows.reduce((n,r)=>n+r.pg.pct,0)/Math.max(1,rows.length))+"% average";
@@ -3590,7 +3952,34 @@ function checklistBox(pid,pr){const p=by(pid), pg=progress(pid,pr); const sc=doc
     '<p class="hint">'+(pg.nextUp?'Next up: <b>'+pg.nextUp+'</b> — book '+p.n.split(" ")[0]+' into the next session that runs it, or click that column in the matrix to schedule one.':pr.every?(pg.due?'<b class="wc">Refresher due.</b>':'Up to date.'):'Programme complete.')+'</p>'+
     '<div class="row"><button class="no">Close</button></div></div>';
   sc.querySelector(".no").onclick=()=>sc.remove(); document.body.appendChild(sc)}
-document.getElementById("tradd").onclick=()=>{const v=document.getElementById("trnew").value.trim(); if(!v)return; if(!allTopics().includes(v))CUSTOM_TOPICS.push(v); document.getElementById("trnew").value=""; renderTrain()};
+document.getElementById("tradd").onclick=()=>{const v=esc(document.getElementById("trnew").value.trim()); if(!v)return; if(!allTopics().includes(v))CUSTOM_TOPICS.push(v); document.getElementById("trnew").value=""; renderTrain()};
+
+/* Real sites (Dave, 24 Sep 2026): the Waysact "Team location" string is exactly the Evergiving location name,
+   so it is kept verbatim (x.wa) and listed as an Evergiving location; x.n is only a short label for grids.
+   The 4-digit prefix IS the Evergiving location id (Dave, 24 Sep 2026). A site that only ever ran the paused
+   Plan campaign has no usual campaign (c:null); Events picks STC or YKAN on each booking. Map pins come from tools/geocode_sites.py
+   (confident matches only); hours stay as Events sets them. */
+const REAL_SITES=(typeof window!=="undefined"&&Array.isArray(window.LOCAL_SITES))?window.LOCAL_SITES:[];
+REAL_SITES.forEach(r=>{const loc=+r.code||null;
+  SITES.push({n:esc(r.n),wa:esc(r.wa),spot:esc(r.spot||""),loc,c:CAMPS[r.c]?r.c:null,note:"",
+    am:["10:00","17:00"],pm:["12:00","19:00"],hlock:false,lat:r.lat??null,lng:r.lng??null,pin:r.pin||"none",radius:r.radius||200,cost:0,loa:"signed",
+    addr:r.region?esc(r.region)+" team":"",tz:r.tz||null,type:r.type||"local",hist:r.hist||null,real:true});
+  if(loc&&!EG_LOCATIONS.some(([id,n])=>n===r.wa))EG_LOCATIONS.push([loc,esc(r.wa)])});
+
+document.querySelectorAll("#evmonths button").forEach(b=>b.onclick=()=>{EVM=+b.dataset.m; renderEvents()});
+
+/* Real staff (team structure from the monthly productivity report + employee file), when tools/import_omniraise.py
+   has written local-data/staff.js (git-ignored). Added after every seed, so no invented attendance, sign-ups, lateness
+   or training ever lands on a real name: they start with nothing. The Head hangs under the top of the tree (id 1).
+   Evergiving user id = staff code until Dave confirms (OPEN). */
+const REAL_STAFF=(typeof window!=="undefined"&&Array.isArray(window.LOCAL_STAFF))?window.LOCAL_STAFF:[];
+(function addRealStaff(){if(!REAL_STAFF.length)return;
+  const base=20000, idOf={}; REAL_STAFF.forEach((r,i)=>idOf[r.code]=base+i+1);
+  REAL_STAFF.forEach((r,i)=>{const id=idOf[r.code];
+    P.push({id,n:esc(r.name),code:esc(r.code),lv:r.lv,to:r.lv===0?1:r.unplaced?null:(idOf[r.leader]||1),unplaced:!!r.unplaced,c:CAMPS[r.c]?r.c:null,also:(r.also||[]).filter(k=>CAMPS[k]&&k!==r.c),
+      eg:1,eid:esc(r.eid||r.code),off:[],start:r.start||"",perm:!!r.perm&&r.lv!==7,tg:"",plan:r.plan==="perf100"?"perf100":"standard",region:esc(r.region||""),signups:0,real:true});
+    MONTH[id]={}; LATE[id]={}; CHECK[id]={}; DONE[id]={}});
+  nextId=Math.max(nextId,base+REAL_STAFF.length+1)})();
 
 phInit(); render(); renderOrg(); renderMonth(); renderPhone(); renderApprovals(); renderEvents(); renderHR(); renderASPC(); renderF2F(); renderFRD(); renderTrain();
 </script>
