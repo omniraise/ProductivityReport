@@ -866,10 +866,24 @@
   .evmonths{display:flex;gap:4px} .evmonths button{padding:5px 12px;border:1px solid var(--line);background:#fff;border-radius:7px;font-size:12.5px;cursor:pointer}
   .evmonths button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
   table.gantt th.dh.om{opacity:.45}
-  #evfc .fcrange{display:flex;gap:8px} #evfc .fcrange label{flex:1;font-size:11.5px;color:var(--ink-soft)} #evfc .fcrange input{width:100%}
+  #evfc{margin:10px 0 12px;padding-top:10px;border-top:1px solid var(--line)} #evfc .fchead{font-size:12px;font-weight:700;letter-spacing:.02em}
   #evfc .fckpi{display:flex;gap:6px;margin:10px 0 6px} #evfc .fckpi div{flex:1;background:#F4F6FA;border-radius:8px;padding:7px 8px;text-align:center}
   #evfc .fckpi b{display:block;font-size:19px} #evfc .fckpi span{font-size:10.5px;color:var(--ink-soft)}
-  #evfc .fcline{font-size:12px;margin:4px 0} #evfc .fcline.warn{color:var(--warn)}
+  #evfc .fcline{font-size:12px;margin:4px 0}
+  #evsites .grouphead.type-local{background:#E6F2F1;color:#1F6F6A} #evsites .grouphead.type-travel{background:#EFEAF7;color:#5B3F8C} #evsites .grouphead.type-streets{background:#FBEDE8;color:#A5452A}
+  #evplan{margin:10px 0 4px;padding-top:10px;border-top:1px solid var(--line)} #evplan .fchead{font-size:12px;font-weight:700;letter-spacing:.02em;margin-bottom:6px}
+  #evplan .planbar{height:8px;border-radius:4px;background:#E9ECF1;overflow:hidden} #evplan .planfill{height:100%;background:var(--warn)} #evplan .planfill.ok{background:#1F6F6A}
+  #evplan .plannums{display:flex;gap:6px;margin:8px 0 4px} #evplan .plannums div{flex:1;background:#F4F6FA;border-radius:8px;padding:6px 8px;text-align:center}
+  #evplan .plannums b{display:block;font-size:18px;font-variant-numeric:tabular-nums} #evplan .plannums span{font-size:10.5px;color:var(--ink-soft)}
+  #evplan .plannums .short b{color:var(--warn)} #evplan .plannums .ok b{color:#1F6F6A}
+  #evplan .fcline{font-size:12px;margin:4px 0}
+  #evplan .planform{display:grid;grid-template-columns:1fr 1fr;gap:8px 10px;margin:8px 0 4px}
+  #evplan .planform label{display:flex;flex-direction:column;gap:2px;font-size:11.5px;color:var(--ink-soft);margin:0}
+  #evplan .planform label>b{font-size:16px;color:var(--ink)} #evplan .planform small{font-size:10.5px;display:flex;align-items:center;gap:4px;flex-wrap:wrap}
+  #evplan input.plin{padding:3px 6px;font-size:13px;border:1px solid var(--line);border-radius:6px}
+  #events em.demo{font-style:normal;font-size:9px;font-weight:700;padding:1px 4px;border-radius:3px;background:#E4E7ED;color:#5B6576;vertical-align:1px}
+  #evfc .fcif{margin:6px 0 8px;padding:7px 9px;border-radius:8px;background:#FFF9E8;font-size:12px} #evfc .fcif b{font-weight:700} #evfc .fcif>b{display:block;color:var(--warn);margin-bottom:2px}
+  #evfc tr.fcun td{color:var(--ink-soft)} #evfc tr.fcun i{font-style:normal;color:var(--warn)} #evfc .fcline.warn{color:var(--warn)}
   #evfc table.fct{table-layout:fixed;width:100%;font-size:11.5px} #evfc table.fct td{vertical-align:top}
   #evfc .fcn{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis} #evfc table.fct small{display:block;font-size:10px;color:var(--ink-soft)}
   /* "also accredited for" on the person forms */
@@ -931,7 +945,6 @@
   <aside class="side">
     <div class="panel"><h2>Publish locked days</h2><p class="hint">Lock a day when it's final. Publish sends only locked days to Evergiving.</p>
       <button class="publish" id="pubBtn" disabled>Publish</button><p class="pend" id="pend"></p><div id="msgs"></div></div>
-    <div class="panel"><h2>Leave requests</h2><div id="appr"></div></div>
     <div class="panel"><h2>Coverage this week</h2><div class="cov" id="cov"></div></div>
     <div class="panel"><h2>Absences</h2><div class="abslist" id="abslist"></div></div>
     <div class="panel"><h2>Evergiving activity</h2><div class="feed" id="feed"><span class="empty">Nothing sent yet.</span></div></div>
@@ -1012,7 +1025,6 @@
   </section>
   <aside class="side">
     <div class="panel"><h2 id="evsumh">September at a glance</h2><div id="evsum"></div></div>
-    <div class="panel"><h2>Gross speed forecast</h2><div id="evfc"></div></div>
     <div class="panel"><h2>Needs attention</h2><div id="evflags"></div></div>
   </aside>
 </main>
@@ -1691,7 +1703,7 @@ const certRefuse=(pid,d)=>{CERTNO[pid]=CERTNO[pid]||[]; if(!CERTNO[pid].includes
 const ABS_TO_MONTH={mc:"mc",sick:"sick",emg:"leave",plan:"leave",off:"leave",ns:"ns"};
 const REQ=[];
 const RTYPES=[
- {k:"off", l:"Just an off day",             ic:"\u{1F6CB}\uFE0F", note:"No reason needed. Your manager decides."},
+ {k:"off", l:"Just an off day",             ic:"\u{1F6CB}\uFE0F", note:"No reason needed. HR decides."},
  {k:"plan",l:"Planned leave",               ic:"\u{1F4C5}", note:"Wedding, family event, something booked."},
  {k:"emg", l:"Emergency",                   ic:"\u26A0\uFE0F", note:"Something happened and you can't come."},
  {k:"mc",  l:"Sick — I have a certificate", ic:"\u{1FA7A}", note:"You'll add a photo of the certificate."},
@@ -1750,7 +1762,7 @@ function renderLeave(){
   if(ROLE==="fr")h+='<button class="linkbtn mnback" onclick="goTab(\'main\')">\u2039 Main</button>';
   h+='<div class="lvbal">'+(ME.perm?'<b>'+bal+'</b><span>paid days left this year<small>'+acc+' accrued · '+used+' used · 1 day per full month, resets 1 January</small></span>'
       :'<b>\u2014</b><span>unpaid leave<small>Contractors do not accrue paid leave. Time off still needs approval.</small></span>')+'</div>';
-  h+='<div class="calhead"><b>Ask for time off</b><span>'+M.n+' · tap the first day. '+leaderOf(ME)+' decides; 3 days or more also goes to HR.</span></div>';
+  h+='<div class="calhead"><b>Ask for time off</b><span>'+M.n+' · tap the first day. HR decides.</span></div>';
   h+='<div class="bigcal">';
   ["M","T","W","T","F","S","S"].forEach(x=>h+='<div class="dow">'+x+'</div>');
   for(let i=0;i<M.start;i++)h+='<div></div>';
@@ -1760,7 +1772,7 @@ function renderLeave(){
   h+='</div>';
   h+='<div class="calhead"><b>Your requests</b><span>'+(mine.length?mine.length+' this month':'None yet')+'</span></div><div class="says">'+
      (mine.length?mine.map(r=>'<div class="say '+(r.status==="pending"?"wait":r.status==="approved"?"done":"stop")+'"><b>'+RTYPES.find(t=>t.k===r.type).l+'</b> · '+listDays(r.days,r.mon)+'<br>'+
-        (r.status==="pending"?'Sent to '+r.to+(r.hr?' and HR':'')+'. '+(r.hr?'More than 2 days in a row needs HR.':'You\'ll get a WhatsApp when they reply.')+'<button class="lvcancel" data-cancelreq="'+r.id+'">Cancel this request</button>'
+        (r.status==="pending"?'Sent to HR. You\'ll get a WhatsApp when they reply.'+'<button class="lvcancel" data-cancelreq="'+r.id+'">Cancel this request</button>'
          :r.status==="approved"?'Approved for '+listDays(r.days,r.mon)+'.':'Declined.')+'</div>').join("")
       :'<div class="say plain">No requests yet.</div>')+'</div>';
   app.innerHTML=h;
@@ -1948,7 +1960,7 @@ function certSheet(days){
     cov.textContent=(sp.length===1?dstr(sp[0]):dstr(sp[0])+"  \u2192  "+dstr(sp[sp.length-1]))+(skipped?"  \u00b7  "+a.length+" sick day"+(a.length===1?"":"s")+" in this run":"");
     if(got){done.className="";done.innerHTML='<div class="say done" style="margin-top:12px">Photo attached for '+
       (a.length===1?dstr(a[0]):a.length+" days, "+dstr(a[0])+" to "+dstr(a[a.length-1]))+
-      '. It goes to '+leaderOf(ME)+' and HR.</div>'}
+      '. It goes to HR.</div>'}
     send.textContent="Send certificate · "+a.length+" day"+(a.length===1?"":"s"); send.disabled=!a.length};
   sc.querySelectorAll(".nbtn.wide").forEach(b=>b.onclick=()=>{pickDay=+b.dataset.d;
     sc.querySelectorAll(".nbtn.wide").forEach(x=>x.classList.toggle("on",x===b)); upd()});
@@ -1985,7 +1997,7 @@ function leaveSheet(d){
   const step2=sc.querySelector("#step2"), send=sc.querySelector("#sendreq");
   const cph=sc.querySelector("#certrow .photo"); cph.onclick=()=>{photo=true; cph.classList.add("attached"); cph.textContent="\u2713 Certificate photo attached"};
   const upd=()=>{sc.querySelector("#certrow").classList.toggle("hidden",type!=="mc");
-    send.textContent=(n>2?"Send to "+leaderOf(ME)+" and HR":"Send to "+leaderOf(ME))+" · "+n+" day"+(n>1?"s":"")};
+    send.textContent="Send to HR · "+n+" day"+(n>1?"s":"")};
   sc.querySelectorAll(".reason").forEach(b=>b.onclick=()=>{type=b.dataset.k;
     sc.querySelectorAll(".reason").forEach(x=>x.classList.toggle("on",x===b));
     step2.classList.remove("hidden"); sc.querySelector("#c1").classList.add("hidden"); upd()});
@@ -1994,36 +2006,24 @@ function leaveSheet(d){
   sc.querySelectorAll(".cancel2, #c1").forEach(b=>b.onclick=()=>sc.remove());
   send.onclick=()=>{const ds=[];for(let i=0;i<n&&d+i<=M.days;i++)ds.push(d+i);
     REQ.push({id:Date.now(),pid:ME.id,mon:PM,days:ds,type,reason:esc(sc.querySelector("#why").value.trim()),
-      status:"pending",to:leaderOf(ME),hr:n>2,sent:"20 Sep",cert:type==="mc"&&photo});
+      status:"pending",to:"HR",hr:true,sent:"20 Sep",cert:type==="mc"&&photo});
     sc.remove(); renderPhone(); renderApprovals(); renderLeave()};
   document.body.appendChild(sc);
 }
 /* ---- approvals list for the manager (roster side panel) ---- */
-function renderApprovals(){
-  const el=document.getElementById("appr"); if(!el)return;
-  const pend=REQ.filter(r=>r.status==="pending");
-  el.innerHTML=pend.length?pend.map(r=>{const p=by(r.pid);
-    return '<div class="apr"><b>'+p.n+'</b><span>'+r.days.join(", ")+' '+MONTHS[r.mon].n.slice(0,3)+' · '+RTYPES.find(t=>t.k===r.type).l+
-      (r.hr?' · <i class="hrflag">HR too</i>':'')+'</span>'+(r.reason?'<i>"'+r.reason+'"</i>':'')+
-      '<div class="aprrow"><button class="undo" data-no="'+r.id+'">Decline</button><button class="apbtn" data-yes="'+r.id+'">Approve</button></div></div>'}).join("")
-    :'<span class="empty">No requests waiting.</span>';
-  el.querySelectorAll("[data-yes]").forEach(b=>b.onclick=()=>{
-    const r=REQ.find(x=>x.id==b.dataset.yes); r.status="approved"; const p=by(r.pid);
-    r.days.forEach(dd=>{const wd=findWD(dd,r.mon); if(!wd)return; const [w,di]=wd;
-      const a=A.find(x=>x.pid===r.pid&&x.w===w&&x.d===di);
-      if(a){const live=published.has(k(a)); A=A.filter(x=>x!==a); if(live){published.delete(k(a));
-        log("warn","Evergiving still shows "+p.n+" at "+SITES[a.s].n,"Leave approved after publishing. Needs removing there.")}}
-      ABS.push({pid:r.pid,w:w,d:di,t:r.type==="plan"?"plan":r.type,reason:r.reason});
-      if(r.type==="mc"&&r.cert&&r.mon===9){CERT[r.pid]=CERT[r.pid]||[]; if(!CERT[r.pid].includes(dd))CERT[r.pid].push(dd)}});   // a photo sent with the request is on file
-    log("pull",p.n+" — leave approved, "+r.days.join(", ")+" "+MONTHS[r.mon].n.slice(0,3),RTYPES.find(t=>t.k===r.type).l+". Shifts released.");
-    renderApprovals(); render(); renderPhone(); if(document.getElementById("hreq"))renderHRLeave();
-  });
-  el.querySelectorAll("[data-no]").forEach(b=>b.onclick=()=>{
-    const r=REQ.find(x=>x.id==b.dataset.no); r.status="declined";
-    log("warn",nameOf(r.pid)+" — leave declined","They keep their shifts. They get a WhatsApp.");
-    renderApprovals(); renderPhone();
-  });
-}
+/* Leave is decided by HR only (Dave, 25 Sep 2026) — the Weekly roster no longer has a leave panel. Approving releases the
+   shifts (Evergiving is warned if they were published) and records the absences the roster, month and phone read. */
+function approveLeave(r){
+  if(!r||r.status!=="pending")return; r.status="approved"; const p=personOf(r.pid);
+  r.days.forEach(dd=>{const wd=findWD(dd,r.mon); if(!wd)return; const [w,di]=wd;
+    const a=A.find(x=>x.pid===r.pid&&x.w===w&&x.d===di);
+    if(a){const live=published.has(k(a)); A=A.filter(x=>x!==a); if(live){published.delete(k(a));
+      log("warn","Evergiving still shows "+p.n+" at "+SITES[a.s].n,"Leave approved after publishing. Needs removing there.")}}
+    ABS.push({pid:r.pid,w:w,d:di,t:r.type==="plan"?"plan":r.type,reason:r.reason});
+    if(r.type==="mc"&&r.cert&&r.mon===9){CERT[r.pid]=CERT[r.pid]||[]; if(!CERT[r.pid].includes(dd))CERT[r.pid].push(dd)}});   // a photo sent with the request is on file
+  log("pull",p.n+" — leave approved by HR, "+r.days.join(", ")+" "+MONTHS[r.mon].n.slice(0,3),RTYPES.find(t=>t.k===r.type).l+". Shifts released.")}
+function declineLeave(r){if(!r||r.status!=="pending")return; r.status="declined"; log("warn",nameOf(r.pid)+" — leave declined by HR","They keep their shifts. They get a WhatsApp.")}
+function renderApprovals(){}   // kept so older call sites stay harmless; there is no roster leave panel any more
 /* ======================= TEAM STRUCTURE (org grid) ======================= */
 let tq="";
 const tmatch=p=>!tq||p.n.toLowerCase().includes(tq)||p.code.toLowerCase().includes(tq);
@@ -2450,56 +2450,89 @@ const evWindow=m=>{const y=m>=8?2026:2027, first=Date.UTC(y,m-1,1), last=Date.UT
 /* Gross speed forecast (Dave, 24 Sep 2026): for the paid bookings in a date range, expected sign-ups per shift from
    each site's own history (Weekly Performance: Σ gross ÷ Σ working days, as Omniraise's Overall tab), or the average
    for its type when it has none. Shifts = event days in range × headcount; travel days are not shifts. */
-let FC={from:"2026-10-01",to:"2026-12-31"};
+const monthRange=m=>{const y=m>=8?2026:2027, mm=String(m).padStart(2,"0"); return [y+"-"+mm+"-01", y+"-"+mm+"-"+String(new Date(Date.UTC(y,m,0)).getUTCDate()).padStart(2,"0")]};   // 1st and last day of a month
 const LOCAL_TYPE=(typeof window!=="undefined"&&window.LOCAL_SPEED_BY_TYPE)||null;
-function forecast(from,to){
+function forecast(from,to,withUnpaid){   // withUnpaid: also count bookings whose site fee is not paid yet ("if they go ahead")
   const a=gfrom(from), b=gfrom(to); if(a==null||b==null||b<a)return null;
-  const rows=[]; let unpaid=0, sample=0; const realOnly=SITES.some(x=>x.real);   // with the client's sites loaded, the demo's invented bookings stay out
+  const rows=[]; let unpaid=0, sample=0; const realOnly=SITES.some(x=>x.real);   // with the client's sites loaded, bookings on demo sites are counted but flagged
   BOOKINGS.forEach(bk=>{const s0=Math.max(bk.start,a), s1=Math.min(bk.end,b); if(s1<s0)return;
-    if(realOnly&&!SITES[bk.si].real){sample++;return}
-    if(isPending(bk)){unpaid++;return}
+    const demo=realOnly&&!SITES[bk.si].real; if(demo)sample++;
+    if(isPending(bk)){unpaid++; if(!withUnpaid)return}
     const x=SITES[bk.si], days=s1-s0+1, shifts=days*bk.hc;
     const h=x.hist||null, t=LOCAL_TYPE&&LOCAL_TYPE[bk.type]||null, sp=h||t;
-    rows.push({bk,x,days,shifts,src:h?"site":t?"type":"none",gs:sp?sp.gs:null,ns:sp?sp.ns:null,ncs:sp?sp.ncs:null,ccs:sp?sp.ccs:null,weeks:h?h.weeks:0})});
+    rows.push({bk,x,days,shifts,unpaid:isPending(bk),demo,src:h?"site":t?"type":"none",gs:sp?sp.gs:null,ns:sp?sp.ns:null,ncs:sp?sp.ncs:null,ccs:sp?sp.ccs:null,weeks:h?h.weeks:0})});
   const known=rows.filter(r=>r.gs!=null), sh=known.reduce((n,r)=>n+r.shifts,0), sum=k=>known.reduce((n,r)=>n+r.shifts*r[k],0);
   return {rows,unpaid,sample,shifts:rows.reduce((n,r)=>n+r.shifts,0),known:sh,gross:sum("gs"),net:sum("ns"),netcc:sum("ncs"),cc:sum("ccs"),
     gs:sh?sum("gs")/sh:null,ns:sh?sum("ns")/sh:null,ncs:sh?sum("ncs")/sh:null,ccs:sh?sum("ccs")/sh:null}}
-function renderForecast(){
-  const el=document.getElementById("evfc"); if(!el)return;
-  const f=forecast(FC.from,FC.to), n2=v=>v==null?"–":v.toFixed(2);
-  let h='<div class="fcrange"><label>From<input type="date" id="fcfrom" value="'+FC.from+'" min="'+gdate(0)+'" max="'+gdate(SPAN-1)+'"></label>'+
-        '<label>To<input type="date" id="fcto" value="'+FC.to+'" min="'+gdate(0)+'" max="'+gdate(SPAN-1)+'"></label></div>';
-  if(!f)h+='<p class="hint">Pick a range between '+glabel(0)+' and '+glabel(SPAN-1)+'.</p>';
-  else if(!f.rows.length)h+='<p class="hint">No paid bookings in this range yet.'+(f.unpaid?' '+f.unpaid+' booking'+(f.unpaid>1?"s":"")+' waiting for the site fee.':'')+'</p>';
+/* the forecast is fixed to the month shown on the Events grid (Dave, 25 Sep 2026: no date pickers; "October at a glance"
+   shows October's gross speed) */
+/* Shifts to book (Dave, 25 Sep 2026): how many shifts Events should book in a month for the people we have.
+   capacity per person = days in the month × 6/7 (six shifts a week at most); Events books 80% of that, leaving room for
+   leave and sickness; expected newies count at the share who stay (50%). All four figures are editable per month. */
+const EVPLAN={};   // month -> {newies, keep %, rate %, cap}
+const planOf=m=>{const y=m>=8?2026:2027, days=new Date(Date.UTC(y,m,0)).getUTCDate();
+  return Object.assign({newies:0,keep:50,rate:80,cap:Math.round(days*6/7)},EVPLAN[m]||{})};
+const rosterHeadcount=()=>{const realOnly=P.some(p=>p.real);   // the people Events books for: everyone who can be rostered
+  return P.filter(p=>p.lv>=3&&!p.placeholder&&(!realOnly||p.real))};
+function shiftPlan(m){const pl=planOf(m), people=rosterHeadcount(), heads=people.length, stay=pl.newies*pl.keep/100;
+  const target=Math.round((heads+stay)*pl.cap*pl.rate/100);
+  const [from,to]=monthRange(m), f=forecast(from,to,true), booked=f?f.shifts:0;
+  return {pl,heads,byLv:{lead:people.filter(p=>p.lv<=5).length,fr:people.filter(p=>p.lv===6).length,tr:people.filter(p=>p.lv===7).length},stay,target,booked,gap:target-booked}}
+function planHtml(m){const x=shiftPlan(m), pl=x.pl, pct=x.target?Math.min(100,Math.round(x.booked/x.target*100)):0;
+  const inp=(id,v,w,suffix)=>'<input type="number" min="0" inputmode="numeric" class="plin" id="'+id+'" value="'+v+'" style="width:'+w+'px">'+(suffix||'');
+  return '<div id="evplan"><div class="fchead">Shifts to book · '+MLONG[m-1]+'</div>'+
+    '<div class="planbar"><div class="planfill'+(x.gap<=0?" ok":"")+'" style="width:'+pct+'%"></div></div>'+
+    '<div class="plannums"><div><b>'+x.booked+'</b><span>booked</span></div><div><b>'+x.target+'</b><span>needed</span></div><div class="'+(x.gap>0?"short":"ok")+'"><b>'+(x.gap>0?x.gap:"✓")+'</b><span>'+(x.gap>0?"still to book":"covered")+'</span></div></div>'+
+    (x.gap>0?'<p class="fcline">About <b>'+Math.ceil(x.gap/5)+' site-days</b> at 5 people a day — e.g. '+Math.ceil(x.gap/35)+' site'+(Math.ceil(x.gap/35)>1?"s":"")+' booked for a full week.</p>':'<p class="fcline">Bookings cover the shifts needed for the people we have.</p>')+
+    '<div class="planform">'+
+      '<label>Active headcount<b>'+x.heads+'</b><small>'+x.byLv.lead+' leaders · '+x.byLv.fr+' fundraisers · '+x.byLv.tr+' trainees</small></label>'+
+      '<label>Newies expected'+inp("plnew",pl.newies,56)+'<small>'+inp("plkeep",pl.keep,46,"% stay")+' → +'+(Math.round(x.stay*10)/10)+'</small></label>'+
+      '<label>Shifts per person'+inp("plcap",pl.cap,52)+'<small>6 days a week max</small></label>'+
+      '<label>Book'+inp("plrate",pl.rate,46,"%")+'<small>of capacity (leave, sickness)</small></label>'+
+    '</div>'+
+    '<p class="hint">Needed = (headcount + newies who stay) × shifts per person × '+pl.rate+'%. Booked counts every booking this month, paid or not; travel days are not shifts.</p></div>'}
+function wirePlan(m){const q=id=>document.getElementById(id); if(!q("plnew"))return;
+  const save=()=>{const v=id=>Math.max(0,+q(id).value||0); EVPLAN[m]={newies:v("plnew"),keep:Math.min(100,v("plkeep")),rate:Math.min(100,v("plrate")),cap:v("plcap")}; renderEvents()};
+  ["plnew","plkeep","plcap","plrate"].forEach(id=>q(id).addEventListener("change",save))}
+function forecastHtml(m){
+  // every booking counts, paid or not (Dave, 25 Sep 2026); "paid only" is shown underneath for comparison
+  const [from,to]=monthRange(m), f=forecast(from,to,true), fp=forecast(from,to), n2=v=>v==null?"–":v.toFixed(2);
+  let h='<div id="evfc"><div class="fchead">Gross speed forecast · '+MLONG[m-1]+'</div>';
+  if(!f)h+='<p class="hint">Outside the Events calendar.</p>';
+  else if(!f.rows.length)h+='<p class="hint">No bookings in '+MLONG[m-1]+' yet.</p>';
   else{
     h+='<div class="fckpi"><div><b>'+n2(f.gs)+'</b><span>gross speed</span></div><div><b>'+n2(f.ns)+'</b><span>est. net speed</span></div><div><b>'+n2(f.ncs)+'</b><span>est. net CC speed</span></div></div>'+
        '<p class="fcline"><b>'+Math.round(f.gross)+'</b> gross sign-ups expected from <b>'+f.shifts+'</b> shifts ('+Math.round(f.net)+' est. net, '+Math.round(f.cc)+' gross credit card)'+
        (f.known<f.shifts?' · '+(f.shifts-f.known)+' shifts at sites with no history are left out':'')+'.</p>'+
-       (f.sample?'<p class="fcline">'+f.sample+' sample booking'+(f.sample>1?"s":"")+' left out.</p>':'')+
-       (f.unpaid?'<p class="fcline warn">'+f.unpaid+' unpaid booking'+(f.unpaid>1?"s":"")+' in this range not counted.</p>':'')+
+       (f.sample?'<p class="fcline warn">'+f.sample+' booking'+(f.sample>1?"s are":" is")+' on a DEMO site (sample data, no history) — counted at its type\'s average. Book the real site from the list for its own speed.</p>':'')+
+       (f.unpaid?'<div class="fcif"><b>Includes '+f.unpaid+' booking'+(f.unpaid>1?"s":"")+' with the site fee unpaid</b>'+
+         '<span>Paid bookings only: gross speed <b>'+n2(fp.gs)+'</b> · <b>'+Math.round(fp.gross)+'</b> gross sign-ups from <b>'+fp.shifts+'</b> shifts</span></div>':'')+
        '<table class="qt fct"><colgroup><col><col style="width:44px"><col style="width:46px"><col style="width:50px"></colgroup><tr><th>Site</th><th class="r">Shifts</th><th class="r">Speed</th><th class="r">Gross</th></tr>'+
-       f.rows.sort((p,q)=>q.shifts*(q.gs||0)-p.shifts*(p.gs||0)).map(r=>'<tr><td title="'+(r.x.wa||r.x.n)+'"><span class="fcn">'+r.x.n+'</span><small>'+glabel(Math.max(r.bk.start,gfrom(FC.from)))+' · '+TYPES[r.bk.type]+' · '+
+       f.rows.sort((p,q)=>q.shifts*(q.gs||0)-p.shifts*(p.gs||0)).map(r=>'<tr'+(r.unpaid?' class="fcun"':'')+'><td title="'+(r.x.wa||r.x.n)+'"><span class="fcn">'+r.x.n+'</span><small>'+(r.demo?'<i>DEMO site</i> · ':'')+(r.unpaid?'<i>site fee unpaid</i> · ':'')+glabel(Math.max(r.bk.start,gfrom(from)))+' · '+TYPES[r.bk.type]+' · '+
          (r.src==="site"?r.weeks+' past weeks':r.src==="type"?'no history · '+TYPES[r.bk.type].toLowerCase()+' average':'no history')+'</small></td>'+
          '<td class="r">'+r.shifts+'</td><td class="r">'+n2(r.gs)+'</td><td class="r">'+(r.gs==null?"–":Math.round(r.shifts*r.gs))+'</td></tr>').join("")+'</table>'+
        '<p class="hint">Speed = sign-ups per fundraiser shift, from each site\'s own past weeks (as in the Overall Performance report). Before cancellations and rejections.</p>'}
-  el.innerHTML=h;
-  const upd=()=>{FC={from:el.querySelector("#fcfrom").value,to:el.querySelector("#fcto").value}; renderForecast()};
-  el.querySelector("#fcfrom").onchange=upd; el.querySelector("#fcto").onchange=upd}
+  return h+'</div>'}
 function renderEvents(){
   const camp=document.getElementById("evcamp").value, q=(document.getElementById("evq").value||"").toLowerCase();
   const canBook=x=>x.loc&&x.loa!=="expired";
   /* --- site library (left) --- */
   const lib=document.getElementById("evsites"); lib.innerHTML="";
-  [...Object.keys(CAMPS),"none"].forEach(c=>{
-    const list=SITES.map((x,i)=>i).filter(si=>(c==="none"?!CAMPS[SITES[si].c]:SITES[si].c===c)&&(!q||SITES[si].n.toLowerCase().includes(q)||(SITES[si].wa||"").toLowerCase().includes(q)));
-    if(!list.length&&c!=="stc"&&c!=="ykan")return;
-    if(c==="none"&&!list.length)return;
+  /* one list, A–Z (Dave, 25 Sep 2026): the campaign is chosen on each booking, so sites are not split by campaign.
+     With the client's site list loaded, only real sites (and sites Events adds) are offered — the demo's sample sites
+     stay only under the sample bookings already on the grid. */
+  // grouped Local / Travel trip / Streets, A–Z within each (Dave, 25 Sep 2026); type = the site's most recent week
+  const realOnly=SITES.some(y=>y.real), typeOf=x=>TYPES[x.type]?x.type:"local";
+  Object.keys(TYPES).forEach(ty=>{
+    const list=SITES.map((x,i)=>i).filter(si=>typeOf(SITES[si])===ty&&(!realOnly||SITES[si].real||SITES[si].added)&&(!q||SITES[si].n.toLowerCase().includes(q)||(SITES[si].wa||"").toLowerCase().includes(q)))
+      .sort((a,b)=>SITES[a].n.localeCompare(SITES[b].n));
+    if(!list.length)return;
     const wrap=document.createElement("div"); wrap.className="group";
-    wrap.innerHTML='<div class="grouphead '+c+'">'+(CAMPS[c]?CAMPS[c].n:"No usual campaign")+'<span>'+list.length+' sites</span></div>';
+    wrap.innerHTML='<div class="grouphead type-'+ty+'">'+TYPES[ty]+'<span>'+list.length+' sites</span></div>';
     const ul=document.createElement("div"); ul.className="pool-list";
     list.forEach(si=>{const x=SITES[si], ok=canBook(x), n=BOOKINGS.filter(b=>b.si===si).length;
       const el=document.createElement("div"); el.className="chip sitechip"+(ok?"":" out"); el.draggable=ok;
-      el.innerHTML='<span class="nm"'+(x.wa?' title="'+x.wa+'"':'')+'>'+x.n+'<small>'+(x.wa?x.wa.slice(0,4)+' · '+x.addr+' · ':'')+'AM '+x.am[0]+' · PM '+x.pm[0]+(ok?"":" · "+(x.loc?"LOA expired":"no Evergiving location"))+'</small></span>'+
+      el.innerHTML='<span class="nm"'+(x.wa?' title="'+x.wa+'"':'')+'>'+x.n+(!x.real&&SITES.some(y=>y.real)?' <em class="demo">DEMO</em>':'')+'<small>'+(x.wa?x.wa.slice(0,4)+' · '+x.addr+' · ':'')+'AM '+x.am[0]+' · PM '+x.pm[0]+(ok?"":" · "+(x.loc?"LOA expired":"no Evergiving location"))+'</small></span>'+
         (n?'<span class="wk" title="bookings this month">'+n+'</span>':'');
       if(ok){el.addEventListener("dragstart",e=>{e.dataTransfer.setData("text/plain","site:"+si);el.classList.add("dragging")});
              el.addEventListener("dragend",()=>el.classList.remove("dragging"))}
@@ -2530,7 +2563,7 @@ function renderEvents(){
           h+='<td class="bar '+bk.type+(isPending(bk)?" pending":"")+(gw(i)===WK?" cur":"")+'" colspan="'+len+'" data-id="'+bk.id+'" title="'+glabel(bk.start)+' → '+glabel(bk.end)+' · '+TYPES[bk.type]+(isPending(bk)?" · site fee unpaid":" · site fee paid")+(lo||hi?" · travel "+glabel(spanStart(bk))+" / "+glabel(spanEnd(bk)):"")+'">'+
              '<div class="barin"><span class="hdl l" data-id="'+bk.id+'" data-edge="start" title="Drag to change start"></span>'+
              ((lo||hi)?'<span class="travelends" style="'+mask+'"></span>':'')+
-             '<div class="bartxt" style="padding-left:'+(lo?pct(lo):0)+';padding-right:'+(hi?pct(hi):0)+'"><b>'+x.n+(isPending(bk)?' <em class="pend">pending</em>':' <em class="paid">paid</em>')+
+             '<div class="bartxt" style="padding-left:'+(lo?pct(lo):0)+';padding-right:'+(hi?pct(hi):0)+'"><b>'+x.n+(!x.real&&SITES.some(y=>y.real)?' <em class="demo">DEMO</em>':'')+(isPending(bk)?' <em class="pend">pending</em>':' <em class="paid">paid</em>')+
              (bk.type==="travel"?(!bk.travelOk?' <em class="trv">travel not booked</em>':(bk.transportPaid&&bk.accomPaid)?' <em class="trv ok">travel booked</em>':' <em class="trv unpaid">travel unpaid</em>'):'')+'</b>'+
              '<span>Start '+x.am[0]+' · Finish '+x.pm[1]+' · AM '+x.am[0]+'–'+x.am[1]+' · PM '+x.pm[0]+'–'+x.pm[1]+'</span>'+
              '<span>'+bkDays(bk)+'d · '+bk.hc+'/day · '+CAMPS[bk.c||x.c].n+(bkPerShift(bk)?' · '+IDRx(bkPerShift(bk))+'/shift':'')+'</span></div>'+
@@ -2573,7 +2606,8 @@ function renderEvents(){
     BOOKINGS.push(bk); NEWROWS.delete(si); renderEvents(); render(); bookingForm(bk)});
   dzw.onclick=()=>{
     const sc=document.createElement("div"); sc.className="scrim";
-    const opts=SITES.map((x,i)=>i).filter(si=>canBook(SITES[si])&&!rows.includes(si));
+    const realOnly=SITES.some(y=>y.real);
+    const opts=SITES.map((x,i)=>i).filter(si=>canBook(SITES[si])&&!rows.includes(si)&&(!realOnly||SITES[si].real||SITES[si].added)).sort((a,b)=>SITES[a].n.localeCompare(SITES[b].n));
     sc.innerHTML='<div class="modal"><h3>New booking row</h3><p class="hint">Pick the site. Then press and drag across the days on its row.</p>'+
       '<label>Site<select id="nrs">'+opts.map(si=>'<option value="'+si+'">'+SITES[si].n+' — '+(CAMPS[SITES[si].c]?CAMPS[SITES[si].c].n:"no usual campaign")+'</option>').join("")+'</select></label>'+
       (opts.length?'':'<p class="fnote">Every bookable site already has a row.</p>')+
@@ -2609,11 +2643,11 @@ function renderEvents(){
   const mixT=ALL.sh?Math.round(T.sh/ALL.sh*100):0, mixL=ALL.sh?100-mixT:0;
   const vs=(v,target)=>'<i class="'+(v<=target?"good":"over")+'">'+(v<=target?"on target":"over by "+IDRx(v-target))+'</i>';
   const mixCls=Math.abs(mixT-60)<=10?"good":"over";
-  renderForecast();
   document.getElementById("evsum").innerHTML=
     '<div class="big"><div class="bigcell all"><b>'+BOOKINGS.filter(inView).length+'</b><span>BOOKINGS</span></div>'+
     '<div class="bigcell stc"><b>'+ALL.sh+'</b><span>SHIFTS</span></div>'+
     '<div class="bigcell ykan"><b>'+IDR(ALL.c)+'</b><span>COST</span></div></div>'+
+    planHtml(EVM)+forecastHtml(EVM)+
     '<div class="avgs">'+
       '<div class="avg"><span>Local + Streets · per shift</span><b>'+(L.sh?IDRx(L.avg):"–")+'</b><small>aim Rp 150,000 · '+L.sh+' shifts</small>'+(L.sh?vs(L.avg,150000):"")+'</div>'+
       '<div class="avg"><span>Travel trip · per shift</span><b>'+(T.sh?IDRx(T.avg):"–")+'</b><small>aim Rp 450,000 · '+T.sh+' shifts</small>'+(T.sh?vs(T.avg,450000):"")+'</div>'+
@@ -2626,6 +2660,7 @@ function renderEvents(){
     '<div class="byrole" style="margin-top:8px">'+byType.map(([n,c])=>'<div><span>'+n+'</span><b>'+c+'</b><b></b></div>').join("")+
     '<div class="rt pendrow"><span>Site fees unpaid</span><b>'+pendB.length+'</b><b>'+(pendVal?IDR(pendVal):"")+'</b></div></div>'+
     '<p class="fnote">Shifts = headcount per day × event days (travel days excluded). Cost per shift = (site + transport + accommodation) ÷ shifts.</p>';
+  wirePlan(EVM);
   const pend=SITES.filter(x=>x.loa==="pending"), exp=SITES.filter(x=>x.loa==="expired"), noloc=SITES.filter(x=>!x.loc);
   const thin=perWeek.filter(p=>p.wi>=WK&&p.sites<4).map(p=>[p.wi,p.sites]);
   const nocost=BOOKINGS.filter(b=>b.type!=="streets"&&!bkTotal(b));
@@ -2791,7 +2826,7 @@ function siteForm(si){
     const o=x||{}; Object.assign(o,{n:nm,addr:esc(sc.querySelector("#sa").value.trim())||"Jakarta",c:sc.querySelector("#sc").value||null,loc,
       am:[sc.querySelector("#a1").value,sc.querySelector("#a2").value],pm:[sc.querySelector("#p1").value,sc.querySelector("#p2").value],
       loa,hlock:o.hlock||false,note:""});
-    if(!x){SITES.push(o); NEWROWS.add(SITES.length-1)}
+    if(!x){o.added=true; SITES.push(o); NEWROWS.add(SITES.length-1)}   // a new site Events adds (no history yet) is offered in the list
     sc.remove(); renderEvents(); render();
   };
   document.body.appendChild(sc);
@@ -2977,13 +3012,13 @@ function renderHRLeave(){
   el.innerHTML=pend.length?'<table class="qt"><colgroup><col style="width:28%"><col style="width:20%"><col style="width:20%"><col style="width:14%"><col style="width:18%"></colgroup><tr><th>Name</th><th>Dates</th><th>Type</th><th>Balance</th><th></th></tr>'+
     pend.map(r=>{const p=by(r.pid), acc=accrued(p), used=leaveUsed(p), bal=acc-used, over=p.perm&&r.days.length>bal;
       return '<tr><td><b>'+p.n+'</b><small>'+(p.perm?"PKWTT":"Contractor")+' · '+p.code+'</small></td>'+
-        '<td>'+r.days.join(", ")+' '+MONTHS[r.mon].n.slice(0,3)+'<small>'+r.days.length+' day'+(r.days.length>1?"s":"")+(r.hr?' · over 2 days':'')+'</small></td>'+
+        '<td>'+r.days.join(", ")+' '+MONTHS[r.mon].n.slice(0,3)+'<small>'+r.days.length+' day'+(r.days.length>1?"s":"")+'</small></td>'+
         '<td>'+RTYPES.find(t=>t.k===r.type).l+(r.reason?'<small>"'+r.reason+'"</small>':'')+'</td>'+
         '<td>'+(p.perm?'<b class="'+(over?"wc":"okc")+'">'+bal+'</b><small>'+acc+' accrued · '+used+' used'+(over?' · exceeds':'')+'</small>':'<span class="wc">unpaid</span><small>no accrual</small>')+'</td>'+
         '<td class="acts"><button class="qb" data-hno="'+r.id+'">Decline</button><button class="qb pass" data-hyes="'+r.id+'">Approve</button></td></tr>'}).join("")+'</table>'
     :'<div class="qempty">Nothing waiting.</div>';
-  el.querySelectorAll("[data-hyes]").forEach(b=>b.onclick=()=>{document.querySelector('#appr [data-yes="'+b.dataset.hyes+'"]')?.click(); const r=REQ.find(x=>x.id==b.dataset.hyes); if(r&&r.status==="pending"){r.status="approved"} renderHR()});
-  el.querySelectorAll("[data-hno]").forEach(b=>b.onclick=()=>{const r=REQ.find(x=>x.id==b.dataset.hno); if(r)r.status="declined"; renderHR(); renderApprovals(); renderPhone()});
+  el.querySelectorAll("[data-hyes]").forEach(b=>b.onclick=()=>{approveLeave(REQ.find(x=>x.id==b.dataset.hyes)); render(); renderPhone(); renderHR()});
+  el.querySelectorAll("[data-hno]").forEach(b=>b.onclick=()=>{declineLeave(REQ.find(x=>x.id==b.dataset.hno)); renderPhone(); renderHR()});
 }
 function hrDay(pid,d){
   const p=personOf(pid), c=(CHECK[pid]||{})[d], v=(MONTH[pid]||{})[d];
@@ -3339,7 +3374,7 @@ function stepsBar(step){const s=["loc","photo","confirm"], l=["Location","Photo"
 function siteSheet(st){
   const sc=document.createElement("div"); sc.className="scrim sheetwrap";
   sc.innerHTML='<div class="sheet2"><div class="grab"></div><h3>Where are you working?</h3><p class="sub">Your leader sees any change.</p>'+
-    '<p class="q">Site</p><div class="cands">'+SITES.map((x,i)=>x.loc&&(!x.real||i===st.site||bookedDays(i,WK).size)?'<button class="cand'+(i===st.site?" on":"")+'" data-s="'+i+'"><b>'+x.n+'</b><small>'+x.addr+' · AM '+x.am[0]+' · PM '+x.pm[0]+'</small></button>':'').join("")+'</div>'+
+    '<p class="q">Site</p><div class="cands">'+SITES.map((x,i)=>x.loc&&(i===st.site||(SITES.some(y=>y.real)?(x.real||x.added)&&bookedDays(i,WK).size:true))?'<button class="cand'+(i===st.site?" on":"")+'" data-s="'+i+'"><b>'+x.n+'</b><small>'+x.addr+' · AM '+x.am[0]+' · PM '+x.pm[0]+'</small></button>':'').join("")+'</div>'+
     '<p class="q">Shift</p><div class="tg"><button class="tog'+(st.slot==="am"?" on":"")+'" data-slot="am">AM</button><button class="tog'+(st.slot==="pm"?" on":"")+'" data-slot="pm">PM</button></div>'+
     '<button class="bigsend" id="sdone">Done</button><button class="cancel2">Cancel</button></div>';
   sc.querySelectorAll(".cand").forEach(b=>b.onclick=()=>{st.site=+b.dataset.s; sc.querySelectorAll(".cand").forEach(x=>x.classList.toggle("on",x===b))});
