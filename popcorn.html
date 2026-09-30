@@ -246,6 +246,11 @@
   .deviceframe{display:flex;justify-content:center;padding:22px 12px 60px}
   .device{width:390px;max-width:100%;background:var(--card);border:1px solid var(--line);border-radius:28px;
     padding:0 0 18px;overflow:hidden;box-shadow:0 2px 14px rgba(22,35,58,.10)}
+  .lngsw{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:var(--card)}
+  .lngopt{display:flex;align-items:center;justify-content:center;min-width:72px;min-height:32px;padding:0 12px;font-size:12.5px;font-weight:600;color:var(--ink-soft);cursor:pointer;user-select:none}
+  .lngopt.on{background:var(--ink);color:#fff}
+  .lnghead{align-self:center}
+  .lngbar{display:flex;justify-content:flex-end;padding:10px 14px 0} .lngbar .lngopt{min-height:44px;min-width:84px}
   .pbar{padding:16px 20px 12px;display:flex;align-items:baseline;gap:8px;border-bottom:1px solid var(--line)}
   .pbar b{font-size:19px} .pbar span{font-size:11px;font-weight:700;color:var(--ink-soft);letter-spacing:.04em}
   .nextshift{margin:16px 16px 0;border-radius:14px;padding:16px 18px;color:#fff;background:var(--am)}
@@ -541,6 +546,7 @@
   table.htab tr.probdue td.who{background:#FFF3D6}
   table.mtab tr.band.leftband td{background:#EDF0F5;color:var(--ink-soft)}
   table.htab tr.leftrow td.who,table.htab tr.leftrow td.role{background:#F7F8FA;color:var(--ink-soft)}
+  table.mtab td.who .pm.perfb{background:#6B3FA0;color:#fff} .tag.perfb{background:#EFE7F8;color:#6B3FA0} .perfbs{color:#6B3FA0;font-weight:700}
   table.mtab td.who .pm.lf{background:#5A6478;color:#fff} table.mtab td.who .pm.tw{background:var(--ok);color:#fff}
   table.htab tr.twenty td.who{box-shadow:inset 3px 0 0 var(--ok)}
   table.htab td.tot.hit20{background:#EAF3EE;color:var(--ok);font-weight:700}
@@ -914,6 +920,7 @@
 
 <header>
   <h1>Popcorn <small class="ver">build 59</small></h1>
+  <div class="lnghead" data-notr><div class="lngsw" role="group" aria-label="Language · Bahasa"><div role="button" tabindex="0" class="lngopt" data-lang="id" aria-pressed="false">Bahasa</div><div role="button" tabindex="0" class="lngopt" data-lang="en" aria-pressed="true">English</div></div></div>
   <div class="wk" id="hdrsub">Week 3 — 14 – 20 Sep 2026 · Jakarta</div>
   <div class="tabs">
     <button data-tab="roster" aria-pressed="true">Weekly roster</button>
@@ -957,7 +964,7 @@
     <select id="whoami" class="search" style="width:210px;margin:0"></select>
     <span class="hint" style="margin:0">Preview — shown here in a phone frame. A fundraiser just sees this full screen.</span>
   </div>
-  <div class="deviceframe"><div class="device" id="pApp"></div></div>
+  <div class="deviceframe"><div class="device"><div class="lngbar" data-notr><div class="lngsw" role="group" aria-label="Language · Bahasa"><div role="button" tabindex="0" class="lngopt" data-lang="id" aria-pressed="false">Bahasa</div><div role="button" tabindex="0" class="lngopt" data-lang="en" aria-pressed="true">English</div></div></div><div id="pApp"></div></div></div>
 </div>
 
 <!-- ===================== MAIN (what a fundraiser lands on) ===================== -->
@@ -966,7 +973,7 @@
     <select id="whoami0" class="search" style="width:210px;margin:0"></select>
     <span class="hint" style="margin:0">Preview — a fundraiser lands here after login. Two tabs only: MAIN and FR DASHBOARD.</span>
   </div>
-  <div class="deviceframe"><div class="device" id="mainApp"></div></div>
+  <div class="deviceframe"><div class="device"><div class="lngbar" data-notr><div class="lngsw" role="group" aria-label="Language · Bahasa"><div role="button" tabindex="0" class="lngopt" data-lang="id" aria-pressed="false">Bahasa</div><div role="button" tabindex="0" class="lngopt" data-lang="en" aria-pressed="true">English</div></div></div><div id="mainApp"></div></div></div>
 </div>
 
 <!-- ===================== LEAVE (phone) ===================== -->
@@ -975,7 +982,7 @@
     <select id="whoami4" class="search" style="width:210px;margin:0"></select>
     <span class="hint" style="margin:0">Preview — every leave request lives here, not on the roster page.</span>
   </div>
-  <div class="deviceframe"><div class="device" id="leaveApp"></div></div>
+  <div class="deviceframe"><div class="device"><div class="lngbar" data-notr><div class="lngsw" role="group" aria-label="Language · Bahasa"><div role="button" tabindex="0" class="lngopt" data-lang="id" aria-pressed="false">Bahasa</div><div role="button" tabindex="0" class="lngopt" data-lang="en" aria-pressed="true">English</div></div></div><div id="leaveApp"></div></div></div>
 </div>
 
 <!-- ===================== MONTHLY ===================== -->
@@ -1041,6 +1048,7 @@
       <label class="chk"><input type="checkbox" class="hfilt" value="fr" checked> Fundraiser</label>
       <label class="chk"><input type="checkbox" class="hfilt" value="lead" checked> Leaders</label>
       <label class="chk"><input type="checkbox" class="hfilt" value="left" checked> Left this month</label>
+      <label class="chk"><input type="checkbox" id="hpbonly"> Performance based only</label>
       <div class="exports" style="margin:0 0 0 auto"><span>Export</span>
         <button class="btn" data-x="payroll">IC Payroll</button><button class="btn" data-x="contracts">Employment Database</button><button class="btn" data-x="attendance">Attendance Perm</button></div>
     </div>
@@ -1063,7 +1071,7 @@
     <div class="segs" style="margin:0;width:auto"><button class="seg gsim on" data-g="site">At the site</button><button class="seg gsim" data-g="near">Next door · 350m</button><button class="seg gsim" data-g="away">At home · 6 km</button><button class="seg gsim" data-g="none">No signal</button></div>
     <span class="hint" style="margin:0 0 0 auto">A real fundraiser sees only the phone screen below — no dropdowns.</span>
   </div>
-  <div class="deviceframe"><div class="device" id="aspcApp"></div></div>
+  <div class="deviceframe"><div class="device"><div class="lngbar" data-notr><div class="lngsw" role="group" aria-label="Language · Bahasa"><div role="button" tabindex="0" class="lngopt" data-lang="id" aria-pressed="false">Bahasa</div><div role="button" tabindex="0" class="lngopt" data-lang="en" aria-pressed="true">English</div></div></div><div id="aspcApp"></div></div></div>
 </div>
 
 <!-- ===================== F2F DASHBOARD ===================== -->
@@ -1099,7 +1107,7 @@
 <div id="frd" class="hidden">
   <div class="phonebar preview"><span class="pvtag">PREVIEW ONLY</span><label class="pvl">Viewing as <select id="whoami3" class="search" style="width:220px;margin:0"></select></label>
     <span class="hint" style="margin:0 0 0 auto">A fundraiser sees only their own screen.</span></div>
-  <div class="deviceframe"><div class="device" id="frdApp"></div></div>
+  <div class="deviceframe"><div class="device"><div class="lngbar" data-notr><div class="lngsw" role="group" aria-label="Language · Bahasa"><div role="button" tabindex="0" class="lngopt" data-lang="id" aria-pressed="false">Bahasa</div><div role="button" tabindex="0" class="lngopt" data-lang="en" aria-pressed="true">English</div></div></div><div id="frdApp"></div></div></div>
 </div>
 
 <!-- ===================== TRAINER SCHEDULE ===================== -->
@@ -1163,6 +1171,13 @@ const unesc=v=>String(v==null?"":v).replace(/&(amp|lt|gt|quot|#39);/g,
 const TODAY_D=19;                         // 19 September 2026 — the one "today" every tab uses
 const TODAY_LABEL=["Mon","Tue","Wed","Thu","Fri","Sat","Sun"][(1+TODAY_D-1)%7]+" "+TODAY_D+" Sep";
 const LEVELS=["Head","Senior manager","Manager","Assistant manager","Senior team leader","Team leader","Fundraiser","Trainee"];
+/* Performance based = 100% commission. A PAY TYPE shown like a role, not a level: the client's file has team leaders and
+   trainees on it too (Dave, 30 Sep 2026). Trainees are on the day rate until they pass, so the tag starts then. */
+const PB_WHY={failed_pip:"Did not pass PIP",passed_probation:"Passed probation",other:"Other"};
+const isPB=p=>!!p&&p.plan==="perf100"&&p.lv!==7;
+const todayISO=()=>"2026-09-"+String(TODAY_D).padStart(2,"0");
+const pbNote=p=>isPB(p)?"Performance based \u00b7 100% commission"+(p.pb&&p.pb.why?" \u00b7 "+PB_WHY[p.pb.why]:"")+(p.pb&&p.pb.since?" \u00b7 since "+(+p.pb.since.slice(8))+" "+"JanFebMarAprMayJunJulAugSepOctNovDec".substr((+p.pb.since.slice(5,7)-1)*3,3)+" "+p.pb.since.slice(0,4):""):"";
+const pbTag=(p,cls)=>isPB(p)?'<span class="'+cls+' perfb" title="'+pbNote(p)+'">PERF BASED</span>':'';
 const CAMPS={stc:{n:"STC",id:1899},ykan:{n:"YKAN",id:1904}};
 /* A person has a HOME campaign (p.c: grouping, bands, reports) and may be accredited for more (p.also), e.g. the
    Head of Fundraising works STC and YKAN (Dave, 24 Sep 2026). Rostering asks accredited(), never p.c directly.
@@ -1355,6 +1370,7 @@ const GEO={ "Grand Indonesia":[-6.1952,106.8210,200],"Kota Kasablanka":[-6.2237,
   "Pacific Place":[-6.2246,106.8100,200],"Lotte Shopping Avenue":[-6.2244,106.8210,200],"AEON Mall BSD":[-6.3050,106.6440,250]};
 SITES.forEach((x,i)=>{const g=GEO[x.n]||[-6.2+i*0.01,106.8+i*0.01,200]; x.lat=g[0]; x.lng=g[1]; x.radius=g[2]; x.cost=x.n.includes("Hatta")||x.n.includes("Halim")?1850000:1200000;
   x.loa="signed"; x.addr=["Jakarta Pusat","Jakarta Selatan","Tangerang","Jakarta Selatan","Jakarta Selatan","Jakarta Barat","Jakarta Timur","Jakarta Barat","Jakarta Selatan","Jakarta Utara","Bandung","Jakarta Barat","Jakarta Selatan","Tangerang","Jakarta Selatan","Jakarta Selatan","Tangerang"][i]||"Jakarta"});
+const STD_HOURS=n=>/airport|bandara/i.test(n||"")?{am:["08:00","17:00"],pm:["13:00","22:00"]}:{am:["10:00","19:00"],pm:["13:00","22:00"]};   // Dave, 30 Sep 2026; Events can change any site
 const siteCamp=si=>CAMPS[SITES[si].c]?SITES[si].c:"stc";
 const dayCamps=(si,w,d)=>{const bs=bookingsAt(si,gday(w,d)).filter(isLive); return bs.length?[...new Set(bs.map(b=>b.c||siteCamp(si)))]:[siteCamp(si)]};   // every campaign booked there that day   // booking default when a site has no usual campaign
 const hrs=(s,slot)=>s[slot][0]+"–"+s[slot][1];
@@ -1497,7 +1513,7 @@ function hoursBox(si){
 function poolChip(p,disabled,reason){
   const el=document.createElement("div");
   el.className="chip"+(disabled?" out":"")+(isLeader(p)?" lead":""); el.draggable=!disabled; el.tabIndex=disabled?-1:0; el.dataset.id=p.id;
-  el.innerHTML='<span class="nm">'+p.n+'<small>'+p.code+(isLeader(p)?" · "+LEVELS[p.lv]:"")+'</small></span>'+(isTrainee(p)?'<span class="tag new">NEW</span>':'')+
+  el.innerHTML='<span class="nm">'+p.n+'<small>'+p.code+(isLeader(p)?" · "+LEVELS[p.lv]:"")+(isPB(p)?' · <b class="perfbs" title="'+pbNote(p)+'">Perf based</b>':'')+'</small></span>'+(isTrainee(p)?'<span class="tag new">NEW</span>':'')+
     (reason?'<span class="meta">'+reason+'</span>':(offTxt(p)?'<span class="meta">'+offTxt(p)+'</span>':''))+'<span class="wk" title="shifts this week">'+shifts(p.id)+'</span>';
   if(MSEL.has(p.id))el.classList.add("msel");
   if(!disabled){
@@ -1574,11 +1590,11 @@ function render(){
     if(st.children.length&&!st.querySelector(".chip.lead")){noLead++;st.insertAdjacentHTML("beforeend",'<span class="nolead">no leader</span>')}});
   wireCells();
   const cov=document.getElementById("cov");
-  const under=fundraisers().filter(p=>!isTrainee(p)&&p.eg&&shifts(p.id)<4), six=fundraisers().filter(p=>shifts(p.id)===6), newbies=fundraisers().filter(p=>isTrainee(p));
+  const under=fundraisers().filter(p=>!isTrainee(p)&&p.eg&&shifts(p.id)<4), six=fundraisers().filter(p=>shifts(p.id)===6), seven=fundraisers().filter(p=>shifts(p.id)>=7), newbies=fundraisers().filter(p=>isTrainee(p));
   const fmt=list=>list.length?list.map(p=>{const w=p.n.split(" ");return w[0]+(w[1]?" "+w[1][0]+".":"")+" <i>("+shifts(p.id)+")</i>"}).join(", "):"<i>none</i>";
   const tile=(n,label,names,cls)=>'<div class="ctile'+(n?" "+cls:"")+'"><b>'+n+'</b><span>'+label+'</span>'+(n&&names?'<i>'+names+'</i>':'')+'</div>';
   const nm=list=>list.map(p=>p.n.split(" ")[0]).join(", ");
-  cov.innerHTML='<div class="ctiles">'+tile(noLead,"shifts with no leader","","bad")+tile(under.length,"people under 4 shifts",nm(under),"warn")+tile(six.length,"people on 6 shifts",nm(six),"")+'</div>';
+  cov.innerHTML='<div class="ctiles">'+tile(noLead,"shifts with no leader","","bad")+tile(under.length,"people under 4 shifts",nm(under),"warn")+tile(seven.length,"people on 7 shifts — flagged",nm(seven),"bad")+tile(six.length,"people on 6 shifts",nm(six),"")+'</div>';
   const al=document.getElementById("abslist"); al.innerHTML=""; if(!ABS.some(x=>x.w===WK)) al.innerHTML='<span class="empty">None this week.</span>';
   ABS.forEach((x,i)=>{if(x.w!==WK)return; const t=ABS_TYPES.find(t=>t.k===x.t); const d=document.createElement("div");
     d.innerHTML='<span>'+nameOf(x.pid)+' — '+DAYS[x.d]+' '+DATES[x.d]+'<small>'+t.l+(x.reason?' · '+x.reason:'')+'</small></span>';
@@ -1645,8 +1661,9 @@ function assign(payload,td,quiet){
   if(offOn(p,WK,d)){restore();return bounce(p.n+" can't work "+DAYS[d],"They marked it unavailable on their phone.")}
   const clash=WA().find(a=>a.pid===pid&&a.d===d);
   if(clash){restore();return bounce(p.n+" already works "+DAYS[d],SITES[clash.s].n+" "+clash.slot.toUpperCase()+". Drag that shift instead.")}
-  if(shifts(pid)>=6){restore();return bounce("That would be "+p.n+"'s 7th shift","Six is the maximum in a week. Take a day off them first.")}
-  A.push({w:WK,pid,s,d,slot}); if(d!==day)day=d; if(!quiet){picked=null; MSEL.clear(); render()}
+  const seventh=shifts(pid)>=6;   // a 7th shift in a week is allowed but flagged — it happens, it shouldn't (Dave, 30 Sep 2026)
+  A.push({w:WK,pid,s,d,slot});
+  if(seventh)log("warn",p.n+" — "+(shifts(pid))+" shifts this week","Allowed, but flagged: six is the normal maximum. Give them a day off if you can."); if(d!==day)day=d; if(!quiet){picked=null; MSEL.clear(); render()}
 }
 function absenceBox(a){
   const p=by(a.pid); const sc=document.createElement("div"); sc.className="scrim";
@@ -1764,7 +1781,7 @@ function renderLeave(){
       :'<b>\u2014</b><span>unpaid leave<small>Contractors do not accrue paid leave. Time off still needs approval.</small></span>')+'</div>';
   h+='<div class="calhead"><b>Ask for time off</b><span>'+M.n+' · tap the first day. HR decides.</span></div>';
   h+='<div class="bigcal">';
-  ["M","T","W","T","F","S","S"].forEach(x=>h+='<div class="dow">'+x+'</div>');
+  ["M","T","W","T","F","S","S"].forEach((x,i)=>h+='<div class="dow" data-dow="'+i+'">'+x+'</div>');
   for(let i=0;i<M.start;i++)h+='<div></div>';
   for(let d=1;d<=M.days;d++){const r=REQ.find(x=>x.pid===ME.id&&x.mon===9&&x.days.includes(d)&&x.status!=="declined");
     const cls=(joined&&d<joined)||d<TDAY?"na":r?(r.status==="pending"?"pend":"appr"):mdow(9,d)>4?"wk":"";
@@ -1825,7 +1842,7 @@ function renderPhone(){
     (rangeMode?(rangeAnchor?"Now tap the last day of the run":"Tap the first day, then the last day"):"Tap each day you can\'t work. Tap it again to clear it.")+'</div>';
 
   h+='<div class="bigcal">';
-  ["M","T","W","T","F","S","S"].forEach(x=>h+='<div class="dow">'+x+'</div>');
+  ["M","T","W","T","F","S","S"].forEach((x,i)=>h+='<div class="dow" data-dow="'+i+'">'+x+'</div>');
   for(let i=0;i<M.start;i++)h+='<div></div>';
   for(let d=1;d<=M.days;d++){
     const r=myReq(PM,d), isOff=off.includes(d), wknd=mdow(PM,d)>4;
@@ -2069,7 +2086,7 @@ function renderOrg(){
   // fundraiser columns
   function frCard(p){
     const f=document.createElement("div"); f.className="fr"+(tmatch(p)?"":" dim")+(p.placeholder?" ph":""); f.draggable=true; f.tabIndex=0;
-    f.innerHTML='<span class="nm">'+p.n+'</span>'+(p.placeholder?'<span class="tag new">PLANNED</span>':p.unplaced&&p.to===null?'<span class="tag new">NO TEAM YET</span>':'')+(!p.eg&&!p.placeholder?'<span class="tag noeg">no EG ID</span>':'')+'<span class="code">'+p.code+'</span>';
+    f.innerHTML='<span class="nm">'+p.n+'</span>'+(p.placeholder?'<span class="tag new">PLANNED</span>':p.unplaced&&p.to===null?'<span class="tag new">NO TEAM YET</span>':'')+pbTag(p,"tag")+(!p.eg&&!p.placeholder?'<span class="tag noeg">no EG ID</span>':'')+'<span class="code">'+p.code+'</span>';
     f.onclick=()=>p.placeholder?personForm(p):editBox(p);
     f.addEventListener("dragstart",e=>{e.dataTransfer.setData("text/plain",p.id);f.classList.add("dragging")});
     f.addEventListener("dragend",()=>f.classList.remove("dragging"));
@@ -2155,12 +2172,15 @@ function editBox(p){
     '<div class="two"><label>Role<select id="lv">'+LEVELS.map((l,i)=>i?'<option value="'+i+'"'+(i===p.lv?" selected":"")+(i===7&&p.perm?" disabled":"")+'>'+l+(i===7&&p.perm?" \u2014 not for permanent staff":"")+'</option>':'').join("")+'</select></label>'+
     '<label>Home campaign<select id="c">'+Object.keys(CAMPS).map(k=>'<option value="'+k+'"'+(p.c===k?" selected":"")+'>'+CAMPS[k].n+'</option>').join("")+'</select></label></div>'+
     (Object.keys(CAMPS).length>1?'<div class="alsobox"><span>Also accredited for</span>'+Object.keys(CAMPS).map(k=>'<label class="alsoc"><input type="checkbox" class="also" value="'+k+'"'+(((p.also||[]).includes(k))?" checked":"")+'> '+CAMPS[k].n+'</label>').join("")+'<small>The home campaign always counts. Tick the others this person may be rostered on.</small></div>':'')+
+    '<div class="two"><label>Pay type <i class="hronly">HR only</i><select id="plan"><option value="standard"'+((p.plan||"standard")==="standard"?" selected":"")+'>Standard \u00b7 IC Perm Model B</option><option value="perf100"'+(p.plan==="perf100"?" selected":"")+'>Performance based \u00b7 100% commission</option></select></label>'+
+    '<label id="pbwhyl" class="hidden">Why<select id="pbwhy">'+Object.entries(PB_WHY).map(([k,l])=>'<option value="'+k+'">'+l+'</option>').join("")+'</select></label></div>'+
+    (isPB(p)?'<p class="hint">'+pbNote(p)+'. Their FR Dashboard shows commission earned this month from their sign-ups.</p>':'<p class="hint">Performance based = 100% commission, no day rate. Offered to someone who did not pass their PIP instead of termination.</p>')+
     '<label>Reports to<select id="to">'+P.filter(x=>x.lv<p.lv&&x.id!==p.id).sort((a,b)=>a.lv-b.lv).map(x=>'<option value="'+x.id+'"'+(x.id===p.to?" selected":"")+'>'+x.n+' — '+LEVELS[x.lv]+'</option>').join("")+'</select></label>'+
     (p.lv>=3?'<label>Evergiving user ID<input id="eid" value="'+(p.eid||"")+'" placeholder="Blank = not yet created"></label>':'')+
-    '<label>Commission plan <i class="hronly">HR only \u00b7 an underperforming IC is offered performance-based pay before termination</i><select id="plan"><option value="standard"'+((p.plan||"standard")==="standard"?" selected":"")+'>IC Perm \u00b7 Model B</option><option value="perf100"'+(p.plan==="perf100"?" selected":"")+'>Performance based \u00b7 100% commission</option></select></label>'+
     '<label>Gross basic (Rp), if not the role table <i class="hronly">HR only</i><input id="salary" inputmode="numeric" value="'+(p.salary!=null?p.salary:"")+'" placeholder="Blank = role table ('+IDRf((BASIC[p.lv]||BASIC[6]).basic)+')"></label>'+
     '<div class="row"><button class="no">Cancel</button><button class="go">Save</button></div></div>';
   sc.querySelector(".no").onclick=()=>sc.remove();
+  sc.querySelector("#plan").onchange=e=>sc.querySelector("#pbwhyl").classList.toggle("hidden",!(e.target.value==="perf100"&&p.plan!=="perf100"));
   sc.querySelector(".go").onclick=()=>{
     const lv=+sc.querySelector("#lv").value, c=sc.querySelector("#c").value, to=+sc.querySelector("#to").value;
     const also=[...sc.querySelectorAll(".also:checked")].map(x=>x.value).filter(k=>k!==c);
@@ -2169,10 +2189,11 @@ function editBox(p){
     const tooJunior=kidsOf(p.id).filter(k=>k.lv<=lv&&k.lv<6);
     if(tooJunior.length){tooJunior.forEach(k=>k.to=to);tlog("ok",tooJunior.map(k=>k.n.split(" ")[0]).join(", ")+" moved up to "+boss.n,"They can't report to a "+LEVELS[lv].toLowerCase()+". Drag them elsewhere if that's wrong.")}
     const changes=[]; if(lv!==p.lv)changes.push(LEVELS[p.lv]+" → "+LEVELS[lv]); if(c!==p.c)changes.push("now on "+CAMPS[c].n); if(also.join()!==(p.also||[]).filter(k=>k!==c).join())changes.push(also.length?"also accredited for "+also.map(k=>CAMPS[k].n).join(", "):"one campaign only"); if(to!==p.to)changes.push("reports to "+boss.n);
-    const np=sc.querySelector("#plan").value; if(np!==(p.plan||"standard")){p.plan=np; changes.push(np==="perf100"?"moved to performance-based pay (100% commission)":"moved to IC pay \u00b7 Model B")}
+    const np=sc.querySelector("#plan").value; if(np!==(p.plan||"standard")){p.plan=np; p.pb=np==="perf100"?{why:sc.querySelector("#pbwhy").value,since:todayISO()}:null; changes.push(np==="perf100"?"moved to performance-based pay (100% commission) \u2014 "+PB_WHY[p.pb.why]:"moved to standard pay \u00b7 Model B")}
     const sal=sc.querySelector("#salary").value.replace(/\D/g,""); const ns=sal?+sal:null; if(ns!==(p.salary==null?null:p.salary)){p.salary=ns; changes.push(ns?"gross basic set to "+IDRf(ns):"gross basic back to the role table")}
     p.lv=lv; p.c=c; p.also=also; p.to=to; if(lv>=3&&sc.querySelector("#eid")){const v=sc.querySelector("#eid").value.trim(); p.eid=v?+v:null; p.eg=v?1:0; p.off=p.off||[]; if(v&&!changes.includes("x"))changes.push("Evergiving ID set")}
-    if(changes.length)tlog("ok",p.n+": "+changes.join(", "),"Takes effect from the next roster week.");
+    const payNote=changes.some(c=>/pay \(100%|standard pay/.test(c))?" Pay type: this whole month's pay is worked out on the new type \u2014 when a switch should start is not decided yet (OPEN).":"";
+    if(changes.length)tlog("ok",p.n+": "+changes.join(", "),"Takes effect from the next roster week."+payNote);
     sc.remove(); renderOrg()};
   document.body.appendChild(sc);
 }
@@ -2255,7 +2276,7 @@ function personForm(existing){
     '<div class="two"><label>Bank name<input id="bank" placeholder="BCA, Mandiri, BNI…"></label><label>Account name<input id="bankn" placeholder="As on the account"></label></div>'+
     '<label>Account number<input id="banka" placeholder="Digits only"></label>'+
     '<div class="fsec">Pay <i class="hronly">HR only · shown on their FR Dashboard</i></div>'+
-    '<div class="two"><label>Commission plan<select id="plan"><option value="standard">IC Perm · Model B</option><option value="perf100">Performance based \u00b7 100% commission</option></select></label>'+
+    '<div class="two"><label>Pay type<select id="plan"><option value="standard">Standard \u00b7 IC Perm Model B</option><option value="perf100">Performance based \u00b7 100% commission</option></select></label>'+
     '<label>Gross basic (Rp), if not the role table<input id="salary" inputmode="numeric" placeholder="Blank = role table"></label></div>'+
     '<p class="fnote">Use the amount only when someone is paid outside the standard table (a grade the table lacks, or an agreed figure).</p>'+
     '<div class="fsec">Systems</div>'+
@@ -2287,7 +2308,7 @@ function personForm(existing){
         (esc(sc.querySelector("#a_rt").value.trim())||esc(sc.querySelector("#a_rw").value.trim()))?"RT "+esc(sc.querySelector("#a_rt").value.trim())+"/RW "+esc(sc.querySelector("#a_rw").value.trim()):"",
         esc(sc.querySelector("#a_kel").value.trim()),esc(sc.querySelector("#a_kec").value.trim()),esc(sc.querySelector("#a_kota").value.trim()),esc(sc.querySelector("#a_prov").value.trim()),esc(sc.querySelector("#a_pos").value.trim())].filter(Boolean).join(", "),email:esc(sc.querySelector("#email").value.trim()),
       bank:esc(sc.querySelector("#bank").value.trim()),bankn:esc(sc.querySelector("#bankn").value.trim()),banka:sc.querySelector("#banka").value.replace(/\D/g,""),signups:0,
-      plan:sc.querySelector("#plan").value,salary:(v=>v?+v:null)(sc.querySelector("#salary").value.replace(/\D/g,"")),
+      plan:sc.querySelector("#plan").value,pb:sc.querySelector("#plan").value==="perf100"?{why:"other",since:todayISO()}:null,salary:(v=>v?+v:null)(sc.querySelector("#salary").value.replace(/\D/g,"")),
       gender:sc.querySelector("#gender").value,marital:sc.querySelector("#marital").value,race:esc(sc.querySelector("#race").value.trim()),religion:esc(sc.querySelector("#religion").value.trim()),
       passport:esc(sc.querySelector("#passport").value.trim()),recruiter:esc(sc.querySelector("#recruiter").value.trim()),
       ecp:esc(sc.querySelector("#ecp").value.trim()),placeholder:false,
@@ -2431,7 +2452,7 @@ const goTab=t=>{const b=[...document.querySelectorAll(".tabs button")].find(x=>x
 document.getElementById("asrole").onchange=e=>{
   ROLE=e.target.value; const allow=ROLE_TABS[ROLE]; document.body.classList.toggle("roleEv",ROLE==="ev");
   const lab={main:ROLE==="fr"?"MAIN":"Main · phone",frd:ROLE==="fr"?"FR DASHBOARD":"FR Dashboard"};
-  document.querySelectorAll(".tabs button").forEach(b=>{if(lab[b.dataset.tab])b.textContent=lab[b.dataset.tab]});
+  document.querySelectorAll(".tabs button").forEach(b=>{if(lab[b.dataset.tab])b.textContent=lab[b.dataset.tab]}); if(typeof langTabs==="function"&&typeof LANG!=="undefined")langTabs();
   document.querySelectorAll(".tabs button").forEach(b=>b.classList.toggle("hidden",!allow.includes(b.dataset.tab)));
   const tabsEl=document.querySelector(".tabs"); [...allow,...ROLE_TABS.dir.filter(t=>!allow.includes(t))].forEach(t=>{const b=[...tabsEl.querySelectorAll("button")].find(x=>x.dataset.tab===t); if(b)tabsEl.appendChild(b)}); tabsEl.appendChild(e.target);   // home tab first
   const cur=[...document.querySelectorAll(".tabs button")].find(b=>b.getAttribute("aria-pressed")==="true");
@@ -2816,8 +2837,8 @@ function siteForm(si){
       EG_LOCATIONS.map(([id,n])=>'<option value="'+id+'"'+(x&&x.loc===id?" selected":"")+'>'+n+' · '+id+'</option>').join("")+'</select></label>'+
     '<p class="fnote">This list comes from Evergiving. If the venue isn\'t here it must be created in Evergiving first — Popcorn sends the location ID, never the name.</p>'+
     '<div class="fsec">Hours</div>'+
-    '<div class="two"><label>AM starts<input type="time" id="a1" value="'+(x?x.am[0]:"10:00")+'"></label><label>AM finishes<input type="time" id="a2" value="'+(x?x.am[1]:"17:00")+'"></label></div>'+
-    '<div class="two"><label>PM starts<input type="time" id="p1" value="'+(x?x.pm[0]:"12:00")+'"></label><label>PM finishes<input type="time" id="p2" value="'+(x?x.pm[1]:"19:00")+'"></label></div>'+
+    '<div class="two"><label>AM starts<input type="time" id="a1" value="'+(x?x.am[0]:"10:00")+'"></label><label>AM finishes<input type="time" id="a2" value="'+(x?x.am[1]:"19:00")+'"></label></div>'+
+    '<div class="two"><label>PM starts<input type="time" id="p1" value="'+(x?x.pm[0]:"13:00")+'"></label><label>PM finishes<input type="time" id="p2" value="'+(x?x.pm[1]:"22:00")+'"></label></div>'+
     '<div class="row"><button class="no">Cancel</button><button class="go">'+(x?"Save":"Add site")+'</button></div></div>';
   sc.querySelector(".no").onclick=()=>sc.remove();
   sc.querySelector(".go").onclick=()=>{
@@ -2872,6 +2893,7 @@ function renderHR(){
   const leavers=f.left?RESIGNED.filter(x=>x.last>="2026-09-01").map(x=>({p:x.p,depth:0,left:x})):[];
   rows=rows.filter(r=>{const p=r.p; return (p.perm&&f.perm)||(isTrainee(p)&&f.trainee)||(p.lv===6&&!p.perm&&f.fr)||(isLeader(p)&&!p.perm&&f.lead)}).concat(leavers);
   if(hq)rows=rows.filter(r=>r.p.n.toLowerCase().includes(hq)||r.p.code.toLowerCase().includes(hq));
+  if(document.getElementById("hpbonly").checked)rows=rows.filter(r=>isPB(r.p));
 
   let h='<table class="mtab htab"><thead><tr class="availrow"><th class="who">Late that day</th><th class="role"></th>';
   for(let d=1;d<=MDAYS;d++){const n=rows.filter(r=>lateBy(r.p.id,d)).length; h+='<th class="'+(dow(d)>4?"wknd":"")+(n?" hot":"")+'">'+(d<HTODAY?n:"")+'</th>'}
@@ -2883,7 +2905,7 @@ function renderHR(){
     const band=r.left?"left":p.c;
     if(band!==lastCamp){lastCamp=band; h+='<tr class="band '+(r.left?"leftband":p.c)+'"><td class="who" colspan="2">'+(r.left?"LEFT THIS MONTH · still paid for days worked":CAMPS[p.c]?CAMPS[p.c].n:"NO CAMPAIGN YET · HR to set")+'</td><td colspan="'+(MDAYS+6)+'"></td></tr>'}
     const twenty=hActual(p.id)>=20;
-    h+='<tr class="'+(p.perm?"perm":"")+(probationDue(p)?" probdue":"")+(r.left?" leftrow":"")+(twenty?" twenty":"")+'"><td class="who" style="padding-left:'+(8+r.depth*9)+'px"><span class="nmw">'+p.n+(p.perm?'<span class="pm">PERM</span>':'')+(isTrainee(p)?'<span class="pm tr">TRAINEE</span>':'')+(r.left?'<span class="pm lf">LEFT '+r.left.last.slice(8)+' SEP</span>':'')+(twenty?'<span class="pm tw">20 DAYS</span>':'')+'</span><small>'+p.code+' · '+(p.region||"")+(r.left?' · '+r.left.why:'')+'</small></td>'+
+    h+='<tr class="'+(p.perm?"perm":"")+(probationDue(p)?" probdue":"")+(r.left?" leftrow":"")+(twenty?" twenty":"")+'"><td class="who" style="padding-left:'+(8+r.depth*9)+'px"><span class="nmw">'+p.n+(p.perm?'<span class="pm">PERM</span>':'')+(isTrainee(p)?'<span class="pm tr">TRAINEE</span>':'')+pbTag(p,"pm")+(r.left?'<span class="pm lf">LEFT '+r.left.last.slice(8)+' SEP</span>':'')+(twenty?'<span class="pm tw">20 DAYS</span>':'')+'</span><small>'+p.code+' · '+(p.region||"")+(r.left?' · '+r.left.why:'')+'</small></td>'+
        '<td class="role">'+LEVELS[p.lv]+'</td>';
     for(let d=1;d<=MDAYS;d++){const v=m[d], c=(CHECK[p.id]||{})[d], late=lateBy(p.id,d), ts=trainingState(p.id,d), cs=certState(p.id,d);
       let cls="free", txt="";
@@ -2997,7 +3019,7 @@ function renderHR(){
   document.querySelectorAll("#hprob [data-dec]").forEach(b=>b.onclick=()=>{const p=by(+b.dataset.p), dec=b.dataset.dec;
     if(!window.confirm(({pass:"Pass "+p.n+" — becomes a Fundraiser on performance-based pay (100% commission).",ext:"Extend "+p.n+"'s probation by 10 working days.",term:"Terminate "+p.n+" — moves to Resigned."})[dec]))return;
     p.probation=dec; p.probationOn=TODAY_D+" Sep";
-    if(dec==="pass"){p.lv=6; p.plan="perf100"; tlog("ok",p.n+" passed probation","Now a Fundraiser on performance-based pay (100% commission). "+p.signups+" sign-ups in "+hActual(p.id)+" days.")}
+    if(dec==="pass"){p.lv=6; p.plan="perf100"; p.pb={why:"passed_probation",since:todayISO()}; tlog("ok",p.n+" passed probation","Now a Fundraiser on performance-based pay (100% commission). "+p.signups+" sign-ups in "+hActual(p.id)+" days.")}
     else if(dec==="ext"){delete p.probation; p.probFrom=hActual(p.id); tlog("warn",p.n+" probation extended","Reviewed again at "+(hActual(p.id)+10)+" actual days.")}
     else {P=P.filter(x=>x!==p); offboard(p); RESIGNED.unshift({p,last:"2026-09-"+TODAY_D,why:"Did not pass probation"}); tlog("pull",p.n+" terminated","Did not pass probation. "+p.signups+" sign-ups.")}
     renderHR(); renderOrg()});
@@ -3092,7 +3114,7 @@ function exportCSV(kind,from,to,visible,dry){   // visible: ids shown on the HR 
   if(kind==="contracts")ppl=ppl.concat(RESIGNED.map(x=>({p:x.p,last:x.last})));                                   // the database lists everyone who ever joined
   else ppl=ppl.concat(RESIGNED.filter(x=>x.last>=from&&x.last<=to).map(x=>({p:x.p,last:x.last})));                 // leavers inside the range are still paid
   ppl=ppl.map(o=>Object.assign(Object.create(o.p),{_last:o.last}));
-  if(kind==="payroll")ppl=ppl.filter(p=>!p.perm&&p.lv>=6);       // contractors and trainees only
+  if(kind==="payroll")ppl=ppl.filter(p=>!p.perm);                // everyone not permanent: contractors (team leaders on IC too — the real Aug file has them) and trainees
   if(kind==="attendance")ppl=ppl.filter(p=>p.perm);              // permanent staff only
   if(visible)ppl=ppl.filter(p=>visible.has(p.id));              // and only who the HR grid currently shows
   const tag=from.replace(/-/g,"")+"-"+to.replace(/-/g,"");
@@ -3116,11 +3138,16 @@ function exportCSV(kind,from,to,visible,dry){   // visible: ids shown on the HR 
             "Total Days on Duty","Service Rate/ Per Day","Total Pay","Total Days on Duty (Weekend)","Service Rate/ Weekend","Total Weekend Pay","Total Days on Duty (PH Weekday)","Service Rate/ PH Weekday","Total Weekdays PH Pay",
             "Travel Allowance","Backpay","F2F_20/30% Payout","F2F_Overriding 30% Payout","F2F_Overriding 70%","TM_20% Payout","TM_Overriding 80%","Total WC Bonus","Total WC Overriding Bonus","Lost Asset/ Other Deduction","Total Pay for Duty","Medical Allowance","Attendance Allowance","Commission","Deduction","Net Pay"],
       row:p=>{const od=outDays(p), wd=od.length, rate=dayRate(p), cm=commissionFor(p.id,days), fromDay=+from.slice(8);
-        const prior=p.lv===7?Object.keys(CHECK[p.id]||{}).filter(k=>/^\d+$/.test(k)&&+k<fromDay&&CHECK[p.id][k].out).length:0;   // trainee shifts already paid before this range
-        const payable=p.lv===7?Math.min(wd,Math.max(0,RATES.traineeShifts-prior)):wd;
-        const pay=payable*rate, duty=pay, att=p.plan==="standard"?cm.attendance:0, com=cm.commission||0, hold=kitStatus(p)==="pending";
-        return [period,p.bankn||p.n,p.region||"","F2F","F2F Fundraising",campsOf(p).length?campName(p):"",p.code,p.ktpFull||p.ktp||"",p.email||"",p.bank||"",p.banka||"",p._last?"inactive":"active",contractType(p),p.start||"",kitStatus(p),p._last||"",
-          hold?"HOLD - kit not returned":(p.lv===7&&payable<wd?"Trainee: "+payable+" of "+wd+" shifts at the day rate":"Finance Payment"),wd,rate,pay,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,duty,0,att,com,0,duty+att+com]}},
+        const isNew=p.lv===7||(!!p.start&&p.start>=from.slice(0,8)+"01");   // a trainee, or anyone not permanent who joined this month
+        const prior=isNew?Object.keys(CHECK[p.id]||{}).filter(k=>/^\d+$/.test(k)&&+k<fromDay&&CHECK[p.id][k].out).length:0;   // newbie shifts already paid before this range
+        /* every newbie (anyone not permanent who joined in this pay period, or a trainee) is paid Rp100,000 for their
+           first 10 shifts (Dave, 30 Sep 2026: "the first two weeks"); after that a trainee is performance-based, a contractor
+           gets the contractor rate */
+        const left=isNew?Math.max(0,RATES.traineeShifts-prior):0;
+        const atNew=Math.min(wd,left), rest=wd-atNew, restRate=p.lv===7?0:rate;
+        const payable=p.lv===7?atNew:wd, pay=atNew*RATES.trainee+rest*restRate, duty=pay; att=p.plan==="standard"?cm.attendance:0, com=cm.commission||0, hold=kitStatus(p)==="pending";
+        return [period,p.bankn||p.n,p.region||"","F2F",p.lv<=5?LEVELS[p.lv].replace(/\b\w/g,c=>c.toUpperCase()):"F2F Fundraising",campsOf(p).length?campName(p):"",p.code,p.ktpFull||p.ktp||"",p.email||"",p.bank||"",p.banka||"",p._last?"inactive":"active",contractType(p),p.start||"",kitStatus(p),p._last||"",
+          hold?"HOLD - kit not returned":(atNew&&atNew<wd?"New joiner: "+atNew+" of "+wd+" shifts at Rp100,000"+(restRate?", the rest at Rp"+restRate.toLocaleString("en-US"):""):(p.lv===7&&payable<wd?"Trainee: "+payable+" of "+wd+" shifts at the day rate":"Finance Payment")),wd,atNew?RATES.trainee:rate,pay,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,duty,0,att,com,0,duty+att+com]}},
     contracts:{name:"popcorn_employment_database_"+tag+".csv",
       head:["Status","Emp No","Name","Department","Position","Type of agreement","Length of Service","Date Join","Expected Confirmation Date","Confirmed?","Resign Date","EOM","Reason","Region","HOD","Campaign","Bank","Account Number","National ID","Passport No","DOB","Age","Gender","Race","Religion","Marital Status","Phone Number","Email Address","Home Address","Emergency Contact","Relationship","Emergency Number","Recruiter Name","Vest","T-shirt","Pitch card","Lanyard","Stopping Tool","ID card","Remark"],
       row:p=>{const r=leaver(p); return [p._last?"Inactive":"Active",p.code,p.n,"F2F",LEVELS[p.lv],p.lv===7?"Trainee":p.perm?"Permanent":"Independent Contract",svcLen(p),p.start||"","",p.probation==="pass"?"Y":p.probation==="ext"?'"Extended"':"",p._last||"","",r?r.why:"",p.region||"",hod(p),p.c?CAMPS[p.c].n:"",
@@ -3137,7 +3164,7 @@ function exportBox(kind){
            contracts:["Employment Database","Everyone who has ever joined, in the layout of the Indo Employee Data workbook, within the grid\'s filters. The date range is ignored."],
            attendance:["Attendance Perm","Permanent staff, in the layout of the Working Days Perm Staff file: one column per day with clock-in / clock-out times. Follows the grid\'s filters."]}[kind];
   const visible=new Set([...document.querySelectorAll(".htab td.c[data-p]")].map(td=>+td.dataset.p));
-  const ticks=[...document.querySelectorAll(".hfilt")].filter(c=>c.checked).map(c=>c.parentElement.textContent.trim());
+  const ticks=[...document.querySelectorAll(".hfilt, #hpbonly")].filter(c=>c.checked).map(c=>c.parentElement.textContent.trim());
   const why={payroll:"contractors and trainees",contracts:"everyone who has ever joined",attendance:"permanent staff"}[kind];
   const sc=document.createElement("div"); sc.className="scrim";
   sc.innerHTML='<div class="modal"><h3>'+T[0]+'</h3><p class="hint">'+T[1]+'</p>'+
@@ -3158,6 +3185,7 @@ function exportBox(kind){
 }
 ["hteam","hq"].forEach(id=>document.getElementById(id).addEventListener("input",renderHR));
 document.querySelectorAll(".hfilt").forEach(c=>c.addEventListener("change",renderHR));
+document.getElementById("hpbonly").addEventListener("change",renderHR);
 
 (function seedReq(){const perm=P.filter(p=>p.perm&&p.lv>=5), ic=P.filter(p=>!p.perm&&p.lv===6);
   if(perm[0])REQ.push({id:7001,pid:perm[0].id,mon:9,days:[24,25],type:"plan",reason:"Family wedding in Solo",status:"pending",to:by(perm[0].to).n.split(" ")[0],hr:false,sent:"14 Sep"});
@@ -3751,7 +3779,7 @@ function renderFRD(){
   if(FRMODE==="week"){
     h+='<table class="hc phone frdays"><tr><th>Day</th><th>Site</th><th class="r">A</th><th class="r">S</th><th class="r">P</th><th class="r">C</th></tr>'+
        days.map(d=>{const x=rows.find(r=>r.d===d); const dn="MTWTFSS"[dow(d)];
-         return '<tr class="'+(x?"":"dim")+'"><td>'+dn+' '+d+'</td><td>'+(x?SITES[x.site].n.replace(/ .*/,""):(d>HTODAY?"":"—"))+'</td>'+(x?'<td class="r">'+x.a+'</td><td class="r">'+x.s+'</td><td class="r">'+x.p+'</td><td class="r"><b>'+x.c+'</b></td>':'<td colspan="4" class="r dim">'+(d>HTODAY?"":"no shift")+'</td>')+'</tr>'}).join("")+'</table>';
+         return '<tr class="'+(x?"":"dim")+'"><td><span data-dow="'+dow(d)+'">'+dn+'</span> '+d+'</td><td>'+(x?SITES[x.site].n.replace(/ .*/,""):(d>HTODAY?"":"—"))+'</td>'+(x?'<td class="r">'+x.a+'</td><td class="r">'+x.s+'</td><td class="r">'+x.p+'</td><td class="r"><b>'+x.c+'</b></td>':'<td colspan="4" class="r dim">'+(d>HTODAY?"":"no shift")+'</td>')+'</tr>'}).join("")+'</table>';
   } else {
     const wsum=wks.map(wi=>{const dd=weekDays(wi); const ro=fsum(ASPC.filter(x=>x.pid===ME3.id&&dd.includes(x.d)&&!x.training)); return [wi,ro]});
     h+='<table class="hc phone frdays"><tr><th>Week</th><th class="r">Days</th><th class="r">P/day</th><th class="r">C</th><th class="r">Rp</th></tr>'+
@@ -3997,7 +4025,7 @@ document.getElementById("tradd").onclick=()=>{const v=esc(document.getElementByI
 const REAL_SITES=(typeof window!=="undefined"&&Array.isArray(window.LOCAL_SITES))?window.LOCAL_SITES:[];
 REAL_SITES.forEach(r=>{const loc=+r.code||null;
   SITES.push({n:esc(r.n),wa:esc(r.wa),spot:esc(r.spot||""),loc,c:CAMPS[r.c]?r.c:null,note:"",
-    am:["10:00","17:00"],pm:["12:00","19:00"],hlock:false,lat:r.lat??null,lng:r.lng??null,pin:r.pin||"none",radius:r.radius||200,cost:0,loa:"signed",
+    am:r.am||STD_HOURS(r.n).am,pm:r.pm||STD_HOURS(r.n).pm,hlock:false,lat:r.lat??null,lng:r.lng??null,pin:r.pin||"none",radius:r.radius||200,cost:0,loa:"signed",
     addr:r.region?esc(r.region)+" team":"",tz:r.tz||null,type:r.type||"local",hist:r.hist||null,real:true});
   if(loc&&!EG_LOCATIONS.some(([id,n])=>n===r.wa))EG_LOCATIONS.push([loc,esc(r.wa)])});
 
@@ -4017,4 +4045,179 @@ const REAL_STAFF=(typeof window!=="undefined"&&Array.isArray(window.LOCAL_STAFF)
   nextId=Math.max(nextId,base+REAL_STAFF.length+1)})();
 
 phInit(); render(); renderOrg(); renderMonth(); renderPhone(); renderApprovals(); renderEvents(); renderHR(); renderASPC(); renderF2F(); renderFRD(); renderTrain();
+
+/* ======================= LANGUAGE · Bahasa Indonesia / English (Dave, 30 Sep 2026) =======================
+   English is the source text. With Bahasa on, every piece of text drawn on the PHONE screens (and pop-ups opened
+   from them) is swapped for its translation as it appears; the English stays on the node, so switching back is exact.
+   Office screens are English for now. Kept in English on purpose (the team's own words, also in Evergiving):
+   check in/out, shift, roster, sign-up, FD, CC/DD, Tier, A/S/P, AM/PM, leader, booth.
+   Translations are OPEN until a native speaker on the client's team has checked them (tools/export_translations.js). */
+var LANG="en"; try{if(localStorage.getItem("popcorn.lang")==="id")LANG="id"}catch(e){}
+const ID_WORDS={
+  "‹ Main":"‹ Beranda","MAIN":"BERANDA","FR DASHBOARD":"DASBOR FR","Check I/O":"Check I/O","Monthly roster":"Roster bulanan","Leave":"Cuti",
+  "Remove":"Hapus","Tell your manager why (optional)":"Beri tahu manajer alasannya (opsional)","＋ Add a sign-up":"＋ Tambah sign-up",
+  "✓ Certificate photo attached":"✓ Foto surat dokter terlampir","✓ DONE FOR TODAY":"✓ SELESAI HARI INI","📷 Take a photo of your certificate":"📷 Foto surat dokter kamu",
+  "A run of days":"Rentang hari","Single days":"Satu per satu","Add your certificate":"Tambah surat dokter","Again":"Ulangi","Age":"Usia",
+  "Already requested — pending.":"Sudah diminta — menunggu jawaban.",
+  "Already rostered. Need time off? Tap a day — it opens on the Leave page.":"Sudah masuk roster. Perlu libur? Ketuk satu hari — terbuka di halaman Cuti.",
+  "at the site":"di lokasi","Ask for time off":"Minta libur","see your requests":"lihat permintaan kamu","Attendance allowance":"Tunjangan kehadiran","Back":"Kembali",
+  "Before cancellations and rejections. Paid on processable sign-ups at month end.":"Sebelum pembatalan dan penolakan. Dibayar atas sign-up yang bisa diproses, di akhir bulan.",
+  "by day":"per hari","By donor age":"Menurut usia donatur","Cancel":"Batal","Cancel this request":"Batalkan permintaan ini","Coming up":"Akan datang",
+  "check out when you finish":"check out setelah selesai","Choose from gallery":"Pilih dari galeri","Commission":"Komisi","Confirm":"Konfirmasi","confirm":"konfirmasi",
+  "Confirm check in":"Konfirmasi check in","Confirm check out":"Konfirmasi check out",
+  "Contractors do not accrue paid leave. Time off still needs approval.":"Kontraktor tidak mendapat cuti berbayar. Libur tetap perlu persetujuan.",
+  "Credit card":"Kartu kredit","Debit card":"Kartu debit","day":"hari","Day":"Hari","days":"hari","Days":"Hari","Done":"Selesai","Done for today":"Selesai untuk hari ini",
+  "EARNED SO FAR":"PENDAPATAN SEJAUH INI","ESTIMATED PAY":"PERKIRAAN GAJI","Emergency":"Darurat","Enter your approaches first.":"Isi approaches kamu dulu.","Estimated total":"Perkiraan total",
+  "fill these in, then check out":"isi ini, lalu check out","Finding you…":"Mencari lokasi kamu…","Fix the numbers above to check out.":"Perbaiki angka di atas untuk check out.",
+  "Gross basic":"Gaji pokok (kotor)","Gross, before tax. Commission is on gross FD; cancellations are settled next month.":"Kotor, sebelum pajak. Komisi dihitung dari FD kotor; pembatalan diselesaikan bulan depan.",
+  "Hide":"Sembunyikan","hold still":"tahan sebentar","hold still for a moment":"tahan sebentar","How many days?":"Berapa hari?",
+  "I was in a training session today":"Hari ini saya ikut sesi pelatihan","If you already took one":"Kalau sudah memotretnya","Just an off day":"Hanya hari libur",
+  "location + photo, then done":"lokasi + foto, lalu selesai","location saved":"lokasi tersimpan","location confirmed":"lokasi terkonfirmasi","your location":"lokasi kamu",
+  "photo at the booth":"foto di booth","May be unpaid.":"Mungkin tidak dibayar.","Month":"Bulan","My performance":"Performa saya","Office":"Kantor",
+  "Next":"Lanjut","take the photo":"ambil foto","no numbers needed":"tanpa angka","No reason needed. HR decides.":"Tidak perlu alasan. HR yang memutuskan.",
+  "No requests yet.":"Belum ada permintaan.","no shift":"tidak ada shift","No tier":"Belum ada tier","No training this week.":"Tidak ada pelatihan minggu ini.","None yet":"Belum ada",
+  "Not confirmed yet":"Belum dikonfirmasi","NOT ON THE ROSTER TODAY":"TIDAK ADA DI ROSTER HARI INI","Now tap the last day of the run":"Sekarang ketuk hari terakhirnya",
+  "one row each":"satu baris per sign-up","paid days left this year":"hari cuti berbayar tersisa tahun ini","Photo":"Foto","Photo of the certificate":"Foto surat dokter",
+  "planned":"terjadwal","Planned leave":"Cuti terencana","Point at the certificate":"Arahkan kamera ke surat dokter","Presentations a day":"Presentations per hari",
+  "Presentations can't be more than stops.":"Presentations tidak boleh lebih dari stops.","Quality bonus":"Bonus kualitas",
+  "rate by card, gift size and donor age":"tarif menurut kartu, besar donasi dan usia donatur","Rate CC/DD":"Tarif CC/DD","ready to send":"siap dikirim","Reason":"Alasan",
+  "Request cancelled.":"Permintaan dibatalkan.","Retry":"Coba lagi","Send certificate":"Kirim surat dokter","Send to HR":"Kirim ke HR",
+  "Sent to HR. You'll get a WhatsApp when they reply.":"Terkirim ke HR. Kamu akan dapat WhatsApp saat mereka membalas.","sent to your leader":"terkirim ke leader kamu",
+  "Sick — I have a certificate":"Sakit — ada surat dokter","Sick — no certificate":"Sakit — tanpa surat dokter","Site":"Lokasi",
+  "Something happened and you can't come.":"Ada keperluan mendadak dan kamu tidak bisa datang.","Stops can't be more than approaches.":"Stops tidak boleh lebih dari approaches.",
+  "Submitted":"Terkirim","Take a photo":"Ambil foto","Take the photo":"Ambil foto",
+  "Tap each day you can't work. Tap it again to clear it.":"Ketuk setiap hari kamu TIDAK bisa kerja. Ketuk lagi untuk membatalkan.",
+  "Tap the days you can't work":"Ketuk hari-hari kamu TIDAK bisa kerja","Tap the first day, then the last day":"Ketuk hari pertama, lalu hari terakhir",
+  "Tell your leader if anything is wrong.":"Beri tahu leader kamu kalau ada yang salah.","that's your shift finished":"shift kamu sudah selesai","this month":"bulan ini",
+  "Training day — numbers not required.":"Hari pelatihan — angka tidak wajib.","Training session":"Sesi pelatihan",
+  "Training session — no numbers needed. HR confirms it before it counts as a paid day.":"Sesi pelatihan — tanpa angka. HR mengonfirmasi dulu sebelum dihitung sebagai hari berbayar.",
+  "Training this week":"Pelatihan minggu ini","unpaid leave":"cuti tidak dibayar","Value":"Nilai","Wedding, family event, something booked.":"Pernikahan, acara keluarga, janji yang sudah dibuat.",
+  "Week":"Minggu","What dates does the certificate cover?":"Tanggal berapa saja yang ditulis di surat dokter?","Where are you working?":"Kamu kerja di mana?",
+  "Where you're working":"Tempat kamu kerja","Which sick day?":"Hari sakit yang mana?","whole month":"sebulan penuh","Why can't you work?":"Kenapa kamu tidak bisa kerja?",
+  "Wrong site or shift?":"Salah lokasi atau shift?","you and the booth":"kamu dan booth","you and the booth — the camera opens, no gallery":"kamu dan booth — kamera terbuka, tanpa galeri",
+  "You were marked sick with no certificate.":"Kamu tercatat sakit tanpa surat dokter.","You'll add a photo of the certificate.":"Kamu akan menambahkan foto surat dokter.",
+  "You're checked in":"Kamu sudah check in","You're checked out":"Kamu sudah check out","YOU'RE WORKING TODAY":"KAMU KERJA HARI INI",
+  "Your days off, your shifts and where you're working":"Hari libur, shift dan tempat kerja kamu","Your leader sees any change.":"Leader kamu melihat setiap perubahan.",
+  "YOUR NEXT SHIFT":"SHIFT BERIKUTNYA","Your numbers for today":"Angka kamu hari ini","Your requests":"Permintaan kamu","Your tier":"Tier kamu",
+  "tap to add a photo":"ketuk untuk tambah foto","tap the first day. HR decides.":"ketuk hari pertama. HR yang memutuskan.","Under-30 quality":"Kualitas usia di bawah 30",
+  "Under-30 share":"Porsi usia di bawah 30","performance based":"berbasis kinerja","Performance based":"Berbasis kinerja","P/day":"P/hari","base":"dasar",
+  "location + photo, then check in":"lokasi + foto, lalu check in","Head":"Kepala","Senior manager":"Manajer senior","Manager":"Manajer","Assistant manager":"Asisten manajer",
+  "Senior team leader":"Team leader senior","Team leader":"Team leader","Fundraiser":"Fundraiser","Trainee":"Trainee",
+  "THIS WEEK":"MINGGU INI","Nothing yet":"Belum ada","Nothing rostered yet — your leader is still planning":"Belum ada roster — leader kamu masih menyusunnya",
+  "Every sign-up this month":"Semua sign-up bulan ini","Location":"Lokasi","your leader is told":"leader kamu diberi tahu","No GPS signal":"Tidak ada sinyal GPS",
+  "step outside or near a window, then try again":"keluar sebentar atau mendekat ke jendela, lalu coba lagi","No shift rostered yet":"Belum ada shift di roster"
+};
+const ID_DAY={Mon:"Sen",Tue:"Sel",Wed:"Rab",Thu:"Kam",Fri:"Jum",Sat:"Sab",Sun:"Min",Monday:"Senin",Tuesday:"Selasa",Wednesday:"Rabu",Thursday:"Kamis",Friday:"Jumat",Saturday:"Sabtu",Sunday:"Minggu"};
+const ID_MON={Jan:"Jan",Feb:"Feb",Mar:"Mar",Apr:"Apr",May:"Mei",Jun:"Jun",Jul:"Jul",Aug:"Agu",Sep:"Sep",Oct:"Okt",Nov:"Nov",Dec:"Des",
+  January:"Januari",February:"Februari",March:"Maret",April:"April",June:"Juni",July:"Juli",August:"Agustus",September:"September",October:"Oktober",November:"November",December:"Desember",
+  JANUARY:"JANUARI",FEBRUARY:"FEBRUARI",MARCH:"MARET",APRIL:"APRIL",JUNE:"JUNI",JULY:"JULI",AUGUST:"AGUSTUS",SEPTEMBER:"SEPTEMBER",OCTOBER:"OKTOBER",NOVEMBER:"NOVEMBER",DECEMBER:"DESEMBER"};
+/* dates and small counted words — only next to a digit, so "May be unpaid." never becomes "Mei be unpaid." */
+const idTok=s=>s.replace(/\b(Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday|Mon|Tue|Wed|Thu|Fri|Sat|Sun)(?= \d)/g,m=>ID_DAY[m])
+  .replace(/(\d )(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\b/g,(m,a,b)=>a+ID_MON[b])
+  .replace(/\b(January|February|March|April|June|July|August|September|October|November|December|JANUARY|FEBRUARY|MARCH|APRIL|JUNE|JULY|AUGUST|SEPTEMBER|OCTOBER|NOVEMBER|DECEMBER)\b/g,m=>ID_MON[m])
+  .replace(/(\d) and (\d)/g,"$1 dan $2").replace(/\b(\d+) days?\b/g,"$1 hari").replace(/\b(\d+) sign-ups\b/g,"$1 sign-up").replace(/\b(\d+) shifts\b/g,"$1 shift")
+  .replace(/\bRp ([\d,]+)\/mo\b/g,"Rp $1/bln");
+const idAny=s=>{const t=idCore(s); return t==null?idTok(s):t};
+const ID_ROLE=/^(.+) \((Head|Senior manager|Manager|Assistant manager|Senior team leader|Team leader)\)$/;
+const ID_PAT=[
+  [/^(✓ )?CHECKED IN (\S+)$/,(m,a,b)=>(a||"")+"SUDAH CHECK IN "+b],
+  [/^(\d+) leave requests? — see Leave ›$/,(m,a)=>a+" permintaan cuti — lihat Cuti ›"],
+  [/^(\d+) requests? waiting for a reply$/,(m,a)=>a+" permintaan menunggu jawaban"],
+  [/^(\d+) sick days? needs? a certificate$/,(m,a)=>a+" hari sakit perlu surat dokter"],
+  [/^(\d+) this month$/,(m,a)=>a+" bulan ini"],
+  [/^(\d+) shifts? this month$/,(m,a)=>a+" shift bulan ini"],
+  [/^(\d+) qualifying FD$/,(m,a)=>a+" FD memenuhi syarat"],
+  [/^numbers sent to ([^·]+)$/,(m,a)=>"angka terkirim ke "+a],
+  [/^(\d\d?:\d\d) at ([^·]+)$/,(m,a,b)=>a+" di "+b],
+  [/^(\d+) more qualifying sign-ups? to reach Tier (\S+) \((\S+)\) — on today's pace you'd finish the month on about (\d+)(\.?)$/,(m,a,b,c,d,e)=>"Butuh "+a+" sign-up memenuhi syarat lagi untuk Tier "+b+" ("+c+") — dengan kecepatan hari ini, akhir bulan kamu sekitar "+d+e],
+  [/^(\d+) sign-ups? · performance based · (\d+)% commission$/,(m,a,b)=>a+" sign-up · berbasis kinerja · komisi "+b+"%"],
+  [/^(\d+)% under (\d+)$/,(m,a,b)=>a+"% usia di bawah "+b],
+  [/^needs (\d+)% or less$/,(m,a)=>"maksimal "+a+"%"],
+  [/^from Tier (\S+)$/,(m,a)=>"mulai Tier "+a],
+  [/^([\d.,]+) (k?m) away$/,(m,a,b)=>a+" "+b+" dari lokasi"],
+  [/^([\d.,]+ k?m) from ([^·]+)$/,(m,a,b)=>a+" dari "+b],
+  [/^You're not at ([^·]+)$/,(m,a)=>"Kamu tidak di "+a],
+  [/^([^·]+) will confirm your shifts and send you a WhatsApp\.$/,(m,a)=>a+" akan mengonfirmasi shift kamu dan mengirim WhatsApp."],
+  [/^accurate to ±(\d+) m$/,(m,a)=>"akurasi ±"+a+" m"],
+  [/^(\d+) days worked so far, (\d+) MC(?:, (\d+) leave)?\.$/,(m,a,b,c)=>"Sudah "+a+" hari kerja, "+b+" MC"+(c!=null?", "+c+" cuti":"")+"."],
+  [/^(\d+) accrued$/,(m,a)=>a+" terkumpul"],[/^(\d+) used$/,(m,a)=>a+" terpakai"],
+  [/^(\d+) day per full month, resets (\d+) January$/,(m,a,b)=>a+" hari per bulan penuh, direset "+b+" Januari"],
+  [/^AM shift$/,()=>"Shift AM"],[/^PM shift$/,()=>"Shift PM"],
+  [/^(AM|PM) shift (\d\d?:\d\d–\d\d?:\d\d)$/,(m,a,b)=>"Shift "+a+" "+b],
+  [/^Approved for ([^·]+)\.$/,(m,a)=>"Disetujui untuk "+idTok(a)+"."],
+  [/^At ([^·]+)$/,(m,a)=>"Di "+a],
+  [/^under Rp (.+)$/,(m,a)=>"di bawah Rp "+a],
+  [/^base × (\S+)$/,(m,a)=>"dasar × "+a],
+  [/^cap (\d+)$/,(m,a)=>"batas "+a],[/^(\d+) paid$/,(m,a)=>a+" dibayar"],
+  [/^Under (\d+)$/,(m,a)=>"Di bawah "+a],
+  [/^Checked in (\S+)$/,(m,a)=>"Check in "+a],
+  [/^In (\d\d?:\d\d)$/,(m,a)=>"Masuk "+a],[/^out (\d\d?:\d\d)$/,(m,a)=>"keluar "+a],
+  [/^location \+ photo, takes (\d+) seconds$/,(m,a)=>"lokasi + foto, butuh "+a+" detik"],
+  [/^Room (\w+)$/,(m,a)=>"Ruang "+a],
+  [/^Next: ([^·]+)$/,(m,a)=>"Berikutnya: "+idAny(a)],
+  [/^no quality bonus above (\d+)%$/,(m,a)=>"tidak ada bonus kualitas di atas "+a+"%"],
+  [/^below (\d+) qualifying FD$/,(m,a)=>"di bawah "+a+" FD memenuhi syarat"],
+  [/^change it any time until ([^·]+)$/,(m,a)=>"bisa diubah kapan saja sampai "+idTok(a)],
+  [/^open until ([^·]+)$/,(m,a)=>"dibuka sampai "+idTok(a)],
+  [/^Photo attached for (\d+) days?, (.+) to (.+)\. It goes to HR\.$/,(m,a,b,c)=>"Foto terlampir untuk "+a+" hari, "+idTok(b)+" sampai "+idTok(c)+". Dikirim ke HR."],
+  [/^Photo attached for (.+)\. It goes to HR\.$/,(m,a)=>"Foto terlampir untuk "+idTok(a)+". Dikirim ke HR."],
+  [/^Photo taken (\S+)$/,(m,a)=>"Foto diambil "+a],
+  [/^See all (\d+) shifts$/,(m,a)=>"Lihat semua "+a+" shift"],
+  [/^Send my (\w+) days$/,(m,a)=>"Kirim jadwal "+idTok(a)],[/^Update my (\w+) days$/,(m,a)=>"Perbarui jadwal "+idTok(a)],
+  [/^Sent (.+)\. Change it any time until (.+)\.$/,(m,a,b)=>"Terkirim "+idTok(a)+". Bisa diubah kapan saja sampai "+idTok(b)+"."],
+  [/^(\d+) sick days? in this run$/,(m,a)=>a+" hari sakit dalam rentang ini"],
+  [/^Tier (\S+) · (\S+)$/,(m,a,b)=>"Tier "+a+" · "+b],
+  [/^(\S+)× rates$/,(m,a)=>"tarif "+a+"×"],
+  [/^The (\w+) roster is already set\.$/,(m,a)=>"Roster "+idTok(a)+" sudah ditetapkan."],
+  [/^Wk (\d+)$/,(m,a)=>"Mg "+a],[/^WEEK (\d+)$/,(m,a)=>"MINGGU "+a],
+  [/^You have (\d+) sign-ups? but only (\d+) presentations?\.$/,(m,a,b)=>"Kamu punya "+a+" sign-up tapi hanya "+b+" presentations."],
+  [/^You must be working a minimum of (\d+) days in a month\.$/,(m,a)=>"Kamu harus kerja minimal "+a+" hari dalam sebulan."],
+  [/^You must work at least (\d+) days a month\. You've only left yourself (\d+)(\.?)$/,(m,a,b,c)=>"Kamu harus kerja minimal "+a+" hari sebulan. Kamu hanya menyisakan "+b+c],
+  [/^You must work one day of every weekend\. (.+) can't both be off\.$/,(m,a)=>"Kamu harus kerja satu hari di setiap akhir pekan. "+idTok(a)+" tidak boleh libur dua-duanya."],
+  [/^You're at ([^·]+)$/,(m,a)=>"Kamu di "+a],
+  [/^([A-Z]+) SO FAR$/,(m,a)=>idTok(a)+" SEJAUH INI"],
+  [/^Your (January|February|March|April|May|June|July|August|September|October|November|December)$/,(m,a)=>(ID_MON[a]||"Mei")+" kamu"],
+  [ID_ROLE,(m,a,b)=>a+" ("+ID_WORDS[b]+")"]
+];
+function idCore(c){
+  if(ID_WORDS[c]!=null)return ID_WORDS[c];
+  for(const [re,f] of ID_PAT){const m=c.match(re); if(m)return idTok(f(...m))}
+  if(/\s·\s/.test(c)){const parts=c.split(/(\s+·\s+)/), out=parts.map((x,i)=>i%2?x:idAny(x)); if(out.some((x,i)=>x!==parts[i]))return out.join("")}
+  const t=idTok(c); return t!==c?t:null;
+}
+function trText(s){
+  if(LANG!=="id"||!/[A-Za-z]/.test(s))return s;
+  const m=s.match(/^(\s*)([\s\S]*?)(\s*)$/); const t=idCore(m[2]); return t==null?s:m[1]+t+m[3];
+}
+const PHONE_TABS=new Set(["main","phone","leave","aspc","frd"]);
+const onPhoneTab=()=>{const b=document.querySelector('.tabs button[aria-pressed="true"]'); return !!b&&PHONE_TABS.has(b.dataset.tab)};
+const inLangScope=el=>!!el&&!el.closest("[data-notr]")&&(!!el.closest(".device")||(onPhoneTab()&&!!el.closest(".scrim, .toast")));
+const ID_DOW="SSRKJSM";   // a lone day letter is ambiguous (T, S), so the calendars mark each with its weekday: data-dow 0 = Monday
+function langNode(n){
+  if(n.nodeType===3){if(n.__en==null&&LANG==="en")return; const src=n.__en!=null?n.__en:n.data, pd=n.parentElement&&n.parentElement.dataset.dow, t=pd!=null&&/^[A-Z]$/.test(src)?(LANG==="id"?ID_DOW[+pd]:src):trText(src); if(t!==src)n.__en=src; if(n.data!==t)n.data=t; return}
+  if(n.nodeType!==1||/^(SCRIPT|STYLE)$/.test(n.tagName)||n.hasAttribute("data-notr"))return;
+  for(const a of ["placeholder","title","aria-label"]){if(!n.hasAttribute(a))continue; n.__enA=n.__enA||{};
+    const src=n.__enA[a]!=null?n.__enA[a]:n.getAttribute(a), t=trText(src); if(t!==src)n.__enA[a]=src; if(n.getAttribute(a)!==t)n.setAttribute(a,t)}
+  n.childNodes.forEach(langNode);
+}
+function langTabs(){if(ROLE!=="fr")return; const lab={main:LANG==="id"?"BERANDA":"MAIN",frd:LANG==="id"?"DASBOR FR":"FR DASHBOARD"};
+  document.querySelectorAll(".tabs button").forEach(b=>{if(lab[b.dataset.tab])b.textContent=lab[b.dataset.tab]})}
+function applyLang(){
+  document.querySelectorAll(".lngopt").forEach(o=>{const on=o.dataset.lang===LANG; o.classList.toggle("on",on); o.setAttribute("aria-pressed",on)});
+  document.documentElement.lang=LANG;
+  document.querySelectorAll(".device"+(onPhoneTab()?", .scrim, .toast":"")).forEach(langNode); langTabs();
+}
+/* The watcher runs only while Bahasa is on, and only on the phone screens and on pop-ups added to the page — never the
+   whole page: a page-wide watcher keeps every redrawn office table alive until it runs (ran out of memory in t27). */
+const LANG_MO=new MutationObserver(recs=>{if(LANG!=="id")return; for(const r of recs)for(const n of r.addedNodes){
+  if(r.target===document.body){if(n.nodeType===1&&n.matches(".scrim, .toast")&&onPhoneTab()){langNode(n); LANG_MO.observe(n,{childList:true,subtree:true})} continue}
+  const el=n.nodeType===1?n:n.parentElement; if(inLangScope(el))langNode(n)}});
+function langWatch(){LANG_MO.disconnect(); if(LANG!=="id")return;
+  document.querySelectorAll(".device").forEach(dv=>LANG_MO.observe(dv,{childList:true,subtree:true}));
+  LANG_MO.observe(document.body,{childList:true});
+  if(onPhoneTab())document.querySelectorAll(".scrim, .toast").forEach(x=>LANG_MO.observe(x,{childList:true,subtree:true}))}
+function setLang(l){LANG=l==="id"?"id":"en"; try{localStorage.setItem("popcorn.lang",LANG)}catch(e){} applyLang(); langWatch()}
+document.addEventListener("click",e=>{const o=e.target.closest(".lngopt"); if(o)setLang(o.dataset.lang)});
+document.addEventListener("keydown",e=>{const o=e.target.closest&&e.target.closest(".lngopt"); if(o&&(e.key==="Enter"||e.key===" ")){e.preventDefault(); setLang(o.dataset.lang)}});
+applyLang(); langWatch();
 </script>
