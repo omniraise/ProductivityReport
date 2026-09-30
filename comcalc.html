@@ -167,7 +167,24 @@ ul.rules li{margin:5px 0}
     return band;
   }
 
+  // LOCKED AND FINAL, 30 Sep 2026 — mirrors MODEL_C_FINAL_RATES in models.py.
+  // [CC, DD] per age, per gift band; Tier 2 rate per sign-up in IDR.
+  var FINAL = {
+    195000: { "Below 30": [100000, 50000], "30 - 34": [105000, 55000], "35 - 39": [120000, 60000], "40 & Above": [130000, 65000] },
+    225000: { "Below 30": [120000, 70000], "30 - 34": [125000, 75000], "35 - 39": [140000, 80000], "40 & Above": [150000, 85000] },
+    300000: { "Below 30": [169500, 119500], "30 - 34": [174500, 124500], "35 - 39": [189500, 129500], "40 & Above": [199500, 134500] },
+    500000: { "Below 30": [302000, 252000], "30 - 34": [307000, 257000], "35 - 39": [322000, 262000], "40 & Above": [332000, 267000] }
+  };
   function defaultRates() {
+    var r = {};
+    BANDS.forEach(function (b) {
+      AGES.forEach(function (s) { r[b + "|" + s + "|CC"] = FINAL[b][s][0]; r[b + "|" + s + "|DD"] = FINAL[b][s][1]; });
+    });
+    return r;
+  }
+
+  // The pre-final starting grid (Model B base x gift ratio), history only.
+  function startingRates() {
     var base = { "Below 30": [100000, 50000], "30 - 34": [105000, 55000],
                  "35 - 39": [120000, 60000], "40 & Above": [130000, 65000] };
     var r = {};
@@ -299,7 +316,7 @@ ul.rules li{margin:5px 0}
   }
 
   var api = { AGES: AGES, CARDS: CARDS, BANDS: BANDS, giftBand: giftBand, defaultRates: defaultRates,
-              defaultParams: defaultParams, modelC: modelC, modelCWithAsk: modelCWithAsk, firstAskScenario: firstAskScenario,
+              defaultParams: defaultParams, startingRates: startingRates, modelC: modelC, modelCWithAsk: modelCWithAsk, firstAskScenario: firstAskScenario,
               charityOf: charityOf };
   if (typeof module !== "undefined" && module.exports) module.exports = api;
   else root.ModelC = api;
