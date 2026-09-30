@@ -156,11 +156,12 @@ ul.rules li{margin:5px 0}
   var AGES = ["Below 30", "30 - 34", "35 - 39", "40 & Above"];
   var CARDS = ["CC", "DD"];
   var BANDS = [195000, 225000, 300000, 500000];
+  var PAID_FLOOR = 180000;   // gifts from 180k are paid at the 195k band (Dave, 30 Sep 2026)
   function halfUp(x) { return Math.floor(x + 0.5); }
 
   function giftBand(a) {
     if (a === null || a === undefined) return BANDS[0];
-    if (a < BANDS[0]) return "below";
+    if (a < PAID_FLOOR) return "below";
     var band = BANDS[0];
     for (var i = 0; i < BANDS.length; i++) if (a >= BANDS[i]) band = BANDS[i];
     return band;
@@ -193,7 +194,7 @@ ul.rules li{margin:5px 0}
     var below = 0, unknown = 0, u30 = 0, i;
     for (i = 0; i < pledges.length; i++) {
       var a = pledges[i][2];
-      if (a === null) unknown++; else if (a < BANDS[0]) below++;
+      if (a === null) unknown++; else if (a < PAID_FLOOR) below++;
       if (pledges[i][0] === "Below 30") u30++;
     }
     var count = p.tierBasis === "processable" ? processable
@@ -314,11 +315,11 @@ if(RATES)P.rates=RATES;
 var AGES=M.AGES, CARDS=M.CARDS;
 var AGE_LBL=["25–29","30–34","35–39","40+"];
 var GIFTS=[
-  {key:"195",amount:195000,label:"195k",note:"Monthly gift of 195,000 to 224,999 (including 200k)."},
+  {key:"195",amount:195000,label:"195k",note:"Monthly gift of 180,000 to 224,999 (including 195k and 200k)."},
   {key:"225",amount:225000,label:"225k",note:"Monthly gift of 225,000 to 299,999 (including 250k)."},
   {key:"300",amount:300000,label:"300k",note:"Monthly gift of 300,000 to 499,999."},
   {key:"500",amount:500000,label:"500k",note:"Monthly gift of 500,000 or more."},
-  {key:"low",amount:150000,label:"Under 195k",note:"Gifts under 195,000 count towards your tier but are not paid."}
+  {key:"low",amount:150000,label:"Under 180k",note:"Gifts under 180,000 count towards your tier but are not paid."}
 ];
 var KEY="modelC.staff.v1";
 var $=function(id){return document.getElementById(id);};
@@ -378,7 +379,7 @@ function renderRules(){
   $("rules").innerHTML=[
     "<b>Tiers</b> are counted on all your sign-ups for the month. "+t[0][0]+"–"+(t[1][0]-1)+" sign-ups is Tier 1 and pays "+(t[0][1]*100)+"% of the rate. "+t[1][0]+" or more is Tier 2 and pays the full rate. Under "+t[0][0]+" there is no commission.",
     "<b>Each sign-up</b> is paid by its monthly gift, the donor's age and the card type. A bigger gift pays more; see the rate table.",
-    "<b>Gifts under 195k</b> count towards your tier but are not paid.",
+    "<b>Gifts under 180k</b> count towards your tier but are not paid. Gifts from 180k to 224,999 are paid at the 195k rate.",
     "<b>Under-30 share</b> is your under-30 sign-ups ÷ all your sign-ups. At 30% or more your commission is cut by "+pct(P.u30Cut30)+". At 40% or more it is cut by "+pct(P.u30Cut40)+".",
     "<b>Quality bonus</b> (with "+P.qualityMinFd+"+ sign-ups): under-30 below "+pct(P.qualityGoodBelow)+" pays "+fmt(P.qualityGoodPay)+". From "+pct(P.qualityGoodBelow)+" up to below "+pct(P.qualityMidBelow)+" it pays "+fmt(P.qualityMidPay)+".",
     "<b>Attendance bonus:</b> "+fmt(P.attendancePay)+" for "+P.attendanceMinDays+"+ working days and "+P.attendanceMinFd+"+ sign-ups (first debits, gross).",
@@ -395,7 +396,7 @@ function render(){
   var tierName=r.tier?("Tier "+r.tier+" (×"+r.multiplier+")"):"No tier yet";
 
   $("bd").innerHTML=
-    "<tr><td>Sign-ups<small>"+(n?pct(r.u30Ratio)+" under-30"+(low?" · "+low+" under 195k (not paid)":""):"add your sign-ups above")+"</small></td><td>"+n+"</td></tr>"+
+    "<tr><td>Sign-ups<small>"+(n?pct(r.u30Ratio)+" under-30"+(low?" · "+low+" under 180k (not paid)":""):"add your sign-ups above")+"</small></td><td>"+n+"</td></tr>"+
     "<tr><td>Tier</td><td>"+tierName+"</td></tr>"+
     "<tr><td>Commission<small>before the under-30 cut</small></td><td>"+fmt(r.before)+"</td></tr>"+
     (r.cut?'<tr><td>Under-30 cut<small>'+pct(r.u30Ratio)+" under-30 → "+pct(r.cut)+' off</small></td><td class="neg">−'+fmt(cutAmt)+"</td></tr>":"")+
@@ -420,7 +421,7 @@ function render(){
   else if(days>=P.attendanceMinDays&&n<P.attendanceMinFd)tips.push(["info",(P.attendanceMinFd-n)+" more sign-up"+(P.attendanceMinFd-n===1?"":"s")+" for the "+fmt(P.attendancePay)+" attendance bonus."]);
   var up=P.rates["225000|40 & Above|DD"]-P.rates["195000|40 & Above|DD"];
   tips.push(["info","Ask for 225k first. For a 40+ donor on debit, 225k pays "+fmt(up*(r.tier===1?0.5:1))+" more per sign-up than 195k"+(r.tier?"":" once you reach a tier")+"."]);
-  if(low)tips.push(["bad",low+" sign-up"+(low===1?" is":"s are")+" under 195k and earn nothing. Ask for 195k as the minimum."]);
+  if(low)tips.push(["bad",low+" sign-up"+(low===1?" is":"s are")+" under 180k and earn nothing. Ask for 195k; never accept under 180k."]);
   $("tips").innerHTML=tips.map(function(x){return '<li class="'+x[0]+'">'+x[1]+"</li>";}).join("");
 
   $("barTotal").textContent=fmt(r.total);
