@@ -181,8 +181,9 @@ ul.rules li{margin:5px 0}
 
   function defaultParams() {
     return { rates: defaultRates(), tiers: [[20, 0.5], [25, 1.0]], tierBasis: "gross",
-             belowFloorPay: 0.0, belowFloorCountsForTier: true, u30Cut30: 0.30, u30Cut40: 0.50,
+             belowFloorPay: 0.0, belowFloorCountsForTier: true, u30Cut30: 0.25, u30Cut40: 0.50,
              attendancePay: 500000, attendanceMinDays: 20, attendanceMinFd: 16,
+             attendanceOnQualifying: false, attendanceU30Cap: 7,
              qualityGoodBelow: 0.20, qualityGoodPay: 1000000, qualityMidBelow: 0.30,
              qualityMidPay: 500000, qualityMinFd: 20 };
   }
@@ -212,8 +213,10 @@ ul.rules li{margin:5px 0}
     var ratio = grossFd ? u30 / grossFd : 0;
     var cut = ratio >= 0.40 ? p.u30Cut40 : ratio >= 0.30 ? p.u30Cut30 : 0;
     var before = base * mult;
+    // attendance on gross FD by default (Dave, 30 Sep 2026); optionally qualifying sign-ups
+    var attFd = p.attendanceOnQualifying ? grossFd - Math.max(0, u30 - p.attendanceU30Cap) : grossFd;
     var att = (p.attendancePay && (workingDays || 0) >= p.attendanceMinDays
-               && grossFd >= p.attendanceMinFd) ? p.attendancePay : 0;
+               && attFd >= p.attendanceMinFd) ? p.attendancePay : 0;
     var quality = grossFd < p.qualityMinFd ? 0
                 : ratio < p.qualityGoodBelow ? p.qualityGoodPay
                 : ratio < p.qualityMidBelow ? p.qualityMidPay : 0;
@@ -378,7 +381,7 @@ function renderRules(){
     "<b>Gifts under 195k</b> count towards your tier but are not paid.",
     "<b>Under-30 share</b> is your under-30 sign-ups ÷ all your sign-ups. At 30% or more your commission is cut by "+pct(P.u30Cut30)+". At 40% or more it is cut by "+pct(P.u30Cut40)+".",
     "<b>Quality bonus</b> (with "+P.qualityMinFd+"+ sign-ups): under-30 below "+pct(P.qualityGoodBelow)+" pays "+fmt(P.qualityGoodPay)+". From "+pct(P.qualityGoodBelow)+" up to below "+pct(P.qualityMidBelow)+" it pays "+fmt(P.qualityMidPay)+".",
-    "<b>Attendance bonus:</b> "+fmt(P.attendancePay)+" for "+P.attendanceMinDays+"+ working days and "+P.attendanceMinFd+"+ sign-ups.",
+    "<b>Attendance bonus:</b> "+fmt(P.attendancePay)+" for "+P.attendanceMinDays+"+ working days and "+P.attendanceMinFd+"+ sign-ups (first debits, gross).",
     "The two bonuses are not reduced by the under-30 cut."
   ].map(function(x){return "<li>"+x+"</li>";}).join("");
 }
