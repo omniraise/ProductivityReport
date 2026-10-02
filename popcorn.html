@@ -68,6 +68,14 @@
   .chip .x,.chip .ab{border:0;background:transparent;color:inherit;font:inherit;cursor:pointer;opacity:.45;padding:0 1px;line-height:1}
   .chip .x{font-size:14px} .chip .ab{font-size:9.5px;font-weight:700;letter-spacing:.03em}
   .chip .x:hover,.chip .ab:hover{opacity:1} .chip .ab:hover{color:var(--flag)}
+  /* on the roster grid the name gets the whole slot; "Mark absent" and × appear on hover or when the name is tapped
+     (Dave, 2 Oct 2026: names showed as "W.." and "F..." beside an always-on ABSENT that read like a status) */
+  .cell .chip .ab,.cell .chip .x{display:none}
+  .cell .chip.democ .nm{color:#B4541B} .cell .chip.democ.picked .nm{color:#FBE9DD}
+  .cell .chip .nm{white-space:normal;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;line-height:1.2;overflow-wrap:anywhere}
+  .cell .chip{position:relative}
+  .cell .chip:hover .ab,.cell .chip:hover .x,.cell .chip.picked .ab,.cell .chip.picked .x,.cell .chip:focus-within .ab,.cell .chip:focus-within .x{display:inline-block;position:absolute;top:50%;transform:translateY(-50%);background:inherit;opacity:1;padding:3px 4px;border-radius:4px}
+  .cell .chip .x{right:2px} .cell .chip .ab{right:20px;white-space:nowrap}   /* float over the name's end, so the name never shrinks */
   .board{flex:1;display:flex;flex-direction:column;gap:12px;min-width:0}
   .site{background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden}
   .sitehead{padding:9px 12px;border-bottom:1px solid var(--line);font-size:13px;font-weight:600;display:flex;align-items:center;gap:10px}
@@ -246,6 +254,16 @@
   .deviceframe{display:flex;justify-content:center;padding:22px 12px 60px}
   .device{width:390px;max-width:100%;background:var(--card);border:1px solid var(--line);border-radius:28px;
     padding:0 0 18px;overflow:hidden;box-shadow:0 2px 14px rgba(22,35,58,.10)}
+  .fxwrap{padding:14px;min-width:0} .fxseg{margin:0 0 12px;width:auto;display:inline-flex} .fxseg .seg{white-space:nowrap;flex:0 0 auto;padding:7px 14px}
+  .fxkpis{grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
+  .fxtbl{width:100%;table-layout:auto;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:8px;font-size:12.5px;margin:6px 0 14px}
+  .fxtbl th,.fxtbl td{padding:7px 9px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top} .fxtbl th{font-size:11px;color:var(--ink-soft);font-weight:600;background:#F7F8FA}
+  .fxtbl td.r,.fxtbl th.r{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap} .fxtbl small{color:var(--ink-soft)} .fxtbl tr.fxwait td{background:#FFF8EC}
+  .fxact{padding:4px 10px;font-size:12px;white-space:nowrap} .fxmute{color:var(--ink-soft);font-weight:400}
+  .fxrange{display:flex;flex-wrap:wrap;gap:8px;align-items:flex-end;margin:0 0 12px} .fxrange label{font-size:12px;color:var(--ink-soft);display:flex;flex-direction:column;gap:3px}
+  .fxcols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:14px} .fxh{margin:6px 0 2px;font-size:13px}
+  .fxadd{display:grid;grid-template-columns:130px 1fr 120px 1fr 1fr auto;gap:6px;margin:6px 0 4px} .fxadd input,.fxadd select{min-width:0}
+  @media (max-width:820px){.fxcols{grid-template-columns:1fr} .fxadd{grid-template-columns:1fr 1fr}}
   .lngsw{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:var(--card)}
   .lngopt{display:flex;align-items:center;justify-content:center;min-width:72px;min-height:32px;padding:0 12px;font-size:12.5px;font-weight:600;color:var(--ink-soft);cursor:pointer;user-select:none}
   .lngopt.on{background:var(--ink);color:#fff}
@@ -546,7 +564,7 @@
   table.htab tr.probdue td.who{background:#FFF3D6}
   table.mtab tr.band.leftband td{background:#EDF0F5;color:var(--ink-soft)}
   table.htab tr.leftrow td.who,table.htab tr.leftrow td.role{background:#F7F8FA;color:var(--ink-soft)}
-  table.mtab td.who .pm.perfb{background:#6B3FA0;color:#fff} .tag.perfb{background:#EFE7F8;color:#6B3FA0} .perfbs{color:#6B3FA0;font-weight:700}
+  table.mtab td.who .pm.perfb{background:#6B3FA0;color:#fff} .democode{color:#B4541B;font-weight:700} table.mtab td.who .pm.rejoinq{background:#B4541B;color:#fff} .tag.rejoinq{background:#FBE9DD;color:#B4541B} .tag.perfb{background:#EFE7F8;color:#6B3FA0} .perfbs{color:#6B3FA0;font-weight:700}
   table.mtab td.who .pm.lf{background:#5A6478;color:#fff} table.mtab td.who .pm.tw{background:var(--ok);color:#fff}
   table.htab tr.twenty td.who{box-shadow:inset 3px 0 0 var(--ok)}
   table.htab td.tot.hit20{background:#EAF3EE;color:var(--ok);font-weight:700}
@@ -920,7 +938,7 @@
 
 <header>
   <h1>Popcorn <small class="ver">build 59</small></h1>
-  <div class="lnghead" data-notr><div class="lngsw" role="group" aria-label="Language · Bahasa"><div role="button" tabindex="0" class="lngopt" data-lang="id" aria-pressed="false">Bahasa</div><div role="button" tabindex="0" class="lngopt" data-lang="en" aria-pressed="true">English</div></div></div>
+  <div class="lnghead" data-notr><div class="lngsw" role="group" aria-label="Language · Bahasa"><div role="button" tabindex="0" class="lngopt" data-lang="id" aria-pressed="false">Bahasa</div><div role="button" tabindex="0" class="lngopt" data-lang="en" aria-pressed="true">English</div><div role="button" tabindex="0" class="lngopt" data-lang="th" aria-pressed="false" lang="th">ไทย</div></div></div>
   <div class="wk" id="hdrsub">Week 3 — 14 – 20 Sep 2026 · Jakarta</div>
   <div class="tabs">
     <button data-tab="roster" aria-pressed="true">Weekly roster</button>
@@ -935,7 +953,8 @@
     <button data-tab="f2f" aria-pressed="false">F2F Dashboard</button>
     <button data-tab="frd" aria-pressed="false">FR Dashboard</button>
     <button data-tab="train" aria-pressed="false">Trainer schedule</button>
-    <select id="asrole" title="Preview what each role sees"><option value="dir">Viewing as: Director</option><option value="hr">Viewing as: HR</option><option value="ev">Viewing as: Events</option><option value="mgr">Viewing as: Manager</option><option value="tl">Viewing as: Team leader</option><option value="fr">Viewing as: Fundraiser</option></select>
+    <button data-tab="finance" aria-pressed="false">Finance</button>
+    <select id="asrole" title="Preview what each role sees"><option value="dir">Viewing as: Director</option><option value="hr">Viewing as: HR</option><option value="ev">Viewing as: Events</option><option value="fin">Viewing as: Finance</option><option value="mgr">Viewing as: Manager</option><option value="tl">Viewing as: Team leader</option><option value="fr">Viewing as: Fundraiser</option></select>
   </div>
 </header>
 
@@ -964,7 +983,7 @@
     <select id="whoami" class="search" style="width:210px;margin:0"></select>
     <span class="hint" style="margin:0">Preview — shown here in a phone frame. A fundraiser just sees this full screen.</span>
   </div>
-  <div class="deviceframe"><div class="device"><div class="lngbar" data-notr><div class="lngsw" role="group" aria-label="Language · Bahasa"><div role="button" tabindex="0" class="lngopt" data-lang="id" aria-pressed="false">Bahasa</div><div role="button" tabindex="0" class="lngopt" data-lang="en" aria-pressed="true">English</div></div></div><div id="pApp"></div></div></div>
+  <div class="deviceframe"><div class="device"><div class="lngbar" data-notr><div class="lngsw" role="group" aria-label="Language · Bahasa"><div role="button" tabindex="0" class="lngopt" data-lang="id" aria-pressed="false">Bahasa</div><div role="button" tabindex="0" class="lngopt" data-lang="en" aria-pressed="true">English</div><div role="button" tabindex="0" class="lngopt" data-lang="th" aria-pressed="false" lang="th">ไทย</div></div></div><div id="pApp"></div></div></div>
 </div>
 
 <!-- ===================== MAIN (what a fundraiser lands on) ===================== -->
@@ -973,7 +992,7 @@
     <select id="whoami0" class="search" style="width:210px;margin:0"></select>
     <span class="hint" style="margin:0">Preview — a fundraiser lands here after login. Two tabs only: MAIN and FR DASHBOARD.</span>
   </div>
-  <div class="deviceframe"><div class="device"><div class="lngbar" data-notr><div class="lngsw" role="group" aria-label="Language · Bahasa"><div role="button" tabindex="0" class="lngopt" data-lang="id" aria-pressed="false">Bahasa</div><div role="button" tabindex="0" class="lngopt" data-lang="en" aria-pressed="true">English</div></div></div><div id="mainApp"></div></div></div>
+  <div class="deviceframe"><div class="device"><div class="lngbar" data-notr><div class="lngsw" role="group" aria-label="Language · Bahasa"><div role="button" tabindex="0" class="lngopt" data-lang="id" aria-pressed="false">Bahasa</div><div role="button" tabindex="0" class="lngopt" data-lang="en" aria-pressed="true">English</div><div role="button" tabindex="0" class="lngopt" data-lang="th" aria-pressed="false" lang="th">ไทย</div></div></div><div id="mainApp"></div></div></div>
 </div>
 
 <!-- ===================== LEAVE (phone) ===================== -->
@@ -982,7 +1001,7 @@
     <select id="whoami4" class="search" style="width:210px;margin:0"></select>
     <span class="hint" style="margin:0">Preview — every leave request lives here, not on the roster page.</span>
   </div>
-  <div class="deviceframe"><div class="device"><div class="lngbar" data-notr><div class="lngsw" role="group" aria-label="Language · Bahasa"><div role="button" tabindex="0" class="lngopt" data-lang="id" aria-pressed="false">Bahasa</div><div role="button" tabindex="0" class="lngopt" data-lang="en" aria-pressed="true">English</div></div></div><div id="leaveApp"></div></div></div>
+  <div class="deviceframe"><div class="device"><div class="lngbar" data-notr><div class="lngsw" role="group" aria-label="Language · Bahasa"><div role="button" tabindex="0" class="lngopt" data-lang="id" aria-pressed="false">Bahasa</div><div role="button" tabindex="0" class="lngopt" data-lang="en" aria-pressed="true">English</div><div role="button" tabindex="0" class="lngopt" data-lang="th" aria-pressed="false" lang="th">ไทย</div></div></div><div id="leaveApp"></div></div></div>
 </div>
 
 <!-- ===================== MONTHLY ===================== -->
@@ -1071,7 +1090,7 @@
     <div class="segs" style="margin:0;width:auto"><button class="seg gsim on" data-g="site">At the site</button><button class="seg gsim" data-g="near">Next door · 350m</button><button class="seg gsim" data-g="away">At home · 6 km</button><button class="seg gsim" data-g="none">No signal</button></div>
     <span class="hint" style="margin:0 0 0 auto">A real fundraiser sees only the phone screen below — no dropdowns.</span>
   </div>
-  <div class="deviceframe"><div class="device"><div class="lngbar" data-notr><div class="lngsw" role="group" aria-label="Language · Bahasa"><div role="button" tabindex="0" class="lngopt" data-lang="id" aria-pressed="false">Bahasa</div><div role="button" tabindex="0" class="lngopt" data-lang="en" aria-pressed="true">English</div></div></div><div id="aspcApp"></div></div></div>
+  <div class="deviceframe"><div class="device"><div class="lngbar" data-notr><div class="lngsw" role="group" aria-label="Language · Bahasa"><div role="button" tabindex="0" class="lngopt" data-lang="id" aria-pressed="false">Bahasa</div><div role="button" tabindex="0" class="lngopt" data-lang="en" aria-pressed="true">English</div><div role="button" tabindex="0" class="lngopt" data-lang="th" aria-pressed="false" lang="th">ไทย</div></div></div><div id="aspcApp"></div></div></div>
 </div>
 
 <!-- ===================== F2F DASHBOARD ===================== -->
@@ -1107,8 +1126,11 @@
 <div id="frd" class="hidden">
   <div class="phonebar preview"><span class="pvtag">PREVIEW ONLY</span><label class="pvl">Viewing as <select id="whoami3" class="search" style="width:220px;margin:0"></select></label>
     <span class="hint" style="margin:0 0 0 auto">A fundraiser sees only their own screen.</span></div>
-  <div class="deviceframe"><div class="device"><div class="lngbar" data-notr><div class="lngsw" role="group" aria-label="Language · Bahasa"><div role="button" tabindex="0" class="lngopt" data-lang="id" aria-pressed="false">Bahasa</div><div role="button" tabindex="0" class="lngopt" data-lang="en" aria-pressed="true">English</div></div></div><div id="frdApp"></div></div></div>
+  <div class="deviceframe"><div class="device"><div class="lngbar" data-notr><div class="lngsw" role="group" aria-label="Language · Bahasa"><div role="button" tabindex="0" class="lngopt" data-lang="id" aria-pressed="false">Bahasa</div><div role="button" tabindex="0" class="lngopt" data-lang="en" aria-pressed="true">English</div><div role="button" tabindex="0" class="lngopt" data-lang="th" aria-pressed="false" lang="th">ไทย</div></div></div><div id="frdApp"></div></div></div>
 </div>
+
+<!-- ===================== FINANCE ===================== -->
+<main id="finance" class="hidden"><section class="orgwrap fxwrap"><div id="finApp"></div></section></main>
 
 <!-- ===================== TRAINER SCHEDULE ===================== -->
 <main id="train" class="hidden">
@@ -1176,8 +1198,16 @@ const LEVELS=["Head","Senior manager","Manager","Assistant manager","Senior team
 const PB_WHY={failed_pip:"Did not pass PIP",passed_probation:"Passed probation",other:"Other"};
 const isPB=p=>!!p&&p.plan==="perf100"&&p.lv!==7;
 const todayISO=()=>"2026-09-"+String(TODAY_D).padStart(2,"0");
-const pbNote=p=>isPB(p)?"Performance based \u00b7 100% commission"+(p.pb&&p.pb.why?" \u00b7 "+PB_WHY[p.pb.why]:"")+(p.pb&&p.pb.since?" \u00b7 since "+(+p.pb.since.slice(8))+" "+"JanFebMarAprMayJunJulAugSepOctNovDec".substr((+p.pb.since.slice(5,7)-1)*3,3)+" "+p.pb.since.slice(0,4):""):"";
+const fmtISO=iso=>(+iso.slice(8))+" "+"JanFebMarAprMayJunJulAugSepOctNovDec".substr((+iso.slice(5,7)-1)*3,3)+" "+iso.slice(0,4);
+/* A change of pay type starts on the 1st or the 16th — when a PIP starts or finishes (Dave, 30 Sep 2026). The month's pay is
+   split there: days before it are paid on the previous type (p.planPrev), days from it on the new one (p.planFrom). */
+const PAY_STARTS=()=>TODAY_D>=16?["2026-09-16","2026-10-01"]:["2026-09-01","2026-09-16"];   // the last start on or before today, and the next one
+const planOn=(p,iso)=>p.planFrom&&iso<p.planFrom?(p.planPrev||"standard"):p.plan;   // no pay type set (leaders) = the day rate, as dayRate()
+const PLAN_L={perf100:"performance based (100% commission)",standard:"standard pay (day rate + Model B)"};
+const pbNote=p=>isPB(p)?"Performance based \u00b7 100% commission"+(p.pb&&p.pb.why?" \u00b7 "+PB_WHY[p.pb.why]:"")+(p.pb&&p.pb.since?" \u00b7 from "+fmtISO(p.pb.since):""):"";
 const pbTag=(p,cls)=>isPB(p)?'<span class="'+cls+' perfb" title="'+pbNote(p)+'">PERF BASED</span>':'';
+/* worked this month after the leaving date in the employee file (Dave, 30 Sep 2026: people quit and come back) */
+const rejoinTag=(p,cls)=>p.rejoin?'<span class="'+cls+' rejoinq" title="Left '+(p.rejoin.left||"(no date)")+' in the employee file, worked '+p.rejoin.from+' to '+p.rejoin.to+'. HR: confirm they rejoined and update the record.">REJOINED?</span>':'';
 const CAMPS={stc:{n:"STC",id:1899},ykan:{n:"YKAN",id:1904}};
 /* A person has a HOME campaign (p.c: grouping, bands, reports) and may be accredited for more (p.also), e.g. the
    Head of Fundraising works STC and YKAN (Dave, 24 Sep 2026). Rostering asks accredited(), never p.c directly.
@@ -1304,7 +1334,15 @@ let P=[
  {id:116,n:"Bayu Oktaviani",code:"FR-2083",lv:6,to:33,c:"ykan",eg:1,eid:103083,off:[],start:"2026-08-25",perm:false,tg:"@bayuo"}
 ];
 let RESIGNED=[], nextId=Math.max(0,...P.map(p=>p.id))+1, newieN=0;   // new people must never reuse a seeded id
-(function seedResigned(){const mk=(n,code,lv,c,start,last,why)=>RESIGNED.push({p:{id:9000+RESIGNED.length,n,code,lv,c,start,to:(P.find(x=>x.lv===5&&x.c===c)||{}).id||null},last,why});   // leavers keep their team for the HR kit-return list
+/* The sample people are invented, and must never be mistaken for staff (Dave, 30 Sep 2026: the names looked real, and
+   their OMID codes overlapped real ones): every sample name ends "(demo)" and sample codes read DEMO####. Real staff
+   (local-data) and anyone added in the app keep real names and OMID codes. */
+const DEMO_MARK=" (demo)";
+/* where the staff code is printed right under the name (grids, roster list, team chart) the orange DEMO code marks
+   it, and the name drops "(demo)" so tags still fit — the name ending cut off 45 of 118 HR grid name cells */
+const dName=p=>p.n&&p.n.endsWith(DEMO_MARK)?p.n.slice(0,-DEMO_MARK.length):p.n;
+const dCode=p=>/^DEMO/.test(p.code||"")?'<b class="democode" title="Invented sample person, not staff">'+p.code+'</b>':p.code;
+(function seedResigned(){const mk=(n,code,lv,c,start,last,why)=>RESIGNED.push({p:{id:9000+RESIGNED.length,n:n+DEMO_MARK,code:code.replace(/^OMID/,"DEMO"),lv,c,start,to:(P.find(x=>x.lv===5&&x.c===c)||{}).id||null},last,why});   // leavers keep their team for the HR kit-return list
   mk("Andi Setiawan","OMID0221",6,"stc","2026-08-31","2026-09-09","Withdraw"); mk("Nurul Fitriani","OMID0234",6,"ykan","2026-09-01","2026-09-10","Withdraw");
   mk("Bagus Halim","OMID0198",7,"stc","2026-08-10","2026-09-04","Did not pass probation"); mk("Tira Purnama","OMID0176",6,"ykan","2026-06-20","2026-09-12","Resigned");
   mk("Joko Saputra","OMID0142",6,"stc","2026-03-05","2026-09-02","Resigned"); mk("Ika Rahayu","OMID0088",5,"ykan","2025-08-15","2026-09-06","Resigned");
@@ -1319,7 +1357,7 @@ const isTrainee=p=>p.lv===7&&!p.placeholder;                    // Trainee is a 
 const isFR=p=>p.lv>=6;                                               // fundraiser or trainee
 const isLeader=p=>p.lv<=5;                                       // team leader and above
 P.forEach(p=>{if(p.lv===6&&p.start&&(new Date("2026-09-"+TODAY_D)-new Date(p.start))/864e5<21){p.lv=7;p.signups=[0,1,2,4,5,7,8][p.id%7]}});
-P.forEach((p,i)=>{p.code="OMID"+String(300+i).padStart(4,"0"); p.region=i%9===0?"Surabaya":i%13===0?"Bandung":"Jakarta"; p.signups=p.signups||0});
+P.forEach((p,i)=>{p.code="DEMO"+String(300+i).padStart(4,"0"); p.n+=DEMO_MARK; p.region=i%9===0?"Surabaya":i%13===0?"Bandung":"Jakarta"; p.signups=p.signups||0});
 const rosterable=()=>P.filter(p=>p.lv>=3&&!p.placeholder);       // assistant manager down to fundraiser, real people only
 const fundraisers=rosterable;
 
@@ -1340,8 +1378,9 @@ document.querySelectorAll(".tabs button").forEach(b=>b.onclick=()=>{
   document.getElementById("f2f").classList.toggle("hidden",t!=="f2f");
   document.getElementById("frd").classList.toggle("hidden",t!=="frd");
   document.getElementById("train").classList.toggle("hidden",t!=="train");
-  document.getElementById("hdrsub").textContent=t==="main"?"Main · phone":t==="leave"?"Leave · phone":t==="team"?"Team structure · Indonesia":t==="monthly"?"September 2026 · Indonesia":t==="events"?"Site bookings · September 2026":t==="hr"?"HR Dashboard · September 2026":t==="aspc"?"Check in / out · "+TODAY_LABEL+" 2026":t==="f2f"?"F2F Dashboard · September 2026":t==="frd"?"My dashboard · September 2026":t==="train"?"Training sessions · September 2026":"Week "+WEEKS[WK].n+" — "+WEEKS[WK].label+" 2026 · Jakarta";
-  if(t==="roster")render(); if(t==="team")renderOrg(); if(t==="monthly")renderMonth(); if(t==="phone")renderPhone(); if(t==="main")renderMain(); if(t==="leave")renderLeave(); if(t==="events")renderEvents(); if(t==="hr")renderHR(); if(t==="aspc")renderASPC(); if(t==="f2f")renderF2F(); if(t==="frd")renderFRD(); if(t==="train")renderTrain();
+  document.getElementById("finance").classList.toggle("hidden",t!=="finance");
+  document.getElementById("hdrsub").textContent=t==="main"?"Main · phone":t==="leave"?"Leave · phone":t==="team"?"Team structure · Indonesia":t==="monthly"?"September 2026 · Indonesia":t==="events"?"Site bookings · September 2026":t==="hr"?"HR Dashboard · September 2026":t==="aspc"?"Check in / out · "+TODAY_LABEL+" 2026":t==="f2f"?"F2F Dashboard · September 2026":t==="frd"?"My dashboard · September 2026":t==="train"?"Training sessions · September 2026":t==="finance"?"Finance · deposits and trip spending":"Week "+WEEKS[WK].n+" — "+WEEKS[WK].label+" 2026 · Jakarta";
+  if(t==="roster")render(); if(t==="team")renderOrg(); if(t==="monthly")renderMonth(); if(t==="phone")renderPhone(); if(t==="main")renderMain(); if(t==="leave")renderLeave(); if(t==="events")renderEvents(); if(t==="hr")renderHR(); if(t==="aspc")renderASPC(); if(t==="f2f")renderF2F(); if(t==="frd")renderFRD(); if(t==="train")renderTrain(); if(t==="finance")renderFinance();
 });
 
 /* ======================= ROSTER ======================= */
@@ -1403,6 +1442,7 @@ const travellers=b=>(b.party||[]).map(by).filter(Boolean);                      
 const rosteredOn=b=>{const ids=new Set(); A.forEach(a=>{const g=gday(a.w,a.d); if(a.s===b.si&&g>=b.start&&g<=b.end)ids.add(a.pid)}); return [...ids]};
 const isLive=b=>b.type==="streets"||b.sitePaid;                                          // reaches the roster only once the site fee is paid
 const bookedDays=(si,w)=>{const set=new Set(); for(let d=0;d<7;d++)if(bookingsAt(si,gday(w,d)).some(isLive))set.add(d); return set};
+let PAYSEQ=0;   // payment ids (Finance); the samples below use it
 (function seedBook(){
   const add=(si,start,end,type,site,transport,accom,hc)=>BOOKINGS.push({id:BOOKINGS.length+1,si,start,end,type,site,transport,accom,hc});
   add(0,gday(1,0),gday(3,6),"local",  24000000,0,0,4);            // Grand Indonesia, weeks 2–4
@@ -1418,6 +1458,20 @@ const bookedDays=(si,w)=>{const set=new Set(); for(let d=0;d<7;d++)if(bookingsAt
   BOOKINGS.forEach((b,i)=>{b.sitePaid=[0,1,2,3,4,6].includes(i)||b.type==="streets"; b.transportPaid=[1,3].includes(i); b.accomPaid=[3].includes(i);
     b.c=SITES[b.si].c; if(b.type==="travel"){b.tOut=b.start-1;b.tBack=b.end+1;b.transportMode="flight";b.travelOk=i===3;
       b.party=P.filter(p=>p.lv>=5&&p.c===b.c&&p.eg).slice(i%2?0:4,(i%2?0:4)+b.hc).map(p=>p.id)}});
+  /* Finance samples (invented): deposits waiting, back and not yet paid; trip payments on card, own money and transfer */
+  const dep=(i,amt,paidOn,backOn)=>{const b=BOOKINGS[i]; b.deposit=amt; if(paidOn){b.depositPaid=true; b.depositPaidOn=paidOn} if(backOn)b.depositBack={on:backOn,by:"Finance"}};
+  add(4,gday(0,0),gday(0,5),"local",8000000,0,0,3); Object.assign(BOOKINGS[BOOKINGS.length-1],{c:SITES[4].c,sitePaid:true});   // finished 5 Sep: its deposit came back
+  dep(0,5000000,"2026-09-03"); dep(1,3000000,"2026-09-01"); dep(2,4000000,"2026-09-14"); dep(BOOKINGS.length-1,2000000,"2026-08-24","2026-09-11"); dep(8,2500000);
+  const pay=(i,on,what,amount,via,note,reimbOn)=>{(BOOKINGS[i].pays=BOOKINGS[i].pays||[]).push({id:++PAYSEQ,on,what,amount,via,note,reimb:reimbOn?{on:reimbOn,by:"Finance"}:null})};
+  pay(0,"2026-08-25","Event site",24000000,"transfer","Invoice GI-0825");
+  pay(3,"2026-09-05","Event site",6000000,"transfer","Airport promo space");
+  pay(3,"2026-09-10","Flight",4200000,"card","4 return tickets");
+  pay(3,"2026-09-12","Accommodation",1800000,"card","2 rooms, 2 nights","2026-09-15");
+  pay(4,"2026-09-08","Event site",6000000,"transfer","");
+  pay(4,"2026-09-16","Flight",2500000,"card","4 return tickets");
+  pay(8,"2026-09-18","Other transport",350000,"own","Taxi, airport to hotel");
+  pay(2,"2026-09-14","Event site",14000000,"transfer","Invoice KK-0914"); pay(6,"2026-09-09","Event site",20000000,"transfer","Invoice PIM-0909");
+  pay(BOOKINGS.length-1,"2026-08-24","Event site",8000000,"transfer","Invoice PIM-0824");   // Kota Kasablanka 8–16 Sep stays flagged: ticked paid, nothing logged
 })();
 const ABS_TYPES=[
  {k:"mc",l:"Medical certificate",s:"Says they have one. HR collects it before it counts as MC."},
@@ -1513,7 +1567,7 @@ function hoursBox(si){
 function poolChip(p,disabled,reason){
   const el=document.createElement("div");
   el.className="chip"+(disabled?" out":"")+(isLeader(p)?" lead":""); el.draggable=!disabled; el.tabIndex=disabled?-1:0; el.dataset.id=p.id;
-  el.innerHTML='<span class="nm">'+p.n+'<small>'+p.code+(isLeader(p)?" · "+LEVELS[p.lv]:"")+(isPB(p)?' · <b class="perfbs" title="'+pbNote(p)+'">Perf based</b>':'')+'</small></span>'+(isTrainee(p)?'<span class="tag new">NEW</span>':'')+
+  el.innerHTML='<span class="nm">'+dName(p)+'<small>'+dCode(p)+(isLeader(p)?" · "+LEVELS[p.lv]:"")+(isPB(p)?' · <b class="perfbs" title="'+pbNote(p)+'">Perf based</b>':'')+'</small></span>'+(isTrainee(p)?'<span class="tag new">NEW</span>':'')+
     (reason?'<span class="meta">'+reason+'</span>':(offTxt(p)?'<span class="meta">'+offTxt(p)+'</span>':''))+'<span class="wk" title="shifts this week">'+shifts(p.id)+'</span>';
   if(MSEL.has(p.id))el.classList.add("msel");
   if(!disabled){
@@ -1535,12 +1589,13 @@ function poolChip(p,disabled,reason){
 function cellChip(a){
   const p=by(a.pid), lock=lockedW().has(a.d);
   const el=document.createElement("div"); el.className="chip"+(published.has(k(a))?" live":"")+(picked===k(a)?" picked":"")+(isLeader(p)?" lead":""); el.draggable=!lock; el.tabIndex=lock?-1:0;
-  el.innerHTML='<span class="nm">'+p.n+'</span>';
+  if(p.n!==dName(p))el.classList.add("democ");   // a sample person: orange name, like their orange DEMO code
+  el.innerHTML='<span class="nm">'+dName(p)+'</span>'; el.title=p.n+(lock?"":" \u2014 tap for Mark absent / take off");
   if(!lock){
     el.addEventListener("dragstart",e=>{e.dataTransfer.setData("text/plain",p.id+"|"+k(a));el.classList.add("dragging")});
     el.addEventListener("dragend",()=>el.classList.remove("dragging"));
     el.addEventListener("click",e=>{if(e.target.tagName==="BUTTON")return;MSEL.clear();picked=picked===k(a)?null:k(a);render()});
-    const ab=document.createElement("button"); ab.className="ab"; ab.textContent="ABSENT"; ab.title="Mark absent"; ab.onclick=()=>absenceBox(a);
+    const ab=document.createElement("button"); ab.className="ab"; ab.textContent="Mark absent"; ab.title="Record an absence for this shift"; ab.onclick=()=>absenceBox(a);
     const x=document.createElement("button"); x.className="x"; x.textContent="×"; x.title="Take off this shift"; x.onclick=()=>{A=A.filter(y=>k(y)!==k(a));render()};
     el.append(ab,x);
   }
@@ -2071,7 +2126,7 @@ function renderOrg(){
     el.className="box l"+p.lv+(p.c?" "+p.c:"")+(tmatch(p)?"":" dim"); el.draggable=p.lv!==0; el.tabIndex=0;
     el.style.gridRow=p.lv+1; el.style.gridColumn=(c.col+2)+" / span "+c.span;
     const size=teamSize(p.id);
-    el.innerHTML='<span class="nm">'+p.n+(size?'<span class="cnt">'+size+'</span>':'')+'</span><span class="code">'+p.code+'</span>';
+    el.innerHTML='<span class="nm">'+dName(p)+(size?'<span class="cnt">'+size+'</span>':'')+'</span><span class="code">'+dCode(p)+'</span>';
     el.onclick=()=>editBox(p);
     wireOrgDrag(el,p,(movingId)=>reassign(movingId,p.id,el));
     org.appendChild(el);
@@ -2086,7 +2141,7 @@ function renderOrg(){
   // fundraiser columns
   function frCard(p){
     const f=document.createElement("div"); f.className="fr"+(tmatch(p)?"":" dim")+(p.placeholder?" ph":""); f.draggable=true; f.tabIndex=0;
-    f.innerHTML='<span class="nm">'+p.n+'</span>'+(p.placeholder?'<span class="tag new">PLANNED</span>':p.unplaced&&p.to===null?'<span class="tag new">NO TEAM YET</span>':'')+pbTag(p,"tag")+(!p.eg&&!p.placeholder?'<span class="tag noeg">no EG ID</span>':'')+'<span class="code">'+p.code+'</span>';
+    f.innerHTML='<span class="nm">'+dName(p)+'</span>'+(p.placeholder?'<span class="tag new">PLANNED</span>':p.unplaced&&p.to===null?'<span class="tag new">NO TEAM YET</span>':'')+rejoinTag(p,"tag")+pbTag(p,"tag")+(!p.eg&&!p.placeholder?'<span class="tag noeg">no EG ID</span>':'')+'<span class="code">'+dCode(p)+'</span>';
     f.onclick=()=>p.placeholder?personForm(p):editBox(p);
     f.addEventListener("dragstart",e=>{e.dataTransfer.setData("text/plain",p.id);f.classList.add("dragging")});
     f.addEventListener("dragend",()=>f.classList.remove("dragging"));
@@ -2174,13 +2229,14 @@ function editBox(p){
     (Object.keys(CAMPS).length>1?'<div class="alsobox"><span>Also accredited for</span>'+Object.keys(CAMPS).map(k=>'<label class="alsoc"><input type="checkbox" class="also" value="'+k+'"'+(((p.also||[]).includes(k))?" checked":"")+'> '+CAMPS[k].n+'</label>').join("")+'<small>The home campaign always counts. Tick the others this person may be rostered on.</small></div>':'')+
     '<div class="two"><label>Pay type <i class="hronly">HR only</i><select id="plan"><option value="standard"'+((p.plan||"standard")==="standard"?" selected":"")+'>Standard \u00b7 IC Perm Model B</option><option value="perf100"'+(p.plan==="perf100"?" selected":"")+'>Performance based \u00b7 100% commission</option></select></label>'+
     '<label id="pbwhyl" class="hidden">Why<select id="pbwhy">'+Object.entries(PB_WHY).map(([k,l])=>'<option value="'+k+'">'+l+'</option>').join("")+'</select></label></div>'+
+    '<label id="pbfroml" class="hidden">Starts <i class="hronly">a PIP starts or finishes on the 1st or the 16th; this month\'s pay splits here</i><select id="pbfrom">'+PAY_STARTS().map(d=>'<option value="'+d+'">'+fmtISO(d)+'</option>').join("")+'</select></label>'+
     (isPB(p)?'<p class="hint">'+pbNote(p)+'. Their FR Dashboard shows commission earned this month from their sign-ups.</p>':'<p class="hint">Performance based = 100% commission, no day rate. Offered to someone who did not pass their PIP instead of termination.</p>')+
     '<label>Reports to<select id="to">'+P.filter(x=>x.lv<p.lv&&x.id!==p.id).sort((a,b)=>a.lv-b.lv).map(x=>'<option value="'+x.id+'"'+(x.id===p.to?" selected":"")+'>'+x.n+' — '+LEVELS[x.lv]+'</option>').join("")+'</select></label>'+
     (p.lv>=3?'<label>Evergiving user ID<input id="eid" value="'+(p.eid||"")+'" placeholder="Blank = not yet created"></label>':'')+
     '<label>Gross basic (Rp), if not the role table <i class="hronly">HR only</i><input id="salary" inputmode="numeric" value="'+(p.salary!=null?p.salary:"")+'" placeholder="Blank = role table ('+IDRf((BASIC[p.lv]||BASIC[6]).basic)+')"></label>'+
     '<div class="row"><button class="no">Cancel</button><button class="go">Save</button></div></div>';
   sc.querySelector(".no").onclick=()=>sc.remove();
-  sc.querySelector("#plan").onchange=e=>sc.querySelector("#pbwhyl").classList.toggle("hidden",!(e.target.value==="perf100"&&p.plan!=="perf100"));
+  sc.querySelector("#plan").onchange=e=>{const ch=e.target.value!==(p.plan||"standard"); sc.querySelector("#pbwhyl").classList.toggle("hidden",!(ch&&e.target.value==="perf100")); sc.querySelector("#pbfroml").classList.toggle("hidden",!ch)};
   sc.querySelector(".go").onclick=()=>{
     const lv=+sc.querySelector("#lv").value, c=sc.querySelector("#c").value, to=+sc.querySelector("#to").value;
     const also=[...sc.querySelectorAll(".also:checked")].map(x=>x.value).filter(k=>k!==c);
@@ -2189,10 +2245,13 @@ function editBox(p){
     const tooJunior=kidsOf(p.id).filter(k=>k.lv<=lv&&k.lv<6);
     if(tooJunior.length){tooJunior.forEach(k=>k.to=to);tlog("ok",tooJunior.map(k=>k.n.split(" ")[0]).join(", ")+" moved up to "+boss.n,"They can't report to a "+LEVELS[lv].toLowerCase()+". Drag them elsewhere if that's wrong.")}
     const changes=[]; if(lv!==p.lv)changes.push(LEVELS[p.lv]+" → "+LEVELS[lv]); if(c!==p.c)changes.push("now on "+CAMPS[c].n); if(also.join()!==(p.also||[]).filter(k=>k!==c).join())changes.push(also.length?"also accredited for "+also.map(k=>CAMPS[k].n).join(", "):"one campaign only"); if(to!==p.to)changes.push("reports to "+boss.n);
-    const np=sc.querySelector("#plan").value; if(np!==(p.plan||"standard")){p.plan=np; p.pb=np==="perf100"?{why:sc.querySelector("#pbwhy").value,since:todayISO()}:null; changes.push(np==="perf100"?"moved to performance-based pay (100% commission) \u2014 "+PB_WHY[p.pb.why]:"moved to standard pay \u00b7 Model B")}
+    const np=sc.querySelector("#plan").value; let payNote="";
+    if(np!==(p.plan||"standard")){const was=p.plan||"standard", fromD=sc.querySelector("#pbfrom").value; p.planPrev=was; p.planFrom=fromD; p.plan=np;
+      p.pb=np==="perf100"?{why:sc.querySelector("#pbwhy").value,since:fromD}:null;
+      changes.push((np==="perf100"?"moved to performance-based pay (100% commission) \u2014 "+PB_WHY[p.pb.why]:"moved to standard pay \u00b7 Model B")+", from "+fmtISO(fromD));
+      payNote=" Pay splits on "+fmtISO(fromD)+": days before it are paid as "+PLAN_L[was]+", from it as "+PLAN_L[np]+"."}
     const sal=sc.querySelector("#salary").value.replace(/\D/g,""); const ns=sal?+sal:null; if(ns!==(p.salary==null?null:p.salary)){p.salary=ns; changes.push(ns?"gross basic set to "+IDRf(ns):"gross basic back to the role table")}
     p.lv=lv; p.c=c; p.also=also; p.to=to; if(lv>=3&&sc.querySelector("#eid")){const v=sc.querySelector("#eid").value.trim(); p.eid=v?+v:null; p.eg=v?1:0; p.off=p.off||[]; if(v&&!changes.includes("x"))changes.push("Evergiving ID set")}
-    const payNote=changes.some(c=>/pay \(100%|standard pay/.test(c))?" Pay type: this whole month's pay is worked out on the new type \u2014 when a switch should start is not decided yet (OPEN).":"";
     if(changes.length)tlog("ok",p.n+": "+changes.join(", "),"Takes effect from the next roster week."+payNote);
     sc.remove(); renderOrg()};
   document.body.appendChild(sc);
@@ -2407,8 +2466,8 @@ function renderMonth(){
       h+='<tr class="band '+(p.c||"none")+'"><td class="who" colspan="2">'+(CAMPS[p.c]?CAMPS[p.c].n:"NO CAMPAIGN YET · HR to set")+'</td><td colspan="'+(MDAYS+4)+'"></td></tr>'}
     const short=p.perm&&st.covered<20;
     h+='<tr class="'+(p.perm?"perm":"")+'"><td class="who" style="padding-left:'+(8+r.depth*9)+'px">'+
-       '<span class="nmw">'+p.n+(p.perm?'<span class="pm">PERM</span>':'')+'</span>'+
-       '<small>'+p.code+(p.tg?' · '+p.tg:'')+'</small></td>'+
+       '<span class="nmw">'+dName(p)+(p.perm?'<span class="pm">PERM</span>':'')+'</span>'+
+       '<small>'+dCode(p)+(p.tg?' · '+p.tg:'')+'</small></td>'+
        '<td class="role">'+LEVELS[p.lv]+'</td>';
     for(let d=1;d<=MDAYS;d++){
       const v=m[d], late=lateBy(p.id,d)?(CHECK[p.id]||{})[d].in:null;
@@ -2446,7 +2505,7 @@ const MTODAY=TODAY_D;
 
 /* ======================= ROLE PREVIEW ======================= */
 // A fundraiser gets two tabs: MAIN (Check I/O · Monthly roster · Leave) and FR DASHBOARD. Team structure is Director + HR only.
-const ROLE_TABS={dir:["roster","main","phone","leave","monthly","team","events","hr","aspc","f2f","frd","train"],hr:["hr","monthly","team"],ev:["events","roster"],mgr:["roster","monthly","aspc","f2f","train"],tl:["roster","monthly","aspc","f2f","train"],fr:["main","frd"]};
+const ROLE_TABS={dir:["roster","main","phone","leave","monthly","team","events","hr","aspc","f2f","frd","train","finance"],fin:["finance"],hr:["hr","monthly","team"],ev:["events","roster"],mgr:["roster","monthly","aspc","f2f","train"],tl:["roster","monthly","aspc","f2f","train"],fr:["main","frd"]};
 let ROLE="dir";
 const goTab=t=>{const b=[...document.querySelectorAll(".tabs button")].find(x=>x.dataset.tab===t); if(b)b.click()};
 document.getElementById("asrole").onchange=e=>{
@@ -2748,29 +2807,39 @@ function bookingForm(bk){
     '<tr id="rSite"><td>Event site</td><td><input id="bc" value="'+(bk.site||"")+'" placeholder="Venue fee, whole booking"></td><td class="pc"><input type="checkbox" id="pS"'+(bk.sitePaid?" checked":"")+'></td></tr>'+
     '<tr id="rTr" class="trav"><td>Transport</td><td><input id="btr" value="'+(bk.transport||"")+'" placeholder="Flights, train, van"></td><td class="pc"><input type="checkbox" id="pT"'+(bk.transportPaid?" checked":"")+'></td></tr>'+
     '<tr id="rAc" class="trav"><td>Accommodation</td><td><input id="bac" value="'+(bk.accom||"")+'" placeholder="Hotel for the party"></td><td class="pc"><input type="checkbox" id="pA"'+(bk.accomPaid?" checked":"")+'></td></tr>'+
+    '<tr id="rDep"><td>Deposit <small class="fxmute">refundable</small></td><td><input id="bdep" value="'+(bk.deposit||"")+'" placeholder="Held by the venue, comes back"'+(bk.depositBack?" disabled":"")+'></td><td class="pc"><input type="checkbox" id="pD"'+(bk.depositPaid?" checked":"")+(bk.depositBack?" disabled":"")+'></td></tr>'+
     '</table>'+
     '<p class="fnote">The booking shows yellow on the timeline until the event site is paid.</p>'+
+    '<p class="fnote" id="depnote">'+(bk.depositBack?'<b class="okc">Deposit returned on '+fmtISO(bk.depositBack.on)+' — recorded by '+bk.depositBack.by+'.</b> It can no longer be changed here.':'Deposit: refundable, so it is not in the cost per shift. Once ticked paid it shows on Finance until Finance records it back.')+'</p>'+
     '<div class="calc" id="calc"></div>'+
 
+    '<div id="paysec"><div class="fsec">4 · Payments made</div>'+
+    '<p class="fnote">Log every payment as it is made: site fee, hotel, flights, trains, vans. Card and own-money payments go to Finance for reimbursement.</p>'+
+    '<div id="paylist"></div>'+
+    '<div class="fxadd"><input type="date" id="pyon" value="'+todayISO()+'"><select id="pywhat">'+PAY_WHAT.map(w=>'<option>'+w+'</option>').join("")+'</select>'+
+    '<input id="pyamt" placeholder="Amount (Rp)" inputmode="numeric"><select id="pyvia">'+Object.entries(PAY_VIA).map(([k,l])=>'<option value="'+k+'">'+l+'</option>').join("")+'</select>'+
+    '<input id="pynote" placeholder="Receipt no. / details"><button class="btn" id="pyadd">Add payment</button></div></div>'+
+
     '<div id="travelsec" class="hidden">'+
-    '<div class="fsec">4 · Travel</div>'+
+    '<div class="fsec">5 · Travel</div>'+
     '<div class="two"><label>Travel out'+dIn("tout",bk.tOut!=null?gdate(bk.tOut):gdate(Math.max(0,bk.start-1)))+'</label>'+
     '<label>Travel back'+dIn("tback",bk.tBack!=null?gdate(bk.tBack):gdate(Math.min(SPAN-1,bk.end+1)))+'</label></div>'+
     '<div class="two"><label>How they travel<select id="ttr"><option value="flight"'+(bk.transportMode==="flight"?" selected":"")+'>Flight</option><option value="train"'+(bk.transportMode==="train"?" selected":"")+'>Train</option><option value="car"'+(bk.transportMode==="car"?" selected":"")+'>Car / van</option></select></label>'+
     '<label class="chk" style="margin-top:24px"><input type="checkbox" id="tok"'+(bk.travelOk?" checked":"")+'> Tickets and hotel booked and confirmed</label></div>'+
     '<p class="fnote">Travel days go on the timeline with stripes. They don\'t count as shifts, and these people can\'t be rostered elsewhere on those days.</p>'+
 
-    '<div class="fsec">5 · Who is travelling</div>'+
+    '<div class="fsec">6 · Who is travelling</div>'+
     '<div id="tlist"></div>'+
     '</div>'+
 
     '<div class="row"><button class="no">Cancel</button><button class="danger" id="del">Remove booking</button><button class="go">Save</button></div></div>';
 
-  let party=(bk.party||[]).slice();
+  let party=(bk.party||[]).slice(), pays=(bk.pays||[]).map(p=>Object.assign({},p));
   const num=id=>+String(g(id).value).replace(/\D/g,"")||0;
   const upd=()=>{const t=g("bt").value, travel=t==="travel";
     sc.querySelectorAll("tr.trav").forEach(r=>r.classList.toggle("hidden",!travel));
     g("rSite").classList.toggle("hidden",t==="streets");
+    ["rDep","depnote","paysec"].forEach(id=>g(id).classList.toggle("hidden",t==="streets"));   // deposit and payments: local and travel trips
     g("travelsec").classList.toggle("hidden",!travel);
     g("tnote").textContent=t==="local"?"Local: venue fee only, staff travel themselves.":travel?"Travel trip: venue, transport and accommodation all count, and you name the travel party below.":"Streets: no venue, no cost. Only staff per day matters.";
     if(travel)drawParty();
@@ -2803,21 +2872,131 @@ function bookingForm(bk){
     g("pcands").innerHTML=cands.map(p=>'<button class="cand" data-add="'+p.id+'"><b>'+(isLeader(p)?'<span class="ldr">'+p.n+'</span>':p.n)+'</b><small>'+LEVELS[p.lv]+' · '+p.code+(p.lv===6&&by(p.to)?' · under '+by(p.to).n.split(" ")[0]:'')+'</small></button>').join("")||'<span class="empty">No one else matches.</span>';
     g("pcands").querySelectorAll("[data-add]").forEach(b=>b.onclick=()=>{party.push(+b.dataset.add);drawParty();g("pq").focus()});
   }
+  function drawPays(){
+    g("paylist").innerHTML=pays.length?'<table class="fxtbl"><tr><th>Date</th><th>What</th><th class="r">Amount</th><th>Paid with</th><th>Note</th><th>Reimbursement</th><th></th></tr>'+
+      pays.slice().sort((a,b)=>a.on<b.on?-1:a.on>b.on?1:0).map(p=>'<tr><td>'+fmtISO(p.on)+'</td><td>'+p.what+'</td><td class="r">'+IDRf(p.amount)+'</td><td>'+PAY_VIA[p.via]+'</td><td>'+(p.note||"")+'</td><td>'+payState(p)+'</td><td>'+(p.reimb?'':'<button class="undo" data-prm="'+p.id+'">remove</button>')+'</td></tr>').join("")+'</table>'
+      :'<p class="fnote">No payments logged yet.</p>';
+    g("paylist").querySelectorAll("[data-prm]").forEach(b=>b.onclick=()=>{pays=pays.filter(p=>p.id!==+b.dataset.prm); drawPays()});
+  }
+  g("pyadd").onclick=()=>{const amt=num("pyamt"), on=g("pyon").value; if(!on||!amt){evflash("A payment needs a date and an amount.");return}
+    pays.push({id:++PAYSEQ,on,what:g("pywhat").value,amount:amt,via:g("pyvia").value,note:esc(g("pynote").value.trim()),reimb:null}); g("pyamt").value=""; g("pynote").value=""; drawPays()};
+  drawPays();
   ["bs","be","bt","bc","btr","bac","bh","bcamp"].forEach(id=>g(id).addEventListener("input",upd)); upd();
   sc.querySelector(".no").onclick=()=>sc.remove();
-  g("del").onclick=()=>{BOOKINGS=BOOKINGS.filter(b=>b!==bk); sc.remove(); renderEvents(); render()};
+  g("del").onclick=()=>{const why=moneyHold(Object.assign({},bk,{pays}));   // money Finance must account for keeps the booking
+    if(why){evflash("Can't remove this booking. "+why);return}
+    BOOKINGS=BOOKINGS.filter(b=>b!==bk); sc.remove(); renderEvents(); render()};
   sc.querySelector(".go").onclick=()=>{
     const a=gfrom(g("bs").value), b=gfrom(g("be").value);
     if(a==null||b==null||b<a){evflash("Finish date must be on or after the start date.");return}
     const t=g("bt").value;
+    if(t==="streets"&&((bk.depositPaid&&!bk.depositBack)||pays.length)){evflash("This booking has money on it (a deposit not back yet, or payments logged). Keep it Local or Travel trip.");return}
     if(t==="travel"){const o=gfrom(g("tout").value), r=gfrom(g("tback").value);
       if(o==null||r==null||o>a||r<b){evflash("Travel out must be on or before the start, travel back on or after the finish.");return}
       bk.tOut=o; bk.tBack=r; bk.transportMode=g("ttr").value; bk.travelOk=g("tok").checked; bk.party=party.slice()}
     else {delete bk.tOut; delete bk.tBack; bk.travelOk=false; bk.party=[]}
     Object.assign(bk,{start:a,end:b,type:t,c:g("bcamp").value,site:num("bc"),transport:num("btr"),accom:num("bac"),hc:Math.max(1,num("bh")),
       sitePaid:g("pS").checked,transportPaid:g("pT").checked,accomPaid:g("pA").checked});
+    if(!bk.depositBack){const dPaid=t!=="streets"&&g("pD").checked; bk.deposit=t==="streets"?0:num("bdep");
+      if(dPaid&&!bk.depositPaid)bk.depositPaidOn=todayISO(); if(!dPaid)delete bk.depositPaidOn; bk.depositPaid=dPaid&&bk.deposit>0}
+    bk.pays=pays;
     sc.remove(); renderEvents(); render()};
   document.body.appendChild(sc);
+}
+const evflash=m=>flash(m);   // the booking form's messages (it called this name, which did not exist — its warnings never showed)
+/* ======================= FINANCE (Dave, 2 Oct 2026) =======================
+   Two things Events pays out and Finance must see: DEPOSITS (refundable money held by a venue — the Thailand team could
+   not get theirs back) and every PAYMENT on a booking (site fee, hotel, flights, trains, vans — often on the Director's
+   credit card). Events enters both on the booking; Finance ticks a deposit back and a payment reimbursed. Removing a
+   booking with money on it is refused, so a record can never disappear. Database side not built yet (OPEN). */
+const PAY_WHAT=["Event site","Accommodation","Flight","Train","Bus / car / van","Other transport","Other"];
+const PAY_VIA={card:"Director's credit card",own:"Own money",transfer:"Company bank transfer"};
+const PAY_GROUP={site:["Event site"],transport:["Flight","Train","Bus / car / van","Other transport"],accom:["Accommodation"]};
+let FINV="dep", FINM="wait", FINF="2026-09-01", FINT="2026-09-30";
+const needsReimb=p=>p.via!=="transfer";
+const payState=p=>!needsReimb(p)?'<span class="fxmute">not needed</span>':p.reimb?'<span class="okc">Reimbursed '+fmtISO(p.reimb.on)+'</span>':'<span class="wc">Waiting</span>';
+const finBy=()=>ROLE==="fin"?"Finance":ROLE==="dir"?"Director":ROLE;
+const allPays=()=>BOOKINGS.flatMap(b=>(b.pays||[]).map(p=>({p,b})));
+const bkName=b=>SITES[b.si]?SITES[b.si].n:"(site removed)";
+const bkDates=b=>fmtISO(gdate(b.start)).replace(/ 2026$/,"")+" – "+fmtISO(gdate(b.end));
+/* what stops a booking being removed: money that Finance has to account for */
+function moneyHold(b){
+  if(b.depositPaid&&!b.depositBack)return "This booking has a "+IDRf(b.deposit)+" deposit paid and not back yet. Finance has to record it as received first.";
+  if((b.pays||[]).length)return (b.pays.length===1?"A payment is":b.pays.length+" payments are")+" logged on this booking — they are Finance's record, so the booking stays. Change its dates or headcount instead.";
+  return "";
+}
+/* check and balance: what the booking says was paid vs what was logged */
+function tripChecks(b){
+  const logged=g=>(b.pays||[]).filter(p=>PAY_GROUP[g].includes(p.what)).reduce((n,p)=>n+p.amount,0);
+  const lines=[["site","Event site",b.site,b.sitePaid],["transport","Transport",b.type==="travel"?b.transport:0,b.transportPaid],["accom","Accommodation",b.type==="travel"?b.accom:0,b.accomPaid]];
+  const out=[];
+  lines.forEach(([k,l,amt,paid])=>{if(paid&&amt>0&&!logged(k))out.push(l+" ticked paid, no payment logged")});
+  const planned=bkTotal(b), got=(b.pays||[]).reduce((n,p)=>n+p.amount,0);
+  if(got>planned)out.push("Logged "+IDRf(got-planned)+" more than planned");
+  return {planned,got,flags:out};
+}
+function renderFinance(){
+  const el=document.getElementById("finApp"); if(!el)return;
+  const can=ROLE==="fin"||ROLE==="dir";
+  let h='<div class="segs fxseg"><button class="seg'+(FINV==="dep"?" on":"")+'" data-fv="dep">Deposits</button><button class="seg'+(FINV==="spend"?" on":"")+'" data-fv="spend">Trip spending</button></div>';
+  if(FINV==="dep"){
+    const today=todayISO(), withDep=BOOKINGS.filter(b=>b.deposit>0&&b.type!=="streets");
+    const paid=withDep.filter(b=>b.depositPaid), wait=paid.filter(b=>!b.depositBack), back=paid.filter(b=>b.depositBack), notPaid=withDep.filter(b=>!b.depositPaid);
+    const sum=a=>a.reduce((n,b)=>n+b.deposit,0);
+    const ended=b=>gdate(b.end)<today, since=b=>Math.round((new Date(today)-new Date(gdate(b.end)))/864e5);
+    const oldest=wait.filter(ended).sort((a,b)=>a.end-b.end)[0];
+    h+='<div class="kpis fxkpis">'+
+      '<div class="kpi"><b>'+IDRf(sum(wait))+'</b><span>Still to come back</span><small>'+wait.length+' deposit'+(wait.length===1?"":"s")+', all months</small></div>'+
+      '<div class="kpi"><b>'+(oldest?since(oldest)+' days':'—')+'</b><span>Oldest waiting</span><small>'+(oldest?'since '+bkName(oldest)+' ended':'no event over yet')+'</small></div>'+
+      '<div class="kpi"><b>'+IDRf(sum(back))+'</b><span>Received back</span><small>'+back.length+' deposit'+(back.length===1?"":"s")+'</small></div>'+
+      '<div class="kpi"><b>'+IDRf(sum(notPaid))+'</b><span>Entered, not paid yet</span><small>'+notPaid.length+' booking'+(notPaid.length===1?"":"s")+' — Events has not paid them</small></div></div>';
+    const months=[["wait","Still to come back"],["2026-09","Sep"],["2026-10","Oct"],["2026-11","Nov"],["2026-12","Dec"]];
+    h+='<div class="segs fxseg">'+months.map(([k,l])=>'<button class="seg'+(FINM===k?" on":"")+'" data-fm="'+k+'">'+l+'</button>').join("")+'</div>';
+    const rows=(FINM==="wait"?wait.slice().sort((a,b)=>a.end-b.end):paid.filter(b=>gdate(b.start).slice(0,7)===FINM).sort((a,b)=>a.start-b.start));
+    h+='<p class="hint">'+(FINM==="wait"?'Every deposit Events has paid that has not come back, oldest event first. <b>OPEN:</b> when is a deposit overdue? Popcorn shows the days since the event ended; no deadline is set.':'Deposits paid for events starting in this month.')+'</p>';
+    h+=rows.length?'<table class="fxtbl"><tr><th>Site</th><th>Type</th><th>Event</th><th class="r">Deposit</th><th>Paid by Events</th><th>Event ended</th><th>Status</th><th></th></tr>'+
+      rows.map(b=>'<tr'+(b.depositBack?'':ended(b)?' class="fxwait"':'')+'><td><b>'+bkName(b)+'</b>'+(SITES[b.si]&&!SITES[b.si].real&&SITES.some(y=>y.real)?' <em class="demo">DEMO</em>':'')+'</td><td>'+TYPES[b.type]+'</td><td>'+bkDates(b)+'</td><td class="r">'+IDRf(b.deposit)+'</td><td>'+(b.depositPaidOn?fmtISO(b.depositPaidOn):'—')+'</td>'+
+        '<td>'+(ended(b)?since(b)+' days ago':'not over yet')+'</td><td>'+(b.depositBack?'<span class="okc">Received '+fmtISO(b.depositBack.on)+'</span> <small>'+b.depositBack.by+'</small>':'<span class="wc">Waiting</span>')+'</td>'+
+        '<td>'+(!can?'':b.depositBack?'<button class="undo" data-dundo="'+b.id+'">Undo</button>':'<button class="btn fxact" data-drecv="'+b.id+'">Received payment</button>')+'</td></tr>').join("")+'</table>'
+      :'<p class="empty">'+(FINM==="wait"?'No deposits waiting to come back.':'No deposits paid for events this month.')+'</p>';
+    if(notPaid.length)h+='<p class="hint">Entered on a booking but not paid yet by Events: '+notPaid.map(b=>bkName(b)+' '+IDRf(b.deposit)).join(", ")+'.</p>';
+  } else {
+    const inR=p=>p.on>=FINF&&p.on<=FINT, list=allPays().filter(x=>inR(x.p)).sort((a,b)=>a.p.on<b.p.on?-1:a.p.on>b.p.on?1:0);
+    const sum=a=>a.reduce((n,x)=>n+x.p.amount,0), by=f=>list.filter(f);
+    const waiting=by(x=>needsReimb(x.p)&&!x.p.reimb), reimbursed=by(x=>needsReimb(x.p)&&x.p.reimb);
+    h+='<div class="fxrange"><label>From<input type="date" id="fxf" value="'+FINF+'"></label><label>To<input type="date" id="fxt" value="'+FINT+'"></label>'+
+      '<button class="btn" data-fr="2026-09-01|2026-09-30">This month</button><button class="btn" data-fr="2026-08-01|2026-08-31">Last month</button><button class="btn" data-fr="2026-01-01|2026-12-31">This year</button>'+
+      '<button class="btn" id="fxcsv"'+(list.length?'':' disabled')+'>Export CSV</button></div>';
+    h+='<div class="kpis fxkpis">'+
+      '<div class="kpi"><b>'+IDRf(sum(list))+'</b><span>Spent</span><small>'+list.length+' payment'+(list.length===1?"":"s")+', '+fmtISO(FINF)+' – '+fmtISO(FINT)+'</small></div>'+
+      Object.entries(PAY_VIA).map(([k,l])=>'<div class="kpi"><b>'+IDRf(sum(by(x=>x.p.via===k)))+'</b><span>'+l+'</span><small>'+by(x=>x.p.via===k).length+' payments</small></div>').join("")+
+      '<div class="kpi"><b>'+IDRf(sum(waiting))+'</b><span>Waiting for reimbursement</span><small>'+waiting.length+' card / own-money payments · '+IDRf(sum(reimbursed))+' reimbursed</small></div></div>';
+    const cats=PAY_WHAT.map(w=>[w,by(x=>x.p.what===w)]).filter(([w,a])=>a.length);
+    h+='<div class="fxcols"><div><h4 class="fxh">By what</h4>'+(cats.length?'<table class="fxtbl"><tr><th>What</th><th class="r">Payments</th><th class="r">Rp</th></tr>'+cats.map(([w,a])=>'<tr><td>'+w+'</td><td class="r">'+a.length+'</td><td class="r">'+IDRf(sum(a))+'</td></tr>').join("")+'</table>':'<p class="empty">Nothing in this range.</p>')+'</div>';
+    const trips=BOOKINGS.filter(b=>b.type!=="streets"&&(((b.pays||[]).some(inR))||(gdate(b.end)>=FINF&&gdate(b.start)<=FINT)));
+    h+='<div><h4 class="fxh">By booking — planned against paid</h4>'+(trips.length?'<table class="fxtbl"><tr><th>Booking</th><th class="r">Planned</th><th class="r">Logged</th><th>Check</th></tr>'+
+      trips.map(b=>{const c=tripChecks(b); return '<tr'+(c.flags.length?' class="fxwait"':'')+'><td><b>'+bkName(b)+'</b><small> '+TYPES[b.type]+' · '+bkDates(b)+'</small></td><td class="r">'+IDRf(c.planned)+'</td><td class="r">'+IDRf(c.got)+'</td><td>'+(c.flags.length?'<span class="wc">'+c.flags.join(" · ")+'</span>':'<span class="okc">ok</span>')+'</td></tr>'}).join("")+'</table>':'<p class="empty">No bookings in this range.</p>')+'</div></div>';
+    h+='<h4 class="fxh">Every payment</h4>'+(list.length?'<table class="fxtbl"><tr><th>Date</th><th>Booking</th><th>What</th><th class="r">Amount</th><th>Paid with</th><th>Note</th><th>Reimbursement</th><th></th></tr>'+
+      list.map(({p,b})=>'<tr><td>'+fmtISO(p.on)+'</td><td>'+bkName(b)+'<small> '+bkDates(b)+'</small></td><td>'+p.what+'</td><td class="r">'+IDRf(p.amount)+'</td><td>'+PAY_VIA[p.via]+'</td><td>'+(p.note||"")+'</td><td>'+payState(p)+(p.reimb?' <small>'+p.reimb.by+'</small>':'')+'</td>'+
+        '<td>'+(!can||!needsReimb(p)?'':p.reimb?'<button class="undo" data-pundo="'+b.id+'|'+p.id+'">Undo</button>':'<button class="btn fxact" data-preimb="'+b.id+'|'+p.id+'">Reimbursed</button>')+'</td></tr>').join("")+'</table>':'<p class="empty">No payments logged between these dates.</p>');
+    h+='<p class="hint">Events logs each payment on its booking (Events → the booking → 4 · Payments made). Card and own-money payments wait here until Finance ticks Reimbursed.</p>';
+  }
+  el.innerHTML=h;
+  el.querySelectorAll("[data-fv]").forEach(b=>b.onclick=()=>{FINV=b.dataset.fv; renderFinance()});
+  el.querySelectorAll("[data-fm]").forEach(b=>b.onclick=()=>{FINM=b.dataset.fm; renderFinance()});
+  const findB=id=>BOOKINGS.find(b=>b.id===+id);
+  el.querySelectorAll("[data-drecv]").forEach(x=>x.onclick=()=>{const b=findB(x.dataset.drecv); b.depositBack={on:todayISO(),by:finBy()}; renderFinance()});
+  el.querySelectorAll("[data-dundo]").forEach(x=>x.onclick=()=>{const b=findB(x.dataset.dundo); delete b.depositBack; renderFinance()});
+  const findP=v=>{const [bid,pid]=v.split("|"); const b=findB(bid); return (b.pays||[]).find(p=>p.id===+pid)};
+  el.querySelectorAll("[data-preimb]").forEach(x=>x.onclick=()=>{findP(x.dataset.preimb).reimb={on:todayISO(),by:finBy()}; renderFinance()});
+  el.querySelectorAll("[data-pundo]").forEach(x=>x.onclick=()=>{findP(x.dataset.pundo).reimb=null; renderFinance()});
+  el.querySelectorAll("[data-fr]").forEach(x=>x.onclick=()=>{[FINF,FINT]=x.dataset.fr.split("|"); renderFinance()});
+  const f=el.querySelector("#fxf"), t=el.querySelector("#fxt");
+  if(f){const go=()=>{if(f.value&&t.value&&t.value>=f.value){FINF=f.value; FINT=t.value; renderFinance()}}; f.onchange=go; t.onchange=go}
+  const c=el.querySelector("#fxcsv");
+  if(c)c.onclick=()=>{const rows=allPays().filter(x=>x.p.on>=FINF&&x.p.on<=FINT).sort((a,b)=>a.p.on<b.p.on?-1:1);
+    download("popcorn_trip_spending_"+FINF.replace(/-/g,"")+"-"+FINT.replace(/-/g,"")+".csv",csv([["Date","Site","Type","Event start","Event end","What","Amount (Rp)","Paid with","Note","Reimbursement","Reimbursed on"]]
+      .concat(rows.map(({p,b})=>[p.on,bkName(b),TYPES[b.type],gdate(b.start),gdate(b.end),p.what,p.amount,PAY_VIA[p.via],p.note||"",!needsReimb(p)?"not needed":p.reimb?"reimbursed":"waiting",p.reimb?p.reimb.on:""]))))};
 }
 const EG_LOCATIONS=[[4021,"Grand Indonesia - Ground Floor"],[4033,"Kota Kasablanka - Atrium"],[4040,"Soekarno-Hatta T3 - Domestic"],[4048,"Senayan City - LG"],
   [4052,"Pondok Indah Mall 2"],[4061,"Central Park - Tribeca"],[4066,"Halim Perdanakusuma - Arrivals"],[4070,"Lippo Mall Puri - Main Atrium"],[4075,"Gandaria City - Main Street"],
@@ -2905,7 +3084,7 @@ function renderHR(){
     const band=r.left?"left":p.c;
     if(band!==lastCamp){lastCamp=band; h+='<tr class="band '+(r.left?"leftband":p.c)+'"><td class="who" colspan="2">'+(r.left?"LEFT THIS MONTH · still paid for days worked":CAMPS[p.c]?CAMPS[p.c].n:"NO CAMPAIGN YET · HR to set")+'</td><td colspan="'+(MDAYS+6)+'"></td></tr>'}
     const twenty=hActual(p.id)>=20;
-    h+='<tr class="'+(p.perm?"perm":"")+(probationDue(p)?" probdue":"")+(r.left?" leftrow":"")+(twenty?" twenty":"")+'"><td class="who" style="padding-left:'+(8+r.depth*9)+'px"><span class="nmw">'+p.n+(p.perm?'<span class="pm">PERM</span>':'')+(isTrainee(p)?'<span class="pm tr">TRAINEE</span>':'')+pbTag(p,"pm")+(r.left?'<span class="pm lf">LEFT '+r.left.last.slice(8)+' SEP</span>':'')+(twenty?'<span class="pm tw">20 DAYS</span>':'')+'</span><small>'+p.code+' · '+(p.region||"")+(r.left?' · '+r.left.why:'')+'</small></td>'+
+    h+='<tr class="'+(p.perm?"perm":"")+(probationDue(p)?" probdue":"")+(r.left?" leftrow":"")+(twenty?" twenty":"")+'"><td class="who" style="padding-left:'+(8+r.depth*9)+'px"><span class="nmw">'+dName(p)+(p.perm?'<span class="pm">PERM</span>':'')+(isTrainee(p)?'<span class="pm tr">TRAINEE</span>':'')+rejoinTag(p,"pm")+pbTag(p,"pm")+(r.left?'<span class="pm lf">LEFT '+r.left.last.slice(8)+' SEP</span>':'')+(twenty?'<span class="pm tw">20 DAYS</span>':'')+'</span><small>'+dCode(p)+' · '+(p.region||"")+(r.left?' · '+r.left.why:'')+'</small></td>'+
        '<td class="role">'+LEVELS[p.lv]+'</td>';
     for(let d=1;d<=MDAYS;d++){const v=m[d], c=(CHECK[p.id]||{})[d], late=lateBy(p.id,d), ts=trainingState(p.id,d), cs=certState(p.id,d);
       let cls="free", txt="";
@@ -3019,7 +3198,7 @@ function renderHR(){
   document.querySelectorAll("#hprob [data-dec]").forEach(b=>b.onclick=()=>{const p=by(+b.dataset.p), dec=b.dataset.dec;
     if(!window.confirm(({pass:"Pass "+p.n+" — becomes a Fundraiser on performance-based pay (100% commission).",ext:"Extend "+p.n+"'s probation by 10 working days.",term:"Terminate "+p.n+" — moves to Resigned."})[dec]))return;
     p.probation=dec; p.probationOn=TODAY_D+" Sep";
-    if(dec==="pass"){p.lv=6; p.plan="perf100"; p.pb={why:"passed_probation",since:todayISO()}; tlog("ok",p.n+" passed probation","Now a Fundraiser on performance-based pay (100% commission). "+p.signups+" sign-ups in "+hActual(p.id)+" days.")}
+    if(dec==="pass"){if(p.plan!=="perf100"){p.planPrev=p.plan||"standard"; p.planFrom=todayISO()} p.lv=6; p.plan="perf100"; p.passedOn=todayISO(); p.pb={why:"passed_probation",since:todayISO()}; tlog("ok",p.n+" passed probation","Now a Fundraiser on performance-based pay (100% commission). "+p.signups+" sign-ups in "+hActual(p.id)+" days.")}
     else if(dec==="ext"){delete p.probation; p.probFrom=hActual(p.id); tlog("warn",p.n+" probation extended","Reviewed again at "+(hActual(p.id)+10)+" actual days.")}
     else {P=P.filter(x=>x!==p); offboard(p); RESIGNED.unshift({p,last:"2026-09-"+TODAY_D,why:"Did not pass probation"}); tlog("pull",p.n+" terminated","Did not pass probation. "+p.signups+" sign-ups.")}
     renderHR(); renderOrg()});
@@ -3128,6 +3307,7 @@ function exportCSV(kind,from,to,visible,dry){   // visible: ids shown on the HR 
   const kitStatus=p=>{const r=leaver(p); return r?(r.kit==="return"?"return":"pending"):""};
   const contractType=p=>p.lv===7?"Trainee":p.plan==="perf100"?"Performance based":"Independent Contract";   // Dave: the role type is "performance based" (the Aug file called it "Commission (100%)")
   const dayRate=p=>p.lv===7?RATES.trainee:p.plan==="perf100"?0:RATES.ic;
+  const rateOn=(p,d)=>planOn(p,"2026-09-"+String(d).padStart(2,"0"))==="perf100"?0:RATES.ic;   // the pay type on that day (split at a change)
   const svcLen=p=>{if(!p.start)return ""; const a=new Date(p.start), b=new Date(p._last||"2026-09-"+TODAY_D); let m=(b.getFullYear()-a.getFullYear())*12+(b.getMonth()-a.getMonth()); if(b.getDate()<a.getDate())m--; return Math.floor(m/12)+" Year "+(m%12)+" Month(s)"};
   const hod=p=>{let x=p, n=0; while(x&&x.to&&n++<12){const up=by(x.to); if(!up)break; x=up} return x&&x.id!==p.id?x.n:""};
   const age=p=>p.dob?Math.floor((new Date("2026-09-"+TODAY_D)-new Date(p.dob))/31557600000):"";
@@ -3138,16 +3318,18 @@ function exportCSV(kind,from,to,visible,dry){   // visible: ids shown on the HR 
             "Total Days on Duty","Service Rate/ Per Day","Total Pay","Total Days on Duty (Weekend)","Service Rate/ Weekend","Total Weekend Pay","Total Days on Duty (PH Weekday)","Service Rate/ PH Weekday","Total Weekdays PH Pay",
             "Travel Allowance","Backpay","F2F_20/30% Payout","F2F_Overriding 30% Payout","F2F_Overriding 70%","TM_20% Payout","TM_Overriding 80%","Total WC Bonus","Total WC Overriding Bonus","Lost Asset/ Other Deduction","Total Pay for Duty","Medical Allowance","Attendance Allowance","Commission","Deduction","Net Pay"],
       row:p=>{const od=outDays(p), wd=od.length, rate=dayRate(p), cm=commissionFor(p.id,days), fromDay=+from.slice(8);
-        const isNew=p.lv===7||(!!p.start&&p.start>=from.slice(0,8)+"01");   // a trainee, or anyone not permanent who joined this month
+        const isNew=p.lv===7||(!!p.passedOn&&p.passedOn>=from.slice(0,8)+"01")||(!!p.start&&p.start>=from.slice(0,8)+"01");   // a trainee (or passed this month), or anyone not permanent who joined this month
         const prior=isNew?Object.keys(CHECK[p.id]||{}).filter(k=>/^\d+$/.test(k)&&+k<fromDay&&CHECK[p.id][k].out).length:0;   // newbie shifts already paid before this range
         /* every newbie (anyone not permanent who joined in this pay period, or a trainee) is paid Rp100,000 for their
            first 10 shifts (Dave, 30 Sep 2026: "the first two weeks"); after that a trainee is performance-based, a contractor
            gets the contractor rate */
         const left=isNew?Math.max(0,RATES.traineeShifts-prior):0;
         const atNew=Math.min(wd,left), rest=wd-atNew, restRate=p.lv===7?0:rate;
-        const payable=p.lv===7?atNew:wd, pay=atNew*RATES.trainee+rest*restRate, duty=pay; att=p.plan==="standard"?cm.attendance:0, com=cm.commission||0, hold=kitStatus(p)==="pending";
+        const later=od.slice(atNew), atDay=later.filter(d=>p.lv!==7&&rateOn(p,d)>0).length, split=!!cm.before;   // after the newbie shifts: the day rate only while not performance based
+        const payable=p.lv===7?atNew:wd, pay=atNew*RATES.trainee+(p.lv===7?0:atDay*RATES.ic), duty=pay;
+        const att=(p.plan==="standard"?cm.attendance||0:0)+(cm.before&&cm.before.plan==="standard"?cm.before.attendance:0), com=(cm.commission||0)+(cm.before?cm.before.commission:0), hold=kitStatus(p)==="pending";
         return [period,p.bankn||p.n,p.region||"","F2F",p.lv<=5?LEVELS[p.lv].replace(/\b\w/g,c=>c.toUpperCase()):"F2F Fundraising",campsOf(p).length?campName(p):"",p.code,p.ktpFull||p.ktp||"",p.email||"",p.bank||"",p.banka||"",p._last?"inactive":"active",contractType(p),p.start||"",kitStatus(p),p._last||"",
-          hold?"HOLD - kit not returned":(atNew&&atNew<wd?"New joiner: "+atNew+" of "+wd+" shifts at Rp100,000"+(restRate?", the rest at Rp"+restRate.toLocaleString("en-US"):""):(p.lv===7&&payable<wd?"Trainee: "+payable+" of "+wd+" shifts at the day rate":"Finance Payment")),wd,atNew?RATES.trainee:rate,pay,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,duty,0,att,com,0,duty+att+com]}},
+          hold?"HOLD - kit not returned":split?(PLAN_L[p.plan].replace(/^./,c=>c.toUpperCase())+" from "+fmtISO(p.planFrom)+": "+atDay+" of "+wd+" shifts at the day rate"+(atNew?", "+atNew+" at Rp100,000":"")):(atNew&&atNew<wd?"New joiner: "+atNew+" of "+wd+" shifts at Rp100,000"+(restRate?", the rest at Rp"+restRate.toLocaleString("en-US"):""):(p.lv===7&&payable<wd?"Trainee: "+payable+" of "+wd+" shifts at the day rate":"Finance Payment")),wd,atNew?RATES.trainee:split?RATES.ic:rate,pay,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,duty,0,att,com,0,duty+att+com]}},
     contracts:{name:"popcorn_employment_database_"+tag+".csv",
       head:["Status","Emp No","Name","Department","Position","Type of agreement","Length of Service","Date Join","Expected Confirmation Date","Confirmed?","Resign Date","EOM","Reason","Region","HOD","Campaign","Bank","Account Number","National ID","Passport No","DOB","Age","Gender","Race","Religion","Marital Status","Phone Number","Email Address","Home Address","Emergency Contact","Relationship","Emergency Number","Recruiter Name","Vest","T-shirt","Pitch card","Lanyard","Stopping Tool","ID card","Remark"],
       row:p=>{const r=leaver(p); return [p._last?"Inactive":"Active",p.code,p.n,"F2F",LEVELS[p.lv],p.lv===7?"Trainee":p.perm?"Permanent":"Independent Contract",svcLen(p),p.start||"","",p.probation==="pass"?"Y":p.probation==="ext"?'"Extended"':"",p._last||"","",r?r.why:"",p.region||"",hod(p),p.c?CAMPS[p.c].n:"",
@@ -3515,8 +3697,17 @@ const RATES={ic:250000,trainee:100000,traineeShifts:10};   // per day on duty (A
                                                           // A trainee is paid the day rate for their first 10 shifts only, then moves to performance-based pay.
 const AGE_L={u30:"Under 30","30-34":"30–34","35-39":"35–39","40+":"40+"};
 
-function commissionFor(pid,days){
-  const p=by(pid)||{}; const plan=p.plan||"perf100";
+function commissionFor(pid,days){   // split at a pay-type change: the current type's result, with the days before it under .before
+  const p=by(pid)||{}, iso=d=>"2026-09-"+String(d).padStart(2,"0");
+  const prevDays=p.planFrom?days.filter(d=>iso(d)<p.planFrom):[];
+  if(!prevDays.length)return commissionCalc(pid,days);
+  if(prevDays.length===days.length)return commissionCalc(pid,days,p.planPrev||"standard");   // the change starts after these days
+  const cur=commissionCalc(pid,days.filter(d=>!prevDays.includes(d))), prev=commissionCalc(pid,prevDays,p.planPrev||"standard");
+  cur.before={plan:prev.plan,from:p.planFrom,commission:prev.commission||0,attendance:prev.attendance||0,gross:prev.gross,daysWorked:prev.daysWorked};
+  return cur;
+}
+function commissionCalc(pid,days,planArg){
+  const p=by(pid)||{}; const plan=planArg||p.plan||"perf100";
   const rows=ASPC.filter(x=>x.pid===pid&&days.includes(x.d)&&!x.training);
   const sales=rows.flatMap(x=>(x.sales||[]).map(z=>Object.assign({d:x.d,site:x.site},z)));
   const daysWorked=Object.keys(CHECK[pid]||{}).filter(k=>/^\d+$/.test(k)&&days.includes(+k)&&paidDay(pid,+k)).length;
@@ -3749,7 +3940,8 @@ function renderFRD(){
   } else {
     h+='<div class="hero money"><span class="lbl">EARNED SO FAR · SEPTEMBER</span><b>'+IDRf(cm.total)+'</b>'+
        '<div class="place">'+cm.gross+' sign-up'+(cm.gross===1?"":"s")+' · performance based · 100% commission</div>'+
-       '<div class="finenote">Before cancellations and rejections. Paid on processable sign-ups at month end.</div></div>'+
+       '<div class="finenote">Before cancellations and rejections. Paid on processable sign-ups at month end.</div>'+
+       (cm.before?'<div class="finenote">From '+fmtISO(cm.before.from)+'. Before that: '+PLAN_L[cm.before.plan]+' \u00b7 '+cm.before.daysWorked+' days worked \u00b7 '+IDRf(cm.before.commission)+' commission.</div>':'')+'</div>'+
        '<div class="calhead"><b>By donor age</b><span>rate by card, gift size and donor age</span></div>'+
        '<table class="hc phone"><tr><th>Age</th><th class="r">Sign-ups</th><th class="r">Rp</th></tr>'+
        cm.byAge.map(([a,n])=>'<tr'+(n?"":' class="dim"')+'><td>'+AGE_L[a]+'</td><td class="r">'+n+'</td><td class="r"><b>'+(n?IDRx(cm.lines.filter(l=>l.age===a).reduce((x,l)=>x+l.rate,0)):"–")+'</b></td></tr>').join("")+
@@ -4039,8 +4231,11 @@ const REAL_STAFF=(typeof window!=="undefined"&&Array.isArray(window.LOCAL_STAFF)
 (function addRealStaff(){if(!REAL_STAFF.length)return;
   const base=20000, idOf={}; REAL_STAFF.forEach((r,i)=>idOf[r.code]=base+i+1);
   REAL_STAFF.forEach((r,i)=>{const id=idOf[r.code];
-    P.push({id,n:esc(r.name),code:esc(r.code),lv:r.lv,to:r.lv===0?1:r.unplaced?null:(idOf[r.leader]||1),unplaced:!!r.unplaced,c:CAMPS[r.c]?r.c:null,also:(r.also||[]).filter(k=>CAMPS[k]&&k!==r.c),
-      eg:1,eid:esc(r.eid||r.code),off:[],start:r.start||"",perm:!!r.perm&&r.lv!==7,tg:"",plan:r.plan==="perf100"?"perf100":"standard",region:esc(r.region||""),signups:0,real:true});
+    const p={id,n:esc(r.name),code:esc(r.code),lv:r.lv,to:r.lv===0||r.left?1:r.unplaced?null:(idOf[r.leader]||1),unplaced:!!r.unplaced&&!r.left,c:CAMPS[r.c]?r.c:null,also:(r.also||[]).filter(k=>CAMPS[k]&&k!==r.c),
+      eg:1,eid:esc(r.eid||r.code),off:[],start:r.start||"",perm:!!r.perm&&r.lv!==7,tg:"",plan:r.plan==="perf100"?"perf100":"standard",region:esc(r.region||""),signups:0,real:true,
+      rejoin:r.rejoin?{left:esc(r.rejoin.left||""),from:esc(r.rejoin.from||""),to:esc(r.rejoin.to||"")}:null};
+    /* someone who left this month is a LEAVER: kept for the HR grid and payroll (§4), never rostered; kit starts Pending */
+    if(r.left)RESIGNED.push({p,last:esc(r.left),why:esc(r.reason||"Resigned")}); else P.push(p);
     MONTH[id]={}; LATE[id]={}; CHECK[id]={}; DONE[id]={}});
   nextId=Math.max(nextId,base+REAL_STAFF.length+1)})();
 
@@ -4052,7 +4247,10 @@ phInit(); render(); renderOrg(); renderMonth(); renderPhone(); renderApprovals()
    Office screens are English for now. Kept in English on purpose (the team's own words, also in Evergiving):
    check in/out, shift, roster, sign-up, FD, CC/DD, Tier, A/S/P, AM/PM, leader, booth.
    Translations are OPEN until a native speaker on the client's team has checked them (tools/export_translations.js). */
-var LANG="en"; try{if(localStorage.getItem("popcorn.lang")==="id")LANG="id"}catch(e){}
+const CLIENT_LANG="id";   // the client's default for the phone screens — Omniraise Indonesia: Bahasa (Dave, 30 Sep 2026). Production: the settings row.
+const LANGS=["id","en","th"];   // Bahasa Indonesia, English, Thai (Thai added 2 Oct 2026 for the Thailand team)
+var LANG=CLIENT_LANG; try{const v=localStorage.getItem("popcorn.lang"); if(LANGS.includes(v))LANG=v}catch(e){}
+if(LANGS.includes(window.POPCORN_LANG))LANG=window.POPCORN_LANG;   // set before the page loads (the English test suites)
 const ID_WORDS={
   "‹ Main":"‹ Beranda","MAIN":"BERANDA","FR DASHBOARD":"DASBOR FR","Check I/O":"Check I/O","Monthly roster":"Roster bulanan","Leave":"Cuti",
   "Remove":"Hapus","Tell your manager why (optional)":"Beri tahu manajer alasannya (opsional)","＋ Add a sign-up":"＋ Tambah sign-up",
@@ -4177,7 +4375,9 @@ const ID_PAT=[
   [/^You're at ([^·]+)$/,(m,a)=>"Kamu di "+a],
   [/^([A-Z]+) SO FAR$/,(m,a)=>idTok(a)+" SEJAUH INI"],
   [/^Your (January|February|March|April|May|June|July|August|September|October|November|December)$/,(m,a)=>(ID_MON[a]||"Mei")+" kamu"],
-  [ID_ROLE,(m,a,b)=>a+" ("+ID_WORDS[b]+")"]
+  [ID_ROLE,(m,a,b)=>a+" ("+ID_WORDS[b]+")"],
+  [/^From (.+)\. Before that: (performance based \(100% commission\)|standard pay \(day rate \+ Model B\)) · (\d+) days worked · (Rp [\d,]+) commission\.$/,
+    (m,a,b,c,d)=>"Mulai "+idTok(a)+". Sebelumnya: "+(b[0]==="p"?"berbasis kinerja (komisi 100%)":"gaji standar (tarif harian + Model B)")+" · "+c+" hari kerja · komisi "+d+"."]
 ];
 function idCore(c){
   if(ID_WORDS[c]!=null)return ID_WORDS[c];
@@ -4185,22 +4385,156 @@ function idCore(c){
   if(/\s·\s/.test(c)){const parts=c.split(/(\s+·\s+)/), out=parts.map((x,i)=>i%2?x:idAny(x)); if(out.some((x,i)=>x!==parts[i]))return out.join("")}
   const t=idTok(c); return t!==c?t:null;
 }
+/* ---- Thai (Dave, 2 Oct 2026: for the Thailand team). Same rules as Bahasa: the phone screens only, the team's own
+   English terms kept. Translations are OPEN until a Thai speaker on that team has checked translations/thai-review.csv. */
+const TH_WORDS={
+  "‹ Main":"‹ หน้าหลัก","MAIN":"หน้าหลัก","FR DASHBOARD":"แดชบอร์ด FR","Check I/O":"Check I/O","Monthly roster":"Roster รายเดือน","Leave":"ลางาน",
+  "Remove":"ลบ","Tell your manager why (optional)":"บอกเหตุผลให้ผู้จัดการ (ไม่บังคับ)","＋ Add a sign-up":"＋ เพิ่ม sign-up",
+  "✓ Certificate photo attached":"✓ แนบรูปใบรับรองแพทย์แล้ว","✓ DONE FOR TODAY":"✓ เสร็จสำหรับวันนี้","📷 Take a photo of your certificate":"📷 ถ่ายรูปใบรับรองแพทย์",
+  "A run of days":"หลายวันติดกัน","Single days":"ทีละวัน","Add your certificate":"เพิ่มใบรับรองแพทย์","Again":"อีกครั้ง","Age":"อายุ",
+  "Already requested — pending.":"ขอแล้ว — รอคำตอบ","Already rostered. Need time off? Tap a day — it opens on the Leave page.":"มีใน roster แล้ว ต้องการหยุด? แตะที่วัน — จะเปิดในหน้าลางาน",
+  "at the site":"ที่สถานที่","Ask for time off":"ขอหยุดงาน","see your requests":"ดูคำขอของคุณ","Attendance allowance":"เบี้ยขยัน","Back":"กลับ",
+  "Before cancellations and rejections. Paid on processable sign-ups at month end.":"ก่อนหักการยกเลิกและการปฏิเสธ จ่ายตาม sign-up ที่ดำเนินการได้ ณ สิ้นเดือน",
+  "by day":"รายวัน","By donor age":"ตามอายุผู้บริจาค","Cancel":"ยกเลิก","Cancel this request":"ยกเลิกคำขอนี้","Coming up":"กำลังจะมาถึง",
+  "check out when you finish":"check out เมื่อเสร็จงาน","Choose from gallery":"เลือกจากคลังรูป","Commission":"ค่าคอมมิชชัน","Confirm":"ยืนยัน","confirm":"ยืนยัน",
+  "Confirm check in":"ยืนยัน check in","Confirm check out":"ยืนยัน check out",
+  "Contractors do not accrue paid leave. Time off still needs approval.":"ผู้รับจ้างอิสระไม่มีวันลาที่ได้รับค่าจ้าง การหยุดงานยังต้องได้รับอนุมัติ",
+  "Credit card":"บัตรเครดิต","Debit card":"บัตรเดบิต","day":"วัน","Day":"วัน","days":"วัน","Days":"วัน","Done":"เสร็จ","Done for today":"เสร็จสำหรับวันนี้",
+  "EARNED SO FAR":"รายได้จนถึงตอนนี้","ESTIMATED PAY":"รายได้โดยประมาณ","Emergency":"เหตุฉุกเฉิน","Enter your approaches first.":"กรอก approaches ก่อน","Estimated total":"ยอดรวมโดยประมาณ",
+  "fill these in, then check out":"กรอกข้อมูลนี้ แล้ว check out","Finding you…":"กำลังหาตำแหน่งของคุณ…","Fix the numbers above to check out.":"แก้ตัวเลขด้านบนเพื่อ check out",
+  "Gross basic":"เงินเดือนพื้นฐาน (ก่อนหัก)","Gross, before tax. Commission is on gross FD; cancellations are settled next month.":"ยอดรวมก่อนหักภาษี คอมมิชชันคิดจาก FD รวม การยกเลิกจะหักในเดือนถัดไป",
+  "Hide":"ซ่อน","hold still":"ถือนิ่งๆ","hold still for a moment":"ถือนิ่งๆ สักครู่","How many days?":"กี่วัน?",
+  "I was in a training session today":"วันนี้ฉันเข้าอบรม","If you already took one":"ถ้าถ่ายไว้แล้ว","Just an off day":"แค่วันหยุด",
+  "location + photo, then done":"ตำแหน่ง + รูป แล้วเสร็จ","location saved":"บันทึกตำแหน่งแล้ว","location confirmed":"ยืนยันตำแหน่งแล้ว","your location":"ตำแหน่งของคุณ",
+  "photo at the booth":"รูปที่ booth","May be unpaid.":"อาจไม่ได้รับค่าจ้าง","Month":"เดือน","My performance":"ผลงานของฉัน","Office":"ออฟฟิศ",
+  "Next":"ถัดไป","take the photo":"ถ่ายรูป","no numbers needed":"ไม่ต้องกรอกตัวเลข","No reason needed. HR decides.":"ไม่ต้องระบุเหตุผล HR เป็นผู้ตัดสิน",
+  "No requests yet.":"ยังไม่มีคำขอ","no shift":"ไม่มี shift","No tier":"ยังไม่มี tier","No training this week.":"สัปดาห์นี้ไม่มีการอบรม","None yet":"ยังไม่มี",
+  "Not confirmed yet":"ยังไม่ยืนยัน","NOT ON THE ROSTER TODAY":"วันนี้ไม่มีใน ROSTER","Now tap the last day of the run":"แตะวันสุดท้าย",
+  "one row each":"หนึ่งแถวต่อ sign-up","paid days left this year":"วันลาที่ได้รับค่าจ้างที่เหลือปีนี้","Photo":"รูป","Photo of the certificate":"รูปใบรับรองแพทย์",
+  "planned":"ตามแผน","Planned leave":"ลาตามแผน","Point at the certificate":"หันกล้องไปที่ใบรับรองแพทย์","Presentations a day":"Presentations ต่อวัน",
+  "Presentations can't be more than stops.":"Presentations ต้องไม่มากกว่า stops","Quality bonus":"โบนัสคุณภาพ",
+  "rate by card, gift size and donor age":"อัตราตามประเภทบัตร ขนาดการบริจาค และอายุผู้บริจาค","Rate CC/DD":"อัตรา CC/DD","ready to send":"พร้อมส่ง","Reason":"เหตุผล",
+  "Request cancelled.":"ยกเลิกคำขอแล้ว","Retry":"ลองอีกครั้ง","Send certificate":"ส่งใบรับรองแพทย์","Send to HR":"ส่งให้ HR",
+  "Sent to HR. You'll get a WhatsApp when they reply.":"ส่งให้ HR แล้ว คุณจะได้รับ WhatsApp เมื่อมีคำตอบ","sent to your leader":"ส่งถึง leader ของคุณแล้ว",
+  "Sick — I have a certificate":"ป่วย — มีใบรับรองแพทย์","Sick — no certificate":"ป่วย — ไม่มีใบรับรองแพทย์","Site":"สถานที่",
+  "Something happened and you can't come.":"มีเหตุทำให้มาไม่ได้","Stops can't be more than approaches.":"Stops ต้องไม่มากกว่า approaches",
+  "Submitted":"ส่งแล้ว","Take a photo":"ถ่ายรูป","Take the photo":"ถ่ายรูป",
+  "Tap each day you can't work. Tap it again to clear it.":"แตะทุกวันที่คุณทำงานไม่ได้ แตะอีกครั้งเพื่อยกเลิก",
+  "Tap the days you can't work":"แตะวันที่คุณทำงานไม่ได้","Tap the first day, then the last day":"แตะวันแรก แล้วแตะวันสุดท้าย",
+  "Tell your leader if anything is wrong.":"แจ้ง leader ของคุณถ้ามีอะไรผิดพลาด","that's your shift finished":"shift ของคุณเสร็จแล้ว","this month":"เดือนนี้",
+  "Training day — numbers not required.":"วันอบรม — ไม่ต้องกรอกตัวเลข","Training session":"การอบรม",
+  "Training session — no numbers needed. HR confirms it before it counts as a paid day.":"การอบรม — ไม่ต้องกรอกตัวเลข HR ต้องยืนยันก่อนจึงจะนับเป็นวันที่ได้รับค่าจ้าง",
+  "Training this week":"การอบรมสัปดาห์นี้","unpaid leave":"ลาโดยไม่ได้รับค่าจ้าง","Value":"มูลค่า","Wedding, family event, something booked.":"งานแต่งงาน งานครอบครัว หรือมีนัดไว้แล้ว",
+  "Week":"สัปดาห์","What dates does the certificate cover?":"ใบรับรองแพทย์ครอบคลุมวันไหนบ้าง?","Where are you working?":"คุณทำงานที่ไหน?",
+  "Where you're working":"สถานที่ทำงานของคุณ","Which sick day?":"วันป่วยวันไหน?","whole month":"ทั้งเดือน","Why can't you work?":"ทำไมทำงานไม่ได้?",
+  "Wrong site or shift?":"สถานที่หรือ shift ไม่ถูกต้อง?","you and the booth":"คุณกับ booth","you and the booth — the camera opens, no gallery":"คุณกับ booth — เปิดกล้อง ไม่ใช้คลังรูป",
+  "You were marked sick with no certificate.":"คุณถูกบันทึกว่าป่วยโดยไม่มีใบรับรองแพทย์","You'll add a photo of the certificate.":"คุณจะต้องเพิ่มรูปใบรับรองแพทย์",
+  "You're checked in":"คุณ check in แล้ว","You're checked out":"คุณ check out แล้ว","YOU'RE WORKING TODAY":"วันนี้คุณทำงาน",
+  "Your days off, your shifts and where you're working":"วันหยุด shift และสถานที่ทำงานของคุณ","Your leader sees any change.":"leader ของคุณจะเห็นทุกการเปลี่ยนแปลง",
+  "YOUR NEXT SHIFT":"SHIFT ถัดไปของคุณ","Your numbers for today":"ตัวเลขของคุณวันนี้","Your requests":"คำขอของคุณ","Your tier":"tier ของคุณ",
+  "tap to add a photo":"แตะเพื่อเพิ่มรูป","tap the first day. HR decides.":"แตะวันแรก HR เป็นผู้ตัดสิน","Under-30 quality":"คุณภาพ (อายุต่ำกว่า 30)",
+  "Under-30 share":"สัดส่วนอายุต่ำกว่า 30","performance based":"ตามผลงาน","Performance based":"ตามผลงาน","P/day":"P/วัน","base":"ฐาน",
+  "location + photo, then check in":"ตำแหน่ง + รูป แล้ว check in","Head":"หัวหน้าฝ่าย","Senior manager":"ผู้จัดการอาวุโส","Manager":"ผู้จัดการ",
+  "Assistant manager":"ผู้ช่วยผู้จัดการ","Senior team leader":"Team leader อาวุโส","Team leader":"Team leader","Fundraiser":"Fundraiser","Trainee":"Trainee",
+  "THIS WEEK":"สัปดาห์นี้","Nothing yet":"ยังไม่มี","Nothing rostered yet — your leader is still planning":"ยังไม่มีใน roster — leader ของคุณกำลังวางแผน",
+  "Every sign-up this month":"sign-up ทั้งหมดเดือนนี้","Location":"ตำแหน่ง","your leader is told":"แจ้ง leader ของคุณแล้ว","No GPS signal":"ไม่มีสัญญาณ GPS",
+  "step outside or near a window, then try again":"ออกไปข้างนอกหรือไปใกล้หน้าต่าง แล้วลองอีกครั้ง","No shift rostered yet":"ยังไม่มี shift ใน roster"
+};
+const TH_DAY={Mon:"จ.",Tue:"อ.",Wed:"พ.",Thu:"พฤ.",Fri:"ศ.",Sat:"ส.",Sun:"อา.",Monday:"วันจันทร์",Tuesday:"วันอังคาร",Wednesday:"วันพุธ",Thursday:"วันพฤหัสบดี",Friday:"วันศุกร์",Saturday:"วันเสาร์",Sunday:"วันอาทิตย์"};
+const TH_MON={Jan:"ม.ค.",Feb:"ก.พ.",Mar:"มี.ค.",Apr:"เม.ย.",May:"พ.ค.",Jun:"มิ.ย.",Jul:"ก.ค.",Aug:"ส.ค.",Sep:"ก.ย.",Oct:"ต.ค.",Nov:"พ.ย.",Dec:"ธ.ค.",
+  January:"มกราคม",February:"กุมภาพันธ์",March:"มีนาคม",April:"เมษายน",June:"มิถุนายน",July:"กรกฎาคม",August:"สิงหาคม",September:"กันยายน",October:"ตุลาคม",November:"พฤศจิกายน",December:"ธันวาคม",
+  JANUARY:"มกราคม",FEBRUARY:"กุมภาพันธ์",MARCH:"มีนาคม",APRIL:"เมษายน",JUNE:"มิถุนายน",JULY:"กรกฎาคม",AUGUST:"สิงหาคม",SEPTEMBER:"กันยายน",OCTOBER:"ตุลาคม",NOVEMBER:"พฤศจิกายน",DECEMBER:"ธันวาคม"};
+const TH_DOW=["จ","อ","พ","พฤ","ศ","ส","อา"];
+const thTok=s=>s.replace(/\b(Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday|Mon|Tue|Wed|Thu|Fri|Sat|Sun)(?= \d)/g,m=>TH_DAY[m])
+  .replace(/(\d )(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\b/g,(m,a,b)=>a+TH_MON[b])
+  .replace(/\b(January|February|March|April|June|July|August|September|October|November|December|JANUARY|FEBRUARY|MARCH|APRIL|JUNE|JULY|AUGUST|SEPTEMBER|OCTOBER|NOVEMBER|DECEMBER)\b/g,m=>TH_MON[m])
+  .replace(/(\d) and (\d)/g,"$1 และ $2").replace(/\b(\d+) days?\b/g,"$1 วัน").replace(/\b(\d+) sign-ups\b/g,"$1 sign-up").replace(/\b(\d+) shifts\b/g,"$1 shift")
+  .replace(/\bRp ([\d,]+)\/mo\b/g,"Rp $1/เดือน");
+const thAny=s=>{const t=thCore(s); return t==null?thTok(s):t};
+const TH_PAT=[
+  [/^(✓ )?CHECKED IN (\S+)$/,(m,a,b)=>(a||"")+"CHECK IN แล้ว "+b],
+  [/^(\d+) leave requests? — see Leave ›$/,(m,a)=>a+" คำขอลางาน — ดูหน้าลางาน ›"],
+  [/^(\d+) requests? waiting for a reply$/,(m,a)=>a+" คำขอรอคำตอบ"],
+  [/^(\d+) sick days? needs? a certificate$/,(m,a)=>a+" วันป่วยต้องมีใบรับรองแพทย์"],
+  [/^(\d+) this month$/,(m,a)=>a+" เดือนนี้"],
+  [/^(\d+) shifts? this month$/,(m,a)=>a+" shift เดือนนี้"],
+  [/^(\d+) qualifying FD$/,(m,a)=>a+" FD ที่ผ่านเกณฑ์"],
+  [/^numbers sent to ([^·]+)$/,(m,a)=>"ส่งตัวเลขให้ "+a+" แล้ว"],
+  [/^(\d\d?:\d\d) at ([^·]+)$/,(m,a,b)=>a+" ที่ "+b],
+  [/^(\d+) more qualifying sign-ups? to reach Tier (\S+) \((\S+)\) — on today's pace you'd finish the month on about (\d+)(\.?)$/,(m,a,b,c,d)=>"ต้องการ sign-up ที่ผ่านเกณฑ์อีก "+a+" เพื่อถึง Tier "+b+" ("+c+") — ด้วยความเร็ววันนี้ สิ้นเดือนคุณจะได้ประมาณ "+d],
+  [/^(\d+) sign-ups? · performance based · (\d+)% commission$/,(m,a,b)=>a+" sign-up · ตามผลงาน · คอมมิชชัน "+b+"%"],
+  [/^(\d+)% under (\d+)$/,(m,a,b)=>a+"% อายุต่ำกว่า "+b],
+  [/^needs (\d+)% or less$/,(m,a)=>"ไม่เกิน "+a+"%"],
+  [/^from Tier (\S+)$/,(m,a)=>"ตั้งแต่ Tier "+a],
+  [/^([\d.,]+) (k?m) away$/,(m,a,b)=>a+" "+(b==="km"?"กม.":"ม.")+" จากสถานที่"],
+  [/^([\d.,]+) (k?m) from ([^·]+)$/,(m,a,b,c)=>a+" "+(b==="km"?"กม.":"ม.")+" จาก "+c],
+  [/^You're not at ([^·]+)$/,(m,a)=>"คุณไม่ได้อยู่ที่ "+a],
+  [/^([^·]+) will confirm your shifts and send you a WhatsApp\.$/,(m,a)=>a+" จะยืนยัน shift ของคุณและส่ง WhatsApp ให้"],
+  [/^accurate to ±(\d+) m$/,(m,a)=>"ความแม่นยำ ±"+a+" ม."],
+  [/^(\d+) days worked so far, (\d+) MC(?:, (\d+) leave)?\.$/,(m,a,b,c)=>"ทำงานแล้ว "+a+" วัน, MC "+b+(c!=null?", ลา "+c:"")],
+  [/^(\d+) accrued$/,(m,a)=>"สะสม "+a],[/^(\d+) used$/,(m,a)=>"ใช้ไป "+a],
+  [/^(\d+) day per full month, resets (\d+) January$/,(m,a,b)=>a+" วันต่อเดือนเต็ม รีเซ็ต "+b+" มกราคม"],
+  [/^AM shift$/,()=>"Shift AM"],[/^PM shift$/,()=>"Shift PM"],
+  [/^(AM|PM) shift (\d\d?:\d\d–\d\d?:\d\d)$/,(m,a,b)=>"Shift "+a+" "+b],
+  [/^Approved for ([^·]+)\.$/,(m,a)=>"อนุมัติสำหรับ "+thTok(a)],
+  [/^At ([^·]+)$/,(m,a)=>"ที่ "+a],
+  [/^under Rp (.+)$/,(m,a)=>"ต่ำกว่า Rp "+a],
+  [/^base × (\S+)$/,(m,a)=>"ฐาน × "+a],
+  [/^cap (\d+)$/,(m,a)=>"เพดาน "+a],[/^(\d+) paid$/,(m,a)=>"จ่าย "+a],
+  [/^Under (\d+)$/,(m,a)=>"ต่ำกว่า "+a],
+  [/^Checked in (\S+)$/,(m,a)=>"Check in "+a],
+  [/^In (\d\d?:\d\d)$/,(m,a)=>"เข้า "+a],[/^out (\d\d?:\d\d)$/,(m,a)=>"ออก "+a],
+  [/^location \+ photo, takes (\d+) seconds$/,(m,a)=>"ตำแหน่ง + รูป ใช้เวลา "+a+" วินาที"],
+  [/^Room (\w+)$/,(m,a)=>"ห้อง "+a],
+  [/^Next: ([^·]+)$/,(m,a)=>"ถัดไป: "+thAny(a)],
+  [/^no quality bonus above (\d+)%$/,(m,a)=>"ไม่มีโบนัสคุณภาพเมื่อเกิน "+a+"%"],
+  [/^below (\d+) qualifying FD$/,(m,a)=>"ต่ำกว่า "+a+" FD ที่ผ่านเกณฑ์"],
+  [/^change it any time until ([^·]+)$/,(m,a)=>"แก้ไขได้ตลอดจนถึง "+thTok(a)],
+  [/^open until ([^·]+)$/,(m,a)=>"เปิดถึง "+thTok(a)],
+  [/^Photo attached for (\d+) days?, (.+) to (.+)\. It goes to HR\.$/,(m,a,b,c)=>"แนบรูปสำหรับ "+a+" วัน "+thTok(b)+" ถึง "+thTok(c)+" ส่งให้ HR"],
+  [/^Photo attached for (.+)\. It goes to HR\.$/,(m,a)=>"แนบรูปสำหรับ "+thTok(a)+" ส่งให้ HR"],
+  [/^Photo taken (\S+)$/,(m,a)=>"ถ่ายรูปเมื่อ "+a],
+  [/^See all (\d+) shifts$/,(m,a)=>"ดู shift ทั้งหมด "+a],
+  [/^Send my (\w+) days$/,(m,a)=>"ส่งตารางเดือน"+thTok(a)],[/^Update my (\w+) days$/,(m,a)=>"อัปเดตตารางเดือน"+thTok(a)],
+  [/^Sent (.+)\. Change it any time until (.+)\.$/,(m,a,b)=>"ส่งแล้ว "+thTok(a)+" แก้ไขได้ตลอดจนถึง "+thTok(b)],
+  [/^(\d+) sick days? in this run$/,(m,a)=>"ป่วย "+a+" วันในช่วงนี้"],
+  [/^Tier (\S+) · (\S+)$/,(m,a,b)=>"Tier "+a+" · "+b],
+  [/^(\S+)× rates$/,(m,a)=>"อัตรา "+a+"×"],
+  [/^The (\w+) roster is already set\.$/,(m,a)=>"Roster เดือน"+thTok(a)+" กำหนดแล้ว"],
+  [/^Wk (\d+)$/,(m,a)=>"สัปดาห์ "+a],[/^WEEK (\d+)$/,(m,a)=>"สัปดาห์ "+a],
+  [/^You have (\d+) sign-ups? but only (\d+) presentations?\.$/,(m,a,b)=>"คุณมี "+a+" sign-up แต่มีเพียง "+b+" presentations"],
+  [/^You must be working a minimum of (\d+) days in a month\.$/,(m,a)=>"คุณต้องทำงานอย่างน้อย "+a+" วันต่อเดือน"],
+  [/^You must work at least (\d+) days a month\. You've only left yourself (\d+)(\.?)$/,(m,a,b)=>"คุณต้องทำงานอย่างน้อย "+a+" วันต่อเดือน ตอนนี้เหลือเพียง "+b],
+  [/^You must work one day of every weekend\. (.+) can't both be off\.$/,(m,a)=>"คุณต้องทำงานอย่างน้อยหนึ่งวันในทุกสุดสัปดาห์ "+thTok(a)+" หยุดทั้งสองวันไม่ได้"],
+  [/^You're at ([^·]+)$/,(m,a)=>"คุณอยู่ที่ "+a],
+  [/^([A-Z]+) SO FAR$/,(m,a)=>thTok(a)+" จนถึงตอนนี้"],
+  [/^Your (January|February|March|April|May|June|July|August|September|October|November|December)$/,(m,a)=>(TH_MON[a]||"พฤษภาคม")+"ของคุณ"],
+  [ID_ROLE,(m,a,b)=>a+" ("+TH_WORDS[b]+")"],
+  [/^From (.+)\. Before that: (performance based \(100% commission\)|standard pay \(day rate \+ Model B\)) · (\d+) days worked · (Rp [\d,]+) commission\.$/,
+    (m,a,b,c,d)=>"ตั้งแต่ "+thTok(a)+" ก่อนหน้านั้น: "+(b[0]==="p"?"ตามผลงาน (คอมมิชชัน 100%)":"ค่าจ้างมาตรฐาน (รายวัน + Model B)")+" · ทำงาน "+c+" วัน · คอมมิชชัน "+d]
+];
+function thCore(c){
+  if(TH_WORDS[c]!=null)return TH_WORDS[c];
+  for(const [re,f] of TH_PAT){const m=c.match(re); if(m)return thTok(f(...m))}
+  if(/\s·\s/.test(c)){const parts=c.split(/(\s+·\s+)/), out=parts.map((x,i)=>i%2?x:thAny(x)); if(out.some((x,i)=>x!==parts[i]))return out.join("")}
+  const t=thTok(c); return t!==c?t:null;
+}
 function trText(s){
-  if(LANG!=="id"||!/[A-Za-z]/.test(s))return s;
-  const m=s.match(/^(\s*)([\s\S]*?)(\s*)$/); const t=idCore(m[2]); return t==null?s:m[1]+t+m[3];
+  if(LANG==="en"||!/[A-Za-z]/.test(s))return s;
+  const m=s.match(/^(\s*)([\s\S]*?)(\s*)$/); const t=(LANG==="th"?thCore:idCore)(m[2]); return t==null?s:m[1]+t+m[3];
 }
 const PHONE_TABS=new Set(["main","phone","leave","aspc","frd"]);
 const onPhoneTab=()=>{const b=document.querySelector('.tabs button[aria-pressed="true"]'); return !!b&&PHONE_TABS.has(b.dataset.tab)};
 const inLangScope=el=>!!el&&!el.closest("[data-notr]")&&(!!el.closest(".device")||(onPhoneTab()&&!!el.closest(".scrim, .toast")));
 const ID_DOW="SSRKJSM";   // a lone day letter is ambiguous (T, S), so the calendars mark each with its weekday: data-dow 0 = Monday
 function langNode(n){
-  if(n.nodeType===3){if(n.__en==null&&LANG==="en")return; const src=n.__en!=null?n.__en:n.data, pd=n.parentElement&&n.parentElement.dataset.dow, t=pd!=null&&/^[A-Z]$/.test(src)?(LANG==="id"?ID_DOW[+pd]:src):trText(src); if(t!==src)n.__en=src; if(n.data!==t)n.data=t; return}
+  if(n.nodeType===3){if(n.__en==null&&LANG==="en")return; const src=n.__en!=null?n.__en:n.data, pd=n.parentElement&&n.parentElement.dataset.dow, t=pd!=null&&/^[A-Z]$/.test(src)?(LANG==="id"?ID_DOW[+pd]:LANG==="th"?TH_DOW[+pd]:src):trText(src); if(t!==src)n.__en=src; if(n.data!==t)n.data=t; return}
   if(n.nodeType!==1||/^(SCRIPT|STYLE)$/.test(n.tagName)||n.hasAttribute("data-notr"))return;
   for(const a of ["placeholder","title","aria-label"]){if(!n.hasAttribute(a))continue; n.__enA=n.__enA||{};
     const src=n.__enA[a]!=null?n.__enA[a]:n.getAttribute(a), t=trText(src); if(t!==src)n.__enA[a]=src; if(n.getAttribute(a)!==t)n.setAttribute(a,t)}
   n.childNodes.forEach(langNode);
 }
-function langTabs(){if(ROLE!=="fr")return; const lab={main:LANG==="id"?"BERANDA":"MAIN",frd:LANG==="id"?"DASBOR FR":"FR DASHBOARD"};
+function langTabs(){if(ROLE!=="fr")return; const lab={main:{id:"BERANDA",th:"หน้าหลัก"}[LANG]||"MAIN",frd:{id:"DASBOR FR",th:"แดชบอร์ด FR"}[LANG]||"FR DASHBOARD"};
   document.querySelectorAll(".tabs button").forEach(b=>{if(lab[b.dataset.tab])b.textContent=lab[b.dataset.tab]})}
 function applyLang(){
   document.querySelectorAll(".lngopt").forEach(o=>{const on=o.dataset.lang===LANG; o.classList.toggle("on",on); o.setAttribute("aria-pressed",on)});
@@ -4209,14 +4543,14 @@ function applyLang(){
 }
 /* The watcher runs only while Bahasa is on, and only on the phone screens and on pop-ups added to the page — never the
    whole page: a page-wide watcher keeps every redrawn office table alive until it runs (ran out of memory in t27). */
-const LANG_MO=new MutationObserver(recs=>{if(LANG!=="id")return; for(const r of recs)for(const n of r.addedNodes){
+const LANG_MO=new MutationObserver(recs=>{if(LANG==="en")return; for(const r of recs)for(const n of r.addedNodes){
   if(r.target===document.body){if(n.nodeType===1&&n.matches(".scrim, .toast")&&onPhoneTab()){langNode(n); LANG_MO.observe(n,{childList:true,subtree:true})} continue}
   const el=n.nodeType===1?n:n.parentElement; if(inLangScope(el))langNode(n)}});
-function langWatch(){LANG_MO.disconnect(); if(LANG!=="id")return;
+function langWatch(){LANG_MO.disconnect(); if(LANG==="en")return;
   document.querySelectorAll(".device").forEach(dv=>LANG_MO.observe(dv,{childList:true,subtree:true}));
   LANG_MO.observe(document.body,{childList:true});
   if(onPhoneTab())document.querySelectorAll(".scrim, .toast").forEach(x=>LANG_MO.observe(x,{childList:true,subtree:true}))}
-function setLang(l){LANG=l==="id"?"id":"en"; try{localStorage.setItem("popcorn.lang",LANG)}catch(e){} applyLang(); langWatch()}
+function setLang(l){LANG=LANGS.includes(l)?l:"en"; try{localStorage.setItem("popcorn.lang",LANG)}catch(e){} applyLang(); langWatch()}
 document.addEventListener("click",e=>{const o=e.target.closest(".lngopt"); if(o)setLang(o.dataset.lang)});
 document.addEventListener("keydown",e=>{const o=e.target.closest&&e.target.closest(".lngopt"); if(o&&(e.key==="Enter"||e.key===" ")){e.preventDefault(); setLang(o.dataset.lang)}});
 applyLang(); langWatch();
